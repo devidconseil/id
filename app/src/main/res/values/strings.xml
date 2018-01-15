@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">MaDose</string>
+    <string name="title_activity_acceuil">Acceuil</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_entrees">Entrees</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_sorties">Sorties</string>
+    <string name="title_activity_demande">Demande</string>
+    <string name="dialog_message">Demande</string>
+    <string name="dialog_title">Récapitulatif</string>
+
+
+</resources>

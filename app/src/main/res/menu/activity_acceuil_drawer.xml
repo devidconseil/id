@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Préalable"
+        android:icon="@drawable/ic_menu_manage">
+
+        <menu>
+            <item
+                android:id="@+id/employé"
+
+                android:title="Employé" />
+            <item
+                android:id="@+id/fournisseur"
+
+                android:title="Fournisseur" />
+
+        </menu>
+    </item>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/categorie"
+
+            android:title="Catégories" />
+        <item
+            android:id="@+id/besoin"
+
+            android:title="Besoin" />
+        <item
+            android:id="@+id/departement"
+
+            android:title="Departement" />
+    </group>
+
+</menu>
