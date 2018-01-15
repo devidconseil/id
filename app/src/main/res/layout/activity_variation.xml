@@ -12,7 +12,7 @@
 android:background="@drawable/bgg"
     tools:context="com.example.hp.madose.Variation">
 
-    <TextView
+    <Button
         android:text="Liste des entrées"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@ android:background="@drawable/bgg"
         android:textColor="@color/colorAccent"
         android:textStyle="normal|bold" />
 
-    <TextView
+    <Button
         android:text="Coût Total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,7 +38,7 @@ android:background="@drawable/bgg"
         android:layout_marginTop="20dp"
         android:textStyle="normal|bold" />
 
-    <TextView
+    <Button
         android:text="Liste des sorties"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,7 +50,7 @@ android:background="@drawable/bgg"
         android:layout_marginTop="12dp"
         android:textStyle="normal|bold" />
 
-    <TextView
+    <Button
         android:text="Stock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -60,7 +60,7 @@ android:background="@drawable/bgg"
         android:layout_below="@+id/listeD"
         android:textStyle="normal|bold" />
 
-    <TextView
+    <Button
         android:text="Demande"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -72,7 +72,7 @@ android:background="@drawable/bgg"
         android:textColor="?android:attr/colorFocusedHighlight"
         android:textStyle="normal|bold" />
 
-    <TextView
+    <Button
         android:id="@+id/rupture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
