@@ -324,7 +324,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
 //----Insert
     public void insertEntr(String date, int idfour)
     {
-        String entre="insert into Entree( DateEnt, IdFour)values('" + date +"',"+idfour+");";
+        String entre="insert into Entree( DateEnt, IdFour)values(strftime('%s','"+date+"'),"+idfour+");";
         Log.i("DATABASE","insert Entree");
         this.getWritableDatabase().execSQL(entre);
     }
@@ -677,12 +677,12 @@ public ArrayList<String> affiNumDem(int idemp)
     public List<Stock1> afficheStock1() {
 
         List<Stock1> affStok1 = new ArrayList<>();
-        String req = "select LibBes,TypeBes,PU,Qte FROM Besoin,Besoins_Entree WHERE Besoin.NumBes=Besoins_Entree.NumBes;";
+        String req = "select LibBes,TypeBes,PU,Qte,date(Entree.DateEnt,'unixepoch') FROM Besoin,Besoins_Entree,Entree WHERE Besoin.NumBes=Besoins_Entree.NumBes and Entree.NumEnt=Besoins_Entree.NumEnt;";
         Cursor cursor = this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
-            Stock1 disp = new Stock1(cursor.getString(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3));
+            Stock1 disp = new Stock1(cursor.getString(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3),cursor.getString(4));
             affStok1.add(disp);
             cursor.moveToNext();
         }
@@ -693,12 +693,12 @@ public ArrayList<String> affiNumDem(int idemp)
     public List<Stock2> afficheStock2() {
 
         List<Stock2> affStok2 = new ArrayList<>();
-        String req = "select LibBes,TypeBes,Qte,NomEmp FROM Besoin,Besoins_Sortie, Demande,Employe,Sortie WHERE Besoin.NumBes=Besoins_Sortie.NumBes and Sortie.NumDem=Demande.NumDem and Employe.IdEmp=Demande.IdEmp;";
+        String req = "select LibBes,TypeBes,Qte,NomEmp,date(DateSor,'unixepoch') FROM Besoin,Besoins_Sortie, Demande,Employe,Sortie WHERE Besoin.NumBes=Besoins_Sortie.NumBes and Sortie.NumDem=Demande.NumDem and Employe.IdEmp=Demande.IdEmp;";
         Cursor cursor = this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
-            Stock2 disp = new Stock2(cursor.getString(0), cursor.getString(1), cursor.getInt(2),cursor.getString(3));
+            Stock2 disp = new Stock2(cursor.getString(0), cursor.getString(1), cursor.getInt(2),cursor.getString(3),cursor.getString(4));
             affStok2.add(disp);
             cursor.moveToNext();
         }
@@ -753,6 +753,29 @@ public ArrayList<String> affiNumDem(int idemp)
         return affS;
     }
 
+    public List<StockC> afficheSt1()
+    {
+        List<StockC>affS=new ArrayList<>();
+
+
+        String req="select LibBes,TypeBes,StockBes,date(AmorBes,'unixepoch') from Besoin;";
+        Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
+        cursor.moveToFirst();
+
+
+        while (!cursor.isAfterLast())
+        {
+
+            StockC disp=new StockC(cursor.getString(0),cursor.getString(1),cursor.getInt(2),cursor.getString(3));
+
+            affS.add(disp);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return affS;
+    }
+
 
     public List<CoutC> CoutBesoin(String besoin)
     {
@@ -779,40 +802,50 @@ public ArrayList<String> affiNumDem(int idemp)
     }
 
 
-    public List<RuptureC> RupureCheck()
-    {
-        List<RuptureC>affS=new ArrayList<>();
+    public List<RuptureC> RupureCheck() {
+        List<RuptureC> affS = new ArrayList<>();
 
 
-        String req="select LibBes,SeuilBes,StockBes from Besoin where SeuilBes>=StockBes;";
-        Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
+        String req = "select LibBes,SeuilBes,StockBes from Besoin where SeuilBes>=StockBes and TypeBes='non amortissable';";
+        Cursor cursor = this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
-        if (!BaseDeDonne.MABASE.isEmpty()) {
+        if (!(!checkIfTableHasData("Besoins_Sortie") && !checkIfTableHasData("Categorie") && !checkIfTableHasData("Demande") && !checkIfTableHasData("Demande_Besoins") && !checkIfTableHasData("Departement") && !checkIfTableHasData("Employe") && !checkIfTableHasData("Besoin") && !checkIfTableHasData("Besoins_Entree") && !checkIfTableHasData("Entree") && !checkIfTableHasData("Fournisseur") && !checkIfTableHasData("Sortie"))) {
+            if (!BaseDeDonne.MABASE.isEmpty()) {
 
-            if (cursor.getString(0) != null) {
+                if (cursor.getString(0) != null) {
 
-                while (!cursor.isAfterLast()) {
+                    while (!cursor.isAfterLast()) {
 
-                    RuptureC disp = new RuptureC(cursor.getString(0), cursor.getInt(1), cursor.getInt(2));
+                        RuptureC disp = new RuptureC(cursor.getString(0), cursor.getInt(1), cursor.getInt(2));
 
-                    affS.add(disp);
-                    cursor.moveToNext();
+                        affS.add(disp);
+                        cursor.moveToNext();
+                        // }
+
+                    }
+                    if (cursor.moveToFirst()) {
+                        MyApplication.setDone(true);
+                    } else {
+                        MyApplication.setDone(false);
+                    }
+                } else {
+                    MyApplication.setDone(false);
                 }
-                MyApplication.setDone(true);
 
 
-            } else {
-                MyApplication.setDone(false);
-
+                cursor.close();
+                return affS;
             }
+
+
         }
-
-
 
 
         cursor.close();
         return affS;
+
+
     }
 
 

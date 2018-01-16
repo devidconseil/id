@@ -6,9 +6,9 @@ package com.example.hp.madose;
 
 public class Stock2 {
 
-        String LibBes,TypeBes;
+        String LibBes,TypeBes,NomEmp,date;
         int  Qte;
-    String NomEmp;
+
 
     public String getLibBes() {
         return LibBes;
@@ -26,11 +26,17 @@ public class Stock2 {
         return TypeBes;
     }
 
-    public Stock2(String libBes, String typeBes, int qte, String nomEmp) {
+
+    public String getDate() {
+        return date;
+    }
+
+    public Stock2(String libBes, String typeBes, int qte, String nomEmp,String Date) {
         LibBes = libBes;
         TypeBes = typeBes;
         Qte = qte;
         NomEmp = nomEmp;
+        date=Date;
     }
 
     @Override
@@ -38,7 +44,8 @@ public class Stock2 {
         return  "Besoin: " + LibBes  +
                 "\nType: " + TypeBes +
                 "\nQuantité: " + Qte +
-                "\nReçu par: " + NomEmp ;
+                "\nReçu par: " + NomEmp+
+                "\nLe:  "+date+"\n";
     }
     /* public Stock2(String libBes, String typeBes, int qte) {
             this.LibBes = libBes;

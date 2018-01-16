@@ -132,9 +132,21 @@ public class Affichage extends AppCompatActivity {
         stock = (TextView) findViewById(R.id.textView2);
         stock.setText("LISTE DES BESOINS (MATERIELS) ET LEUR STOCK \n");
         List<StockC> affS = bd.afficheSt();
+        List<StockC> affS1=bd.afficheSt1();
         for (StockC emp : affS) {
+            if (emp.getTypeBes().equals("non amortissable")) {
             stock.append(emp.toString() + "\n\n");
+            }
         }
+            for (StockC emp : affS1) {
+                if (emp.getTypeBes().equals("amortissable")) {
+                    stock.append(emp.toString1() + "\n\n");
+                }
+
+            }
+            for (StockC emp : affS) {
+                stock.append(emp.toString() + "\n\n");
+            }
         }
 
         if (getIntent().getStringExtra("passage").equals("sortie")) {

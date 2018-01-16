@@ -8,6 +8,7 @@ public class StockC {
 
     String LibBes;
     String TypeBes;
+    String DateAmor;
     int SeuilBes;
     int StockBes;
 
@@ -43,6 +44,15 @@ public class StockC {
         StockBes = stockBes;
     }
 
+    public String getDateAmor() {
+        return DateAmor;
+    }
+
+    public void setDateAmor(String dateAmor) {
+        DateAmor = dateAmor;
+    }
+
+
     public StockC(String libBes, String typeBes, int seuilBes, int stockBes) {
         LibBes = libBes;
         TypeBes = typeBes;
@@ -50,12 +60,27 @@ public class StockC {
         StockBes = stockBes;
     }
 
+    public StockC(String libBes, String typeBes, int stockBes, String dateAmor) {
+        LibBes = libBes;
+        TypeBes = typeBes;
+        StockBes = stockBes;
+        DateAmor = dateAmor;
+    }
+
     @Override
     public String toString() {
+        return "LibBes=" + LibBes  +
+                "\nTypeBes=" + TypeBes  +
+                "\nSeuilBes=" + SeuilBes +
+                "\nStockBes=" + StockBes + "\n";
+    }
+
+
+    public String toString1() {
         return
                 "\nLibellé du besoin: " + LibBes +
-                "\nType: " + TypeBes +
-                "\nSeuil du besoin: " + SeuilBes +
-                "\nStock du besoin: " + StockBes ;
+                        "\nType: " + TypeBes +
+                        "\nStock du besoin: " + StockBes +
+                        "\nDate d\'amortissement: " + DateAmor + "\n";
     }
 }
