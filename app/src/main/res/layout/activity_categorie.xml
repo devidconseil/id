@@ -27,13 +27,13 @@
 </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:text="Quitter"
+        android:id="@+id/buttonAn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonAn"
-        android:layout_below="@+id/valCat"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/valCat"
+        android:text="Annuler" />
 
     <Button
         android:text="Valider"
