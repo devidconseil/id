@@ -19,7 +19,9 @@
         android:layout_marginTop="420dp"
         app:fabSize="mini"
         app:srcCompat="?android:attr/actionModeCloseDrawable"
-        android:id="@+id/floatingActionButton" />
+        android:id="@+id/floatingActionButton"
+        android:focusable="true"
+        android:layout_marginStart="280dp"/>
 
     <ScrollView
         android:layout_width="match_parent"

@@ -21,6 +21,16 @@ public class Authentification extends AppCompatActivity {
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (identifiant.getText().toString().equals("admin") && motpass.getText().toString().equals("adminpass")) {
+                    Intent intent = new Intent(Authentification.this, Acceuil.class);
+                    identifiant.setText("");
+                    motpass.setText("");
+                    identifiant.requestFocus();
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(getBaseContext(),"Identifiant ou mot de passe incorrect",Toast.LENGTH_LONG).show();
+                }
                 //if (identifiant.getText().toString().equals("admin") && motpass.getText().toString().equals("adminpass")) {
                     Intent intent = new Intent(Authentification.this, Acceuil.class);
                    // identifiant.setText("");

@@ -12,6 +12,43 @@
     <string name="title_activity_demande">Demande</string>
     <string name="dialog_message">Demande</string>
     <string name="dialog_title">Récapitulatif</string>
+    <string name="sortie">Sortie</string>
+    <string name="todo">TODO</string>
+
+    <string name="entree">Entrée</string>
+    <string name="mouvements">Mouvements</string>
+    <string name="demande">Demande</string>
+    <string name="identifiant">Identifiant</string>
+    <string name="password">Password</string>
+    <string name="connexion">Connexion</string>
+    <string name="date_de_p_remption">Date de péremption</string>
+    <string name="seuil">Seuil</string>
+    <string name="libell">Libellé</string>
+    <string name="valider">Valider</string>
+    <string name="cat_gorie">Catégorie</string>
+    <string name="stock_initial">Stock initial</string>
+    <string name="non_amortissable">non amortissable</string>
+    <string name="amortissable">amortissable</string>
+    <string name="quitter">Quitter</string>
+    <string name="date">Date</string>
+    <string name="fournisseur">Fournisseur</string>
+    <string name="besoin">Besoin</string>
+    <string name="prix_unitaire">Prix Unitaire</string>
+    <string name="quantit">Quantité</string>
+    <string name="marque">Marque</string>
+    <string name="autre_pr_cision">Autre précision</string>
+    <string name="ajouter">Ajouter</string>
+    <string name="enregistrer">Enregistrer</string>
+    <string name="liste_des_entr_es">Liste des entrées</string>
+    <string name="co_t_total">Coût Total</string>
+    <string name="liste_des_sorties">Liste des sorties</string>
+    <string name="stock">Stock</string>
+
+    <string name="v_rifier_rupture_de_stock">Vérifier Rupture de Stock</string>
+    <string name="annuler">Annuler</string>
+    <string name="nom">Nom</string>
+    <string name="adresse">Adresse</string>
+    <string name="contact">Contact</string>
 
 
 </resources>

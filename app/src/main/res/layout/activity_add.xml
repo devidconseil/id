@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:id="@+id/datepik"
-                android:hint="Date " />
+                android:hint="Date" />
 
             <AutoCompleteTextView
                 android:layout_width="match_parent"

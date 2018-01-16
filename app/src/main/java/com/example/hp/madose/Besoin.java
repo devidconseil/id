@@ -68,6 +68,20 @@ public class Besoin extends AppCompatActivity {
         annee=calendar.get(Calendar.YEAR);
         //date.setText(jour+"/"+mois+"/"+annee);
 
+        quitte=(Button)findViewById(R.id.quitterB);
+        quitte.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Besoin.this,Acceuil.class);
+                edi1.setText("");
+                edi2.setText("");
+                editLib.setText("");
+                auto.setText("");
+                startActivity(intent);
+
+            }
+        });
+
         edi2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +89,19 @@ public class Besoin extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         month=month+1;
-                        edi2.setText(dayOfMonth+"/"+month+"/"+year);
+
+                        String jour=String.valueOf(dayOfMonth);
+                        String mois=String.valueOf(month);
+
+                        if (month<10){
+                            mois="0"+mois;
+                        }
+                        if (dayOfMonth<10){
+                            jour="0"+jour;
+                        }
+                        edi2.setText(jour+"/"+mois+"/"+year);
+
+                       // edi2.setText(dayOfMonth+"/"+month+"/"+year);
                     }
                 },annee,mois,jour);
                 datePickerDialog.show();

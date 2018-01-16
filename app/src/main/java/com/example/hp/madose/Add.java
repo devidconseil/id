@@ -21,6 +21,7 @@ import java.util.List;
 
 public class Add extends AppCompatActivity {
     int jour,mois,annee;
+    boolean fait=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,16 @@ public class Add extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                     month=month+1;
+                        String jour=String.valueOf(dayOfMonth);
+                        String mois=String.valueOf(month);
+
+                        if (month<10){
+                            mois="0"+mois;
+                        }
+                        if (dayOfMonth<10){
+                            jour="0"+jour;
+                        }
+                        date.setText(jour+"/"+mois+"/"+year);
                         date.setText(dayOfMonth+"/"+month+"/"+year);
                     }
                 },annee,mois,jour);
@@ -84,7 +95,11 @@ public class Add extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
+                String a,b,c;
+                a=date.getText().toString().substring(0,2);
+                b=date.getText().toString().substring(3,5);
+                c=date.getText().toString().substring(6,10);
+                date.setText(c+"-"+b+"-"+a);
 
                 int var=Integer.parseInt(dd.selectFour(four.getText().toString()));
                 int var1=Integer.parseInt(dd.selectIdBes(besoin.getText().toString()));
@@ -110,6 +125,7 @@ public class Add extends AppCompatActivity {
                 besoin.setText("");
                 dd.close();
                 Toast.makeText(getBaseContext(),"Approvisionnement enregistré avec succès !!",Toast.LENGTH_SHORT).show();
+                fait=true;
 
             }
         });
@@ -118,6 +134,13 @@ public class Add extends AppCompatActivity {
         passag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (fait==false){
+                    String a,b,c;
+                    a=date.getText().toString().substring(0,2);
+                    b=date.getText().toString().substring(3,5);
+                    c=date.getText().toString().substring(6,10);
+                    date.setText(c+"-"+b+"-"+a); }
 
                 int var=Integer.parseInt(dd.selectFour(four.getText().toString()));
                 int var1=Integer.parseInt(dd.selectIdBes(besoin.getText().toString()));

@@ -11,27 +11,33 @@
     tools:context="com.example.hp.madose.Fournisseur">
 
 
-    <Button
-        android:id="@+id/button3"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/button2"
-        android:layout_marginTop="320dp"
-        android:layout_weight="1"
-        android:text="Quitter" />
+        android:layout_marginTop="270dp">
+        <Button
+            android:text="@string/valider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editText6"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/valF" />
+    </android.support.design.widget.TextInputLayout>
 
-    <Button
-        android:id="@+id/valF"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/editText6"
-        android:layout_marginTop="270dp"
-        android:layout_weight="1"
-        android:text="Valider" />
+        android:layout_marginTop="320dp">
+        <Button
+            android:text="@string/annuler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/button3" />
+    </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -48,7 +54,7 @@
         android:background="#fff"
         android:layout_alignParentStart="true"
         android:id="@+id/nomF"
-        android:hint="Nom" />
+        android:hint="@string/nom" />
     </android.support.design.widget.TextInputLayout>
 
 
@@ -67,27 +73,32 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/adrF"
-        android:hint="Adresse" />
+        android:hint="@string/adresse" />
     </android.support.design.widget.TextInputLayout>
 
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textInputLayout"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:background="#fff"
-        android:ems="10"
-        android:layout_below="@+id/editText5"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/contF"
-        android:hint="Contact" />
+        android:layout_below="@+id/textInputLayout"
+        android:layout_marginTop="20dp">
+
+        <EditText
+            android:id="@+id/contF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/editText5"
+            android:background="#fff"
+            android:ems="10"
+            android:hint="@string/contact"
+            android:inputType="phone" />
 
     </android.support.design.widget.TextInputLayout>
 </RelativeLayout>
+
+
+

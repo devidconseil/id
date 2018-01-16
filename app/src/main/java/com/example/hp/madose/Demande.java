@@ -17,6 +17,8 @@ import java.util.Calendar;
 
 public class Demande extends AppCompatActivity {
 
+    boolean fait=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +61,17 @@ public class Demande extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         month=month+1;
-                        date.setText(dayOfMonth+"/"+month+"/"+year);
+                        String jour=String.valueOf(dayOfMonth);
+                        String mois=String.valueOf(month);
+
+                        if (month<10){
+                            mois="0"+mois;
+                        }
+                        if (dayOfMonth<10){
+                            jour="0"+jour;
+                        }
+                        date.setText(jour+"/"+mois+"/"+year);
+                       // date.setText(dayOfMonth+"/"+month+"/"+year);
                     }
                 },annee,mois,jour);
                 datePickerDialog.show();
@@ -87,6 +99,7 @@ public class Demande extends AppCompatActivity {
                 bes.setText("");
                 quant.setText("");
                 Toast.makeText(getBaseContext(),"Demande enregistrée avec succès !!",Toast.LENGTH_LONG).show();
+                fait=true;
             }
         });
 
@@ -94,6 +107,13 @@ public class Demande extends AppCompatActivity {
         enregistre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (fait==false){
+                    String a,b,c;
+                    a=date.getText().toString().substring(0,2);
+                    b=date.getText().toString().substring(3,5);
+                    c=date.getText().toString().substring(6,10);
+                    date.setText(c+"-"+b+"-"+a); }
+
                 String a,b,c;
                 a=date.getText().toString().substring(0,2);
                 b=date.getText().toString().substring(3,5);
