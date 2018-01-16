@@ -13,7 +13,7 @@
 
 
 
-    <TextView
+    <Button
         android:id="@+id/listeE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
         android:textSize="15sp"
         android:textStyle="normal|bold" tools:targetApi="jelly_bean" />
 
-    <TextView
+    <Button
         android:id="@+id/listeD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
         android:textColor="@color/colorAccent"
         android:textStyle="normal|bold" />
 
-    <TextView
+    <Button
         android:id="@+id/listeS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
         android:textColor="@color/colorAccent"
         android:textStyle="normal|bold" />
 
-    <TextView
+    <Button
         android:id="@+id/stock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
         android:textColor="?android:attr/colorActivatedHighlight"
         android:textStyle="normal|bold" />
 
-    <TextView
+    <Button
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
         android:textColor="?android:attr/colorFocusedHighlight"
         android:textStyle="normal|bold" />
 
-    <TextView
+    <Button
         android:id="@+id/rupture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
