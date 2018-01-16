@@ -5,14 +5,15 @@ package com.example.hp.madose;
  */
 
 public class Stock1 {
-    String LibBes,TypeBes;
+    String LibBes,TypeBes,date;
     int PU , Qte;
 
-    public Stock1(String libBes, String typeBes, int PU, int qte) {
+    public Stock1(String libBes, String typeBes, int PU, int qte,String date) {
         this.LibBes = libBes;
         this.TypeBes = typeBes;
         this.PU = PU;
         this.Qte = qte;
+        this.date=date;
     }
 
     public String getLibBes() {
@@ -31,11 +32,15 @@ public class Stock1 {
         return Qte;
     }
 
+    public String getDate() {
+        return date;
+    }
+
     @Override
     public String toString() {
         return  "Besoin=" + LibBes +
                 "\nType=" + TypeBes +
                 "\nP.U=" + PU +
-                "\nQuantité=" + Qte +"\n";
+                "\nQuantité=" + Qte +"\nDate=" +date+"\n";
     }
 }

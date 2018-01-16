@@ -45,6 +45,10 @@
     <string name="stock">Stock</string>
 
     <string name="v_rifier_rupture_de_stock">Vérifier Rupture de Stock</string>
+    <string name="annuler">Annuler</string>
+    <string name="nom">Nom</string>
+    <string name="adresse">Adresse</string>
+    <string name="contact">Contact</string>
 
 
 </resources>
