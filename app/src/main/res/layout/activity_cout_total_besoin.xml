@@ -11,14 +11,13 @@
     tools:context="com.example.hp.madose.CoutTotalBesoin">
 
     <AutoCompleteTextView
+        android:id="@+id/autoRecherche"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Saisir le nom du besoin"
-        android:id="@+id/autoRecherche"
-        android:layout_marginTop="157dp"
-        android:layout_alignParentTop="true"
+        android:layout_above="@+id/recherch"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:hint="Saisir le nom du besoin" />
 
     <Button
         android:text="Recherche"
