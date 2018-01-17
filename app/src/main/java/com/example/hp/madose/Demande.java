@@ -119,7 +119,7 @@ public class Demande extends AppCompatActivity {
                 int var2=Integer.parseInt(bd.selectDep(depart.getText().toString()));
                 int var3=Integer.parseInt(bd.selectIdBes(bes.getText().toString()));
                 int var4=Integer.parseInt(quant.getText().toString());
-                bd.insertDemande(date.getText().toString(),var1,var2);
+                if (!fait) bd.insertDemande(date.getText().toString(),var1,var2);
                 int dernierEnr=Integer.parseInt(bd.selectIdDem());
                 bd.insertDemandeBesoin(dernierEnr,var3,var4);
                 bd.close();
