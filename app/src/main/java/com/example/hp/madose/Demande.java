@@ -114,11 +114,7 @@ public class Demande extends AppCompatActivity {
                     c=date.getText().toString().substring(6,10);
                     date.setText(c+"-"+b+"-"+a); }
 
-                String a,b,c;
-                a=date.getText().toString().substring(0,2);
-                b=date.getText().toString().substring(3,5);
-                c=date.getText().toString().substring(6,10);
-                date.setText(c+"-"+b+"-"+a);
+
                 int var1=Integer.parseInt(bd.selectEmpId(employe.getText().toString()));
                 int var2=Integer.parseInt(bd.selectDep(depart.getText().toString()));
                 int var3=Integer.parseInt(bd.selectIdBes(bes.getText().toString()));

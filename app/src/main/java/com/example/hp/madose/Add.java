@@ -78,7 +78,7 @@ public class Add extends AppCompatActivity {
                             jour="0"+jour;
                         }
                         date.setText(jour+"/"+mois+"/"+year);
-                        date.setText(dayOfMonth+"/"+month+"/"+year);
+                       // date.setText(dayOfMonth+"/"+month+"/"+year);
                     }
                 },annee,mois,jour);
                 datePickerDialog.show();

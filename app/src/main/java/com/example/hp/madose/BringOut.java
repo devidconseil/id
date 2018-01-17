@@ -153,11 +153,7 @@ public class BringOut extends AppCompatActivity {
                     date.setText(c+"-"+b+"-"+a); }
 
 
-                String a,b,c;
-                a=date.getText().toString().substring(0,2);
-                b=date.getText().toString().substring(3,5);
-                c=date.getText().toString().substring(6,10);
-                date.setText(c+"-"+b+"-"+a);
+
                 bd.insertSortie(date.getText().toString(),num);
                 dernierEnr=Integer.parseInt(bd.selectIdSortie());
                 //NumSor` INTEGER, `NumBes` INTEGER, `Qte` INTEGER NOT NULL, `MarqueBes` TEXT, `Autre précision`
