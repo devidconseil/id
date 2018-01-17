@@ -462,10 +462,24 @@ public class BaseDeDonne extends SQLiteOpenHelper {
 
 
 
-public boolean checkIfTableHasData(String tableName){
+    public boolean checkIfTableHasData(String tableName){
     Cursor c = getReadableDatabase().rawQuery("SELECT * FROM " + tableName,null);
     return c.moveToFirst();
-}
+    }
+
+    public String DepartEmp(int id_nom){
+        String req="select Departement.LibDep from Employe,Departement where Employe.IdDep=Departement.IdDep and Employe.IdEmp='"+id_nom+"';";
+        Cursor cursor = null;
+        try {
+
+            cursor = this.getReadableDatabase().rawQuery(req,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
+
+
 
 
         public void insertDemande(String date ,int emp, int dep)
@@ -483,7 +497,7 @@ public boolean checkIfTableHasData(String tableName){
 
    public String selectEmpl(String nomF)
     {
-        String req="select NomEpm from Employe where NomEmp='"+nomF+"';";
+        String req="select NomEmp from Employe where NomEmp='"+nomF+"';";
         Cursor cursor = null;
         try {
 
