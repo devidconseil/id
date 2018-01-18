@@ -45,6 +45,14 @@ public class DemandeC {
         this.libDpe = libDpe;
     }
 
+    public DemandeC(int numDem, String libDpe, String libBes, int qte,String dateDem ) {
+        NumDem = numDem;
+        LibBes = libBes;
+        Qte = qte;
+        this.dateDem = dateDem;
+        this.libDpe = libDpe;
+    }
+
     @Override
     public String toString() {
         return   NumDem +
@@ -53,5 +61,14 @@ public class DemandeC {
                 "\nQuantité: " + Qte +
                 "\nDate: " + dateDem +
                 "\nDépartement: " + libDpe +"\n\n";
+    }
+
+    public String toString1() {
+        return   NumDem +
+                " \nDépartement bénéficiaire: " + libDpe +
+                "\nLibellé : " + LibBes +
+                "\nQuantité: " + Qte +
+                "\nDate: " + dateDem +
+                "\n\n";
     }
 }

@@ -422,6 +422,29 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         return affD;
     }
 
+    public List<DemandeC> afficheDemande1()
+    {
+        List<DemandeC> affD=new ArrayList<>();
+
+
+        String req="select Demande.NumDem,Departement.LibDep,Besoin.LibBes,Demande_Besoins.Qte,date(Demande.dateDem,'unixepoch') from Demande,Demande_Besoins,Departement,Besoin where Demande.NumDem=Demande_Besoins.NumDem and Demande_Besoins.NumBes=Besoin.NumBes and Demande.IdDep=Departement.IdDep and Demande.IdEmp is null ;";
+        Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
+        cursor.moveToFirst();
+
+
+        while (!cursor.isAfterLast())
+        {
+
+
+            DemandeC disp=new DemandeC(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3),cursor.getString(4));
+            affD.add(disp);
+            cursor.moveToNext();
+
+        }
+
+        cursor.close();
+        return affD;
+    }
 
 
 

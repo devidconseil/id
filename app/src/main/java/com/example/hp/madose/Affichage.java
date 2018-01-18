@@ -197,6 +197,10 @@ public class Affichage extends AppCompatActivity {
             for (DemandeC emp : affF) {
                 demande.append(emp.toString() + "\n\n");
             }
+            List<DemandeC> affF1=bd.afficheDemande1();
+            for (DemandeC emp : affF1) {
+                demande.append(emp.toString1() + "\n\n");
+            }
         }
 
         if (getIntent().getStringExtra("passage").equals("Rupture")){
