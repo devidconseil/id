@@ -67,16 +67,20 @@ public class Demande extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 employe.setVisibility(View.INVISIBLE);
+                employe.setEnabled(false);
                 depart.setVisibility(View.VISIBLE);
-                Toast.makeText(getApplicationContext(),"cochéeee",Toast.LENGTH_SHORT).show();
+                depart.setEnabled(true);
+                Toast.makeText(getApplicationContext(),"Le bénéficiaire de la demande est un departement",Toast.LENGTH_SHORT).show();
             }
         });
         radioButton_emp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 employe.setVisibility(View.VISIBLE);
+                employe.setEnabled(true);
                 depart.setVisibility(View.INVISIBLE);
-                Toast.makeText(getApplicationContext(),"coché",Toast.LENGTH_SHORT).show();
+                depart.setEnabled(false);
+                Toast.makeText(getApplicationContext(),"Le bénéficiaire de la demande est un employé",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -116,16 +120,26 @@ public class Demande extends AppCompatActivity {
                 b=date.getText().toString().substring(3,5);
                 c=date.getText().toString().substring(6,10);
                 date.setText(c+"-"+b+"-"+a);
-                int var1=Integer.parseInt(bd.selectEmpId(employe.getText().toString()));
 
 
-                departe=bd.DepartEmp(var1);
-
-                int var2=Integer.parseInt(bd.selectDep(departe));
+                int var1,var2;
 
                 int var3=Integer.parseInt(bd.selectIdBes(bes.getText().toString()));
                 int var4=Integer.parseInt(quant.getText().toString());
-                bd.insertDemande(date.getText().toString(),var1,var2);
+
+                if (employe.isEnabled()){
+                   var1=Integer.parseInt(bd.selectEmpId(employe.getText().toString()));
+                    departe=bd.DepartEmp(var1);
+                    var2=Integer.parseInt(bd.selectDep(departe));
+                    bd.insertDemande(date.getText().toString(),var1,var2);
+                }
+
+                if (depart.isEnabled()){
+                    String recup=bd.selectDep(depart.getText().toString());
+                    bd.insertDemande1(date.getText().toString(),Integer.parseInt(recup));
+                }
+
+
                 int dernierEnr=Integer.parseInt(bd.selectIdDem());
                 bd.insertDemandeBesoin(dernierEnr,var3,var4);
                 bes.setText("");
@@ -145,17 +159,22 @@ public class Demande extends AppCompatActivity {
                     b=date.getText().toString().substring(3,5);
                     c=date.getText().toString().substring(6,10);
                     date.setText(c+"-"+b+"-"+a); }
-
-
-                int var1=Integer.parseInt(bd.selectEmpId(employe.getText().toString()));
-
-
-                String departe=bd.DepartEmp(var1);
-                int var2=Integer.parseInt(bd.selectDep(departe));
-
+                int var1,var2;
                 int var3=Integer.parseInt(bd.selectIdBes(bes.getText().toString()));
                 int var4=Integer.parseInt(quant.getText().toString());
-                if (!fait) bd.insertDemande(date.getText().toString(),var1,var2);
+                if (!fait){
+                    if (employe.isEnabled()){
+                         var1=Integer.parseInt(bd.selectEmpId(employe.getText().toString()));
+                        String departe=bd.DepartEmp(var1);
+                         var2=Integer.parseInt(bd.selectDep(departe));
+                        bd.insertDemande(date.getText().toString(),var1,var2);
+                    }
+
+                    if (depart.isEnabled()){
+                        String recup=bd.selectDep(depart.getText().toString());
+                        bd.insertDemande1(date.getText().toString(),Integer.parseInt(recup));
+                    }
+                }
                 int dernierEnr=Integer.parseInt(bd.selectIdDem());
                 bd.insertDemandeBesoin(dernierEnr,var3,var4);
                 bd.close();

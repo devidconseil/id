@@ -479,7 +479,12 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         }
     }
 
-
+    public void insertDemande1(String date , int dep)
+    {
+        String entre="insert into Demande( DateDem,IdDep )values(strftime('%s','"+date +"'),"+dep+");";
+        Log.i("DATABASE","insert Demande");
+        this.getWritableDatabase().execSQL(entre);
+    }
 
 
         public void insertDemande(String date ,int emp, int dep)
