@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -547,6 +548,8 @@ public class BaseDeDonne extends SQLiteOpenHelper {
             if (cursor != null) cursor.close();
         }
     }
+
+
     //TextautocompleteEmploye
     public ArrayList<String> affiNE()
     {
@@ -624,6 +627,23 @@ public ArrayList<String> affiNumDem(int idemp)
     cursor.close();
     return nd;
 }
+
+    public ArrayList<String> affiNumDem1(int iddep)
+    {
+        ArrayList<String>nd=new ArrayList<>();
+        String req="select date(DateDem,'unixepoch') as paco from Demande where IdDep='"+iddep+"' and IdEmp is null order by paco desc limit 3;";
+        Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast())
+        {
+            nd.add(cursor.getString(0));
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return nd;
+    }
     //TextautocompleteMarque
     public ArrayList<String> affiMarque()
     {
@@ -701,6 +721,21 @@ public ArrayList<String> affiNumDem(int idemp)
             if (cursor != null) cursor.close();
         }
     }
+
+    public String selectNumeDem1(String demande,String depart)
+    {
+
+        String paco="select Demande.NumDem from Demande,Departement where Demande.IdDep=Departement.IdDep and Demande.DateDem=strftime('%s','"+demande+"') and Departement.LibDep='"+depart+"';";
+        Cursor cursor = null;
+        try {
+
+            cursor = this.getReadableDatabase().rawQuery(paco,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
+
     public String selectIdSortie()
     {
         String requete="select MAX(NumSor) from Sortie;";
@@ -735,7 +770,7 @@ public ArrayList<String> affiNumDem(int idemp)
     public List<Stock2> afficheStock2() {
 
         List<Stock2> affStok2 = new ArrayList<>();
-        String req = "select LibBes,TypeBes,Qte,NomEmp,date(DateSor,'unixepoch') FROM Besoin,Besoins_Sortie, Demande,Employe,Sortie WHERE Besoin.NumBes=Besoins_Sortie.NumBes and Sortie.NumDem=Demande.NumDem and Employe.IdEmp=Demande.IdEmp;";
+        String req = "select Besoin.LibBes,Besoin.TypeBes,Qte,NomEmp,date(DateSor,'unixepoch') FROM Besoin,Besoins_Sortie, Demande,Employe,Sortie WHERE Besoin.NumBes=Besoins_Sortie.NumBes and Sortie.NumDem=Demande.NumDem and Employe.IdEmp=Demande.IdEmp and Besoins_Sortie.NumSor=Sortie.NumSor;";
         Cursor cursor = this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -746,6 +781,23 @@ public ArrayList<String> affiNumDem(int idemp)
         }
         cursor.close();
         return affStok2;
+    }
+
+    public List<Stock2> afficheStock3() {
+
+        List<Stock2> affStok3 = new ArrayList<>();
+        String req = "select LibBes,TypeBes,LibDep,Qte,date(DateSor,'unixepoch') FROM Besoin,Besoins_Sortie, Demande,Departement,Sortie WHERE Besoin.NumBes=Besoins_Sortie.NumBes and Sortie.NumDem=Demande.NumDem and Departement.IdDep=Demande.IdDep and Besoins_Sortie.NumSor=Sortie.NumSor and Demande.IdEmp is null ;";
+        Cursor cursor = this.getReadableDatabase().rawQuery(req, null);
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast()) {
+            Stock2 disp = new Stock2(cursor.getString(0), cursor.getString(1),cursor.getString(2),cursor.getInt(3),cursor.getString(4));
+            affStok3.add(disp);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return affStok3;
+
     }
 
     //======********///*****//Creation de la table stock////*********************/////**/''"'''
@@ -853,9 +905,6 @@ public ArrayList<String> affiNumDem(int idemp)
         cursor.moveToFirst();
 
         if (!(!checkIfTableHasData("Besoins_Sortie") && !checkIfTableHasData("Categorie") && !checkIfTableHasData("Demande") && !checkIfTableHasData("Demande_Besoins") && !checkIfTableHasData("Departement") && !checkIfTableHasData("Employe") && !checkIfTableHasData("Besoin") && !checkIfTableHasData("Besoins_Entree") && !checkIfTableHasData("Entree") && !checkIfTableHasData("Fournisseur") && !checkIfTableHasData("Sortie"))) {
-            if (!BaseDeDonne.MABASE.isEmpty()) {
-
-                if (cursor.getString(0) != null) {
 
                     while (!cursor.isAfterLast()) {
 
@@ -871,9 +920,6 @@ public ArrayList<String> affiNumDem(int idemp)
                     } else {
                         MyApplication.setDone(false);
                     }
-                } else {
-                    MyApplication.setDone(false);
-                }
 
 
                 cursor.close();
@@ -881,7 +927,7 @@ public ArrayList<String> affiNumDem(int idemp)
             }
 
 
-        }
+
 
 
         cursor.close();

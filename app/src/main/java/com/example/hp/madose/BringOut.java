@@ -10,6 +10,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -28,18 +29,25 @@ public class BringOut extends AppCompatActivity {
         final BaseDeDonne bd=new BaseDeDonne(this);
         final Button passage=(Button)findViewById(R.id.sortiVal);
         final AutoCompleteTextView employe=(AutoCompleteTextView)findViewById(R.id.autoEmp);
+        final AutoCompleteTextView departement= findViewById(R.id.autoDep);
         final AutoCompleteTextView besoin=(AutoCompleteTextView)findViewById(R.id.autoBesoin);
         final EditText qut=(EditText)findViewById(R.id.sortieQt);
         final AutoCompleteTextView marq=(AutoCompleteTextView)findViewById(R.id.autoCompMark);
         final AutoCompleteTextView autr=(AutoCompleteTextView)findViewById(R.id.autoCompAutre);
         //final Spinner spinner=(Spinner)findViewById(R.id.spinner);
         final AutoCompleteTextView demande=(AutoCompleteTextView)findViewById(R.id.autoDemande);
+        final RadioButton radioButton_emp= findViewById(R.id.radioButtonEmp);
+        final RadioButton radioButton_dep= findViewById(R.id.radioButtonDep);
 
         final EditText date=(EditText)findViewById(R.id.editDate);
         //AutoTextComplete
         ArrayList<String> nd=bd.affiNE();
         ArrayAdapter<String> dep=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,nd);
         employe.setAdapter(dep);
+
+        ArrayList<String> nd1=bd.affiNDE();
+        ArrayAdapter<String> dep1=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,nd1);
+        departement.setAdapter(dep1);
 
         ArrayList<String> nb=bd.affiNB();
         ArrayAdapter<String>nombes=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,nb);
@@ -63,6 +71,29 @@ public class BringOut extends AppCompatActivity {
         final int jour=calendar.get(Calendar.DAY_OF_MONTH);
         final int mois=calendar.get(Calendar.MONTH);
         final int annee=calendar.get(Calendar.YEAR);
+
+
+        radioButton_dep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                employe.setVisibility(View.INVISIBLE);
+                employe.setEnabled(false);
+                departement.setVisibility(View.VISIBLE);
+                departement.setEnabled(true);
+                Toast.makeText(getApplicationContext(),"Le bénéficiaire de la demande est un departement",Toast.LENGTH_SHORT).show();
+            }
+        });
+        radioButton_emp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                employe.setVisibility(View.VISIBLE);
+                employe.setEnabled(true);
+                departement.setVisibility(View.INVISIBLE);
+                departement.setEnabled(false);
+                Toast.makeText(getApplicationContext(),"Le bénéficiaire de la demande est un employé",Toast.LENGTH_SHORT).show();
+            }
+        });
+
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,8 +122,16 @@ public class BringOut extends AppCompatActivity {
        demande.setOnFocusChangeListener(new View.OnFocusChangeListener() {
            @Override
            public void onFocusChange(View v, boolean hasFocus) {
-               String var=bd.selectEmpId(employe.getText().toString());
-               ArrayList<String> au=bd.affiNumDem(Integer.parseInt(var));
+               ArrayList<String> au=new ArrayList<>();
+               String var;
+               if (employe.isEnabled()) {
+                    var = bd.selectEmpId(employe.getText().toString());
+                    au = bd.affiNumDem(Integer.parseInt(var));
+               }
+               if (departement.isEnabled()) {
+                   var = bd.selectDep(departement.getText().toString());
+                   au = bd.affiNumDem1(Integer.parseInt(var));
+               }
                ArrayAdapter<String>aut=new ArrayAdapter<String>(BringOut.this,android.R.layout.simple_list_item_1,au);
                demande.setAdapter(aut);
            }
@@ -103,7 +142,13 @@ public class BringOut extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String num= bd.selectNumeDem(demande.getText().toString(),employe.getText().toString());
+                String num=new String();
+                if (employe.isEnabled()) {
+                    num = bd.selectNumeDem(demande.getText().toString(), employe.getText().toString());
+                }
+                if (departement.isEnabled()) {
+                    num = bd.selectNumeDem1(demande.getText().toString(), departement.getText().toString());
+                }
                 int dernierEnr;
                // bd.insertSortie(date.getText().toString(),num);
                // bd.close();
@@ -139,8 +184,13 @@ public class BringOut extends AppCompatActivity {
         passa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String num= bd.selectNumeDem(demande.getText().toString(),employe.getText().toString());
+                String num=new String();
+                if (employe.isEnabled()) {
+                    num = bd.selectNumeDem(demande.getText().toString(), employe.getText().toString());
+                }
+                if (departement.isEnabled()) {
+                    num = bd.selectNumeDem1(demande.getText().toString(), departement.getText().toString());
+                }
                 int dernierEnr;
                 // bd.insertSortie(date.getText().toString(),num);
                 // bd.close();
@@ -150,11 +200,13 @@ public class BringOut extends AppCompatActivity {
                     a=date.getText().toString().substring(0,2);
                     b=date.getText().toString().substring(3,5);
                     c=date.getText().toString().substring(6,10);
-                    date.setText(c+"-"+b+"-"+a); }
+                    date.setText(c+"-"+b+"-"+a);
+                    bd.insertSortie(date.getText().toString(),num);
+                }
 
 
 
-                bd.insertSortie(date.getText().toString(),num);
+
                 dernierEnr=Integer.parseInt(bd.selectIdSortie());
                 //NumSor` INTEGER, `NumBes` INTEGER, `Qte` INTEGER NOT NULL, `MarqueBes` TEXT, `Autre précision`
                 int var=Integer.parseInt(bd.selectIdBes(besoin.getText().toString()));

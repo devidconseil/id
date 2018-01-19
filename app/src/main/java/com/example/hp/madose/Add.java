@@ -101,13 +101,18 @@ public class Add extends AppCompatActivity {
                 c=date.getText().toString().substring(6,10);
                 date.setText(c+"-"+b+"-"+a);
 
-                int var=Integer.parseInt(dd.selectFour(four.getText().toString()));
+
+                if (!fait) {
+                    int var = Integer.parseInt(dd.selectFour(four.getText().toString()));
+                    dd.insertEntr(date.getText().toString(), var);
+                }
+
                 int var1=Integer.parseInt(dd.selectIdBes(besoin.getText().toString()));
 
                 int quantite=Integer.parseInt(qte.getText().toString());
                 int prix=Integer.parseInt(pu.getText().toString());
 
-                dd.insertEntr(date.getText().toString(),var);
+
                 int dernierEnregistrem= Integer.parseInt(dd.selectIdEnt());
                 dd.insertEntrBes(var1,dernierEnregistrem,prix,quantite,mark.getText().toString(),autre.getText().toString());
 
@@ -140,15 +145,18 @@ public class Add extends AppCompatActivity {
                     a=date.getText().toString().substring(0,2);
                     b=date.getText().toString().substring(3,5);
                     c=date.getText().toString().substring(6,10);
-                    date.setText(c+"-"+b+"-"+a); }
+                    date.setText(c+"-"+b+"-"+a);
+                    int var=Integer.parseInt(dd.selectFour(four.getText().toString()));
+                    dd.insertEntr(date.getText().toString(),var);
+                }
 
-                int var=Integer.parseInt(dd.selectFour(four.getText().toString()));
+
                 int var1=Integer.parseInt(dd.selectIdBes(besoin.getText().toString()));
 
                 int quantite=Integer.parseInt(qte.getText().toString());
                 int prix=Integer.parseInt(pu.getText().toString());
 
-                dd.insertEntr(date.getText().toString(),var);
+
                 int dernierEnregistrem= Integer.parseInt(dd.selectIdEnt());
                 dd.insertEntrBes(var1,dernierEnregistrem,prix,quantite,mark.getText().toString(),autre.getText().toString());
 

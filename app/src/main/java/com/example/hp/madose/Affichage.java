@@ -144,18 +144,21 @@ public class Affichage extends AppCompatActivity {
                 }
 
             }
-            for (StockC emp : affS) {
-                stock.append(emp.toString() + "\n\n");
-            }
+
         }
 
         if (getIntent().getStringExtra("passage").equals("sortie")) {
             stock1 = (TextView) findViewById(R.id.textView2);
             stock1.setText("LISTE DES BESOINS (MATERIELS) LIVRES AUX EMPLOYES \n\n\n");
         List<Stock2> affF = bd.afficheStock2();
+        List<Stock2> affF1=bd.afficheStock3();
         for (Stock2 emp : affF) {
             stock1.append(emp.toString() + "\n\n");
            }
+        for (Stock2 emp : affF1) {
+                stock1.append(emp.toString1() + "\n\n");
+            }
+
         }
 
         if (getIntent().getStringExtra("passage").equals("entree")) {

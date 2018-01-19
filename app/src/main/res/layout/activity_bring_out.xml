@@ -11,16 +11,16 @@
     tools:context="com.example.hp.madose.BringOut">
 
     <EditText
+        android:id="@+id/editDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="10"
-        android:layout_marginTop="46dp"
-        android:id="@+id/editDate"
-        android:hint="Date "
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Date "
+        android:inputType="date" />
 
     <AutoCompleteTextView
         android:layout_width="match_parent"
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:hint="Employé"
         android:id="@+id/autoEmp"
-        android:layout_below="@+id/editDate"
+        android:layout_below="@+id/radioGroup"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -57,6 +57,16 @@
         android:layout_below="@+id/autoDemande"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <AutoCompleteTextView
+        android:id="@+id/autoDep"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/radioGroup"
+        android:hint="Departement"
+        android:visibility="invisible" />
 
     <EditText
         android:layout_width="match_parent"
@@ -104,5 +114,40 @@
         android:layout_below="@+id/sortiVal"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/textView7"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioButtonEmp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Employé" />
+
+        <RadioButton
+            android:id="@+id/radioButtonDep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1"
+            android:text="Departement"
+            android:visibility="visible" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/editDate"
+        android:text="Le bénéficiaire est un :" />
 
 </RelativeLayout>

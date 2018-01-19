@@ -6,7 +6,7 @@ package com.example.hp.madose;
 
 public class Stock2 {
 
-        String LibBes,TypeBes,NomEmp,date;
+        String LibBes,TypeBes,NomEmp,date,LibDep;
         int  Qte;
 
 
@@ -26,6 +26,13 @@ public class Stock2 {
         return TypeBes;
     }
 
+    public String getLibDep() {
+        return LibDep;
+    }
+
+    public void setLibDep(String libDep) {
+        LibDep = libDep;
+    }
 
     public String getDate() {
         return date;
@@ -38,6 +45,13 @@ public class Stock2 {
         NomEmp = nomEmp;
         date=Date;
     }
+    public Stock2(String libBes, String typeBes,String libDep,int qte,String Date) {
+        LibBes = libBes;
+        TypeBes = typeBes;
+        Qte = qte;
+        LibDep = libDep;
+        date=Date;
+    }
 
     @Override
     public String toString() {
@@ -45,6 +59,13 @@ public class Stock2 {
                 "\nType: " + TypeBes +
                 "\nQuantité: " + Qte +
                 "\nReçu par: " + NomEmp+
+                "\nLe:  "+date+"\n";
+    }
+    public String toString1() {
+        return  "Besoin: " + LibBes  +
+                "\nType: " + TypeBes +
+                "\nQuantité: " + Qte +
+                "\nReçu par le departement " + LibDep+
                 "\nLe:  "+date+"\n";
     }
     /* public Stock2(String libBes, String typeBes, int qte) {
