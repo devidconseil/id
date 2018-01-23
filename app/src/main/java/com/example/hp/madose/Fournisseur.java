@@ -26,17 +26,34 @@ public class Fournisseur extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                int x=Integer.parseInt(fcont.getText().toString());
-                bd.insertFour(fnom.getText().toString(),fadr.getText().toString(),x);
-                bd.close();
-                Toast.makeText(getApplicationContext(),"Fournisseur enregistré avec succès", Toast.LENGTH_LONG).show();
+                if (fnom.getText().toString().equals(""))
+                {
+                    fnom.requestFocus();
+                    Toast.makeText(getApplicationContext(),"Veuillez saisir le nom du fournisseur SVP!!", Toast.LENGTH_LONG).show();
+                }
+                else if (fadr.getText().toString().equals(""))
+                {
+                    fadr.requestFocus();
+                    Toast.makeText(getApplicationContext(),"Veuillez saisir l'adresse du fournisseur SVP!!", Toast.LENGTH_LONG).show();
+                }
+                else if (fcont.getText().toString().equals(""))
+                {
+                    fcont.requestFocus();
+                    Toast.makeText(getApplicationContext(),"Veuillez saisir le contact du fournisseur SVP!!", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    int x = Integer.parseInt(fcont.getText().toString());
+                    bd.insertFour(fnom.getText().toString(), fadr.getText().toString(), x);
+                    bd.close();
+                    Toast.makeText(getApplicationContext(), "Fournisseur enregistré avec succès", Toast.LENGTH_LONG).show();
 
-                Intent intent=new Intent(Fournisseur.this,Affichage.class);
-                intent.putExtra("passage","fournisseur");
-                fnom.setText("");
-                fadr.setText("");
-                fcont.setText("");
-                startActivity(intent);
+                    Intent intent = new Intent(Fournisseur.this, Affichage.class);
+                    intent.putExtra("passage", "fournisseur");
+                    fnom.setText("");
+                    fadr.setText("");
+                    fcont.setText("");
+                    startActivity(intent);
+                }
             }
         });
 

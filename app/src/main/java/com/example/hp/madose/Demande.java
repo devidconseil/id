@@ -29,7 +29,7 @@ public class Demande extends AppCompatActivity {
         final BaseDeDonne bd=new BaseDeDonne(this);
 
         final EditText date=(EditText)findViewById(R.id.dateDemande);
-        final Button passage=(Button)findViewById(R.id.ajout);
+        final Button ajouter=(Button)findViewById(R.id.ajout);
         final AutoCompleteTextView employe=(AutoCompleteTextView)findViewById(R.id.autoCompEmp);
         final AutoCompleteTextView depart=(AutoCompleteTextView)findViewById(R.id.autoCompDep);
         final AutoCompleteTextView bes=(AutoCompleteTextView)findViewById(R.id.autoCompBes);
@@ -110,42 +110,63 @@ public class Demande extends AppCompatActivity {
         });
         //fin diadlogueDatepiker
 
-        passage.setOnClickListener(new View.OnClickListener() {
+        ajouter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
-                String a,b,c,departe;
-                a=date.getText().toString().substring(0,2);
-                b=date.getText().toString().substring(3,5);
-                c=date.getText().toString().substring(6,10);
-                date.setText(c+"-"+b+"-"+a);
-
-
-                int var1,var2;
-
-                int var3=Integer.parseInt(bd.selectIdBes(bes.getText().toString()));
-                int var4=Integer.parseInt(quant.getText().toString());
-
-                if (employe.isEnabled()){
-                   var1=Integer.parseInt(bd.selectEmpId(employe.getText().toString()));
-                    departe=bd.DepartEmp(var1);
-                    var2=Integer.parseInt(bd.selectDep(departe));
-                    bd.insertDemande(date.getText().toString(),var1,var2);
+                if (date.getText().toString().equals(""))
+                {
+                    date.requestFocus();
+                    Toast.makeText(getBaseContext(),"Veuillez saisir la date SVP!",Toast.LENGTH_LONG).show();
                 }
-
-                if (depart.isEnabled()){
-                    String recup=bd.selectDep(depart.getText().toString());
-                    bd.insertDemande1(date.getText().toString(),Integer.parseInt(recup));
+                else if (employe.getText().toString().equals(""))
+                {
+                    employe.requestFocus();
+                    Toast.makeText(getBaseContext(),"Veuillez saisir le nom de l'employé ou du département SVP!",Toast.LENGTH_LONG).show();
                 }
+                else if (bes.getText().toString().equals(""))
+                {
+                    bes.requestFocus();
+                    Toast.makeText(getBaseContext(),"Veuillez saisir le libellé du besoin SVP!!",Toast.LENGTH_LONG).show();
+                }
+                else if (quant.getText().toString().equals(""))
+                {
+                    quant.requestFocus();
+                    Toast.makeText(getBaseContext(),"Veuillez saisir la quantité SVP!!",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    String a, b, c, departe;
+                    a = date.getText().toString().substring(0, 2);
+                    b = date.getText().toString().substring(3, 5);
+                    c = date.getText().toString().substring(6, 10);
+                    date.setText(c + "-" + b + "-" + a);
 
 
-                int dernierEnr=Integer.parseInt(bd.selectIdDem());
-                bd.insertDemandeBesoin(dernierEnr,var3,var4);
-                bes.setText("");
-                quant.setText("");
-                Toast.makeText(getBaseContext(),"Demande enregistrée avec succès !!",Toast.LENGTH_LONG).show();
-                fait=true;
+                    int var1, var2;
+
+                    int var3 = Integer.parseInt(bd.selectIdBes(bes.getText().toString()));
+                    int var4 = Integer.parseInt(quant.getText().toString());
+
+                    if (employe.isEnabled()) {
+                        var1 = Integer.parseInt(bd.selectEmpId(employe.getText().toString()));
+                        departe = bd.DepartEmp(var1);
+                        var2 = Integer.parseInt(bd.selectDep(departe));
+                        bd.insertDemande(date.getText().toString(), var1, var2);
+                    }
+
+                    if (depart.isEnabled()) {
+                        String recup = bd.selectDep(depart.getText().toString());
+                        bd.insertDemande1(date.getText().toString(), Integer.parseInt(recup));
+                    }
+
+
+                    int dernierEnr = Integer.parseInt(bd.selectIdDem());
+                    bd.insertDemandeBesoin(dernierEnr, var3, var4);
+                    bes.setText("");
+                    quant.setText("");
+                    Toast.makeText(getBaseContext(), "Demande enregistrée avec succès !!", Toast.LENGTH_LONG).show();
+                    fait = true;
+                }
             }
         });
 
@@ -153,36 +174,59 @@ public class Demande extends AppCompatActivity {
         enregistre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (fait==false){
-                    String a,b,c;
-                    a=date.getText().toString().substring(0,2);
-                    b=date.getText().toString().substring(3,5);
-                    c=date.getText().toString().substring(6,10);
-                    date.setText(c+"-"+b+"-"+a); }
-                int var1,var2;
-                int var3=Integer.parseInt(bd.selectIdBes(bes.getText().toString()));
-                int var4=Integer.parseInt(quant.getText().toString());
-                if (!fait){
-                    if (employe.isEnabled()){
-                         var1=Integer.parseInt(bd.selectEmpId(employe.getText().toString()));
-                        String departe=bd.DepartEmp(var1);
-                         var2=Integer.parseInt(bd.selectDep(departe));
-                        bd.insertDemande(date.getText().toString(),var1,var2);
-                    }
-
-                    if (depart.isEnabled()){
-                        String recup=bd.selectDep(depart.getText().toString());
-                        bd.insertDemande1(date.getText().toString(),Integer.parseInt(recup));
-                    }
+                if (date.getText().toString().equals(""))
+                {
+                    date.requestFocus();
+                    Toast.makeText(getBaseContext(),"Veuillez saisir la date SVP!",Toast.LENGTH_LONG).show();
                 }
-                int dernierEnr=Integer.parseInt(bd.selectIdDem());
-                bd.insertDemandeBesoin(dernierEnr,var3,var4);
-                bd.close();
-                Toast.makeText(getBaseContext(),"Sortie enregistrée avec succès !!",Toast.LENGTH_LONG).show();
-                Intent intent=new Intent(Demande.this,Acceuil.class);
-                startActivity(intent);
+                else if (employe.getText().toString().equals(""))
+                {
+                    employe.requestFocus();
+                    Toast.makeText(getBaseContext(),"Veuillez saisir le nom de l'employé ou du département SVP!",Toast.LENGTH_LONG).show();
+                }
+                else if (bes.getText().toString().equals(""))
+                {
+                    bes.requestFocus();
+                    Toast.makeText(getBaseContext(),"Veuillez saisir le libellé du besoin SVP!!",Toast.LENGTH_LONG).show();
+                }
+                else if (quant.getText().toString().equals(""))
+                {
+                    quant.requestFocus();
+                    Toast.makeText(getBaseContext(),"Veuillez saisir la quantité SVP!!",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    if (fait == false) {
+                        String a, b, c;
+                        a = date.getText().toString().substring(0, 2);
+                        b = date.getText().toString().substring(3, 5);
+                        c = date.getText().toString().substring(6, 10);
+                        date.setText(c + "-" + b + "-" + a);
+                    }
+                    int var1, var2;
+                    int var3 = Integer.parseInt(bd.selectIdBes(bes.getText().toString()));
+                    int var4 = Integer.parseInt(quant.getText().toString());
+                    if (!fait) {
+                        if (employe.isEnabled()) {
+                            var1 = Integer.parseInt(bd.selectEmpId(employe.getText().toString()));
+                            String departe = bd.DepartEmp(var1);
+                            var2 = Integer.parseInt(bd.selectDep(departe));
+                            bd.insertDemande(date.getText().toString(), var1, var2);
+                        }
 
-                Toast.makeText(getBaseContext(),"Demande enregistrée avec succès !!",Toast.LENGTH_LONG).show();
+                        if (depart.isEnabled()) {
+                            String recup = bd.selectDep(depart.getText().toString());
+                            bd.insertDemande1(date.getText().toString(), Integer.parseInt(recup));
+                        }
+                    }
+                    int dernierEnr = Integer.parseInt(bd.selectIdDem());
+                    bd.insertDemandeBesoin(dernierEnr, var3, var4);
+                    bd.close();
+                    Toast.makeText(getBaseContext(), "Sortie enregistrée avec succès !!", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(Demande.this, Acceuil.class);
+                    startActivity(intent);
+
+                    Toast.makeText(getBaseContext(), "Demande enregistrée avec succès !!", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

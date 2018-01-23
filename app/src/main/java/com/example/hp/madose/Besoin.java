@@ -111,58 +111,63 @@ public class Besoin extends AppCompatActivity {
         enregistrer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int resul = radioGroup.getCheckedRadioButtonId();
-                rb = (RadioButton) findViewById(resul);
 
-                int var;
-                String var1;
-                int var3 = Integer.parseInt(bd.selectCat(auto.getText().toString()));
-
-              String amort1,amort2,amort3;
-               if (edi2.getText().toString().matches(".*/.*/.*") ){
-                   amort1=edi2.getText().toString().substring(0,2);
-                   amort2=edi2.getText().toString().substring(3,5);
-                   amort3=edi2.getText().toString().substring(6,10);
-                   if (Integer.parseInt(amort1)<=31 && Integer.parseInt(amort2)<=12 && Integer.parseInt(amort3)>=1970){
-                       edi2.setText(amort3+"-"+amort2+"-"+amort1);
-
-                   }
-                   else{
-                       Toast.makeText(getBaseContext(),"Erreur",Toast.LENGTH_LONG).show();
-                   }
-
-               }
-
-
-                int varo=Integer.parseInt(edi3.getText().toString());
-                int result = radioGroup.getCheckedRadioButtonId();
-                radio = (RadioButton) findViewById(result);
-
-                if (radio.getText().toString().equals("amortissable"))
+                if (editLib.getText().toString().equals(""))
                 {
-                    var1=edi2.getText().toString();
-                    bd.insertBesoin(editLib.getText().toString(), rb.getText().toString(), var3,0,var1,varo);
-                    Toast.makeText(Besoin.this, "Besoin enregistré avec succès", Toast.LENGTH_LONG).show();
+                    editLib.requestFocus();
+                    Toast.makeText(getBaseContext(),"Veuillez saisir le libellé du besoin SVP!!",Toast.LENGTH_LONG).show();
                 }
-
-               else if (radio.getText().toString().equals("non amortissable"))
+                else if (auto.getText().toString().equals(""))
                 {
-                    var = Integer.parseInt(edi1.getText().toString());
-                    bd.insertBesoin(editLib.getText().toString(), rb.getText().toString(), var3,var,"0",varo);
-                    Toast.makeText(Besoin.this,"Besoin enregistré avec succès", Toast.LENGTH_LONG).show();
+                    auto.requestFocus();
+                    Toast.makeText(getBaseContext(),"Veuillez saisir la catégorie du besoin SVP!!",Toast.LENGTH_LONG).show();
                 }
+                else {
+                    int resul = radioGroup.getCheckedRadioButtonId();
+                    rb = (RadioButton) findViewById(resul);
+
+                    int var;
+                    String var1;
+                    int var3 = Integer.parseInt(bd.selectCat(auto.getText().toString()));
+
+                    String amort1, amort2, amort3;
+                    if (edi2.getText().toString().matches(".*/.*/.*")) {
+                        amort1 = edi2.getText().toString().substring(0, 2);
+                        amort2 = edi2.getText().toString().substring(3, 5);
+                        amort3 = edi2.getText().toString().substring(6, 10);
+                        if (Integer.parseInt(amort1) <= 31 && Integer.parseInt(amort2) <= 12 && Integer.parseInt(amort3) >= 1970) {
+                            edi2.setText(amort3 + "-" + amort2 + "-" + amort1);
+
+                        } else {
+                            Toast.makeText(getBaseContext(), "Erreur", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
 
 
+                    int varo = Integer.parseInt(edi3.getText().toString());
+                    int result = radioGroup.getCheckedRadioButtonId();
+                    radio = (RadioButton) findViewById(result);
+
+                    if (radio.getText().toString().equals("amortissable")) {
+                        var1 = edi2.getText().toString();
+                        bd.insertBesoin(editLib.getText().toString(), rb.getText().toString(), var3, 0, var1, varo);
+                        Toast.makeText(Besoin.this, "Besoin enregistré avec succès", Toast.LENGTH_LONG).show();
+                    } else if (radio.getText().toString().equals("non amortissable")) {
+                        var = Integer.parseInt(edi1.getText().toString());
+                        bd.insertBesoin(editLib.getText().toString(), rb.getText().toString(), var3, var, "0", varo);
+                        Toast.makeText(Besoin.this, "Besoin enregistré avec succès", Toast.LENGTH_LONG).show();
+                    }
 
 
-                edi1.setText("");
-                edi2.setText("");
-                editLib.setText("");
-                auto.setText("");
-                Intent intent=new Intent(Besoin.this, Affichage.class);
-                intent.putExtra("passage","besoin");
-                startActivity(intent);
-
+                    edi1.setText("");
+                    edi2.setText("");
+                    editLib.setText("");
+                    auto.setText("");
+                    Intent intent = new Intent(Besoin.this, Affichage.class);
+                    intent.putExtra("passage", "besoin");
+                    startActivity(intent);
+                }
 
             }
         });

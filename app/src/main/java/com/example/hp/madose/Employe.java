@@ -62,19 +62,38 @@ public class Employe extends AppCompatActivity {
         codeB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final EditText codeT=(EditText) findViewById(R.id.nomEmp);
+                final EditText codeP=(EditText) findViewById(R.id.profil);
+               // Toast.makeText(getBaseContext(),"Veuillez saisir le nom de l'emplyé SVP!",Toast.LENGTH_LONG).show();
 
-                int x=Integer.parseInt(bd.selectDep(codeD.getText().toString()));
+                if (codeT.getText().toString().equals(""))
+                {
+                    codeT.requestFocus();
+                    Toast.makeText(getBaseContext(),"Veuillez saisir le nom de l'emplyé SVP!",Toast.LENGTH_LONG).show();
+                }
+                else if (codeP.getText().toString().equals(""))
+                {
+                    codeP.requestFocus();
+                    Toast.makeText(getBaseContext(),"Veuillez saisir le profil de l'emplyé SVP!",Toast.LENGTH_LONG).show();
+                }
+                else if (codeD.getText().toString().equals(""))
+                {
+                    codeD.requestFocus();
+                    Toast.makeText(getBaseContext(),"Veuillez saisir le departement de l'emplyé SVP!",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    int x = Integer.parseInt(bd.selectDep(codeD.getText().toString()));
+                    bd.insertEmp(codeT.getText().toString(), x, codeP.getText().toString());
+                    bd.close();
 
-                bd.insertEmp(codeT.getText().toString(),x,codeP.getText().toString());
-                bd.close();
-
-                Toast.makeText(getApplicationContext(),"Employé enregistré avec succès", Toast.LENGTH_LONG).show();
-                Intent intent=new Intent(Employe.this,Affichage.class);
-                intent.putExtra("passage","employe");
-                codeT.setText("");
-                codeP.setText("");
-                codeD.setText("");
-                startActivity(intent);
+                    Toast.makeText(getApplicationContext(), "Employé enregistré avec succès", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(Employe.this, Affichage.class);
+                    intent.putExtra("passage", "employe");
+                    codeT.setText("");
+                    codeP.setText("");
+                    codeD.setText("");
+                    startActivity(intent);
+               }
             }
         });
 
