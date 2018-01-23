@@ -11,9 +11,18 @@ public class StockC {
     String DateAmor;
     int SeuilBes;
     int StockBes;
+    int ImageBes;
 
     public String getLibBes() {
         return LibBes;
+    }
+
+    public int getImageBes() {
+        return ImageBes;
+    }
+
+    public void setImageBes(int imageBes) {
+        ImageBes = imageBes;
     }
 
     public void setLibBes(String libBes) {
@@ -59,12 +68,27 @@ public class StockC {
         SeuilBes = seuilBes;
         StockBes = stockBes;
     }
+    public StockC(String libBes, String typeBes, int seuilBes, int stockBes,int imageBes) {
+        LibBes = libBes;
+        TypeBes = typeBes;
+        SeuilBes = seuilBes;
+        StockBes = stockBes;
+        ImageBes= imageBes;
+    }
 
     public StockC(String libBes, String typeBes, int stockBes, String dateAmor) {
         LibBes = libBes;
         TypeBes = typeBes;
         StockBes = stockBes;
         DateAmor = dateAmor;
+    }
+
+    public StockC(String libBes, String typeBes, int stockBes, String dateAmor,int imageBes) {
+        LibBes = libBes;
+        TypeBes = typeBes;
+        StockBes = stockBes;
+        DateAmor = dateAmor;
+        ImageBes= imageBes;
     }
 
     @Override

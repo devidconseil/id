@@ -141,14 +141,14 @@ public class Besoin extends AppCompatActivity {
                 if (radio.getText().toString().equals("amortissable"))
                 {
                     var1=edi2.getText().toString();
-                    bd.insertBesoin(editLib.getText().toString(), rb.getText().toString(), var3,0,var1,varo);
+                    bd.insertBesoin(editLib.getText().toString(), rb.getText().toString(), var3,0,var1,varo,R.drawable.un);
                     Toast.makeText(Besoin.this, "Besoin enregistré avec succès", Toast.LENGTH_LONG).show();
                 }
 
                else if (radio.getText().toString().equals("non amortissable"))
                 {
                     var = Integer.parseInt(edi1.getText().toString());
-                    bd.insertBesoin(editLib.getText().toString(), rb.getText().toString(), var3,var,"0",varo);
+                    bd.insertBesoin(editLib.getText().toString(), rb.getText().toString(), var3,var,"0",varo,R.drawable.un);
                     Toast.makeText(Besoin.this,"Besoin enregistré avec succès", Toast.LENGTH_LONG).show();
                 }
 

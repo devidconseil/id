@@ -51,13 +51,13 @@ if(!bd.checkIfTableHasData("Besoins_Sortie") && !bd.checkIfTableHasData("Categor
     bd.insert("SECRETARIAT");
     bd.insert("DIRECTION");
 
-    bd.insertBesoin("STYLO", "non amortissable", 1, 3, "0", 2);
-    bd.insertBesoin("MARKER", "non amortissable", 1, 2, "0", 0);
-    bd.insertBesoin("BALAI", "non amortissable", 4, 2, "0", 0);
-    bd.insertBesoin("PAPIER RAM", "non amortissable", 1, 3, "0", 2);
-    bd.insertBesoin("CAHIER", "non amortissable", 1, 2, "0", 0);
-    bd.insertBesoin("ORDINATEUR", "amortissable", 2, 0, "2020-03-25", 0);
-    bd.insertBesoin("IMPRIMANTE", "amortissable", 2, 0, "2020-03-25", 0);
+    bd.insertBesoin("STYLO", "non amortissable", 1, 3, "0", 2,R.drawable.un);
+    bd.insertBesoin("MARKER", "non amortissable", 1, 2, "0", 0,R.drawable.deux);
+    bd.insertBesoin("BALAI", "non amortissable", 4, 2, "0", 0,R.drawable.trois);
+    bd.insertBesoin("PAPIER RAM", "non amortissable", 1, 3, "0", 2,R.drawable.quatre);
+    bd.insertBesoin("CAHIER", "non amortissable", 1, 2, "0", 0,R.drawable.un);
+    bd.insertBesoin("ORDINATEUR", "amortissable", 2, 0, "2020-03-25", 0,R.drawable.quatre);
+    bd.insertBesoin("IMPRIMANTE", "amortissable", 2, 0, "2020-03-25", 0,R.drawable.deux);
 
     bd.insertFour("CASH CENTER", "01 bp 4236 Abidjan 01", 22445623);
     bd.insertFour("CASH IVOIRE", "01 bp 4036 Abidjan 02", 22441683);

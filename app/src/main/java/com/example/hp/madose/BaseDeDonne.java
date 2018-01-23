@@ -30,7 +30,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     private static final String TABLE_DEPARTEMENT = "CREATE TABLE Departement ( `IdDep` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `LibDep` TEXT NOT NULL );";
     private static final String TABLE_EMPLOYE = "CREATE TABLE Employe ( `IdEmp` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `NomEmp` TEXT NOT NULL,`IdDep` INTEGER, `ProEmp` TEXT, FOREIGN KEY(`IdDep`) REFERENCES `Departement`(`IdDep`) );";
     private static final String TABLE_BESOIN = "CREATE TABLE Besoin ( NumBes INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, LibBes TEXT NOT NULL, TypeBes TEXT NOT NULL, IdCat INTEGER," +
-            " SeuilBes INTEGER, AmorBes INTEGER,`StockBes` INTEGER, FOREIGN KEY(IdCat) REFERENCES Categorie(IdCat) );";
+            " SeuilBes INTEGER, AmorBes INTEGER,`StockBes` INTEGER, `Image` INTEGER, FOREIGN KEY(IdCat) REFERENCES Categorie(IdCat) );";
     private static final String TABLE_BESOIN_ENTREE = "CREATE TABLE Besoins_Entree ( NumBes INTEGER, NumEnt INTEGER, PU INTEGER, Qte INTEGER NOT NULL, MarqueBes TEXT, Autre_Précision TEXT," +
             " PRIMARY KEY(NumBes,NumEnt), FOREIGN KEY(NumEnt) REFERENCES Entree(NumEnt), FOREIGN KEY(NumBes) REFERENCES Besoin(NumBes) );";
     private static final String TABLE_ENTREE = "CREATE TABLE Entree ( `NumEnt` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `DateEnt` INTEGER NOT NULL, `IdFour` INTEGER, FOREIGN KEY(`IdFour`) REFERENCES `Fournisseur`(`IdFour`));";
@@ -239,9 +239,9 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         }
     }
 
-    public void insertBesoin(String nom,String type,int categorie,int seuil,String amort,int stockBes)
+    public void insertBesoin(String nom,String type,int categorie,int seuil,String amort,int stockBes,int image)
     {
-        String entre="insert into Besoin(LibBes, TypeBes, IdCat, SeuilBes, AmorBes,StockBes)values('"+nom+"','"+type+"',"+categorie+","+seuil+",strftime('%s','"+amort+"'),"+stockBes+");";
+        String entre="insert into Besoin(LibBes, TypeBes, IdCat, SeuilBes, AmorBes,StockBes,Image)values('"+nom+"','"+type+"',"+categorie+","+seuil+",strftime('%s','"+amort+"'),"+stockBes+","+image+");";
         this.getWritableDatabase().execSQL(entre);
         Log.i("DATABASE","insert Besoin");
     }
@@ -829,7 +829,7 @@ public ArrayList<String> affiNumDem(int idemp)
         List<StockC>affS=new ArrayList<>();
 
 
-        String req="select LibBes,TypeBes,SeuilBes,StockBes from Besoin;";
+        String req="select LibBes,TypeBes,SeuilBes,StockBes,Image from Besoin;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -837,7 +837,7 @@ public ArrayList<String> affiNumDem(int idemp)
         while (!cursor.isAfterLast())
         {
 
-            StockC disp=new StockC(cursor.getString(0),cursor.getString(1),cursor.getInt(2),cursor.getInt(3));
+            StockC disp=new StockC(cursor.getString(0),cursor.getString(1),cursor.getInt(2),cursor.getInt(3),cursor.getInt(4));
 
             affS.add(disp);
             cursor.moveToNext();
