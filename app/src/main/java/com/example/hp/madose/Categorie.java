@@ -28,14 +28,20 @@ public class Categorie extends AppCompatActivity {
     @Override
     public void onClick(View v) {
 
-        bd.insertCat(codeT.getText().toString());
-        bd.close();
-
-        Toast.makeText(getApplicationContext(),"Catégorie enregistrée avec succès", Toast.LENGTH_LONG).show();
-        Intent intent=new Intent(Categorie.this,Affichage.class);
-        intent.putExtra("passage","categorie");
-        codeT.setText("");
-        startActivity(intent);
+        if (codeT.getText().toString().equals(""))
+        {
+            codeT.requestFocus();
+            Toast.makeText(getBaseContext(),"Veuillez saisir la catégorie SVP!!",Toast.LENGTH_LONG).show();
+        }
+        else {
+            bd.insertCat(codeT.getText().toString());
+            bd.close();
+            Toast.makeText(getApplicationContext(), "Catégorie enregistrée avec succès", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(Categorie.this, Affichage.class);
+            intent.putExtra("passage", "categorie");
+            codeT.setText("");
+            startActivity(intent);
+        }
     }
 });
 

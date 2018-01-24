@@ -10,6 +10,7 @@ import android.text.Html;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ public class Affichage extends AppCompatActivity {
     private TextView stock1;
     private TextView stocke;
     private TextView cout,demande;
+    private ListView listView;
     private GridView gridView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,12 +69,10 @@ public class Affichage extends AppCompatActivity {
 
        if (getIntent().getStringExtra("passage").equals("fournisseur"))
         {
-            fournisseur = (TextView) findViewById(R.id.textView4);
-
-            List<FournisseurC> affF = bd.afficheF();
-            for (FournisseurC emp : affF) {
-                fournisseur.append(emp.toString() + "\n\n");
-            }
+            listView = (ListView) findViewById(R.id.listeview);
+            List<FournisseurC> fourni= bd.afficheF();
+            ArrayAdapter<FournisseurC> adapter = new ArrayAdapter<FournisseurC>(this, android.R.layout.simple_list_item_1,fourni);
+            listView.setAdapter(adapter);
 
         }
 

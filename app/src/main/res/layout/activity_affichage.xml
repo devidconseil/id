@@ -18,6 +18,11 @@
         android:numColumns="3"
         android:visibility="invisible" />
 
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/listeview"/>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
@@ -31,30 +36,17 @@
         android:visibility="visible"
         app:elevation="20dp"
         app:fabSize="normal"
-        app:rippleColor="@color/cardview_dark_background"
+        app:rippleColor="@color/cardview_light_background"
         app:srcCompat="?attr/homeAsUpIndicator" />
 
 
-    <ScrollView
+    <TextView
+        android:id="@+id/textView4"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+        android:layout_height="wrap_content"
+        android:textColor="#000" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#000" />
-
-            <TextView
+    <TextView
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -62,8 +54,5 @@
                 tools:text="toto" />
 
 
-        </LinearLayout>
-
-    </ScrollView>
 
 </RelativeLayout>

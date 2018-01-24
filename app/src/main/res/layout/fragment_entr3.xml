@@ -10,33 +10,49 @@
 
 
     <Button
-        android:text="Valider et quitter"
+        android:id="@+id/button20"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:id="@+id/button20"
-        android:layout_marginBottom="63dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="63dp"
+        android:text="Valider et quitter" />
 
     <Button
-        android:text="Annuler"
+        android:id="@+id/button21"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:id="@+id/button21"
         android:layout_above="@+id/button20"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:text="Annuler" />
 
     <Button
-        android:text="Ajouter"
+        android:id="@+id/button22"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:id="@+id/button22"
         android:layout_above="@+id/button21"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="Ajouter" />
+
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/autoCompleteTextView6"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true" />
 </RelativeLayout>

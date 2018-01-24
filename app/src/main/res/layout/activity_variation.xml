@@ -19,11 +19,11 @@
         android:layout_above="@+id/listeS"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:textColor="@color/colorAccent"
         android:fontFamily="sans-serif"
         android:text="Liste des entrées"
-        android:textColor="@color/colorAccent"
         android:textSize="15sp"
-        android:textStyle="normal" />
+        android:textStyle="normal|bold" />
 
     <Button
         android:id="@+id/listeD"
@@ -34,7 +34,7 @@
         android:layout_alignParentStart="true"
         android:text="Coût Total"
         android:textColor="@color/colorAccent"
-        android:textStyle="normal" />
+        android:textStyle="normal|bold" />
 
     <Button
         android:id="@+id/listeS"
@@ -46,7 +46,7 @@
         android:layout_marginBottom="50dp"
         android:text="Liste des sorties"
         android:textColor="@color/colorAccent"
-        android:textStyle="normal" />
+        android:textStyle="normal|bold" />
 
     <Button
         android:id="@+id/stock"
@@ -56,8 +56,9 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/rupture"
         android:text="Stock"
+
         android:textColor="@color/colorAccent"
-        android:textStyle="normal" />
+        android:textStyle="normal|bold" />
 
     <Button
         android:id="@+id/textView9"
@@ -66,10 +67,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/stock"
-
         android:text="Demande"
         android:textColor="@color/colorAccent"
-        android:textStyle="normal" />
+        android:textStyle="normal|bold" />
 
     <Button
         android:id="@+id/rupture"
@@ -80,6 +80,6 @@
         android:layout_centerVertical="true"
         android:text="Vérifier Rupture de Stock"
         android:textColor="@color/colorAccent"
-        android:textStyle="normal" />
+        android:textStyle="normal|bold" />
 
 </RelativeLayout>

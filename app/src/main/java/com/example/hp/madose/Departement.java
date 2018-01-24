@@ -28,14 +28,22 @@ public class Departement extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                gest.insert(edite.getText().toString());
-                gest.close();
 
-                Toast.makeText(getApplicationContext(),"Departement enregistré avec succès", Toast.LENGTH_LONG).show();
-                Intent intent=new Intent(Departement.this,Affichage.class);
-                intent.putExtra("passage","departement");
-                edite.setText("");
-                startActivity(intent);
+                if (edite.getText().toString().equals(""))
+                {
+                    edite.requestFocus();
+                    Toast.makeText(getBaseContext(),"Veuillez saisir le nom du departement SVP!!",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    gest.insert(edite.getText().toString());
+                    gest.close();
+
+                    Toast.makeText(getApplicationContext(), "Departement enregistré avec succès", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(Departement.this, Affichage.class);
+                    intent.putExtra("passage", "departement");
+                    edite.setText("");
+                    startActivity(intent);
+                }
             }
         });
 
