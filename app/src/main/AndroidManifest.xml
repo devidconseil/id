@@ -98,7 +98,8 @@
             android:label="Sortie" />
         <activity android:name=".Variation" />
         <activity android:name=".CoutTotalBesoin" />
-        <activity android:name=".Listedepartement"></activity>
+        <activity android:name=".Listedepartement" />
+        <activity android:name=".Listecategorie"></activity>
     </application>
 
 </manifest>

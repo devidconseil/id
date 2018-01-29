@@ -60,6 +60,21 @@ public class Besoin extends AppCompatActivity {
         radioGroup = (RadioGroup) findViewById(R.id.groupeRadio);
         final Button enregistrer = (Button) findViewById(R.id.enregistre);
 
+        auto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Besoin.this,Listecategorie.class);
+                intent.putExtra("categorie",editLib.getText().toString());
+                startActivity(intent);
+            }
+        });
+
+        Intent intent=getIntent();
+        if (intent != null)
+        {
+            editLib.setText(intent.getStringExtra("categorie"));
+            auto.setText(intent.getStringExtra("categoriec"));
+        }
 
         final Calendar calendar;
         calendar=Calendar.getInstance();
@@ -81,6 +96,7 @@ public class Besoin extends AppCompatActivity {
 
             }
         });
+
 
         edi2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +123,8 @@ public class Besoin extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
+
+
 
         enregistrer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,6 +184,7 @@ public class Besoin extends AppCompatActivity {
                     auto.setText("");
                     Intent intent = new Intent(Besoin.this, Affichage.class);
                     intent.putExtra("passage", "besoin");
+
                     startActivity(intent);
                 }
 

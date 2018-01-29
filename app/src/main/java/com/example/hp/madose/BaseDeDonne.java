@@ -36,7 +36,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     private static final String TABLE_ENTREE = "CREATE TABLE Entree ( `NumEnt` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `DateEnt` INTEGER NOT NULL, `IdFour` INTEGER, FOREIGN KEY(`IdFour`) REFERENCES `Fournisseur`(`IdFour`));";
     private static final String TABLE_FOURNISSEUR = "CREATE TABLE Fournisseur ( `IdFour` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `NomFour` TEXT NOT NULL, `AdrFour` TEXT, `TelFour` INTEGER );";
     private static final String TABLE_SORTIE = "CREATE TABLE Sortie ( `NumSor` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `DateSor` INTEGER NOT NULL, `NumDem` INTEGER, FOREIGN KEY(`NumDem`) REFERENCES `Demande`(`NumDem`));";
-    //   NumDem NumBes Qte***DateDem IdEmp IdDep
+    //   NomEmp,LibDep,ProEmp,IdDep
     //DateSor NumDem** NumSor NumBes Qte MarqueBes Autre précision
     public BaseDeDonne(Context context) {
         super(context, MABASE, null, 1);
@@ -166,12 +166,12 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     public List<EmployeC> afficheE() {
 
         List<EmployeC> affE = new ArrayList<>();
-        String req = "select * from Employe;";
+        String req = "select NomEmp,LibDep,ProEmp from Employe,Departement where Departement.IdDep=Employe.IdDep;";
         Cursor cursor = this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
-            EmployeC disp = new EmployeC(cursor.getInt(0), cursor.getString(3), cursor.getInt(2), cursor.getString(1));
+            EmployeC disp = new EmployeC(cursor.getString(0),cursor.getString(1),cursor.getString(2));
             affE.add(disp);
             cursor.moveToNext();
         }
