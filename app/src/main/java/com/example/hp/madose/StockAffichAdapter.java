@@ -1,12 +1,15 @@
 package com.example.hp.madose;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,25 +53,36 @@ public class StockAffichAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
-        Holder holder=new Holder();
-        View vue;
-        vue=layoutInflater.inflate(R.layout.stock_affich_list_item,null);
+        final Holder holder=new Holder();
 
-        holder.textView= vue.findViewById(R.id.textView8);
-        holder.imageView= vue.findViewById(R.id.imageView);
+        view=layoutInflater.inflate(R.layout.stock_affich_list_item,null);
+
+
+        holder.textView= view.findViewById(R.id.textView8);
+        holder.imageView= view.findViewById(R.id.imageView);
 
         holder.textView.setText(strings.get(i));
         Picasso.with(context).load(imagesId.get(i)).into(holder.imageView);
 
-        vue.setOnClickListener(new OnClickListener() {
+
+
+       holder.imageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                MyApplication.verif1=holder.textView.getText().toString();
 
+                Intent intent=new Intent(context,Besoin.class);
+                intent.putExtra("Image","Besoin");
+                context.startActivity(intent);
+
+                MyApplication.setVerif(true);
+
+
+            //  Toast.makeText(context,holder.textView.getText().toString(),Toast.LENGTH_LONG).show();
             }
         });
 
-
-
-        return vue;
+        return view;
     }
+
 }

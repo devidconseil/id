@@ -15,6 +15,8 @@ public class MyApplication extends Application {
     public static boolean done=false;
     public static boolean check=false;
     public static boolean fetch=true;
+    public static boolean verif=false;
+    public static String verif1;
 
     public static boolean isFetch() {
         return fetch;
@@ -44,7 +46,13 @@ public class MyApplication extends Application {
         return CoutTotBes;
     }
 
+    public static boolean isVerif() {
+        return verif;
+    }
 
+    public static void setVerif(boolean verif) {
+        MyApplication.verif = verif;
+    }
 
     public static void setCoutTotBes(int coutTotBes) {
         CoutTotBes = coutTotBes;

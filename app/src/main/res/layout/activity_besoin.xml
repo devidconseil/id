@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_besoin"
     android:layout_width="match_parent"
@@ -24,24 +25,26 @@
             android:orientation="vertical" >
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/textInputLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="250dp">
+                android:layout_below="@id/groupeRadio">
 
                 <EditText
+                    android:id="@+id/seuil"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:id="@+id/seuil"
-                    android:hint="Seuil"/>
+                    android:hint="Seuil"
+                    android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:id="@+id/textInputLayout3">
+                android:layout_below="@id/imageView3"
+                android:layout_alignParentLeft="true"
+                android:id="@+id/textInputLayout3" android:layout_alignParentStart="true">
             <EditText
 
                 android:layout_width="match_parent"
@@ -66,17 +69,16 @@
             </android.support.design.widget.TextInputLayout> -->
 
             <Button
-                android:text="Valider"
-                android:layout_width="match_parent"
-                android:layout_marginTop="440dp"
-                android:layout_height="wrap_content"
                 android:id="@+id/enregistre"
-                android:onClick="valider()" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textInputLayout"
+                android:text="Valider" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="310dp"
+                android:layout_below="@id/textInputLayout4"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:id="@+id/textInputLayout6">
@@ -90,53 +92,61 @@
             </android.support.design.widget.TextInputLayout>
 
             <AutoCompleteTextView
+                android:id="@+id/autoComplCat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Catégorie"
-                android:layout_marginTop="110dp"
-                android:id="@+id/autoComplCat" />
+                android:layout_below="@id/textInputLayout3"
+                android:completionHint="Catégorie"
+                android:hint="Catégorie" />
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/textInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textInputLayout6"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textInputLayout6">
 
                 <EditText
                     android:id="@+id/stock"
                     android:layout_width="match_parent"
-                    android:inputType="number"
                     android:layout_height="wrap_content"
-                    android:hint="Stock initial" />
+                    android:hint="Stock initial"
+                    android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
             <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:id="@+id/groupeRadio"
-
-                android:layout_alignParentTop="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
+
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/autoComplCat">
 
                 <RadioButton
-                    android:text="non amortissable"
+                    android:id="@+id/radioNonAm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="180dp"
+
                     android:onClick="radioBout"
-                    android:id="@+id/radioNonAm" />
+                    android:text="NON AMORTISSABLE" />
 
                 <RadioButton
-                android:text="amortissable"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="radioBout"
-                android:layout_marginTop="0dp"
-                android:id="@+id/radioAm" />
+                    android:id="@+id/radioAm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:onClick="radioBout"
+                    android:text="AMORTISSABLE" />
 
             </RadioGroup>
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
 
             <Button
                 android:layout_width="match_parent"
