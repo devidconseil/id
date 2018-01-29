@@ -126,11 +126,17 @@ public class BringOut extends AppCompatActivity {
                String var;
                if (employe.isEnabled()) {
                     var = bd.selectEmpId(employe.getText().toString());
-                    au = bd.affiNumDem(Integer.parseInt(var));
+                    if (var !=null){
+                        au = bd.affiNumDem(Integer.parseInt(var));
+                    }
+
                }
                if (departement.isEnabled()) {
                    var = bd.selectDep(departement.getText().toString());
-                   au = bd.affiNumDem1(Integer.parseInt(var));
+                   if (var !=null){
+                       au = bd.affiNumDem1(Integer.parseInt(var));
+                   }
+
                }
                ArrayAdapter<String>aut=new ArrayAdapter<String>(BringOut.this,android.R.layout.simple_list_item_1,au);
                demande.setAdapter(aut);

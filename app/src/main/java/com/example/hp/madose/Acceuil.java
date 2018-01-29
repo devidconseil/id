@@ -115,7 +115,7 @@ if(!bd.checkIfTableHasData("Besoins_Sortie") && !bd.checkIfTableHasData("Categor
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Acceuil.this, Entrees.class);
+                Intent intent=new Intent(Acceuil.this, Add.class);
                 startActivity(intent);
             }
         });
