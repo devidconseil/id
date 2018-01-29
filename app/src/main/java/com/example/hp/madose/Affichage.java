@@ -5,12 +5,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
+import android.text.Html;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.squareup.picasso.Picasso;
 
 
 import java.util.ArrayList;
@@ -27,6 +31,7 @@ public class Affichage extends AppCompatActivity {
     private TextView stocke;
     private TextView cout,demande;
     private ListView listView;
+    private GridView gridView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,21 +135,33 @@ public class Affichage extends AppCompatActivity {
          }
 
         if (getIntent().getStringExtra("passage").equals("stock")) {
-        stock = (TextView) findViewById(R.id.textView2);
-        stock.setText("LISTE DES BESOINS (MATERIELS) ET LEUR STOCK \n");
-        List<StockC> affS = bd.afficheSt();
-        List<StockC> affS1=bd.afficheSt1();
-        for (StockC emp : affS) {
-            if (emp.getTypeBes().equals("non amortissable")) {
-            stock.append(emp.toString() + "\n\n");
+            stock = (TextView) findViewById(R.id.textView2);
+            gridView= findViewById(R.id.gridview);
+            int liste=0;
+            List<String> list=new ArrayList<>();
+           List<Integer> list1=new ArrayList<>();
+           stock.setText("LISTE DES BESOINS (MATERIELS) ET LEUR STOCK \n");
+            List<StockC> affS = bd.afficheSt();
+            List<StockC> affS1 = bd.afficheSt1();
+           for (StockC emp : affS) {
+                if (emp.getTypeBes().equals("non amortissable")) {
+                   //stock.append(emp.toString() + "\n\n");
+                   list.add(emp.toString());
+                   list1.add(emp.getImageBes());
+
+
+
+                }
             }
-        }
-            for (StockC emp : affS1) {
+       /*      for (StockC emp : affS1) {
                 if (emp.getTypeBes().equals("amortissable")) {
                     stock.append(emp.toString1() + "\n\n");
                 }
 
-            }
+            }  */
+       StockAffichAdapter arrayAdapter=new StockAffichAdapter(this,list,list1);
+          gridView.setAdapter(arrayAdapter);
+          gridView.setVisibility(View.VISIBLE);
 
         }
 
@@ -267,7 +284,7 @@ public class Affichage extends AppCompatActivity {
 
         }
 
-        findViewById(R.id.floatingActionButton).setOnClickListener(new View.OnClickListener() {
+     findViewById(R.id.floatingActionButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(Affichage.this,Acceuil.class);

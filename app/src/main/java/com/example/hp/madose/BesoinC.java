@@ -12,6 +12,7 @@ public class BesoinC {
     int SeuilBes;
     String AmorBes;
     int StockBes;
+    int ImageBes;
 
     void BesoinC(){}
 
@@ -47,6 +48,14 @@ public class BesoinC {
         IdCat = idCat;
     }
 
+    public int getImageBes() {
+        return ImageBes;
+    }
+
+    public void setImageBes(int imageBes) {
+        ImageBes = imageBes;
+    }
+
     public int getSeuilBes() {
         return SeuilBes;
     }
@@ -80,6 +89,18 @@ public class BesoinC {
         this.AmorBes = amorBes;
         this.StockBes=StockBes;
     }
+
+    public BesoinC(int numBes, String libBes, String typeBes, int idCat, int seuilBes, String amorBes,int StockBes,int imageBes) {
+        this.NumBes = numBes;
+        this.LibBes = libBes;
+        this.TypeBes = typeBes;
+        this.IdCat = idCat;
+        this.SeuilBes = seuilBes;
+        this.AmorBes = amorBes;
+        this.StockBes=StockBes;
+        this.ImageBes=imageBes;
+    }
+
 
     @Override
     public String toString() {

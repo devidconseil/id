@@ -11,6 +11,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.hp.madose.Affichage">
 
+    <GridView
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="3"
+        android:visibility="invisible" />
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
