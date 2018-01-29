@@ -900,7 +900,7 @@ public ArrayList<String> affiNumDem(int idemp)
         List<RuptureC> affS = new ArrayList<>();
 
 
-        String req = "select LibBes,SeuilBes,StockBes from Besoin where SeuilBes>=StockBes and TypeBes='non amortissable';";
+        String req = "select LibBes,SeuilBes,StockBes from Besoin where SeuilBes>=StockBes and TypeBes='NON AMORTISSABLE';";
         Cursor cursor = this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 

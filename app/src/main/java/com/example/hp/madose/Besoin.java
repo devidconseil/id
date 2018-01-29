@@ -2,7 +2,10 @@ package com.example.hp.madose;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.DrawableRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +14,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -59,6 +63,17 @@ public class Besoin extends AppCompatActivity {
         final EditText edi3=(EditText)findViewById(R.id.stock);
         radioGroup = (RadioGroup) findViewById(R.id.groupeRadio);
         final Button enregistrer = (Button) findViewById(R.id.enregistre);
+        final ImageView imageView= findViewById(R.id.imageView3);
+
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(Besoin.this,Affichage.class);
+                intent.putExtra("passage","image");
+                startActivity(intent);
+            }
+        });
 
         auto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +98,8 @@ public class Besoin extends AppCompatActivity {
         annee=calendar.get(Calendar.YEAR);
         //date.setText(jour+"/"+mois+"/"+annee);
 
+
+
         quitte=(Button)findViewById(R.id.quitterB);
         quitte.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,7 +114,13 @@ public class Besoin extends AppCompatActivity {
             }
         });
 
+   if (MyApplication.isVerif()){
+       String calba="R.drawable."+MyApplication.verif1;
+       int resId=getResources().getIdentifier(MyApplication.verif1,"drawable",getPackageName());
+       imageView.setImageResource(resId);
 
+       MyApplication.setVerif(false);
+   }
         edi2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,17 +190,19 @@ public class Besoin extends AppCompatActivity {
                     int result = radioGroup.getCheckedRadioButtonId();
                     radio = (RadioButton) findViewById(result);
 
-                if (radio.getText().toString().equals("amortissable"))
+                if (radio.getText().toString().equals("AMORTISSABLE"))
                 {
                     var1=edi2.getText().toString();
-                    bd.insertBesoin(editLib.getText().toString(), rb.getText().toString(), var3,0,var1,varo,R.drawable.un);
+                    int resId=getResources().getIdentifier(MyApplication.verif1,"drawable",getPackageName());
+                    bd.insertBesoin(editLib.getText().toString(), rb.getText().toString(), var3,0,var1,varo,resId);
                     Toast.makeText(Besoin.this, "Besoin enregistré avec succès", Toast.LENGTH_LONG).show();
                 }
 
-               else if (radio.getText().toString().equals("non amortissable"))
+               else if (radio.getText().toString().equals("NON AMORTISSABLE"))
                 {
                     var = Integer.parseInt(edi1.getText().toString());
-                    bd.insertBesoin(editLib.getText().toString(), rb.getText().toString(), var3,var,"0",varo,R.drawable.un);
+                    int resId=getResources().getIdentifier(MyApplication.verif1,"drawable",getPackageName());
+                    bd.insertBesoin(editLib.getText().toString(), rb.getText().toString(), var3,var,"0",varo,resId);
                     Toast.makeText(Besoin.this,"Besoin enregistré avec succès", Toast.LENGTH_LONG).show();
                 }
 
@@ -219,14 +244,14 @@ public class Besoin extends AppCompatActivity {
         radio = (RadioButton) findViewById(resul);
 
 
-        if (radio.getText().toString().equals("amortissable")) {
+        if (radio.getText().toString().equals("AMORTISSABLE")) {
 
             edi2.setEnabled(true);
             edi1.setEnabled(false);
             Toast.makeText(getBaseContext(), radio.getText().toString(), Toast.LENGTH_SHORT).show();
         } else
 
-        if (radio.getText().toString().equals("non amortissable")) {
+        if (radio.getText().toString().equals("NON AMORTISSABLE")) {
 
             edi1.setEnabled(true);
             edi2.setEnabled(false);

@@ -3,13 +3,18 @@ package com.example.hp.madose;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.text.Html;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -32,6 +37,7 @@ public class Affichage extends AppCompatActivity {
     private TextView cout,demande;
     private ListView listView;
     private GridView gridView;
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,7 +150,7 @@ public class Affichage extends AppCompatActivity {
             List<StockC> affS = bd.afficheSt();
             List<StockC> affS1 = bd.afficheSt1();
            for (StockC emp : affS) {
-                if (emp.getTypeBes().equals("non amortissable")) {
+                if (emp.getTypeBes().equals("NON AMORTISSABLE")) {
                    //stock.append(emp.toString() + "\n\n");
                    list.add(emp.toString());
                    list1.add(emp.getImageBes());
@@ -154,7 +160,7 @@ public class Affichage extends AppCompatActivity {
                 }
             }
        /*      for (StockC emp : affS1) {
-                if (emp.getTypeBes().equals("amortissable")) {
+                if (emp.getTypeBes().equals("AMORTISSABLE")) {
                     stock.append(emp.toString1() + "\n\n");
                 }
 
@@ -281,6 +287,27 @@ public class Affichage extends AppCompatActivity {
             for (RuptureC emp : affF) {
                 cout.append(emp.toString() + "\n\n");
             }
+
+        }
+
+     if (getIntent().getStringExtra("passage").equals("image")){
+
+            List<String> list=new ArrayList<>();
+            List<Integer> list1=new ArrayList<>();
+            list.add("un");
+            list.add("deux");
+            list.add("trois");
+            list1.add(R.drawable.un);
+            list1.add(R.drawable.deux);
+            list1.add(R.drawable.trois);
+
+            StockAffichAdapter stockAffichAdapter=new StockAffichAdapter(this,list,list1);
+
+            ListView listView= findViewById(R.id.listeview);
+
+            listView.setAdapter(stockAffichAdapter);
+
+
 
         }
 

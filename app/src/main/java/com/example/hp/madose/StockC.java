@@ -91,14 +91,20 @@ public class StockC {
         ImageBes= imageBes;
     }
 
-    @Override
+  /*  @Override
     public String toString() {
         return "LibBes=" + LibBes  +
                 "\nTypeBes=" + TypeBes  +
                 "\nSeuilBes=" + SeuilBes +
                 "\nStockBes=" + StockBes + "\n";
-    }
-
+    }  */
+  @Override
+  public String toString() {
+      return  LibBes  +
+              "\n" + TypeBes  +
+              "\nSeuil d'alerte: " + SeuilBes +
+              "\nEn Stock: " + StockBes + "\n";
+  }
 
     public String toString1() {
         return
