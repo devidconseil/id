@@ -8,11 +8,9 @@
         <menu>
             <item
                 android:id="@+id/employé"
-
                 android:title="Employé" />
             <item
                 android:id="@+id/fournisseur"
-
                 android:title="Fournisseur" />
 
         </menu>
@@ -20,15 +18,12 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/categorie"
-
             android:title="Catégories" />
         <item
             android:id="@+id/besoin"
-
             android:title="Besoin" />
         <item
             android:id="@+id/departement"
-
             android:title="Departement" />
     </group>
 

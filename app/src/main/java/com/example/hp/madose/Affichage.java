@@ -97,8 +97,8 @@ public class Affichage extends AppCompatActivity {
         {
             employe = (TextView) findViewById(R.id.textView4);
 
-            List<EmployeC> affF = bd.afficheE();
-            for (EmployeC emp : affF) {
+            List<EmployeC> affE = bd.afficheE();
+            for (EmployeC emp : affE) {
                 employe.append(emp.toString() + "\n\n");
             }
 
@@ -235,8 +235,6 @@ public class Affichage extends AppCompatActivity {
             cout.setText("LISTE DES BESOINS (MATERIELS) EN RUPTURE \n\n\n");
 
             boolean a=true;
-
-
 
             List<RuptureC> affF = bd.RupureCheck();
             //     Toast.makeText(getBaseContext(),getIntent().getStringExtra("passage"),Toast.LENGTH_LONG);
