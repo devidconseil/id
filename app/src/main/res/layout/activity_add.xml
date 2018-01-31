@@ -4,6 +4,7 @@
     android:id="@+id/activity_add"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/common_action_bar_splitter"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -13,34 +14,34 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_marginTop="42dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <EditText
+                android:id="@+id/datepik"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:id="@+id/datepik"
                 android:hint="Date" />
 
             <AutoCompleteTextView
+                android:id="@+id/autoCompleteFour"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Fournisseur"
-                android:id="@+id/autoCompleteFour" />
+                android:hint="Fournisseur" />
 
             <AutoCompleteTextView
+                android:id="@+id/autoCompleteBesoin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Besoin"
-                android:id="@+id/autoCompleteBesoin" />
+                android:hint="Besoin" />
 
 
             <android.support.design.widget.TextInputLayout
@@ -48,11 +49,11 @@
                 android:layout_height="match_parent">
 
                 <EditText
+                    android:id="@+id/PU"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
                     android:hint="Prix Unitaire"
-                    android:id="@+id/PU" />
+                    android:inputType="numberDecimal" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -60,11 +61,11 @@
                 android:layout_height="match_parent">
 
                 <EditText
+                    android:id="@+id/QT"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
                     android:hint="Quantité"
-                    android:id="@+id/QT" />
+                    android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
 
@@ -73,10 +74,10 @@
                 android:layout_height="match_parent">
 
                 <EditText
+                    android:id="@+id/marq"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Marque"
-                    android:id="@+id/marq" />
+                    android:hint="Marque" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -84,28 +85,43 @@
                 android:layout_height="match_parent">
 
                 <EditText
+                    android:id="@+id/autre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Autre précision"
-                    android:id="@+id/autre" />
+                    android:hint="Autre précision" />
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                    android:text="Ajouter"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/AjouterEn"
-                    android:layout_weight="1" />
+                android:id="@+id/AjouterEn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/cardview_light_background"
+                android:text="Ajouter"
+                android:textColor="#27a69a" />
 
-                <Button
-                    android:text="Enregistrer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/EnregistrerEn"
-                    android:layout_weight="1" />
+            <Button
+                android:id="@+id/EnregistrerEn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#27a69a"
+                android:text="Enregistrer"
+                android:textColor="@color/cardview_light_background" />
 
+            <Button
+                android:id="@+id/quitter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:backgroundTint="@color/cardview_light_background"
+                android:text="Quitter"
+                android:textColor="@android:color/holo_orange_dark" />
 
 
         </LinearLayout>
     </ScrollView>
+
 </RelativeLayout>

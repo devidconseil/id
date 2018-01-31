@@ -201,23 +201,28 @@ if(!bd.checkIfTableHasData("Besoins_Sortie") && !bd.checkIfTableHasData("Categor
 
         switch (id) {
             case R.id.employé:
-                Intent c = new Intent(Acceuil.this, Employe.class);
+                Intent c = new Intent(Acceuil.this, Affichage.class);
+                c.putExtra("passage", "employe");
                 startActivity(c);
                 break;
             case R.id.fournisseur:
-                Intent g = new Intent(Acceuil.this, Fournisseur.class);
+                Intent g = new Intent(Acceuil.this, Affichage.class);
+                g.putExtra("passage", "fournisseur");
                 startActivity(g);
                 break;
             case R.id.departement:
-                Intent p = new Intent(Acceuil.this, Departement.class);
+                Intent p = new Intent(Acceuil.this, Affichage.class);
+                p.putExtra("passage", "departement");
                 startActivity(p);
                 break;
             case R.id.categorie:
-                Intent k = new Intent(Acceuil.this, Categorie.class);
+                Intent k = new Intent(Acceuil.this, Affichage.class);
+                k.putExtra("passage", "categorie");
                 startActivity(k);
                 break;
             case R.id.besoin:
-                Intent b = new Intent(Acceuil.this, Besoin.class);
+                Intent b = new Intent(Acceuil.this, Affichage.class);
+                b.putExtra("passage", "besoin");
                 startActivity(b);
                 break;
 

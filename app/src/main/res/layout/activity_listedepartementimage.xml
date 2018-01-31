@@ -26,7 +26,7 @@
         android:layout_toEndOf="@+id/imageView5"
         android:layout_toRightOf="@+id/imageView5"
         android:text="Departement"
-        android:textColor="@android:color/black" />
+        android:textColor="#000" />
 
 
 </RelativeLayout>

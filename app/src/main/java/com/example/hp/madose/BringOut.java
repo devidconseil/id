@@ -148,86 +148,129 @@ public class BringOut extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String num=new String();
-                if (employe.isEnabled()) {
-                    num = bd.selectNumeDem(demande.getText().toString(), employe.getText().toString());
+                if(date.getText().toString().equals(""))
+                {
+                    Toast.makeText(getBaseContext(),"Veuillez saisir la date de sortie SVP!!",Toast.LENGTH_LONG).show();
+                    date.requestFocus();
                 }
-                if (departement.isEnabled()) {
-                    num = bd.selectNumeDem1(demande.getText().toString(), departement.getText().toString());
+                else if (demande.getText().toString().equals(""))
+                {
+                    Toast.makeText(getBaseContext(),"Veuillez saisir la date de la demande SVP!!",Toast.LENGTH_LONG).show();
+                    demande.requestFocus();
                 }
-                int dernierEnr;
-               // bd.insertSortie(date.getText().toString(),num);
-               // bd.close();
-                String a,b,c;
-                a=date.getText().toString().substring(0,2);
-                b=date.getText().toString().substring(3,5);
-                c=date.getText().toString().substring(6,10);
-                date.setText(c+"-"+b+"-"+a);
-                bd.insertSortie(date.getText().toString(),num);
-                dernierEnr=Integer.parseInt(bd.selectIdSortie());
-                //NumSor` INTEGER, `NumBes` INTEGER, `Qte` INTEGER NOT NULL, `MarqueBes` TEXT, `Autre précision`
-                int var=Integer.parseInt(bd.selectIdBes(besoin.getText().toString()));
-                int var1=Integer.parseInt(qut.getText().toString());
-                bd.insertSortieBesoin(dernierEnr,var,var1,marq.getText().toString(),autr.getText().toString());
-                //update debut
-                int var2=Integer.parseInt(bd.selectStockBes(besoin.getText().toString()));
-                int var3=var2-var1;
-                bd.upDate(var3,besoin.getText().toString());
-                //update fin
+                else if (besoin.getText().toString().equals(""))
+                {
+                    Toast.makeText(getBaseContext(),"Veuillez saisir le nom du besoin SVP!!",Toast.LENGTH_LONG).show();
+                    besoin.requestFocus();
+                }
+                else if (qut.getText().toString().equals(""))
+                {
+                    Toast.makeText(getBaseContext(),"Veuillez saisir le prix unitaire SVP!!",Toast.LENGTH_LONG).show();
+                    qut.requestFocus();
+                }
+               else {
 
-                besoin.setText("");
-                qut.setText("");
-                marq.setText("");
-                autr.setText("");
-                bd.close();
 
-                Toast.makeText(getBaseContext(),"Sortie enregistrée avec succès !!",Toast.LENGTH_LONG).show();
+                    String num = new String();
+                    if (employe.isEnabled()) {
+                        num = bd.selectNumeDem(demande.getText().toString(), employe.getText().toString());
+                    }
+                    if (departement.isEnabled()) {
+                        num = bd.selectNumeDem1(demande.getText().toString(), departement.getText().toString());
+                    }
+                    int dernierEnr;
+                    // bd.insertSortie(date.getText().toString(),num);
+                    // bd.close();
+                    String a, b, c;
+                    a = date.getText().toString().substring(0, 2);
+                    b = date.getText().toString().substring(3, 5);
+                    c = date.getText().toString().substring(6, 10);
+                    date.setText(c + "-" + b + "-" + a);
+                    bd.insertSortie(date.getText().toString(), num);
+                    dernierEnr = Integer.parseInt(bd.selectIdSortie());
+                    //NumSor` INTEGER, `NumBes` INTEGER, `Qte` INTEGER NOT NULL, `MarqueBes` TEXT, `Autre précision`
+                    int var = Integer.parseInt(bd.selectIdBes(besoin.getText().toString()));
+                    int var1 = Integer.parseInt(qut.getText().toString());
+                    bd.insertSortieBesoin(dernierEnr, var, var1, marq.getText().toString(), autr.getText().toString());
+                    //update debut
+                    int var2 = Integer.parseInt(bd.selectStockBes(besoin.getText().toString()));
+                    int var3 = var2 - var1;
+                    bd.upDate(var3, besoin.getText().toString());
+                    //update fin
 
-                fait=true;
+                    besoin.setText("");
+                    qut.setText("");
+                    marq.setText("");
+                    autr.setText("");
+                    bd.close();
+
+                    Toast.makeText(getBaseContext(), "Sortie enregistrée avec succès !!", Toast.LENGTH_LONG).show();
+                    fait = true;
+                }
             }
         });
         Button passa=(Button)findViewById(R.id.enreg);
         passa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String num=new String();
-                if (employe.isEnabled()) {
-                    num = bd.selectNumeDem(demande.getText().toString(), employe.getText().toString());
+                if(date.getText().toString().equals(""))
+                {
+                    Toast.makeText(getBaseContext(),"Veuillez saisir la date de sortie SVP!!",Toast.LENGTH_LONG).show();
+                    date.requestFocus();
                 }
-                if (departement.isEnabled()) {
-                    num = bd.selectNumeDem1(demande.getText().toString(), departement.getText().toString());
+                else if (demande.getText().toString().equals(""))
+                {
+                    Toast.makeText(getBaseContext(),"Veuillez saisir la date de la demande SVP!!",Toast.LENGTH_LONG).show();
+                    demande.requestFocus();
                 }
-                int dernierEnr;
-                // bd.insertSortie(date.getText().toString(),num);
-                // bd.close();
-
-                if (fait==false){
-                    String a,b,c;
-                    a=date.getText().toString().substring(0,2);
-                    b=date.getText().toString().substring(3,5);
-                    c=date.getText().toString().substring(6,10);
-                    date.setText(c+"-"+b+"-"+a);
-                    bd.insertSortie(date.getText().toString(),num);
+                else if (besoin.getText().toString().equals(""))
+                {
+                    Toast.makeText(getBaseContext(),"Veuillez saisir le nom du besoin SVP!!",Toast.LENGTH_LONG).show();
+                    besoin.requestFocus();
                 }
+                else if (qut.getText().toString().equals(""))
+                {
+                    Toast.makeText(getBaseContext(),"Veuillez saisir le prix unitaire SVP!!",Toast.LENGTH_LONG).show();
+                    qut.requestFocus();
+                }
+                else {
+                    String num = new String();
+                    if (employe.isEnabled()) {
+                        num = bd.selectNumeDem(demande.getText().toString(), employe.getText().toString());
+                    }
+                    if (departement.isEnabled()) {
+                        num = bd.selectNumeDem1(demande.getText().toString(), departement.getText().toString());
+                    }
+                    int dernierEnr;
+                    // bd.insertSortie(date.getText().toString(),num);
+                    // bd.close();
+
+                    if (fait == false) {
+                        String a, b, c;
+                        a = date.getText().toString().substring(0, 2);
+                        b = date.getText().toString().substring(3, 5);
+                        c = date.getText().toString().substring(6, 10);
+                        date.setText(c + "-" + b + "-" + a);
+                        bd.insertSortie(date.getText().toString(), num);
+                    }
 
 
+                    dernierEnr = Integer.parseInt(bd.selectIdSortie());
+                    //NumSor` INTEGER, `NumBes` INTEGER, `Qte` INTEGER NOT NULL, `MarqueBes` TEXT, `Autre précision`
+                    int var = Integer.parseInt(bd.selectIdBes(besoin.getText().toString()));
+                    int var1 = Integer.parseInt(qut.getText().toString());
+                    bd.insertSortieBesoin(dernierEnr, var, var1, marq.getText().toString(), autr.getText().toString());
+                    //update debut
+                    int var2 = Integer.parseInt(bd.selectStockBes(besoin.getText().toString()));
+                    int var3 = var2 - var1;
+                    bd.upDate(var3, besoin.getText().toString());
+                    //update fin
 
-
-                dernierEnr=Integer.parseInt(bd.selectIdSortie());
-                //NumSor` INTEGER, `NumBes` INTEGER, `Qte` INTEGER NOT NULL, `MarqueBes` TEXT, `Autre précision`
-                int var=Integer.parseInt(bd.selectIdBes(besoin.getText().toString()));
-                int var1=Integer.parseInt(qut.getText().toString());
-                bd.insertSortieBesoin(dernierEnr,var,var1,marq.getText().toString(),autr.getText().toString());
-                //update debut
-                int var2=Integer.parseInt(bd.selectStockBes(besoin.getText().toString()));
-                int var3=var2-var1;
-                bd.upDate(var3,besoin.getText().toString());
-                //update fin
-
-                bd.close();
-                Toast.makeText(getBaseContext(),"Sortie enregistrée avec succès !!",Toast.LENGTH_LONG).show();
-                Intent intent=new Intent(BringOut.this,Acceuil.class);
-                startActivity(intent);
+                    bd.close();
+                    Toast.makeText(getBaseContext(), "Sortie enregistrée avec succès !!", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(BringOut.this, Acceuil.class);
+                    startActivity(intent);
+                }
             }
         });
 
