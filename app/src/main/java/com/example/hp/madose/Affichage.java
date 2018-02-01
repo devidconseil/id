@@ -75,11 +75,13 @@ public class Affichage extends AppCompatActivity {
 
        if (getIntent().getStringExtra("passage").equals("fournisseur"))
         {
-            listView = (ListView) findViewById(R.id.listeview);
-            List<FournisseurC> fourni= bd.afficheF();
-            ArrayAdapter<FournisseurC> adapter = new ArrayAdapter<FournisseurC>(this, android.R.layout.simple_list_item_1,fourni);
-            listView.setAdapter(adapter);
 
+            fournisseur = (TextView) findViewById(R.id.textView4);
+
+            List<FournisseurC> affF = bd.afficheF();
+            for (FournisseurC emp : affF) {
+                fournisseur.append(emp.toString() + "\n\n");
+            }
         }
 
         else if (getIntent().getStringExtra("passage").equals("departement"))
@@ -130,10 +132,6 @@ public class Affichage extends AppCompatActivity {
 
         if (getIntent().getStringExtra("passage").equals("besoin")) {
              employe = (TextView) findViewById(R.id.textView4);
-/*
-
-
-        }*/
              List<BesoinC> affC = bd.afficheB();
              for (BesoinC emp : affC) {
                  employe.append(emp.toString() + "\n\n");
@@ -241,7 +239,7 @@ public class Affichage extends AppCompatActivity {
             List<RuptureC> affF = bd.RupureCheck();
             //     Toast.makeText(getBaseContext(),getIntent().getStringExtra("passage"),Toast.LENGTH_LONG);
             for (RuptureC emp : affF) {
-                cout.append(emp.toString() + "\n\n");
+                cout.append(emp.toString() + "\n");
             }
             if (MyApplication.isDone()){
                 AlertDialog.Builder builder = new AlertDialog.Builder(Affichage.this);
@@ -254,7 +252,6 @@ public class Affichage extends AppCompatActivity {
                 });
                 builder.create();
                 builder.show();
-
 
             }
             else{
@@ -287,7 +284,7 @@ public class Affichage extends AppCompatActivity {
             List<RuptureC> affF = bd.RupureCheck();
             //     Toast.makeText(getBaseContext(),getIntent().getStringExtra("passage"),Toast.LENGTH_LONG);
             for (RuptureC emp : affF) {
-                cout.append(emp.toString() + "\n\n");
+                cout.append(emp.toString()+"\n\n");
             }
 
         }
@@ -313,13 +310,58 @@ public class Affichage extends AppCompatActivity {
 
         }
 
-     findViewById(R.id.floatingActionButton).setOnClickListener(new View.OnClickListener() {
+     findViewById(R.id.floatingRetour).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(Affichage.this,Acceuil.class);
                 startActivity(intent);
             }
         });
+     findViewById(R.id.floatingAjout).setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+             if (getIntent().getStringExtra("passage").equals("fournisseur"))
+             {
+                 Intent intent=new Intent(Affichage.this,Fournisseur.class);
+                 startActivity(intent);
+             }
+             else if (getIntent().getStringExtra("passage").equals("departement"))
+             {
+                 Intent intent=new Intent(Affichage.this,Departement.class);
+                 startActivity(intent);
+             }
+            else if (getIntent().getStringExtra("passage").equals("employe"))
+             {
+                 Intent intent=new Intent(Affichage.this,Employe.class);
+                 startActivity(intent);
+             }
+             else if (getIntent().getStringExtra("passage").equals("categorie"))
+             {
+                 Intent intent=new Intent(Affichage.this,Categorie.class);
+                 startActivity(intent);
+             }
+             else  if (getIntent().getStringExtra("passage").equals("besoin"))
+             {
+                 Intent intent=new Intent(Affichage.this,Besoin.class);
+                 startActivity(intent);
+             }
+             else if (getIntent().getStringExtra("passage").equals("sortie")) {
+
+                 Intent intent=new Intent(Affichage.this,BringOut.class);
+                 startActivity(intent);
+             }
+             else if (getIntent().getStringExtra("passage").equals("entree"))
+             {
+                 Intent intent=new Intent(Affichage.this,Add.class);
+                 startActivity(intent);
+             }
+             else if (getIntent().getStringExtra("passage").equals("demande"))
+             {
+                 Intent intent=new Intent(Affichage.this,Demande.class);
+                 startActivity(intent);
+             }
+         }
+     });
 
     }
 }

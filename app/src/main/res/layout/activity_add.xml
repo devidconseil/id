@@ -4,6 +4,7 @@
     android:id="@+id/activity_add"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#717C7D"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -13,99 +14,132 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_marginTop="42dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
                 android:id="@+id/datepik"
-                android:hint="Date" />
-
-            <AutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#000"
+                android:ems="10"
+                android:hint="Date"
+                android:textColorHint="#fff" />
+
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteFour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#000"
                 android:hint="Fournisseur"
-                android:id="@+id/autoCompleteFour" />
+                android:textColorHint="#fff" />
 
             <AutoCompleteTextView
+                android:id="@+id/autoCompleteBesoin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#000"
                 android:hint="Besoin"
-                android:id="@+id/autoCompleteBesoin" />
+                android:textColorHint="#fff" />
 
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:backgroundTint="#000"
+                android:textColorHint="#fff">
 
                 <EditText
+                    android:id="@+id/PU"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
+                    android:backgroundTint="#000"
                     android:hint="Prix Unitaire"
-                    android:id="@+id/PU" />
+                    android:inputType="numberDecimal"
+                    android:textColorHint="#fff" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:backgroundTint="#000"
+                android:textColorHint="#fff">
 
                 <EditText
+                    android:id="@+id/QT"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
+                    android:backgroundTint="#000"
                     android:hint="Quantité"
-                    android:id="@+id/QT" />
+                    android:inputType="number"
+                    android:textColorHint="#fff" />
             </android.support.design.widget.TextInputLayout>
 
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:backgroundTint="#000"
+                android:textColorHint="#fff">
 
                 <EditText
+                    android:id="@+id/marq"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Marque"
-                    android:id="@+id/marq" />
+                    android:hint="Marque" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:backgroundTint="#000"
+                android:textColorHint="#fff">
 
                 <EditText
+                    android:id="@+id/autre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Autre précision"
-                    android:id="@+id/autre" />
+                    android:hint="Autre précision" />
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                    android:text="Ajouter"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/AjouterEn"
-                    android:layout_weight="1" />
+                android:id="@+id/AjouterEn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#fff"
+                android:text="Ajouter"
+                android:textColor="#41AEFF" />
 
-                <Button
-                    android:text="Enregistrer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/EnregistrerEn"
-                    android:layout_weight="1" />
+            <Button
+                android:id="@+id/EnregistrerEn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="#41AEFF"
+                android:text="Enregistrer"
+                android:textColor="@color/cardview_light_background" />
 
+            <Button
+                android:id="@+id/quitter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:backgroundTint="#ff6666"
+                android:text="Quitter"
+                android:textColor="#fff" />
 
 
         </LinearLayout>
     </ScrollView>
+
 </RelativeLayout>

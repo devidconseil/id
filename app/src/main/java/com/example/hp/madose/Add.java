@@ -95,6 +95,33 @@ public class Add extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                if(date.getText().toString().equals(""))
+                {
+                    Toast.makeText(getBaseContext(),"Veuillez saisir la date d'approvisionnement SVP!!",Toast.LENGTH_LONG).show();
+                    date.requestFocus();
+                }
+                else if (four.getText().toString().equals(""))
+                {
+                    Toast.makeText(getBaseContext(),"Veuillez saisir le nom du fournisseur de cette approvisionnement SVP!!",Toast.LENGTH_LONG).show();
+                    four.requestFocus();
+                }
+                else if (besoin.getText().toString().equals(""))
+                {
+                    Toast.makeText(getBaseContext(),"Veuillez saisir le nom du besoin SVP!!",Toast.LENGTH_LONG).show();
+                    besoin.requestFocus();
+                }
+                else if (pu.getText().toString().equals(""))
+                {
+                    Toast.makeText(getBaseContext(),"Veuillez saisir le prix unitaire SVP!!",Toast.LENGTH_LONG).show();
+                    pu.requestFocus();
+                }
+                else if (qte.getText().toString().equals(""))
+                {
+                    Toast.makeText(getBaseContext(),"Veuillez saisir la quantité SVP!!",Toast.LENGTH_LONG).show();
+                    qte.requestFocus();
+                }
+
+                else {
                 String a,b,c;
                 a=date.getText().toString().substring(0,2);
                 b=date.getText().toString().substring(3,5);
@@ -131,6 +158,7 @@ public class Add extends AppCompatActivity {
                 dd.close();
                 Toast.makeText(getBaseContext(),"Approvisionnement enregistré avec succès !!",Toast.LENGTH_SHORT).show();
                 fait=true;
+                }
 
             }
         });
@@ -140,38 +168,76 @@ public class Add extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (fait==false){
-                    String a,b,c;
-                    a=date.getText().toString().substring(0,2);
-                    b=date.getText().toString().substring(3,5);
-                    c=date.getText().toString().substring(6,10);
-                    date.setText(c+"-"+b+"-"+a);
-                    int var=Integer.parseInt(dd.selectFour(four.getText().toString()));
-                    dd.insertEntr(date.getText().toString(),var);
+                if(date.getText().toString().equals(""))
+                {
+                    Toast.makeText(getBaseContext(),"Veuillez saisir la date d'approvisionnement SVP!!",Toast.LENGTH_LONG).show();
+                    date.requestFocus();
+                }
+                else if (four.getText().toString().equals(""))
+                {
+                    Toast.makeText(getBaseContext(),"Veuillez saisir le nom du fournisseur de cette approvisionnement SVP!!",Toast.LENGTH_LONG).show();
+                    four.requestFocus();
+                }
+                else if (besoin.getText().toString().equals(""))
+                {
+                    Toast.makeText(getBaseContext(),"Veuillez saisir le nom du besoin SVP!!",Toast.LENGTH_LONG).show();
+                    besoin.requestFocus();
+                }
+                else if (pu.getText().toString().equals(""))
+                {
+                    Toast.makeText(getBaseContext(),"Veuillez saisir le prix unitaire SVP!!",Toast.LENGTH_LONG).show();
+                    pu.requestFocus();
+                }
+                else if (qte.getText().toString().equals(""))
+                {
+                    Toast.makeText(getBaseContext(),"Veuillez saisir la quantité SVP!!",Toast.LENGTH_LONG).show();
+                    qte.requestFocus();
                 }
 
+                else {
+                    if (fait == false) {
+                        String a, b, c;
+                        a = date.getText().toString().substring(0, 2);
+                        b = date.getText().toString().substring(3, 5);
+                        c = date.getText().toString().substring(6, 10);
+                        date.setText(c + "-" + b + "-" + a);
+                        int var = Integer.parseInt(dd.selectFour(four.getText().toString()));
+                        dd.insertEntr(date.getText().toString(), var);
+                    }
 
-                int var1=Integer.parseInt(dd.selectIdBes(besoin.getText().toString()));
 
-                int quantite=Integer.parseInt(qte.getText().toString());
-                int prix=Integer.parseInt(pu.getText().toString());
+                    int var1 = Integer.parseInt(dd.selectIdBes(besoin.getText().toString()));
+
+                    int quantite = Integer.parseInt(qte.getText().toString());
+                    int prix = Integer.parseInt(pu.getText().toString());
 
 
-                int dernierEnregistrem= Integer.parseInt(dd.selectIdEnt());
-                dd.insertEntrBes(var1,dernierEnregistrem,prix,quantite,mark.getText().toString(),autre.getText().toString());
+                    int dernierEnregistrem = Integer.parseInt(dd.selectIdEnt());
+                    dd.insertEntrBes(var1, dernierEnregistrem, prix, quantite, mark.getText().toString(), autre.getText().toString());
 
-                //update debut
-                int var2=Integer.parseInt(dd.selectStockBes(besoin.getText().toString()));
-                int var3=var2+quantite;
-                dd.upDate(var3,besoin.getText().toString());
-                //update fin
+                    //update debut
+                    int var2 = Integer.parseInt(dd.selectStockBes(besoin.getText().toString()));
+                    int var3 = var2 + quantite;
+                    dd.upDate(var3, besoin.getText().toString());
+                    //update fin
 
-                dd.close();
-                Toast.makeText(getBaseContext(),"Approvisionnement enregistré avec succès !!",Toast.LENGTH_SHORT).show();
+                    dd.close();
+                    Toast.makeText(getBaseContext(), "Approvisionnement enregistré avec succès !!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Add.this, Acceuil.class);
+                    startActivity(intent);
+                }
+
+            }
+        });
+        Button quitter=(Button)findViewById(R.id.quitter);
+        quitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Intent intent=new Intent(Add.this,Acceuil.class);
                 startActivity(intent);
 
             }
         });
+
     }
 }

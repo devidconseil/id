@@ -5,13 +5,12 @@
     android:id="@+id/content_acceuil"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:background="#717C7D"
     android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
     android:weightSum="10"
-    android:background="@drawable/bg"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.hp.madose.Acceuil"
     tools:showIn="@layout/app_bar_acceuil">
@@ -24,11 +23,13 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerInParent="true"
+            android:gravity="center"
             android:text="Accueil"
-            android:textColor="@android:color/white"
-            android:textSize="40sp" />
+            android:textColor="#fff"
+            android:textSize="40dp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
@@ -38,7 +39,7 @@
         android:layout_weight="8"
         android:alignmentMode="alignMargins"
         android:columnCount="2"
-        android:padding="20dp"
+        android:padding="5dp"
         android:rowCount="2">
 
         <android.support.v7.widget.CardView
@@ -46,13 +47,12 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_columnWeight="1"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="1dp"
             android:layout_rowWeight="1"
-            app:cardElevation="8dp"
-
-            >
+            app:cardBackgroundColor="#ff66"
+            app:cardElevation="8dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -71,8 +71,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-20dp"
                     android:gravity="center"
+
                     android:text="Entrée"
-                    android:textColor="@android:color/black"
+                    android:textColor="#352bff"
                     android:textSize="3mm"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -84,13 +85,12 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_columnWeight="1"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="0dp"
             android:layout_rowWeight="1"
-            app:cardElevation="8dp"
-
-            >
+            app:cardBackgroundColor="#41AEFF"
+            app:cardElevation="8dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -110,7 +110,7 @@
                     android:layout_marginTop="-20dp"
                     android:gravity="center"
                     android:text="Demande"
-                    android:textColor="@android:color/black"
+                    android:textColor="#fff"
                     android:textSize="3mm"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -123,12 +123,11 @@
             android:layout_height="0dp"
             android:layout_columnWeight="1"
             android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="1dp"
             android:layout_rowWeight="1"
-            app:cardElevation="8dp"
-
-            >
+            app:cardBackgroundColor="#2b5a83"
+            app:cardElevation="8dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -149,7 +148,7 @@
                     android:gravity="center"
                     android:text="Sortie"
                     android:textAlignment="center"
-                    android:textColor="@android:color/black"
+                    android:textColor="#fff"
                     android:textSize="3mm"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -162,12 +161,11 @@
             android:layout_height="0dp"
             android:layout_columnWeight="1"
             android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="0dp"
             android:layout_rowWeight="1"
-            app:cardElevation="8dp"
-
-            >
+            app:cardBackgroundColor="@color/cardview_light_background"
+            app:cardElevation="8dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -187,7 +185,7 @@
                     android:layout_marginTop="-10dp"
                     android:gravity="center"
                     android:text="Mouvements"
-                    android:textColor="@android:color/black"
+                    android:textColor="#000"
                     android:textSize="2mm"
                     android:textStyle="bold" />
             </LinearLayout>
