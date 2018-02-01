@@ -4,7 +4,7 @@
     android:id="@+id/activity_add"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/common_action_bar_splitter"
+    android:background="#717C7D"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -28,50 +28,66 @@
                 android:id="@+id/datepik"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#000"
                 android:ems="10"
-                android:hint="Date" />
+                android:hint="Date"
+                android:textColorHint="#fff" />
 
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteFour"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Fournisseur" />
+                android:backgroundTint="#000"
+                android:hint="Fournisseur"
+                android:textColorHint="#fff" />
 
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteBesoin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Besoin" />
+                android:backgroundTint="#000"
+                android:hint="Besoin"
+                android:textColorHint="#fff" />
 
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:backgroundTint="#000"
+                android:textColorHint="#fff">
 
                 <EditText
                     android:id="@+id/PU"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="#000"
                     android:hint="Prix Unitaire"
-                    android:inputType="numberDecimal" />
+                    android:inputType="numberDecimal"
+                    android:textColorHint="#fff" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:backgroundTint="#000"
+                android:textColorHint="#fff">
 
                 <EditText
                     android:id="@+id/QT"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="#000"
                     android:hint="Quantité"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:textColorHint="#fff" />
             </android.support.design.widget.TextInputLayout>
 
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:backgroundTint="#000"
+                android:textColorHint="#fff">
 
                 <EditText
                     android:id="@+id/marq"
@@ -82,7 +98,9 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:backgroundTint="#000"
+                android:textColorHint="#fff">
 
                 <EditText
                     android:id="@+id/autre"
@@ -96,16 +114,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="@color/cardview_light_background"
+                android:backgroundTint="#fff"
                 android:text="Ajouter"
-                android:textColor="#27a69a" />
+                android:textColor="#41AEFF" />
 
             <Button
                 android:id="@+id/EnregistrerEn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="#27a69a"
+                android:backgroundTint="#41AEFF"
                 android:text="Enregistrer"
                 android:textColor="@color/cardview_light_background" />
 
@@ -116,9 +134,9 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:backgroundTint="@color/cardview_light_background"
+                android:backgroundTint="#ff6666"
                 android:text="Quitter"
-                android:textColor="@android:color/holo_orange_dark" />
+                android:textColor="#fff" />
 
 
         </LinearLayout>

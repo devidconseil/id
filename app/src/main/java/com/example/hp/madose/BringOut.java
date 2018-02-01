@@ -274,6 +274,14 @@ public class BringOut extends AppCompatActivity {
             }
         });
 
+        Button quitter=(Button)findViewById(R.id.quitte);
+        quitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(BringOut.this,Acceuil.class);
+                startActivity(intent);
 
+            }
+        });
     }
 }

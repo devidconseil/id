@@ -237,7 +237,7 @@ public class Affichage extends AppCompatActivity {
             List<RuptureC> affF = bd.RupureCheck();
             //     Toast.makeText(getBaseContext(),getIntent().getStringExtra("passage"),Toast.LENGTH_LONG);
             for (RuptureC emp : affF) {
-                cout.append(emp.toString() + "\n\n");
+                cout.append(emp.toString() + "\n");
             }
             if (MyApplication.isDone()){
                 AlertDialog.Builder builder = new AlertDialog.Builder(Affichage.this);
@@ -250,7 +250,6 @@ public class Affichage extends AppCompatActivity {
                 });
                 builder.create();
                 builder.show();
-
 
             }
             else{
@@ -283,7 +282,7 @@ public class Affichage extends AppCompatActivity {
             List<RuptureC> affF = bd.RupureCheck();
             //     Toast.makeText(getBaseContext(),getIntent().getStringExtra("passage"),Toast.LENGTH_LONG);
             for (RuptureC emp : affF) {
-                cout.append(emp.toString() + "\n\n");
+                cout.append(emp.toString()+"\n\n");
             }
 
         }

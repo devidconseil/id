@@ -6,6 +6,7 @@
     android:id="@+id/activity_besoin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#717C7D"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -15,20 +16,22 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/textInputLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/groupeRadio">
+                android:layout_below="@id/groupeRadio"
+                android:backgroundTint="#000"
+                android:textColorHint="#fff">
 
                 <EditText
                     android:id="@+id/seuil"
@@ -40,20 +43,24 @@
 
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/textInputLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/imageView3"
                 android:layout_alignParentLeft="true"
-                android:id="@+id/textInputLayout3" android:layout_alignParentStart="true">
-            <EditText
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/imageView3"
+                android:backgroundTint="#000"
+                android:textColorHint="#fff">
 
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:id="@+id/libelle"
-                android:hint="Libellé" />
+                <EditText
+
+                    android:id="@+id/libelle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Libellé"
+                    android:inputType="textPersonName" />
             </android.support.design.widget.TextInputLayout>
-<!--
+            <!--
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -72,23 +79,29 @@
                 android:id="@+id/enregistre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/textInputLayout"
-                android:text="Valider" />
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textInputLayout4"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:id="@+id/textInputLayout6">
+                android:layout_below="@+id/textInputLayout"
+                android:backgroundTint="#41AEFF"
+                android:text="Valider"
+                android:textColor="#fff" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/textInputLayout6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/textInputLayout4"
+                android:backgroundTint="#000"
+                android:textColorHint="#fff">
 
                 <EditText
+                    android:id="@+id/peremption"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="date"
                     android:hint="Date de péremption"
-                    android:id="@+id/peremption" />
+                    android:inputType="date" />
             </android.support.design.widget.TextInputLayout>
 
             <AutoCompleteTextView
@@ -96,8 +109,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textInputLayout3"
+                android:backgroundTint="#000"
                 android:completionHint="Catégorie"
-                android:hint="Catégorie" />
+                android:hint="Catégorie"
+                android:textColorHint="#fff" />
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/textInputLayout"
@@ -105,7 +120,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/textInputLayout6">
+                android:layout_below="@+id/textInputLayout6"
+                android:backgroundTint="#000"
+                android:textColorHint="#fff">
 
                 <EditText
                     android:id="@+id/stock"
@@ -120,7 +137,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-
                 android:layout_alignParentStart="true"
                 android:layout_below="@id/autoComplCat">
 
@@ -128,7 +144,7 @@
                     android:id="@+id/radioNonAm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    android:textColor="#fff"
                     android:onClick="radioBout"
                     android:text="NON AMORTISSABLE" />
 
@@ -136,7 +152,7 @@
                     android:id="@+id/radioAm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    android:textColor="#fff"
                     android:onClick="radioBout"
                     android:text="AMORTISSABLE" />
 
@@ -149,11 +165,13 @@
                 app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
 
             <Button
+                android:id="@+id/quitterB"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/enregistre"
+                android:backgroundTint="#ff6666"
                 android:text="Quitter"
-                android:id="@+id/quitterB"
-                android:layout_below="@+id/enregistre"/>
+                android:textColor="#fff" />
 
         </RelativeLayout>
     </ScrollView>

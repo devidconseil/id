@@ -4,7 +4,7 @@
     android:id="@+id/activity_demande"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/common_action_bar_splitter"
+    android:background="#717C7D"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -15,12 +15,14 @@
         android:id="@+id/dateDemande"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/textView5"
+        android:layout_above="@+id/textView5"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:backgroundTint="#000"
         android:ems="10"
         android:hint="Date "
-        android:inputType="date" />
+        android:inputType="date"
+        android:textColorHint="#fff" />
 
     <Button
         android:id="@+id/annul"
@@ -30,7 +32,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="65dp"
-        android:backgroundTint="#27a69a"
+        android:backgroundTint="#41AEFF"
         android:text="Enregistrer"
         android:textColor="@color/cardview_light_background" />
 
@@ -41,9 +43,11 @@
         android:layout_above="@+id/ajout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:backgroundTint="#000"
         android:ems="10"
         android:hint="Quantité"
-        android:inputType="number" />
+        android:inputType="number"
+        android:textColorHint="#fff" />
 
     <AutoCompleteTextView
         android:id="@+id/autoCompBes"
@@ -52,7 +56,9 @@
         android:layout_above="@+id/editqt"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:hint="Besoin" />
+        android:backgroundTint="#000"
+        android:hint="Besoin"
+        android:textColorHint="#fff" />
 
     <AutoCompleteTextView
         android:id="@+id/autoCompDep"
@@ -61,7 +67,9 @@
         android:layout_above="@+id/autoCompBes"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:backgroundTint="#000"
         android:hint="Departement"
+        android:textColorHint="#fff"
         android:visibility="invisible" />
 
     <Button
@@ -73,7 +81,7 @@
         android:layout_alignParentStart="true"
         android:backgroundTint="@color/cardview_light_background"
         android:text="Ajouter"
-        android:textColor="@color/colorAccent" />
+        android:textColor="@android:color/holo_blue_dark" />
 
     <AutoCompleteTextView
         android:id="@+id/autoCompEmp"
@@ -82,17 +90,21 @@
         android:layout_above="@+id/autoCompBes"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:backgroundTint="#000"
         android:hint="Employé"
+        android:textColorHint="#fff"
         tools:visibility="visible" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_above="@+id/radio_group"
         android:layout_alignParentLeft="true"
         android:text="Le bénéficiaire est un :"
-        android:textColor="@color/colorPrimaryDark" />
+        android:textColor="#fff"
+        android:textStyle="bold" />
 
     <RadioGroup
         android:id="@+id/radio_group"
@@ -105,13 +117,13 @@
             android:id="@+id/radioButton_emp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_above="@id/autoCompEmp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-
             android:layout_weight="1"
-            android:text="Employé" />
+
+            android:text="Employé"
+            android:textColor="#fff" />
 
         <RadioButton
             android:id="@+id/radioButton_dep"
@@ -119,10 +131,9 @@
             android:layout_height="wrap_content"
             android:layout_above="@id/autoCompEmp"
             android:layout_toRightOf="@id/radioButton_emp"
-
-
             android:layout_weight="1"
-            android:text="Departement" />
+            android:text="Departement"
+            android:textColor="#fff" />
     </RadioGroup>
 
     <Button
@@ -132,10 +143,10 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="15dp"
-        android:backgroundTint="@color/cardview_light_background"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#ff6666"
         android:text="Quitter"
-        android:textColor="@android:color/holo_orange_dark" />
+        android:textColor="@android:color/background_light" />
 
 
 </RelativeLayout>

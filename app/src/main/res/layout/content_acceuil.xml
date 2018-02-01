@@ -5,11 +5,11 @@
     android:id="@+id/content_acceuil"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2b5a83"
+    android:background="#717C7D"
     android:orientation="vertical"
-    android:paddingRight="16dp"
-    android:paddingLeft="16dp"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
     android:weightSum="10"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.hp.madose.Acceuil"
@@ -51,7 +51,7 @@
             android:layout_marginLeft="0dp"
             android:layout_marginRight="1dp"
             android:layout_rowWeight="1"
-            app:cardBackgroundColor="#effb2f"
+            app:cardBackgroundColor="#ff66"
             app:cardElevation="8dp">
 
             <LinearLayout
@@ -89,7 +89,7 @@
             android:layout_marginLeft="1dp"
             android:layout_marginRight="0dp"
             android:layout_rowWeight="1"
-            app:cardBackgroundColor="#fc303b"
+            app:cardBackgroundColor="#41AEFF"
             app:cardElevation="8dp">
 
             <LinearLayout
@@ -126,7 +126,7 @@
             android:layout_marginLeft="0dp"
             android:layout_marginRight="1dp"
             android:layout_rowWeight="1"
-            app:cardBackgroundColor="#fc303b"
+            app:cardBackgroundColor="#2b5a83"
             app:cardElevation="8dp">
 
             <LinearLayout
@@ -164,7 +164,7 @@
             android:layout_marginLeft="1dp"
             android:layout_marginRight="0dp"
             android:layout_rowWeight="1"
-            app:cardBackgroundColor="#effb2f"
+            app:cardBackgroundColor="@color/cardview_light_background"
             app:cardElevation="8dp">
 
             <LinearLayout

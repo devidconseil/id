@@ -9,22 +9,24 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.hp.madose.Categorie">
+
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:id="@+id/textInputLayout2">
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/editCat"
-        android:hint="Catégorie" />
-</android.support.design.widget.TextInputLayout>
+        android:layout_marginTop="200dp">
+
+        <EditText
+            android:id="@+id/editCat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:ems="10"
+            android:hint="Catégorie"
+            android:inputType="textPersonName" />
+    </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/buttonAn"
@@ -33,15 +35,19 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/valCat"
-        android:text="Annuler" />
+        android:backgroundTint="#ff6666"
+        android:text="Annuler"
+        android:textColor="#fff" />
 
     <Button
-        android:text="Valider"
+        android:id="@+id/valCat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:id="@+id/valCat"
-        android:layout_below="@+id/textInputLayout2"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textInputLayout2"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#41AEFF"
+        android:text="Valider"
+        android:textColor="#fff" />
 </RelativeLayout>

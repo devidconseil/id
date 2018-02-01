@@ -229,6 +229,15 @@ public class Add extends AppCompatActivity {
 
             }
         });
+        Button quitter=(Button)findViewById(R.id.quitter);
+        quitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Add.this,Acceuil.class);
+                startActivity(intent);
+
+            }
+        });
 
     }
 }
