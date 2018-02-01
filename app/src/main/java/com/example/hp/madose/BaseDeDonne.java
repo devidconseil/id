@@ -852,7 +852,7 @@ public ArrayList<String> affiNumDem(int idemp)
         List<StockC>affS=new ArrayList<>();
 
 
-        String req="select LibBes,TypeBes,StockBes,date(AmorBes,'unixepoch') from Besoin;";
+        String req="select LibBes,TypeBes,date(AmorBes,'unixepoch'),Image from Besoin;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -860,7 +860,7 @@ public ArrayList<String> affiNumDem(int idemp)
         while (!cursor.isAfterLast())
         {
 
-            StockC disp=new StockC(cursor.getString(0),cursor.getString(1),cursor.getInt(2),cursor.getString(3));
+            StockC disp=new StockC(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3));
 
             affS.add(disp);
             cursor.moveToNext();

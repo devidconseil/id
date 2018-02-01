@@ -90,6 +90,12 @@ public class StockC {
         DateAmor = dateAmor;
         ImageBes= imageBes;
     }
+    public StockC(String libBes, String typeBes, String dateAmor,int imageBes) {
+        LibBes = libBes;
+        TypeBes = typeBes;
+        DateAmor = dateAmor;
+        ImageBes= imageBes;
+    }
 
   /*  @Override
     public String toString() {
@@ -108,9 +114,8 @@ public class StockC {
 
     public String toString1() {
         return
-                "\nLibellé du besoin: " + LibBes +
-                        "\nType: " + TypeBes +
-                        "\nStock du besoin: " + StockBes +
+                LibBes +
+                        "\n " + TypeBes +
                         "\nDate d\'amortissement: " + DateAmor + "\n";
     }
 }

@@ -157,12 +157,14 @@ public class Affichage extends AppCompatActivity {
 
                 }
             }
-       /*      for (StockC emp : affS1) {
+            for (StockC emp : affS1) {
                 if (emp.getTypeBes().equals("AMORTISSABLE")) {
-                    stock.append(emp.toString1() + "\n\n");
+                  //  stock.append(emp.toString1() + "\n\n");
+                    list.add(emp.toString1());
+                    list1.add(emp.getImageBes());
                 }
 
-            }  */
+            }
        StockAffichAdapter arrayAdapter=new StockAffichAdapter(this,list,list1);
           gridView.setAdapter(arrayAdapter);
           gridView.setVisibility(View.VISIBLE);
