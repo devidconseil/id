@@ -15,11 +15,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
             <EditText
                 android:id="@+id/editDate"
                 android:layout_width="match_parent"
@@ -77,27 +77,27 @@
             </RadioGroup>
 
             <AutoCompleteTextView
-                android:id="@+id/autoEmp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/autoDep"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:hint="Employé"
-                android:textColor="@color/cardview_light_background"
-                android:textColorHint="@color/common_action_bar_splitter" />
-
-            <AutoCompleteTextView
                 android:id="@+id/autoDep"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/autoDep"
+                android:layout_below="@+id/radioGroup"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:hint="Departement"
                 android:textColor="#fff"
                 android:textColorHint="@color/common_action_bar_splitter"
                 android:visibility="invisible" />
+
+            <AutoCompleteTextView
+                android:id="@+id/autoEmp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/radioGroup"
+                android:hint="Employé"
+                android:textColor="@color/cardview_light_background"
+                android:textColorHint="@color/common_action_bar_splitter" />
 
             <AutoCompleteTextView
                 android:id="@+id/autoDemande"
@@ -154,7 +154,8 @@
                 android:layout_below="@+id/autoCompMark"
                 android:hint="Autres précisions"
                 android:textColor="@color/colorPrimaryDark"
-                android:textColorHint="#788287" />
+                android:textColorHint="@color/common_action_bar_splitter"
+              />
 
             <Button
                 android:id="@+id/sortiVal"
@@ -165,7 +166,7 @@
                 android:layout_below="@+id/autoCompAutre"
                 android:backgroundTint="@color/common_plus_signin_btn_text_dark_pressed"
                 android:text="Ajouter"
-                android:textColor="#27a69a" />
+                android:textColor="#41AEFF" />
 
             <Button
                 android:id="@+id/enreg"
@@ -174,7 +175,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/sortiVal"
-                android:backgroundTint="#27a69a"
+                android:backgroundTint="#41AEFF"
                 android:backgroundTintMode="src_over"
                 android:text="Enregistrer"
                 android:textColor="#fff" />
@@ -185,9 +186,11 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="#ff6666"
                 android:text="Quitter"
-                android:textColor="#fff" />
+                android:textColor="#fff"
+                android:layout_below="@+id/enreg"/>
 
-        </LinearLayout>
+        </RelativeLayout>
+
     </ScrollView>
 
 

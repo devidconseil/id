@@ -229,5 +229,16 @@ public class Demande extends AppCompatActivity {
                 }
             }
         });
+
+        Button quitter=(Button)findViewById(R.id.dquitter);
+        quitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Demande.this,Acceuil.class);
+                startActivity(intent);
+
+            }
+        });
+
     }
 }

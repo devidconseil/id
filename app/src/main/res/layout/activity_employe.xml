@@ -67,7 +67,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="45mm"
-
         android:backgroundTint="#41AEFF"
         android:text="Valider"
         android:textColor="#fff" />

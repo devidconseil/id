@@ -5,11 +5,11 @@
     android:id="@+id/content_acceuil"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#717C7D"
+    android:background="@drawable/ecran"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
+
+    android:paddingTop="16dp"
     android:weightSum="10"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.hp.madose.Acceuil"
@@ -19,7 +19,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2">
+        android:layout_weight="2"
+        android:background="@color/common_google_signin_btn_text_light_default">
 
         <TextView
             android:layout_width="wrap_content"
@@ -28,8 +29,7 @@
             android:gravity="center"
             android:text="Accueil"
             android:textColor="#fff"
-            android:textSize="40dp"
-            android:textStyle="bold" />
+            android:textSize="40dp" />
 
     </RelativeLayout>
 
@@ -39,7 +39,9 @@
         android:layout_weight="8"
         android:alignmentMode="alignMargins"
         android:columnCount="2"
-        android:padding="5dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp"
+        android:paddingLeft="16dp"
         android:rowCount="2">
 
         <android.support.v7.widget.CardView
@@ -51,7 +53,7 @@
             android:layout_marginLeft="0dp"
             android:layout_marginRight="1dp"
             android:layout_rowWeight="1"
-            app:cardBackgroundColor="#ff66"
+            app:cardBackgroundColor="#fff"
             app:cardElevation="8dp">
 
             <LinearLayout
@@ -61,8 +63,8 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:src="@drawable/icone_entree" />
 
@@ -71,8 +73,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-20dp"
                     android:gravity="center"
-
-                    android:text="Entrée"
                     android:textColor="#352bff"
                     android:textSize="3mm"
                     android:textStyle="bold" />
@@ -109,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-20dp"
                     android:gravity="center"
-                    android:text="Demande"
+
                     android:textColor="#fff"
                     android:textSize="3mm"
                     android:textStyle="bold" />
@@ -126,7 +126,7 @@
             android:layout_marginLeft="0dp"
             android:layout_marginRight="1dp"
             android:layout_rowWeight="1"
-            app:cardBackgroundColor="#2b5a83"
+            app:cardBackgroundColor="#17A05E"
             app:cardElevation="8dp">
 
             <LinearLayout
@@ -146,7 +146,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-20dp"
                     android:gravity="center"
-                    android:text="Sortie"
+
                     android:textAlignment="center"
                     android:textColor="#fff"
                     android:textSize="3mm"
@@ -164,7 +164,7 @@
             android:layout_marginLeft="1dp"
             android:layout_marginRight="0dp"
             android:layout_rowWeight="1"
-            app:cardBackgroundColor="@color/cardview_light_background"
+            app:cardBackgroundColor="#ff66"
             app:cardElevation="8dp">
 
             <LinearLayout
@@ -184,7 +184,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-10dp"
                     android:gravity="center"
-                    android:text="Mouvements"
+
                     android:textColor="#000"
                     android:textSize="2mm"
                     android:textStyle="bold" />
