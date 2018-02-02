@@ -895,6 +895,29 @@ public ArrayList<String> affiNumDem(int idemp)
         return affS;
     }
 
+    public List<ListAchatC> ListAchat()
+    {
+        List<ListAchatC>affS=new ArrayList<>();
+
+
+        String req="select Besoin.LibBes,sum(Qte) as Qte from Besoin,Demande_Besoins,Demande where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.NumDem=Demande.NumDem  group by LibBes;";
+        Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast())
+        {
+
+            ListAchatC disp=new ListAchatC(cursor.getString(0),cursor.getInt(1));
+
+            affS.add(disp);
+
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return affS;
+    }
+
 
     public List<RuptureC> RupureCheck() {
         List<RuptureC> affS = new ArrayList<>();

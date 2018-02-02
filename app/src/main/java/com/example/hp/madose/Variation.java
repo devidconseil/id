@@ -17,6 +17,7 @@ public class Variation extends AppCompatActivity {
         TextView sortie= findViewById(R.id.listeS);
         TextView stock= findViewById(R.id.stock);
         TextView demand= findViewById(R.id.textView9);
+        TextView liste_achats= findViewById(R.id.textView10);
 
         entrees.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +71,15 @@ public class Variation extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(Variation.this,Affichage.class);
                 intent.putExtra("passage","Rupture");
+                startActivity(intent);
+            }
+        });
+
+        liste_achats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(Variation.this,Affichage.class);
+                intent.putExtra("passage","Liste_achats");
                 startActivity(intent);
             }
         });

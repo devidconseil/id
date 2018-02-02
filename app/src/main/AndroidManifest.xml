@@ -99,9 +99,10 @@
         <activity android:name=".Variation" />
         <activity android:name=".CoutTotalBesoin" />
         <activity android:name=".Listedepartement"></activity>
+
         <activity
-            android:name=".Test"
-            android:label="Test"/>
+            android:name=".Affich"
+            android:label="Affich"/>
     </application>
 
 </manifest>
