@@ -15,8 +15,10 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.GridView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.squareup.picasso.Picasso;
@@ -362,6 +364,18 @@ public class Affichage extends AppCompatActivity {
              }
          }
      });
+     if (getIntent().getStringExtra("passage").equals("Liste_achats")){
+         cout = (TextView) findViewById(R.id.textView2);
+         listView= findViewById(R.id.listeview);
+         cout.setText("LISTE DES ARTICLES FAISANT L'OBJET D'ACHAT \n\n\n");
+
+         List<ListAchatC> affF = bd.ListAchat();
+
+         for (ListAchatC emp : affF) {
+             cout.append(emp.toString()+"\n\n");
+         }
+
+     }
 
     }
 }
