@@ -126,7 +126,7 @@
             android:layout_marginLeft="0dp"
             android:layout_marginRight="1dp"
             android:layout_rowWeight="1"
-            app:cardBackgroundColor="#17A05E"
+            app:cardBackgroundColor="#CDC3C1"
             app:cardElevation="8dp">
 
             <LinearLayout
@@ -184,7 +184,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-10dp"
                     android:gravity="center"
-
                     android:textColor="#000"
                     android:textSize="2mm"
                     android:textStyle="bold" />
