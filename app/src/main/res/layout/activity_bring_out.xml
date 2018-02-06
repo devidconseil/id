@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <EditText
                 android:id="@+id/editDate"
                 android:layout_width="match_parent"
@@ -81,9 +82,9 @@
                 android:id="@+id/autoDep"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/radioGroup"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:layout_below="@+id/radioGroup"
                 android:hint="Departement"
                 android:textColor="#fff"
                 android:textColorHint="@color/common_action_bar_splitter"
@@ -155,8 +156,7 @@
                 android:layout_below="@+id/autoCompMark"
                 android:hint="Autres précisions"
                 android:textColor="@color/colorPrimaryDark"
-                android:textColorHint="@color/common_action_bar_splitter"
-              />
+                android:textColorHint="@color/common_action_bar_splitter" />
 
             <Button
                 android:id="@+id/sortiVal"
@@ -185,10 +185,10 @@
                 android:id="@+id/quitte"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/enreg"
                 android:backgroundTint="#ff6666"
                 android:text="Quitter"
-                android:textColor="#fff"
-                android:layout_below="@+id/enreg"/>
+                android:textColor="#fff" />
 
         </RelativeLayout>
 
