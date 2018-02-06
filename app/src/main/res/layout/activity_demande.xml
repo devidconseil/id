@@ -4,40 +4,23 @@
     android:id="@+id/activity_demande"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     android:background="#717C7D"
     tools:context="com.example.hp.madose.Demande">
 
 
-    <ScrollView
+    <EditText
+        android:id="@+id/dateDemande"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </ScrollView>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="14dp"
-        android:layout_marginRight="14dp"
-        android:layout_marginTop="67dp"
-        android:orientation="vertical">
-
-
-        <EditText
-            android:id="@+id/dateDemande"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/textView5"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:backgroundTint="#000"
-            android:ems="10"
-            android:hint="Date "
-            android:inputType="date"
-            android:textColorHint="#fff" />
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView5"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:ems="10"
+        android:hint="Date "
+        android:inputType="date"
+        android:textColor="@color/cardview_light_background"
+        android:textColorHint="@color/common_action_bar_splitter" />
 
         <Button
             android:id="@+id/annul"
@@ -58,11 +41,12 @@
             android:layout_above="@+id/ajout"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:backgroundTint="#000"
+            android:textColor="@color/cardview_light_background"
+            android:textColorHint="@color/common_action_bar_splitter"
             android:ems="10"
             android:hint="Quantité"
             android:inputType="number"
-            android:textColorHint="#fff" />
+           />
 
         <AutoCompleteTextView
             android:id="@+id/autoCompBes"
@@ -71,9 +55,10 @@
             android:layout_above="@+id/editqt"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:backgroundTint="#000"
+            android:textColor="@color/cardview_light_background"
+            android:textColorHint="@color/common_action_bar_splitter"
             android:hint="Besoin"
-            android:textColorHint="#fff" />
+            />
 
         <AutoCompleteTextView
             android:id="@+id/autoCompDep"
@@ -82,9 +67,9 @@
             android:layout_above="@+id/autoCompBes"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:backgroundTint="#000"
             android:hint="Departement"
-            android:textColorHint="#fff"
+            android:textColor="@color/cardview_light_background"
+            android:textColorHint="@color/common_action_bar_splitter"
             android:visibility="invisible" />
 
         <Button
@@ -105,21 +90,21 @@
             android:layout_above="@+id/autoCompBes"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:backgroundTint="#000"
             android:hint="Employé"
-            android:textColorHint="#fff"
+            android:textColor="@color/cardview_light_background"
+            android:textColorHint="@color/common_action_bar_splitter"
             tools:visibility="visible" />
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_above="@+id/radio_group"
-            android:layout_alignParentLeft="true"
-            android:text="Le bénéficiaire est un :"
-            android:textColor="#fff"
-            android:textStyle="bold" />
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/radio_group"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="Le bénéficiaire est un :"
+        android:textColor="#fff"
+        android:textStyle="bold" />
 
         <RadioGroup
             android:id="@+id/radio_group"
@@ -136,7 +121,6 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_weight="1"
-
                 android:text="Employé"
                 android:textColor="#fff" />
 
@@ -151,6 +135,8 @@
                 android:textColor="#fff" />
         </RadioGroup>
 
+
+
         <Button
             android:id="@+id/dquitter"
             android:layout_width="match_parent"
@@ -162,6 +148,5 @@
             android:backgroundTint="#ff6666"
             android:text="Quitter"
             android:textColor="@android:color/background_light" />
-    </RelativeLayout>
 
 </RelativeLayout>

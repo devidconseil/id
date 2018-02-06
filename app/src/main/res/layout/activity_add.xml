@@ -28,86 +28,71 @@
                 android:id="@+id/datepik"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#000"
+                android:textColor="@color/cardview_light_background"
+                android:textColorHint="@color/common_action_bar_splitter"
                 android:ems="10"
-                android:hint="Date"
-                android:textColorHint="#fff" />
+                android:hint="Date"/>
 
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteFour"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#000"
-                android:hint="Fournisseur"
-                android:textColorHint="#fff" />
+                android:textColor="@color/cardview_light_background"
+                android:textColorHint="@color/common_action_bar_splitter"
+                android:hint="Fournisseur" />
 
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteBesoin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#000"
-                android:hint="Besoin"
-                android:textColorHint="#fff" />
+                android:textColor="@color/cardview_light_background"
+                android:textColorHint="@color/common_action_bar_splitter"
+                android:hint="Besoin" />
 
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="#000"
-                android:textColorHint="#fff">
+
 
                 <EditText
                     android:id="@+id/PU"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#000"
+                    android:textColor="@color/cardview_light_background"
+                    android:textColorHint="@color/common_action_bar_splitter"
                     android:hint="Prix Unitaire"
                     android:inputType="numberDecimal"
-                    android:textColorHint="#fff" />
-            </android.support.design.widget.TextInputLayout>
+                   />
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="#000"
-                android:textColorHint="#fff">
+
+
 
                 <EditText
                     android:id="@+id/QT"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#000"
                     android:hint="Quantité"
                     android:inputType="number"
-                    android:textColorHint="#fff" />
-            </android.support.design.widget.TextInputLayout>
+                    android:textColor="@color/cardview_light_background"
+                    android:textColorHint="@color/common_action_bar_splitter" />
 
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="#000"
-                android:textColorHint="#fff">
 
                 <EditText
                     android:id="@+id/marq"
                     android:layout_width="match_parent"
+                    android:textColor="@color/cardview_light_background"
+                    android:textColorHint="@color/common_action_bar_splitter"
                     android:layout_height="wrap_content"
                     android:hint="Marque" />
-            </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="#000"
-                android:textColorHint="#fff">
+
 
                 <EditText
                     android:id="@+id/autre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/cardview_light_background"
+                    android:textColorHint="@color/common_action_bar_splitter"
                     android:hint="Autre précision" />
-            </android.support.design.widget.TextInputLayout>
+
 
             <Button
                 android:id="@+id/AjouterEn"

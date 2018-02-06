@@ -15,9 +15,9 @@
         android:id="@+id/autoRecherche"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#000"
+        android:textColor="#fff"
         android:layout_alignParentLeft="true"
-        android:textColorHint="#fff"
+        android:textColorHint="@color/common_action_bar_splitter"
         android:layout_alignParentStart="true"
         android:layout_above="@id/recherch"
         android:hint="Saisir le nom du besoin" />

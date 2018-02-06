@@ -90,7 +90,7 @@ if(!bd.checkIfTableHasData("Besoins_Sortie") && !bd.checkIfTableHasData("Categor
 
         bd.RupureCheck();
         if (MyApplication.isDone() && !MyApplication.isCheck()){
-            AlertDialog.Builder builder = new AlertDialog.Builder(Acceuil.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(Acceuil.this,0x00000005);
             builder.setMessage("Certains de vos articles sont en rupture");
             builder.setTitle("Rupture");
             builder.setPositiveButton("Voir", new DialogInterface.OnClickListener() {
