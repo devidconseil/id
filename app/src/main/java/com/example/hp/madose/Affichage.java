@@ -212,7 +212,7 @@ public class Affichage extends AppCompatActivity {
            for (CoutC emp : affF) {
                cout.append(emp.toString() + "\n\n");
            }
-            AlertDialog.Builder builder = new AlertDialog.Builder(Affichage.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(Affichage.this,0x00000005);
             builder.setMessage("Le coût total en approvisionnement du besoin "+MyApplication.getGlobalVarValue()+" est "+MyApplication.getCoutTotBes()+" FCFA.");
             builder.setTitle(R.string.dialog_title);
             builder.setPositiveButton("Voir plus", new DialogInterface.OnClickListener() {
@@ -250,7 +250,7 @@ public class Affichage extends AppCompatActivity {
                 cout.append(emp.toString() + "\n");
             }
             if (MyApplication.isDone()){
-                AlertDialog.Builder builder = new AlertDialog.Builder(Affichage.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Affichage.this,0x00000005);
                 builder.setMessage("Certains de vos articles sont en rupture");
                 builder.setTitle("Rupture");
                 builder.setPositiveButton("Voir", new DialogInterface.OnClickListener() {
@@ -263,7 +263,7 @@ public class Affichage extends AppCompatActivity {
 
             }
             else{
-                AlertDialog.Builder builder = new AlertDialog.Builder(Affichage.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Affichage.this,0x00000005);
                 builder.setMessage("Aucun de vos articles n'est en rupture");
                 builder.setTitle("Rupture Check");
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {

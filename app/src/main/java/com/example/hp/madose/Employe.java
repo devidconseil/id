@@ -25,16 +25,12 @@ public class Employe extends AppCompatActivity {
 
         final EditText codeT=(EditText) findViewById(R.id.nomEmp);
         final EditText codeP=(EditText) findViewById(R.id.profil);
-        final AutoCompleteTextView codeD=(AutoCompleteTextView) findViewById(R.id.autoCompDep);
+        final EditText codeD=(EditText) findViewById(R.id.autoCompDep);
         final Button codeB=(Button) findViewById(R.id.valEmp);
         final Button quitter=(Button) findViewById(R.id.button9);
         final BaseDeDonne bd=new BaseDeDonne(this);
 
         //fonction autotexcomplet
-        ArrayList<String> em=bd.affiNDE();
-        ArrayAdapter<String> emp=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,em);
-        codeD.setAdapter(emp);
-        //fin fonction autotext complet
 
 
 
