@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.GridView;
+import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +40,7 @@ public class Affichage extends AppCompatActivity {
     private TextView cout,demande;
     private ListView listView;
     private GridView gridView;
+    private ScrollView scrollview;
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,8 +143,9 @@ public class Affichage extends AppCompatActivity {
          }
 
         if (getIntent().getStringExtra("passage").equals("stock")) {
-            stock = (TextView) findViewById(R.id.textView2);
+            stock = (TextView) findViewById(R.id.textView14);
             gridView= findViewById(R.id.gridview);
+            scrollview= findViewById(R.id.scrollview);
             int liste=0;
             List<String> list=new ArrayList<>();
            List<Integer> list1=new ArrayList<>();
@@ -170,6 +173,9 @@ public class Affichage extends AppCompatActivity {
        StockAffichAdapter arrayAdapter=new StockAffichAdapter(this,list,list1);
           gridView.setAdapter(arrayAdapter);
           gridView.setVisibility(View.VISIBLE);
+          scrollview.setVisibility(View.INVISIBLE);
+          stock.setVisibility(View.VISIBLE);
+
 
         }
 
