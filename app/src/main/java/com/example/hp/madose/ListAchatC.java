@@ -1,12 +1,12 @@
 package com.example.hp.madose;
 
 /**
- * Created by HP on 01/02/2018.
+ * Created by erick on 02/02/2018.
  */
 
 public class ListAchatC {
-String LibBes;
-int Qte;
+    String LibBes;
+    int Qte;
 
     public ListAchatC(String libBes, int qte) {
         LibBes = libBes;
