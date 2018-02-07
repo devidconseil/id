@@ -21,9 +21,10 @@
         android:layout_marginTop="15dp"
         android:clickable="true"
         android:descendantFocusability="blocksDescendants"
+        android:focusable="true"
         android:visibility="visible"
-        app:cardBackgroundColor="#00C853"
-        app:cardElevation="5dp">
+        app:cardBackgroundColor="@android:color/white"
+        app:cardElevation="10dp">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
@@ -40,6 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:clickable="true"
+                android:contentDescription="TODO"
                 android:focusable="true" />
 
             <TextView
@@ -49,7 +51,7 @@
                 android:ems="10"
                 android:fontFamily="sans-serif-condensed"
                 android:textAlignment="center"
-                android:textColor="#616161"
+                android:textColor="#2b5a83"
                 android:textStyle="bold"
                 android:visibility="visible"
                 tools:targetApi="jelly_bean" />
