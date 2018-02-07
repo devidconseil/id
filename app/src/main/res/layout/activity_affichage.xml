@@ -89,6 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
+                android:fontFamily="@font/andada"
                 android:textStyle="bold"
                 android:visibility="visible" />
 
@@ -96,6 +97,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/andada"
                 android:textColor="#fff"
                 android:textStyle="bold"
                 tools:text="toto" />
@@ -114,6 +116,7 @@
         android:textAlignment="center"
         android:textColor="#fff"
         android:textStyle="bold"
+        android:fontFamily="@font/andada"
         android:visibility="invisible"
         tools:text="toto" />
 

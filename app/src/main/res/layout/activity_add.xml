@@ -64,7 +64,6 @@
 
 
 
-
                 <EditText
                     android:id="@+id/QT"
                     android:layout_width="match_parent"
