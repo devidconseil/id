@@ -4,12 +4,15 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -40,11 +43,16 @@ public class Add extends AppCompatActivity {
         final EditText qte=(EditText)findViewById(R.id.QT);
         final EditText mark=(EditText)findViewById(R.id.marq);
         final EditText autre=(EditText)findViewById(R.id.autre);
+        final ImageButton button= findViewById(R.id.boutoun);
+
+
 
         //---------AutoTextComplete
-        ArrayList<String> nf=bd.affiNF();
+        final ArrayList<String> nf=bd.affiNF();
         ArrayAdapter<String>nomfour=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,nf);
         four.setAdapter(nomfour);
+
+        int longu=nf.size();
 
         ArrayList<String> nb=bd.affiNB();
         ArrayAdapter<String>nombes=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,nb);
@@ -85,6 +93,8 @@ public class Add extends AppCompatActivity {
             }
         });  */
 
+
+
         date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -94,6 +104,7 @@ public class Add extends AppCompatActivity {
                     DatePickerDialog datePickerDialog=new DatePickerDialog(Add.this, new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
                             month=month+1;
                             String jour=String.valueOf(dayOfMonth);
                             String mois=String.valueOf(month);
@@ -110,7 +121,28 @@ public class Add extends AppCompatActivity {
                     },annee,mois,jour);
                     datePickerDialog.show();
 
+                   date.addTextChangedListener(new TextWatcher() {
+                       @Override
+                       public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                       }
+
+                       @Override
+                       public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                       }
+
+                       @Override
+                       public void afterTextChanged(Editable editable) {
+                           date.setError(null);
+
+                       }
+                   });
+
+
                 }
+
+
             }
         });
 
@@ -126,8 +158,25 @@ public class Add extends AppCompatActivity {
 
                 if(date.getText().toString().equals(""))
                 {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir la date d'approvisionnement SVP!!",Toast.LENGTH_LONG).show();
+                   // Toast.makeText(getBaseContext(),"Veuillez saisir la date d'approvisionnement SVP!!",Toast.LENGTH_LONG).show();
+                    date.setError("Veuillez saisir la date d'approvisionnement SVP!!");
                     date.requestFocus();
+                }
+                else if (!date.getText().toString().matches("[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]")){
+                    date.setError("Votre date ne respecte pas le format JJ/MM/AAAA\nExemple: 01/01/1970");
+
+                }
+
+                else if (!nf.contains(four.getText().toString())){
+                    four.setError("Le fournisseur choisi ne fait pas partie de la liste des fournisseurs de l'entreprise.\n Veuillez donc l'ajouter à la liste préalablement en cliquant sur le bouton + \nsinon veuillez entrer un fournisseur faisant partie de la liste.");
+                    button.setVisibility(View.VISIBLE);
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            startActivity(new Intent(getApplicationContext(),Fournisseur.class));
+
+                        }
+                    });
                 }
                 else if (four.getText().toString().equals(""))
                 {
