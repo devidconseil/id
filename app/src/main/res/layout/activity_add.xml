@@ -69,16 +69,17 @@
                    />
 
 
-
-                <EditText
-                    android:id="@+id/QT"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Quantité"
-                    android:inputType="number"
-                    android:textColor="@color/cardview_light_background"
-                    android:textColorHint="@color/common_action_bar_splitter"
-                    android:layout_below="@id/PU"/>
+            <EditText
+                android:id="@+id/QT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/PU"
+                android:hint="Quantité"
+                android:inputType="number"
+                android:textColor="@color/cardview_light_background"
+                android:textColorHint="@color/common_action_bar_splitter" />
 
 
                 <EditText
@@ -135,17 +136,26 @@
                 android:textColor="#fff"
                 android:layout_below="@id/EnregistrerEn"/>
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/boutoun"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/autoCompleteBesoin"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginEnd="18dp"
-                android:layout_marginRight="18dp"
-                android:visibility="invisible"
-                app:srcCompat="@android:drawable/ic_menu_add" />
+                android:layout_below="@+id/datepik"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:clickable="true"
+                app:srcCompat="@drawable/add_person" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignLeft="@+id/boutoun"
+                android:layout_alignStart="@+id/boutoun"
+                android:layout_alignTop="@+id/autoCompleteBesoin"
+                app:srcCompat="@drawable/add_product1" />
 
 
         </RelativeLayout>
