@@ -53,8 +53,6 @@ public class Add extends AppCompatActivity {
         ArrayAdapter<String>nomfour=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,nf);
         four.setAdapter(nomfour);
 
-        int longu=nf.size();
-
         ArrayList<String> nb=bd.affiNB();
         ArrayAdapter<String>nombes=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,nb);
         besoin.setAdapter(nombes);
@@ -186,17 +184,17 @@ public class Add extends AppCompatActivity {
                 }
                 else if (besoin.getText().toString().equals(""))
                 {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir le nom du besoin SVP!!",Toast.LENGTH_LONG).show();
+                    besoin.setError("Veuillez saisir le nom du besoin SVP!!");
                     besoin.requestFocus();
                 }
                 else if (pu.getText().toString().equals(""))
                 {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir le prix unitaire SVP!!",Toast.LENGTH_LONG).show();
+                    pu.setError("Veuillez saisir le prix unitaire SVP!!");
                     pu.requestFocus();
                 }
                 else if (qte.getText().toString().equals(""))
                 {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir la quantité SVP!!",Toast.LENGTH_LONG).show();
+                    qte.setError("Veuillez saisir la quantité SVP!!");
                     qte.requestFocus();
                 }
 
@@ -259,12 +257,12 @@ public class Add extends AppCompatActivity {
                 }
                 else if (besoin.getText().toString().equals(""))
                 {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir le nom du besoin SVP!!",Toast.LENGTH_LONG).show();
+                    besoin.setError("Veuillez saisir le nom du besoin SVP!!");
                     besoin.requestFocus();
                 }
                 else if (pu.getText().toString().equals(""))
                 {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir le prix unitaire SVP!!",Toast.LENGTH_LONG).show();
+                   pu.setError("Veuillez saisir le prix unitaire SVP!!");
                     pu.requestFocus();
                 }
                 else if (qte.getText().toString().equals(""))

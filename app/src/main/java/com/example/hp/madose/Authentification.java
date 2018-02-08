@@ -29,7 +29,8 @@ public class Authentification extends AppCompatActivity {
                     startActivity(intent);
                 }
                 else {
-                    Toast.makeText(getBaseContext(),"Identifiant ou mot de passe incorrect",Toast.LENGTH_LONG).show();
+                    identifiant.setError("Identifiant ou mot de passe incorrect");
+                    identifiant.requestFocus();
                 }
 
 
