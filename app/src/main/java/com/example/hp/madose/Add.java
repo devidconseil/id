@@ -4,12 +4,15 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -40,9 +43,12 @@ public class Add extends AppCompatActivity {
         final EditText qte=(EditText)findViewById(R.id.QT);
         final EditText mark=(EditText)findViewById(R.id.marq);
         final EditText autre=(EditText)findViewById(R.id.autre);
+        final ImageButton button= findViewById(R.id.boutoun);
+
+
 
         //---------AutoTextComplete
-        ArrayList<String> nf=bd.affiNF();
+        final ArrayList<String> nf=bd.affiNF();
         ArrayAdapter<String>nomfour=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,nf);
         four.setAdapter(nomfour);
 
@@ -61,7 +67,7 @@ public class Add extends AppCompatActivity {
         annee=calendar.get(Calendar.YEAR);
         //date.setText(jour+"/"+mois+"/"+annee);
 
-        date.setOnClickListener(new View.OnClickListener() {
+    /*    date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                  DatePickerDialog datePickerDialog=new DatePickerDialog(Add.this, new DatePickerDialog.OnDateSetListener() {
@@ -83,6 +89,59 @@ public class Add extends AppCompatActivity {
                 },annee,mois,jour);
                 datePickerDialog.show();
             }
+        });  */
+
+
+
+        date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+
+                if (b){
+
+                    DatePickerDialog datePickerDialog=new DatePickerDialog(Add.this, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                            month=month+1;
+                            String jour=String.valueOf(dayOfMonth);
+                            String mois=String.valueOf(month);
+
+                            if (month<10){
+                                mois="0"+mois;
+                            }
+                            if (dayOfMonth<10){
+                                jour="0"+jour;
+                            }
+                            date.setText(jour+"/"+mois+"/"+year);
+                            // date.setText(dayOfMonth+"/"+month+"/"+year);
+                        }
+                    },annee,mois,jour);
+                    datePickerDialog.show();
+
+                   date.addTextChangedListener(new TextWatcher() {
+                       @Override
+                       public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                       }
+
+                       @Override
+                       public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                       }
+
+                       @Override
+                       public void afterTextChanged(Editable editable) {
+                           date.setError(null);
+
+                       }
+                   });
+
+
+                }
+
+
+            }
         });
 
 
@@ -95,12 +154,34 @@ public class Add extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (four.getText().toString().equals(""))
+                if(date.getText().toString().equals(""))
                 {
+                   // Toast.makeText(getBaseContext(),"Veuillez saisir la date d'approvisionnement SVP!!",Toast.LENGTH_LONG).show();
+                    date.setError("Veuillez saisir la date d'approvisionnement SVP!!");
+                    date.requestFocus();
+                }
+                else if (!date.getText().toString().matches("[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]")){
+                    date.setError("Votre date ne respecte pas le format JJ/MM/AAAA\nExemple: 01/01/1970");
+
+                }
+
+                else if (!nf.contains(four.getText().toString())){
+                    four.setError("Le fournisseur choisi ne fait pas partie de la liste des fournisseurs de l'entreprise.\n Veuillez donc l'ajouter à la liste préalablement en cliquant sur le bouton + \nsinon veuillez entrer un fournisseur faisant partie de la liste.");
+                    button.setVisibility(View.VISIBLE);
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            startActivity(new Intent(getApplicationContext(),Fournisseur.class));
+
+                        }
+                    });
+                }
+                else if (four.getText().toString().equals(""))
+                {
+                    Toast.makeText(getBaseContext(),"Veuillez saisir le nom du fournisseur de cette approvisionnement SVP!!",Toast.LENGTH_LONG).show();
                     four.setError("Veuillez saisir le nom du fournisseur de cette approvisionnement SVP!!");
                     four.requestFocus();
                 }
-
                 else if (besoin.getText().toString().equals(""))
                 {
                     besoin.setError("Veuillez saisir le nom du besoin SVP!!");
@@ -116,6 +197,7 @@ public class Add extends AppCompatActivity {
                     qte.setError("Veuillez saisir la quantité SVP!!");
                     qte.requestFocus();
                 }
+
                 else {
                 String a,b,c;
                 a=date.getText().toString().substring(0,2);
@@ -163,13 +245,16 @@ public class Add extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-                if (four.getText().toString().equals(""))
+                if(date.getText().toString().equals(""))
                 {
-                    four.setError("Veuillez saisir le nom du fournisseur de cette approvisionnement SVP!!");
+                    Toast.makeText(getBaseContext(),"Veuillez saisir la date d'approvisionnement SVP!!",Toast.LENGTH_LONG).show();
+                    date.requestFocus();
+                }
+                else if (four.getText().toString().equals(""))
+                {
+                    Toast.makeText(getBaseContext(),"Veuillez saisir le nom du fournisseur de cette approvisionnement SVP!!",Toast.LENGTH_LONG).show();
                     four.requestFocus();
                 }
-
                 else if (besoin.getText().toString().equals(""))
                 {
                     besoin.setError("Veuillez saisir le nom du besoin SVP!!");
@@ -182,7 +267,7 @@ public class Add extends AppCompatActivity {
                 }
                 else if (qte.getText().toString().equals(""))
                 {
-                    qte.setError("Veuillez saisir la quantité SVP!!");
+                    Toast.makeText(getBaseContext(),"Veuillez saisir la quantité SVP!!",Toast.LENGTH_LONG).show();
                     qte.requestFocus();
                 }
 
