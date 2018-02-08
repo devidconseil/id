@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_authentification"
     android:layout_width="match_parent"
@@ -11,51 +12,25 @@
 
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="300dp"
         android:layout_alignParentLeft="true"
-        android:paddingRight="16dp"
-        android:paddingLeft="16dp"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:background="@color/common_google_signin_btn_text_light_default">
+        android:background="@color/common_google_signin_btn_text_light_default"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
         <Button
             android:id="@+id/connexion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/pass"
-            android:layout_marginTop="9dp"
+            android:layout_marginBottom="12dp"
             android:backgroundTint="#fff"
             android:text="Connexion" />
-
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/iden"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/textView11"
-            android:layout_marginTop="19dp"
-            android:hint="@string/identifiant"
-            android:textColor="#fff"
-            android:textColorHint="@color/common_action_bar_splitter" />
-
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/pass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView11"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="81dp"
-            android:hint="Mot de passe"
-            android:inputType="textPassword"
-            android:textColor="#fff"
-            android:textColorHint="@color/common_action_bar_splitter" />
 
 
         <TextView
@@ -69,6 +44,49 @@
             android:text="Authentification"
             android:textColor="#fff"
             android:textSize="30dp" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputLayout7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView11"
+            android:layout_marginTop="38dp"
+            android:textColorHint="#fff">
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/iden"
+                android:textColor="#fff"
+                android:hint="Identifiant"
+                android:textColorHint="#fff" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textInputLayout7"
+            android:textColorHint="#fff"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="#fff">
+
+            <EditText
+                android:id="@+id/pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mot de passe"
+                android:imeActionId="6"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="#fff"
+                android:textColorHint="#fff" />
+        </android.support.design.widget.TextInputLayout>
 
     </RelativeLayout>
 

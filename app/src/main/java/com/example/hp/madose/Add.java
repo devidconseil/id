@@ -95,32 +95,27 @@ public class Add extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(date.getText().toString().equals(""))
+                if (four.getText().toString().equals(""))
                 {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir la date d'approvisionnement SVP!!",Toast.LENGTH_LONG).show();
-                    date.requestFocus();
-                }
-                else if (four.getText().toString().equals(""))
-                {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir le nom du fournisseur de cette approvisionnement SVP!!",Toast.LENGTH_LONG).show();
+                    four.setError("Veuillez saisir le nom du fournisseur de cette approvisionnement SVP!!");
                     four.requestFocus();
                 }
+
                 else if (besoin.getText().toString().equals(""))
                 {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir le nom du besoin SVP!!",Toast.LENGTH_LONG).show();
+                    besoin.setError("Veuillez saisir le nom du besoin SVP!!");
                     besoin.requestFocus();
                 }
                 else if (pu.getText().toString().equals(""))
                 {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir le prix unitaire SVP!!",Toast.LENGTH_LONG).show();
+                    pu.setError("Veuillez saisir le prix unitaire SVP!!");
                     pu.requestFocus();
                 }
                 else if (qte.getText().toString().equals(""))
                 {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir la quantité SVP!!",Toast.LENGTH_LONG).show();
+                    qte.setError("Veuillez saisir la quantité SVP!!");
                     qte.requestFocus();
                 }
-
                 else {
                 String a,b,c;
                 a=date.getText().toString().substring(0,2);
@@ -168,29 +163,26 @@ public class Add extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(date.getText().toString().equals(""))
+
+                if (four.getText().toString().equals(""))
                 {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir la date d'approvisionnement SVP!!",Toast.LENGTH_LONG).show();
-                    date.requestFocus();
-                }
-                else if (four.getText().toString().equals(""))
-                {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir le nom du fournisseur de cette approvisionnement SVP!!",Toast.LENGTH_LONG).show();
+                    four.setError("Veuillez saisir le nom du fournisseur de cette approvisionnement SVP!!");
                     four.requestFocus();
                 }
+
                 else if (besoin.getText().toString().equals(""))
                 {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir le nom du besoin SVP!!",Toast.LENGTH_LONG).show();
+                    besoin.setError("Veuillez saisir le nom du besoin SVP!!");
                     besoin.requestFocus();
                 }
                 else if (pu.getText().toString().equals(""))
                 {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir le prix unitaire SVP!!",Toast.LENGTH_LONG).show();
+                   pu.setError("Veuillez saisir le prix unitaire SVP!!");
                     pu.requestFocus();
                 }
                 else if (qte.getText().toString().equals(""))
                 {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir la quantité SVP!!",Toast.LENGTH_LONG).show();
+                    qte.setError("Veuillez saisir la quantité SVP!!");
                     qte.requestFocus();
                 }
 
