@@ -33,7 +33,7 @@
                 android:hint="Date "
                 android:inputType="date"
                 android:textColor="@color/cardview_light_background"
-                android:textColorHint="@color/common_action_bar_splitter" />
+                android:textColorHint="#d2d2d2" />
 
             <TextView
                 android:id="@+id/textView7"
@@ -87,7 +87,7 @@
                 android:layout_below="@+id/radioGroup"
                 android:hint="Departement"
                 android:textColor="#fff"
-                android:textColorHint="@color/common_action_bar_splitter"
+                android:textColorHint="#d2d2d2"
                 android:visibility="invisible" />
 
             <AutoCompleteTextView
@@ -99,7 +99,7 @@
                 android:layout_below="@+id/radioGroup"
                 android:hint="Employé"
                 android:textColor="@color/cardview_light_background"
-                android:textColorHint="@color/common_action_bar_splitter" />
+                android:textColorHint="#d2d2d2" />
 
             <AutoCompleteTextView
                 android:id="@+id/autoDemande"
@@ -110,7 +110,7 @@
                 android:layout_below="@+id/autoEmp"
                 android:hint="Date de la demande"
                 android:textColor="@color/cardview_light_background"
-                android:textColorHint="@color/common_action_bar_splitter" />
+                android:textColorHint="#d2d2d2" />
 
             <AutoCompleteTextView
                 android:id="@+id/autoBesoin"
@@ -121,7 +121,7 @@
                 android:layout_below="@+id/autoDemande"
                 android:hint="Besoin"
                 android:textColor="@color/cardview_light_background"
-                android:textColorHint="@color/common_action_bar_splitter" />
+                android:textColorHint="#d2d2d2" />
 
             <EditText
                 android:id="@+id/sortieQt"
@@ -134,7 +134,7 @@
                 android:hint="Quantité"
                 android:inputType="number"
                 android:textColor="@color/cardview_light_background"
-                android:textColorHint="@color/common_action_bar_splitter" />
+                android:textColorHint="#d2d2d2" />
 
             <AutoCompleteTextView
                 android:id="@+id/autoCompMark"
@@ -145,7 +145,7 @@
                 android:layout_below="@+id/sortieQt"
                 android:hint="Marque"
                 android:textColor="@color/cardview_light_background"
-                android:textColorHint="@color/common_action_bar_splitter" />
+                android:textColorHint="#d2d2d2" />
 
             <AutoCompleteTextView
                 android:id="@+id/autoCompAutre"
@@ -156,7 +156,7 @@
                 android:layout_below="@+id/autoCompMark"
                 android:hint="Autres précisions"
                 android:textColor="@color/colorPrimaryDark"
-                android:textColorHint="@color/common_action_bar_splitter" />
+                android:textColorHint="#d2d2d2" />
 
             <Button
                 android:id="@+id/sortiVal"
@@ -165,7 +165,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/autoCompAutre"
-                android:backgroundTint="@color/common_plus_signin_btn_text_dark_pressed"
+                android:backgroundTint="#d2d2d2"
                 android:text="Ajouter"
                 android:textColor="#41AEFF" />
 

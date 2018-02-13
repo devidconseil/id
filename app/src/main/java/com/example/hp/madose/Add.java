@@ -179,6 +179,7 @@ public class Add extends AppCompatActivity {
                 }
                 else if (four.getText().toString().equals(""))
                 {
+                    Toast.makeText(getBaseContext(),"Veuillez saisir le nom du fournisseur de cette approvisionnement SVP!!",Toast.LENGTH_LONG).show();
                     four.setError("Veuillez saisir le nom du fournisseur de cette approvisionnement SVP!!");
                     four.requestFocus();
                 }

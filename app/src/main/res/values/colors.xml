@@ -3,4 +3,5 @@
     <color name="colorPrimary">#3b3d3b</color>
     <color name="colorPrimaryDark">#111211</color>
     <color name="colorAccent">#8e8f8e</color>
+    <color name="common_action_bar_splitter">#d2d2d2</color>
 </resources>

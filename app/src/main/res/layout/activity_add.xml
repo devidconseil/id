@@ -34,7 +34,7 @@
 
                 android:layout_alignParentTop="true"
                 android:textColor="@color/cardview_light_background"
-                android:textColorHint="@color/common_action_bar_splitter" />
+                android:textColorHint="#d2d2d2" />
 
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteFour"
@@ -43,14 +43,14 @@
                 android:hint="Fournisseur"
                 android:layout_below="@id/datepik"
                 android:textColor="@color/cardview_light_background"
-                android:textColorHint="@color/common_action_bar_splitter" />
+                android:textColorHint="#d2d2d2" />
 
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteBesoin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/cardview_light_background"
-                android:textColorHint="@color/common_action_bar_splitter"
+                android:textColorHint="#d2d2d2"
                 android:hint="Besoin"
                 android:layout_below="@id/autoCompleteFour"/>
 
@@ -62,7 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/cardview_light_background"
-                    android:textColorHint="@color/common_action_bar_splitter"
+                    android:textColorHint="#d2d2d2"
                     android:hint="Prix Unitaire"
                     android:inputType="numberDecimal"
                     android:layout_below="@id/autoCompleteBesoin"
@@ -79,14 +79,14 @@
                 android:hint="Quantité"
                 android:inputType="number"
                 android:textColor="@color/cardview_light_background"
-                android:textColorHint="@color/common_action_bar_splitter" />
+                android:textColorHint="#d2d2d2" />
 
 
                 <EditText
                     android:id="@+id/marq"
                     android:layout_width="match_parent"
                     android:textColor="@color/cardview_light_background"
-                    android:textColorHint="@color/common_action_bar_splitter"
+                    android:textColorHint="#d2d2d2"
                     android:layout_height="wrap_content"
                     android:hint="Marque"
                     android:layout_below="@id/QT"/>
@@ -99,7 +99,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/cardview_light_background"
-                    android:textColorHint="@color/common_action_bar_splitter"
+                    android:textColorHint="#d2d2d2"
                     android:hint="Autre précision"
                     android:layout_below="@id/marq"/>
 
