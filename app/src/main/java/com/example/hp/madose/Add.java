@@ -155,7 +155,7 @@ public class Add extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(date.getText().toString().equals(""))
+                if (four.getText().toString().equals(""))
                 {
                    // Toast.makeText(getBaseContext(),"Veuillez saisir la date d'approvisionnement SVP!!",Toast.LENGTH_LONG).show();
                     date.setError("Veuillez saisir la date d'approvisionnement SVP!!");
@@ -182,6 +182,7 @@ public class Add extends AppCompatActivity {
                     four.setError("Veuillez saisir le nom du fournisseur de cette approvisionnement SVP!!");
                     four.requestFocus();
                 }
+
                 else if (besoin.getText().toString().equals(""))
                 {
                     besoin.setError("Veuillez saisir le nom du besoin SVP!!");
@@ -197,7 +198,6 @@ public class Add extends AppCompatActivity {
                     qte.setError("Veuillez saisir la quantité SVP!!");
                     qte.requestFocus();
                 }
-
                 else {
                 String a,b,c;
                 a=date.getText().toString().substring(0,2);
@@ -255,6 +255,7 @@ public class Add extends AppCompatActivity {
                     Toast.makeText(getBaseContext(),"Veuillez saisir le nom du fournisseur de cette approvisionnement SVP!!",Toast.LENGTH_LONG).show();
                     four.requestFocus();
                 }
+
                 else if (besoin.getText().toString().equals(""))
                 {
                     besoin.setError("Veuillez saisir le nom du besoin SVP!!");

@@ -58,8 +58,10 @@
             <android.support.design.widget.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
                 android:id="@+id/iden"
                 android:textColor="#fff"
+                android:imeOptions="actionNext"
                 android:hint="Identifiant"
                 android:textColorHint="#fff" />
         </android.support.design.widget.TextInputLayout>
@@ -79,8 +81,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Mot de passe"
+                android:imeOptions="actionNext"
                 android:imeActionId="6"
-                android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true"
