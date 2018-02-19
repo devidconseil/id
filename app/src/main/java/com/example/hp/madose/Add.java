@@ -44,7 +44,7 @@ public class Add extends AppCompatActivity {
         final EditText qte=(EditText)findViewById(R.id.QT);
         final EditText mark=(EditText)findViewById(R.id.marq);
         final EditText autre=(EditText)findViewById(R.id.autre);
-        final ImageView button= findViewById(R.id.boutoun);
+
 
 
 
@@ -155,31 +155,24 @@ public class Add extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (four.getText().toString().equals(""))
+                if (date.getText().toString().equals(""))
                 {
-                   // Toast.makeText(getBaseContext(),"Veuillez saisir la date d'approvisionnement SVP!!",Toast.LENGTH_LONG).show();
                     date.setError("Veuillez saisir la date d'approvisionnement SVP!!");
                     date.requestFocus();
                 }
-                else if (!date.getText().toString().matches("[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]")){
+                else if (!date.getText().toString().matches("[0-3][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]")){
                     date.setError("Votre date ne respecte pas le format JJ/MM/AAAA\nExemple: 01/01/1970");
 
                 }
 
                 else if (!nf.contains(four.getText().toString()) && !four.getText().toString().equals("")){
-                    four.setError("Le fournisseur choisi ne fait pas partie de la liste des fournisseurs de l'entreprise.\n Veuillez donc l'ajouter à la liste préalablement en cliquant sur le bouton + \nsinon veuillez entrer un fournisseur faisant partie de la liste.");
-                    button.setVisibility(View.VISIBLE);
-                    button.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            startActivity(new Intent(getApplicationContext(),Fournisseur.class));
+                    four.setError("Le fournisseur choisi ne fait pas partie de la liste des fournisseurs de l'entreprise." +
+                            "\n Veuillez donc l'ajouter à la liste préalablement en cliquant sur le bouton + " +
+                            "\nsinon veuillez entrer un fournisseur faisant partie de la liste.");
 
-                        }
-                    });
                 }
                 else if (four.getText().toString().equals(""))
                 {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir le nom du fournisseur de cette approvisionnement SVP!!",Toast.LENGTH_LONG).show();
                     four.setError("Veuillez saisir le nom du fournisseur de cette approvisionnement SVP!!");
                     four.requestFocus();
                 }
@@ -246,14 +239,25 @@ public class Add extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(date.getText().toString().equals(""))
+                if (date.getText().toString().equals(""))
                 {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir la date d'approvisionnement SVP!!",Toast.LENGTH_LONG).show();
+                    date.setError("Veuillez saisir la date d'approvisionnement SVP!!");
                     date.requestFocus();
+                }
+                else if (!date.getText().toString().matches("[0-3][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]")){
+                    date.setError("Votre date ne respecte pas le format JJ/MM/AAAA\nExemple: 01/01/1970");
+
+                }
+
+                else if (!nf.contains(four.getText().toString()) && !four.getText().toString().equals("")){
+                    four.setError("Le fournisseur choisi ne fait pas partie de la liste des fournisseurs de l'entreprise." +
+                            "\n Veuillez donc l'ajouter à la liste préalablement en cliquant sur le bouton + " +
+                            "\nsinon veuillez entrer un fournisseur faisant partie de la liste.");
+
                 }
                 else if (four.getText().toString().equals(""))
                 {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir le nom du fournisseur de cette approvisionnement SVP!!",Toast.LENGTH_LONG).show();
+                    four.setError("Veuillez saisir le nom du fournisseur de cette approvisionnement SVP!!");
                     four.requestFocus();
                 }
 
@@ -264,12 +268,12 @@ public class Add extends AppCompatActivity {
                 }
                 else if (pu.getText().toString().equals(""))
                 {
-                   pu.setError("Veuillez saisir le prix unitaire SVP!!");
+                    pu.setError("Veuillez saisir le prix unitaire SVP!!");
                     pu.requestFocus();
                 }
                 else if (qte.getText().toString().equals(""))
                 {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir la quantité SVP!!",Toast.LENGTH_LONG).show();
+                    qte.setError("Veuillez saisir la quantité SVP!!");
                     qte.requestFocus();
                 }
 
@@ -309,6 +313,7 @@ public class Add extends AppCompatActivity {
             }
         });
         Button quitter=(Button)findViewById(R.id.quitter);
+        quitter.requestFocus();
         quitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
