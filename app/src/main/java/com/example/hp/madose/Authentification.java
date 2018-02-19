@@ -38,8 +38,8 @@ public class Authentification extends AppCompatActivity {
         identifiant= findViewById(R.id.iden);
         motpass=(EditText)findViewById(R.id.pass);
 
-        mAuth = FirebaseAuth.getInstance();
-        progressBar= findViewById(R.id.progressBar3);
+        //mAuth = FirebaseAuth.getInstance();
+       // progressBar= findViewById(R.id.progressBar3);
 
 
 
@@ -48,7 +48,7 @@ public class Authentification extends AppCompatActivity {
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            /*    if (identifiant.getText().toString().equals("admin") && motpass.getText().toString().equals("adminpass")) {
+               if (identifiant.getText().toString().equals("admin") && motpass.getText().toString().equals("adminpass")) {
                     Intent intent = new Intent(Authentification.this, Acceuil.class);
                     identifiant.setText("");
                     motpass.setText("");
@@ -60,14 +60,15 @@ public class Authentification extends AppCompatActivity {
                     identifiant.requestFocus();
                 }
 
-*/
-            updateUI(null);
-            signIn(identifiant.getText().toString(),motpass.getText().toString());
+
+          //  updateUI(null);
+            //signIn(identifiant.getText().toString(),motpass.getText().toString());
 
 
             }
         });
     }
+    /*
     @Override
     public void onStart(){
         super.onStart();
@@ -112,5 +113,5 @@ public class Authentification extends AppCompatActivity {
                 // ...
             }
         });
-    }
+    }*/
 }
