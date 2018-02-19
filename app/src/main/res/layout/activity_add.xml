@@ -34,7 +34,7 @@
                 android:imeOptions="actionNext"
                 android:layout_alignParentTop="true"
                 android:textColor="@color/cardview_light_background"
-                android:textColorHint="@color/common_action_bar_splitter" />
+                android:textColorHint="#d2d2d2" />
 
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteFour"
@@ -44,7 +44,7 @@
                 android:imeOptions="actionNext"
                 android:layout_below="@id/datepik"
                 android:textColor="@color/cardview_light_background"
-                android:textColorHint="@color/common_action_bar_splitter" />
+                android:textColorHint="#d2d2d2" />
 
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteBesoin"
@@ -52,7 +52,7 @@
                 android:imeOptions="actionNext"
                 android:layout_height="wrap_content"
                 android:textColor="@color/cardview_light_background"
-                android:textColorHint="@color/common_action_bar_splitter"
+                android:textColorHint="#d2d2d2"
                 android:hint="Besoin"
                 android:layout_below="@id/autoCompleteFour"/>
 
@@ -64,7 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/cardview_light_background"
-                    android:textColorHint="@color/common_action_bar_splitter"
+                    android:textColorHint="#d2d2d2"
                     android:imeOptions="actionNext"
                     android:hint="Prix Unitaire"
                     android:inputType="numberDecimal"
@@ -72,24 +72,27 @@
                    />
 
 
+            <EditText
+                android:id="@+id/QT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/PU"
+                android:hint="Quantité"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:textColor="@color/cardview_light_background"
+                android:textColorHint="#d2d2d2" />
 
-                <EditText
-                    android:id="@+id/QT"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/PU"
-                    android:hint="Quantité"
-                    android:imeOptions="actionNext"
-                    android:inputType="number"
-                    android:textColor="@color/cardview_light_background"
-                    android:textColorHint="@color/common_action_bar_splitter" />
+
 
 
                 <EditText
                     android:id="@+id/marq"
                     android:layout_width="match_parent"
                     android:textColor="@color/cardview_light_background"
-                    android:textColorHint="@color/common_action_bar_splitter"
+                    android:textColorHint="#d2d2d2"
                     android:layout_height="wrap_content"
                     android:hint="Marque"
                     android:imeOptions="actionNext"
@@ -103,7 +106,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/cardview_light_background"
-                    android:textColorHint="@color/common_action_bar_splitter"
+                    android:textColorHint="#d2d2d2"
                     android:hint="Autre précision"
                     android:imeOptions="actionNext"
                     android:layout_below="@id/marq"/>
@@ -141,17 +144,26 @@
                 android:textColor="#fff"
                 android:layout_below="@id/EnregistrerEn"/>
 
-                <ImageButton
-                    android:id="@+id/boutoun"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/autoCompleteBesoin"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginEnd="18dp"
-                    android:layout_marginRight="18dp"
-                    android:visibility="invisible"
-                    app:srcCompat="@android:drawable/ic_menu_add" />
+            <ImageView
+                android:id="@+id/boutoun"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/datepik"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:clickable="true"
+                app:srcCompat="@drawable/add_person" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignLeft="@+id/boutoun"
+                android:layout_alignStart="@+id/boutoun"
+                android:layout_alignTop="@+id/autoCompleteBesoin"
+                app:srcCompat="@drawable/add_product1" />
 
 
         </RelativeLayout>
