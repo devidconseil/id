@@ -40,8 +40,18 @@ public class EmployeC {
         ProEmp = proEmp;
     }
 
+
+
     @Override
     public String toString() {
         return "\nNom: " + NomEmp + "\nDepartement: " + LibDep+ "\nProfil: " + ProEmp ;
+    }
+
+    public String toStringNom() {
+        return NomEmp;
+    }
+    public String toStringDepart()
+    {
+        return LibDep;
     }
 }

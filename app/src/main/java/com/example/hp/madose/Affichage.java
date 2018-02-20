@@ -106,6 +106,7 @@ public class Affichage extends AppCompatActivity {
             List<EmployeC> affE = bd.afficheE();
             for (EmployeC emp : affE) {
                 employe.append(emp.toString() + "\n\n");
+                emp.getNomEmp().toString().length();
             }
 
         }
@@ -301,14 +302,12 @@ public class Affichage extends AppCompatActivity {
             MyApplication.setTextView(true);
             List<String> list=new ArrayList<>();
             List<Integer> list1=new ArrayList<>();
-            String besoin_nom []={"Agrafeuse", "Blanco", "Bloc note", "Buffet", "Bureau", "Cahier", "Ciseaux", "Clé USB", "Climatiseur", "Corbeille", "Crayon", "Fauteuil", "Réfrigérateur","Imprimante", "Marquer"
-                    ,"Ordinateur", "Panier", "Papier RAM","Punaise", "Règle", "Stylo", "Surligneur", "Trombone"};
 
             String string="";
        /*     for (String bes:besoin_nom){
                 list.add(bes);
             }    */
-            for (Integer i=1;i<=23;i++){
+            for (Integer i=1;i<=30;i++){
                 string="b"+i;
                 int id=getBaseContext().getResources().getIdentifier(string,"drawable",getBaseContext().getPackageName());
                 list1.add(id);
@@ -320,9 +319,6 @@ public class Affichage extends AppCompatActivity {
 
             gridView.setAdapter(besoinAdapter);
             gridView.setVisibility(View.VISIBLE);
-
-
-
 
 
         }
