@@ -64,12 +64,24 @@ public class StockAffichAdapter extends BaseAdapter {
         holder.textView.setText(strings.get(i));
         Picasso.with(context).load(imagesId.get(i)).into(holder.imageView);
 
+        if (MyApplication.isTextView()) {
+            holder.textView.setVisibility(View.INVISIBLE);
+        }
+
+        if (!MyApplication.isTextView()) {
+            holder.textView.setVisibility(View.VISIBLE);
+        }
+
+
 
 
        holder.imageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 MyApplication.verif1=holder.textView.getText().toString();
+                MyApplication.id=context.getResources().getIdentifier(MyApplication.verif1,"drawable",context.getPackageName());
+
+
 
                 Intent intent=new Intent(context,Besoin.class);
                 intent.putExtra("Image","Besoin");

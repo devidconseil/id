@@ -143,6 +143,7 @@ public class Affichage extends AppCompatActivity {
          }
 
         if (getIntent().getStringExtra("passage").equals("stock")) {
+            MyApplication.setTextView(false);
             stock = (TextView) findViewById(R.id.textView14);
             gridView= findViewById(R.id.gridview);
             scrollview= findViewById(R.id.scrollview);
@@ -174,7 +175,7 @@ public class Affichage extends AppCompatActivity {
           gridView.setAdapter(arrayAdapter);
           gridView.setVisibility(View.VISIBLE);
           scrollview.setVisibility(View.INVISIBLE);
-          stock.setVisibility(View.VISIBLE);
+
 
 
         }
@@ -279,7 +280,6 @@ public class Affichage extends AppCompatActivity {
 
 
 
-
         }
 
         if (getIntent().getStringExtra("passage").equals("Rupture_original")) {
@@ -298,21 +298,30 @@ public class Affichage extends AppCompatActivity {
         }
 
      if (getIntent().getStringExtra("passage").equals("image")){
-
+            MyApplication.setTextView(true);
             List<String> list=new ArrayList<>();
             List<Integer> list1=new ArrayList<>();
-            list.add("un");
-            list.add("deux");
-            list.add("trois");
-            list1.add(R.drawable.un);
-            list1.add(R.drawable.deux);
-            list1.add(R.drawable.trois);
+            String besoin_nom []={"Agrafeuse", "Blanco", "Bloc note", "Buffet", "Bureau", "Cahier", "Ciseaux", "Clé USB", "Climatiseur", "Corbeille", "Crayon", "Fauteuil", "Réfrigérateur","Imprimante", "Marquer"
+                    ,"Ordinateur", "Panier", "Papier RAM","Punaise", "Règle", "Stylo", "Surligneur", "Trombone"};
 
-            StockAffichAdapter stockAffichAdapter=new StockAffichAdapter(this,list,list1);
+            String string="";
+       /*     for (String bes:besoin_nom){
+                list.add(bes);
+            }    */
+            for (Integer i=1;i<=23;i++){
+                string="b"+i;
+                int id=getBaseContext().getResources().getIdentifier(string,"drawable",getBaseContext().getPackageName());
+                list1.add(id);
+                list.add(string);
+            }
+            BesoinAdapter besoinAdapter=new BesoinAdapter(this,list,list1);
 
-            ListView listView= findViewById(R.id.listeview);
+            GridView gridView= findViewById(R.id.gridview);
 
-            listView.setAdapter(stockAffichAdapter);
+            gridView.setAdapter(besoinAdapter);
+            gridView.setVisibility(View.VISIBLE);
+
+
 
 
 

@@ -1,6 +1,7 @@
 package com.example.hp.madose;
 
 import android.app.Application;
+import android.widget.TextView;
 
 /**
  * Created by HP on 28/12/2017.
@@ -17,9 +18,27 @@ public class MyApplication extends Application {
     public static boolean fetch=true;
     public static boolean verif=false;
     public static String verif1;
+    public  static int id;
+    public static boolean textView;
 
     public static boolean isFetch() {
         return fetch;
+    }
+
+    public static boolean isTextView() {
+        return textView;
+    }
+
+    public static void setTextView(boolean textView) {
+        MyApplication.textView = textView;
+    }
+
+    public static int getId() {
+        return id;
+    }
+
+    public static void setId(int id) {
+        MyApplication.id = id;
     }
 
     public static void setFetch(boolean fetch) {
