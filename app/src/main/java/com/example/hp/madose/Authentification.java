@@ -60,7 +60,6 @@ public class Authentification extends AppCompatActivity {
                     identifiant.requestFocus();
                 }*/
 
-
             updateUI(null);
             signIn(identifiant.getText().toString(),motpass.getText().toString());
 
@@ -78,7 +77,7 @@ public class Authentification extends AppCompatActivity {
     }
 
     public void updateUI(FirebaseUser user) {
-        if (user !=null){
+        if (user ==null){
             progressBar.setProgress(View.VISIBLE);
             progressBar.setVisibility(View.VISIBLE);
 
