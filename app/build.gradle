@@ -4,6 +4,7 @@ android {
     compileSdkVersion 27
     buildToolsVersion "26.0.2"
     defaultConfig {
+        multiDexEnabled true
         applicationId "com.example.hp.madose"
         minSdkVersion 15
         targetSdkVersion 24

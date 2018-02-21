@@ -3,6 +3,7 @@ package com.example.hp.madose;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
@@ -301,12 +302,18 @@ public class Affichage extends AppCompatActivity {
 
             List<String> list=new ArrayList<>();
             List<Integer> list1=new ArrayList<>();
-            list.add("un");
-            list.add("deux");
-            list.add("trois");
-            list1.add(R.drawable.un);
-            list1.add(R.drawable.deux);
-            list1.add(R.drawable.trois);
+            int i=0;
+            String string="i";
+            for (i=1;i<=4;i++){
+               string="i"+i;
+               list.add(string);
+               int id=getBaseContext().getResources().getIdentifier(string,"drawable",getBaseContext().getPackageName());
+               list1.add(id);
+            }
+
+           // list1.add(id);
+            //list1.add(R.drawable.deux);
+            //list1.add(R.drawable.trois);
 
             StockAffichAdapter stockAffichAdapter=new StockAffichAdapter(this,list,list1);
 
