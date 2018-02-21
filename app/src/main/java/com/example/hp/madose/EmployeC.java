@@ -54,4 +54,8 @@ public class EmployeC {
     {
         return LibDep;
     }
+    public String toStringProf()
+    {
+        return ProEmp;
+    }
 }
