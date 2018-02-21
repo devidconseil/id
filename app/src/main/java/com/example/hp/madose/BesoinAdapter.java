@@ -6,25 +6,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class StockAffichAdapter extends BaseAdapter {
+public class BesoinAdapter extends BaseAdapter {
 
     List<String> strings;
     Context context;
     List<Integer> imagesId;
     private static LayoutInflater layoutInflater=null;
 
-    public StockAffichAdapter(Context context, List<String> strings, List<Integer> imagesId) {
+    public BesoinAdapter(Context context, List<String> strings, List<Integer> imagesId) {
         this.strings = strings;
         this.context = context;
         this.imagesId = imagesId;
@@ -55,7 +52,7 @@ public class StockAffichAdapter extends BaseAdapter {
     public View getView(final int i, View view, ViewGroup viewGroup) {
         final Holder holder=new Holder();
 
-        view=layoutInflater.inflate(R.layout.stock_affich_list_item,null);
+        view=layoutInflater.inflate(R.layout.besoin_list_item,null);
 
 
         holder.textView= view.findViewById(R.id.textView8);

@@ -29,10 +29,10 @@
                 android:id="@+id/datepik"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
                 android:ems="10"
                 android:hint="Date"
                 android:imeOptions="actionNext"
-                android:layout_alignParentTop="true"
                 android:textColor="@color/cardview_light_background"
                 android:textColorHint="#d2d2d2" />
 
@@ -143,27 +143,6 @@
                 android:text="Quitter"
                 android:textColor="#fff"
                 android:layout_below="@id/EnregistrerEn"/>
-
-            <ImageView
-                android:id="@+id/boutoun"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/datepik"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
-                android:clickable="true"
-                app:srcCompat="@drawable/add_person" />
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignLeft="@+id/boutoun"
-                android:layout_alignStart="@+id/boutoun"
-                android:layout_alignTop="@+id/autoCompleteBesoin"
-                app:srcCompat="@drawable/add_product1" />
 
 
         </RelativeLayout>

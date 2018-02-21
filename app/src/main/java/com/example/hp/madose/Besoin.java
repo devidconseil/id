@@ -115,9 +115,9 @@ public class Besoin extends AppCompatActivity {
         });
 
    if (MyApplication.isVerif()){
-       String calba="R.drawable."+MyApplication.verif1;
+
        int resId=getResources().getIdentifier(MyApplication.verif1,"drawable",getPackageName());
-       imageView.setImageResource(resId);
+       imageView.setImageResource(MyApplication.id);
 
        MyApplication.setVerif(false);
    }
@@ -156,12 +156,12 @@ public class Besoin extends AppCompatActivity {
                 if (editLib.getText().toString().equals(""))
                 {
                     editLib.requestFocus();
-                    Toast.makeText(getBaseContext(),"Veuillez saisir le libellé du besoin SVP!!",Toast.LENGTH_LONG).show();
+                    editLib.setError("Veuillez saisir le libellé du besoin SVP!!");
                 }
                 else if (auto.getText().toString().equals(""))
                 {
                     auto.requestFocus();
-                    Toast.makeText(getBaseContext(),"Veuillez saisir la catégorie du besoin SVP!!",Toast.LENGTH_LONG).show();
+                    auto.setError("Veuillez saisir la catégorie du besoin SVP!!");
                 }
                 else {
                     int resul = radioGroup.getCheckedRadioButtonId();

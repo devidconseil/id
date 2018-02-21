@@ -144,6 +144,7 @@ public class Affichage extends AppCompatActivity {
          }
 
         if (getIntent().getStringExtra("passage").equals("stock")) {
+            MyApplication.setTextView(false);
             stock = (TextView) findViewById(R.id.textView14);
             gridView= findViewById(R.id.gridview);
             scrollview= findViewById(R.id.scrollview);
@@ -299,28 +300,26 @@ public class Affichage extends AppCompatActivity {
         }
 
      if (getIntent().getStringExtra("passage").equals("image")){
-
+            MyApplication.setTextView(true);
             List<String> list=new ArrayList<>();
             List<Integer> list1=new ArrayList<>();
-            int i=0;
-            String string="i";
-            for (i=1;i<=4;i++){
-               string="i"+i;
-               list.add(string);
-               int id=getBaseContext().getResources().getIdentifier(string,"drawable",getBaseContext().getPackageName());
-               list1.add(id);
+
+            String string="";
+       /*     for (String bes:besoin_nom){
+                list.add(bes);
+            }    */
+            for (Integer i=1;i<=30;i++){
+                string="b"+i;
+                int id=getBaseContext().getResources().getIdentifier(string,"drawable",getBaseContext().getPackageName());
+                list1.add(id);
+                list.add(string);
             }
+            BesoinAdapter besoinAdapter=new BesoinAdapter(this,list,list1);
 
-           // list1.add(id);
-            //list1.add(R.drawable.deux);
-            //list1.add(R.drawable.trois);
+            GridView gridView= findViewById(R.id.gridview);
 
-            StockAffichAdapter stockAffichAdapter=new StockAffichAdapter(this,list,list1);
-
-            ListView listView= findViewById(R.id.listeview);
-
-            listView.setAdapter(stockAffichAdapter);
-
+            gridView.setAdapter(besoinAdapter);
+            gridView.setVisibility(View.VISIBLE);
 
 
         }
