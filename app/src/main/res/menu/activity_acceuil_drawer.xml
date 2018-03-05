@@ -30,6 +30,10 @@
             android:id="@+id/departement"
             android:icon="@drawable/p_departement"
             android:title="Departement" />
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/logout"
+            android:title="Déconnexion" />
     </group>
 
 </menu>

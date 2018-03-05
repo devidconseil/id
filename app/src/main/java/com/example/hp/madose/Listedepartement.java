@@ -6,15 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +40,9 @@ public class Listedepartement extends AppCompatActivity {
         Intent intent=getIntent();
         final String var2=intent.getStringExtra("employer");
         final String var1=intent.getStringExtra("employerr");
+        final String var3=intent.getStringExtra("employerrr");
+        final String var4=intent.getStringExtra("employerrrr");
+        final String var5=intent.getStringExtra("employerrrrr");
 
 
 
@@ -53,11 +53,14 @@ public class Listedepartement extends AppCompatActivity {
                 int var=Integer.parseInt(depart);
 
 
-                Intent intent=new Intent(Listedepartement.this,Employe.class);
+                Intent intent=new Intent(Listedepartement.this,Utilisateur.class);
                 String variable=liste.get(position);
                 intent.putExtra("departement",variable);
                 intent.putExtra("employer",var2);
                 intent.putExtra("employerr",var1);
+                intent.putExtra("employerrr",var3);
+                intent.putExtra("employerrrr",var4);
+                intent.putExtra("employerrrrr",var5);
                 startActivity(intent);
             }
         });

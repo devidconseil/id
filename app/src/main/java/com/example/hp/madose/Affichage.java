@@ -3,28 +3,23 @@ package com.example.hp.madose;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
-import android.text.Html;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.GridView;
 import android.widget.ScrollView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.squareup.picasso.Picasso;
 
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,12 +37,14 @@ public class Affichage extends AppCompatActivity {
     private ListView listView;
     private GridView gridView;
     private ScrollView scrollview;
+    private DatabaseReference mDatabase;
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_affichage);
         bd = new BaseDeDonne(this);
+        mDatabase= FirebaseDatabase.getInstance().getReference();
 
 
 
@@ -104,8 +101,29 @@ public class Affichage extends AppCompatActivity {
         {
             employe = (TextView) findViewById(R.id.textView4);
 
-            List<EmployeC> affE = bd.afficheE();
-            for (EmployeC emp : affE) {
+            mDatabase.child("users").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot dataSnapshotUser:dataSnapshot.getChildren()){
+                        UtilisateurC user=dataSnapshotUser.getValue(UtilisateurC.class);
+                        Toast.makeText(getApplicationContext(),user.getMailEmp(),Toast.LENGTH_SHORT);
+                        if (!bd.checkIfUserExist(user)){
+                            int s=Integer.parseInt(bd.selectDep(user.getLibDep()));
+                            bd.insertEmp(user.getNomEmp(),user.getPrenEmp(),user.getMailEmp(),user.getTelEmp(),s,user.getProEmp());
+
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+
+            List<UtilisateurC> affE = bd.afficheE();
+            for (UtilisateurC emp : affE) {
                 employe.append(emp.toString() + "\n\n");
             }
 
@@ -346,7 +364,7 @@ public class Affichage extends AppCompatActivity {
              }
             else if (getIntent().getStringExtra("passage").equals("employe"))
              {
-                 Intent intent=new Intent(Affichage.this,Employe.class);
+                 Intent intent=new Intent(Affichage.this,Utilisateur.class);
                  startActivity(intent);
              }
              else if (getIntent().getStringExtra("passage").equals("categorie"))

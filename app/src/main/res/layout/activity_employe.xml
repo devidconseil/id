@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.hp.madose.Employe">
+    tools:context="com.example.hp.madose.Utilisateur">
 
 
     <Button
@@ -41,12 +41,26 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="141dp"
+        android:layout_marginTop="70dp"
         android:ems="10"
-        android:textColorHint="@color/common_action_bar_splitter"
+        android:hint="Nom "
+        android:inputType="textPersonName"
         android:textColor="#fff"
-        android:hint="Nom et prénom"
-        android:inputType="textPersonName" />
+        android:textColorHint="@color/common_action_bar_splitter" />
+
+    <EditText
+        android:id="@+id/prenEmp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="false"
+        android:layout_below="@+id/nomEmp"
+        android:ems="10"
+        android:hint="Prénoms"
+        android:inputType="textPersonName"
+        android:textColor="#fff"
+        android:textColorHint="@color/common_action_bar_splitter" />
 
     <EditText
         android:id="@+id/profil"
@@ -54,12 +68,38 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/nomEmp"
+        android:layout_below="@+id/contact"
         android:ems="10"
-        android:textColorHint="@color/common_action_bar_splitter"
-        android:textColor="#fff"
         android:hint="Profil"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textColor="#fff"
+        android:textColorHint="@color/common_action_bar_splitter" />
+
+    <EditText
+        android:id="@+id/contact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/email"
+        android:ems="10"
+        android:hint="Téléphone"
+        android:inputType="phone"
+        android:textColor="#fff"
+        android:textColorHint="@color/common_action_bar_splitter" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/prenEmp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="text|textEmailAddress"
+        android:textColor="#fff"
+        android:textColorHint="@color/common_action_bar_splitter" />
 
     <EditText
         android:id="@+id/autoCompDep"
@@ -69,10 +109,10 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/profil"
         android:ems="10"
-        android:textColorHint="@color/common_action_bar_splitter"
-        android:textColor="#fff"
         android:hint="Departement"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textColor="#fff"
+        android:textColorHint="@color/common_action_bar_splitter" />
 
 
 </RelativeLayout>
