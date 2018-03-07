@@ -210,7 +210,7 @@ public class Affichage extends AppCompatActivity {
              employe = (TextView) findViewById(R.id.textView4);
              List<BesoinC> affC = bd.afficheB();
              for (BesoinC emp : affC) {
-                 employe.append(emp.toString() + "\n\n");
+                 employe.append(emp.toString1() + "\n\n");
              }
          }
 

@@ -4,7 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.hp.madose.MyAdapter.MyAdapter;
@@ -19,6 +21,7 @@ public class Display extends AppCompatActivity {
    RecyclerView list;
    ImageView imageView;
    TextView textView;
+   LinearLayout linearLayout;
    RecyclerView.LayoutManager layoutManager;
    List<Item>items =new ArrayList<>();
    List<Item>ite =new ArrayList<>();
@@ -31,7 +34,7 @@ public class Display extends AppCompatActivity {
         list.setHasFixedSize(true);
         layoutManager=new LinearLayoutManager(this);
         list.setLayoutManager(layoutManager);
-      //imageView.setImageResource(getApplicationContext().getResources().getIdentifier("b9","drawable",getApplication().getPackageName()));
+
 
         setData();
     }
@@ -43,11 +46,11 @@ public class Display extends AppCompatActivity {
 
         BaseDeDonne bd=new BaseDeDonne(this);
         List<BesoinC> affC = bd.afficheB();
-        textView=(TextView)findViewById(R.id.texteo);
+        textView=(TextView)findViewById(R.id.libS);
         RecyclerView list=(RecyclerView)findViewById(R.id.recycler);
         for (BesoinC emp : affC)
         {       //ce gar la n'aime pas les int 
-                Item item=new Item(emp.getLibBes(),emp.getTypeBes(), emp.getImageBes(),String.valueOf(emp.getStockBes()),true);
+                Item item=new Item(emp.getLibBes(),emp.getTypeBes(), emp.getImageBes(),String.valueOf(emp.getStockBes()),emp.getLibCat(),true);
                 items.add(item);
 
         }

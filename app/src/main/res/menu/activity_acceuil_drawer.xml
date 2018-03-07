@@ -4,13 +4,12 @@
 
     <item android:title=""
         android:icon="@drawable/ic_menu_manage">
-
         <menu>
             <item
                 android:id="@+id/employé"
                 android:enabled="true"
                 android:icon="@drawable/p_employe"
-                android:title="Employé"
+                android:title="Utilisateur"
                 android:visible="true" />
             <item
                 android:id="@+id/fournisseur"
@@ -18,7 +17,6 @@
                 android:icon="@drawable/p_fournisseur"
                 android:title="Fournisseur"
                 android:visible="true" />
-
         </menu>
     </item>
     <group android:checkableBehavior="single">
@@ -47,5 +45,4 @@
             android:title="Déconnexion"
             android:visible="true" />
     </group>
-
 </menu>

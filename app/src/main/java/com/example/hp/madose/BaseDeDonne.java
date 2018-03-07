@@ -321,7 +321,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         List<BesoinC>affB=new ArrayList<>();
         //String req="select NumBes,LibBes,TypeBes,Idcat,SeuilBes,date(AmorBes,'unixepoch') from Besoin where Amorbes BETWEEN strftime('%s','2010-05-04') AND strftime('%s','2060-12-31') ;";
 
-        String req="select NumBes,LibBes,TypeBes,Idcat,SeuilBes,date(AmorBes,'unixepoch'),StockBes,Image from Besoin;";
+        String req="select LibBes,TypeBes,LibCat,SeuilBes,date(AmorBes,'unixepoch'),StockBes,Image from Besoin,Categorie where Besoin.IdCat=Categorie.IdCat;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -336,7 +336,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         {
 
 
-            BesoinC disp=new BesoinC(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3),cursor.getInt(4),cursor.getString(5),cursor.getInt(6),cursor.getInt(7));
+            BesoinC disp=new BesoinC(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3),cursor.getString(4),cursor.getInt(5),cursor.getInt(6));
             affB.add(disp);
             cursor.moveToNext();
 

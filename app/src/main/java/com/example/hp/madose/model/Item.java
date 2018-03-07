@@ -5,15 +5,16 @@ package com.example.hp.madose.model;
  */
 
 public class Item {
-    private String text,subtext,stock;
+    private String text,subtext,stock,affiche;
     private int image;
     private boolean isExpandable;
 
-    public Item(String text, String subtext, int image, String stock, boolean isExpandable) {
+    public Item(String text, String subtext, int image, String stock,String affiche, boolean isExpandable) {
         this.text = text;
         this.subtext = subtext;
         this.image=image;
         this.stock=stock;
+        this.affiche=affiche;
         this.isExpandable = isExpandable;
     }
 
@@ -56,5 +57,13 @@ public class Item {
 
     public void setExpandable(boolean expandable) {
         isExpandable = expandable;
+    }
+
+    public String getAffiche() {
+        return affiche;
+    }
+
+    public void setAffiche(String affiche) {
+        this.affiche = affiche;
     }
 }

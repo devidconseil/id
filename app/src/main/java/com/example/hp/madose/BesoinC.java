@@ -128,6 +128,10 @@ public class BesoinC {
         return numBes + " Libellé " + libBes + "\nType: " + typeBes +"\nCatégorie: " + idCat +"\nSeuil: " + seuilBes +"\nAmor" + amorBes +"\nStock: " +stockBes+
                 "\n";
     }
+    public String toString1() {
+        return numBes + " Libellé " + libBes + "\nType: " + typeBes +"\nCatégorie: " + libCat +"\nSeuil: " + seuilBes +"\nAmor" + amorBes +"\nStock: " +stockBes+
+                "\n";
+    }
 
     public String libelleBesoin() {
         return libBes ;
