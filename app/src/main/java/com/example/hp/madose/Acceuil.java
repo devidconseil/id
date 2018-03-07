@@ -72,13 +72,6 @@ public class Acceuil extends AppCompatActivity
         }
 
 
-writeNewBesoin("STYLO", "NON AMORTISSABLE", "MATERIEL DE BUREAU", 3, "0", 2,R.drawable.b21);
-        writeNewBesoin("MARKER", "NON AMORTISSABLE", "MATERIEL DE BUREAU", 2, "0", 0,R.drawable.b22);
-        writeNewBesoin("POUBELLE", "NON AMORTISSABLE","MATERIEL D ENTRETIEN", 2, "0", 0,R.drawable.b10);
-        writeNewBesoin("STICKY NOTES", "NON AMORTISSABLE", "MATERIEL DE BUREAU", 3, "0", 2,R.drawable.b17);
-        writeNewBesoin("CLIMATISEUR", "AMORTISSABLE", "MATERIEL DE BUREAU", 0, "2020-03-25", 0,R.drawable.b9);
-        writeNewBesoin("ORDINATEUR", "AMORTISSABLE", "OUTIL INFORMATIQUE", 0, "2020-03-25", 0,R.drawable.b26);
-        writeNewBesoin("IMPRIMANTE", "AMORTISSABLE", "OUTIL INFORMATIQUE", 0, "2020-03-25", 0,R.drawable.b14);
 /*if(!bd.checkIfTableHasData("Besoins_Sortie") && !bd.checkIfTableHasData("Categorie") && !bd.checkIfTableHasData("Demande") && !bd.checkIfTableHasData("Demande_Besoins") && !bd.checkIfTableHasData("Departement") && !bd.checkIfTableHasData("Utilisateur") && !bd.checkIfTableHasData("Besoin") && !bd.checkIfTableHasData("Besoins_Entree") && !bd.checkIfTableHasData("Entree") && !bd.checkIfTableHasData("Fournisseur") && !bd.checkIfTableHasData("Sortie"))
              {
     bd.insertCat("MATERIEL DE BUREAU");
