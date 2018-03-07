@@ -72,8 +72,7 @@
         android:ems="10"
         android:hint="Profil"
         android:inputType="textPersonName"
-        android:textColor="#fff"
-        android:textColorHint="@color/common_action_bar_splitter" />
+        android:background="@drawable/round_corner" />
 
     <EditText
         android:id="@+id/contact"
@@ -85,8 +84,7 @@
         android:ems="10"
         android:hint="Téléphone"
         android:inputType="phone"
-        android:textColor="#fff"
-        android:textColorHint="@color/common_action_bar_splitter" />
+        android:background="@drawable/round_corner" />
 
     <EditText
         android:id="@+id/email"
@@ -98,8 +96,7 @@
         android:ems="10"
         android:hint="Email"
         android:inputType="text|textEmailAddress"
-        android:textColor="#fff"
-        android:textColorHint="@color/common_action_bar_splitter" />
+        android:background="@drawable/round_corner" />
 
     <EditText
         android:id="@+id/autoCompDep"
