@@ -5,36 +5,40 @@ package com.example.hp.madose;
  */
 
 public class CategorieC {
-    int IdCat;
-    String LibCat;
+    int idCat;
+    String libCat;
 
     public CategorieC(){}
 
     public int getIdCat() {
-        return IdCat;
+        return idCat;
     }
 
-    public void setIdCat(int idCat) {
-        IdCat = idCat;
+    public void setIdCat(int IdCat) {
+        this.idCat = idCat;
     }
 
     public String getLibCat() {
-        return LibCat;
+        return libCat;
     }
 
-    public void setLibCat(String libCat) {
-        LibCat = libCat;
+    public void setLibCat(String LibCat) {
+        this.libCat = libCat;
         }
 
     @Override
     public String toString() {
-        return "Categorie " +IdCat +" "+ LibCat;
+        return "Categorie " +idCat +" "+ libCat;
     }
 
     public CategorieC(int idCat, String libCat) {
-        this.IdCat = idCat;
-        this.LibCat = libCat;
+        this.idCat = idCat;
+        this.libCat = libCat;
     }
 
+    public CategorieC( String libCat) {
+
+        this.libCat = libCat;
+    }
 
 }

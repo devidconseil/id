@@ -3,6 +3,8 @@ package com.example.hp.madose;
 import android.app.Application;
 import android.widget.TextView;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 /**
  * Created by HP on 28/12/2017.
  */
@@ -18,7 +20,7 @@ public class MyApplication extends Application {
     public static boolean fetch=true;
     public static boolean verif=false;
     public static String verif1;
-    public  static int id;
+    public static int id;
     public static boolean textView;
 
     public static boolean isFetch() {
@@ -83,6 +85,11 @@ public class MyApplication extends Application {
 
     public static void setGlobalVarValue(String globalVarValue) {
         mGlobalVarValue = globalVarValue;
+    }
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
     }
 
 }

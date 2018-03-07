@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DepartementC{
     int idDep;
-    String LibDep;
+    String libDep;
 
     public DepartementC() {}
 
@@ -24,21 +24,24 @@ public class DepartementC{
     }
 
     public String getLibDep() {
-        return LibDep;
+        return libDep;
     }
 
     public void setLibDep(String libDep) {
-        LibDep = libDep;
+        this.libDep = libDep;
     }
 
     @Override
     public String toString() {
-        return   idDep + " Departement " + LibDep ;
+        return   idDep + " Departement " + libDep ;
     }
 
 
     public DepartementC(int idDep, String libDep) {
         this.idDep = idDep;
-        this.LibDep = libDep;
+        this.libDep = libDep;
+    }
+    public DepartementC( String libDep) {
+        this.libDep = libDep;
     }
 }

@@ -61,6 +61,7 @@ public class Demande extends AppCompatActivity {
         final int jour=calendar.get(Calendar.DAY_OF_MONTH);
         final int mois=calendar.get(Calendar.MONTH);
         final int annee=calendar.get(Calendar.YEAR);
+        depart.setEnabled(false);
 
 
         radioButton_dep.setOnClickListener(new View.OnClickListener() {

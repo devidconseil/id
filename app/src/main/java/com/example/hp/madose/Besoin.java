@@ -23,6 +23,8 @@ import com.example.hp.madose.model.Item;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 import java.util.ArrayList;
@@ -41,6 +43,7 @@ public class Besoin extends AppCompatActivity {
     EditText editLib;
     BaseDeDonne bd;
     int jour,mois,annee;
+    DatabaseReference mDatabase;
 
 
     @Override
@@ -66,6 +69,7 @@ public class Besoin extends AppCompatActivity {
         radioGroup = (RadioGroup) findViewById(R.id.groupeRadio);
         final Button enregistrer = (Button) findViewById(R.id.enregistre);
         final ImageView imageView= findViewById(R.id.imageView3);
+        mDatabase= FirebaseDatabase.getInstance().getReference();
 
 
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -192,22 +196,22 @@ public class Besoin extends AppCompatActivity {
                     int result = radioGroup.getCheckedRadioButtonId();
                     radio = (RadioButton) findViewById(result);
 
-
                 if (radio.getText().toString().equals("AMORTISSABLE"))
                 {
                     var1=edi2.getText().toString();
                     int resId=getResources().getIdentifier(MyApplication.verif1,"drawable",getPackageName());
-                    bd.insertBesoin(editLib.getText().toString(), rb.getText().toString(), var3,0,var1,varo,MyApplication.id);
-                    Toast.makeText(Besoin.this, resId, Toast.LENGTH_LONG).show();
+                    bd.insertBesoin(editLib.getText().toString(), rb.getText().toString(), var3,0,var1,varo,resId);
+                    writeNewBesoin(editLib.getText().toString(),rb.getText().toString(),auto.getText().toString(),0,var1,varo,resId);
+                    Toast.makeText(Besoin.this, "Besoin enregistré avec succès", Toast.LENGTH_LONG).show();
                 }
 
                else if (radio.getText().toString().equals("NON AMORTISSABLE"))
                 {
                     var = Integer.parseInt(edi1.getText().toString());
                     int resId=getResources().getIdentifier(MyApplication.verif1,"drawable",getPackageName());
-
-                    //bd.insertBesoin(editLib.getText().toString(), rb.getText().toString(), var3,var,"0",varo,MyApplication.id);
-                    Toast.makeText(Besoin.this,resId, Toast.LENGTH_LONG).show();
+                    bd.insertBesoin(editLib.getText().toString(), rb.getText().toString(), var3,var,"0",varo,resId);
+                    writeNewBesoin(editLib.getText().toString(), rb.getText().toString(), auto.getText().toString(),var,"0",varo,resId);
+                    Toast.makeText(Besoin.this,"Besoin enregistré avec succès", Toast.LENGTH_LONG).show();
                 }
 
 
@@ -264,5 +268,16 @@ public class Besoin extends AppCompatActivity {
 
     }
 
+    public void writeNewBesoin(String libBes,String typBes,String libCat,int seuilBes, String amorBes,int stockBes,int imageBes){
+        String code=libBes;
+        if (libBes.contains(" ")){
+            code=libBes.replace(" ","-");
+        }
+        if (libBes.contains("'")){
+            code=code.replace("'","-");
+        }
 
+        BesoinC cat=new BesoinC(libBes,typBes,libCat,seuilBes,amorBes,stockBes,imageBes);
+        mDatabase.child("Besoin").child(code).setValue(cat);
+    }
 }

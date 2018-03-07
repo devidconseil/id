@@ -47,7 +47,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Employe"
+            android:name=".Utilisateur"
             android:label="Employé">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

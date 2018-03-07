@@ -5,18 +5,31 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONArray;
 
 
 public class Acceuil extends AppCompatActivity
@@ -29,6 +42,8 @@ public class Acceuil extends AppCompatActivity
      */
     private GoogleApiClient client;
     private BaseDeDonne bd;
+    DatabaseReference mDatabase;
+    FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,14 +60,31 @@ public class Acceuil extends AppCompatActivity
         }
         bd = new BaseDeDonne(this);
 
+        mDatabase= FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+
+        String profile=bd.retrieveUserProfile(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        if (profile.equals("USER")){
+            Intent intent=new Intent(Acceuil.this,Affichage.class);
+            intent.putExtra("passage","demande");
+            startActivity(intent);
+            finish();
+        }
 
 
-if(!bd.checkIfTableHasData("Besoins_Sortie") && !bd.checkIfTableHasData("Categorie") && !bd.checkIfTableHasData("Demande") && !bd.checkIfTableHasData("Demande_Besoins") && !bd.checkIfTableHasData("Departement") && !bd.checkIfTableHasData("Employe") && !bd.checkIfTableHasData("Besoin") && !bd.checkIfTableHasData("Besoins_Entree") && !bd.checkIfTableHasData("Entree") && !bd.checkIfTableHasData("Fournisseur") && !bd.checkIfTableHasData("Sortie"))
+writeNewBesoin("STYLO", "NON AMORTISSABLE", "MATERIEL DE BUREAU", 3, "0", 2,R.drawable.b21);
+        writeNewBesoin("MARKER", "NON AMORTISSABLE", "MATERIEL DE BUREAU", 2, "0", 0,R.drawable.b22);
+        writeNewBesoin("BALAI", "NON AMORTISSABLE","MATERIEL D ENTRETIEN", 2, "0", 0,R.drawable.b9);
+        writeNewBesoin("PAPIER RAM", "NON AMORTISSABLE", "MATERIEL DE BUREAU", 3, "0", 2,R.drawable.b7);
+        writeNewBesoin("CAHIER", "NON AMORTISSABLE", "MATERIEL DE BUREAU", 2, "0", 0,R.drawable.b3);
+        writeNewBesoin("ORDINATEUR", "AMORTISSABLE", "OUTIL INFORMATIQUE", 0, "2020-03-25", 0,R.drawable.b26);
+        writeNewBesoin("IMPRIMANTE", "AMORTISSABLE", "OUTIL INFORMATIQUE", 0, "2020-03-25", 0,R.drawable.b14);
+/*if(!bd.checkIfTableHasData("Besoins_Sortie") && !bd.checkIfTableHasData("Categorie") && !bd.checkIfTableHasData("Demande") && !bd.checkIfTableHasData("Demande_Besoins") && !bd.checkIfTableHasData("Departement") && !bd.checkIfTableHasData("Utilisateur") && !bd.checkIfTableHasData("Besoin") && !bd.checkIfTableHasData("Besoins_Entree") && !bd.checkIfTableHasData("Entree") && !bd.checkIfTableHasData("Fournisseur") && !bd.checkIfTableHasData("Sortie"))
              {
     bd.insertCat("MATERIEL DE BUREAU");
     bd.insertCat("OUTIL INFORMATIQUE");
     bd.insertCat("MATERIEL DE CUISINE");
-    bd.insertCat("MATERIEL D ENTRETIENT");
+    bd.insertCat("MATERIEL D ENTRETIEN");
     bd.insertCat("OUTIL PAUSE CAFE");
 
     bd.insert("INFORMATIQUE");
@@ -73,12 +105,14 @@ if(!bd.checkIfTableHasData("Besoins_Sortie") && !bd.checkIfTableHasData("Categor
     bd.insertFour("CDCI", "01 bp 1250 Abidjan 10", 22441182);
     bd.insertFour("SOCOCE", "01 bp 4036 Abidjan 28", 22441683);
 
-    bd.insertEmp("Eric KOUADJO", 1, "ADMIN");
-    bd.insertEmp("Patrick ADEJINLE", 1, "ADMIN");
-    bd.insertEmp("Myriame KONE", 2, "ADMIN");
-    bd.insertEmp("Seydou KONE", 2, "ADMIN");
-    bd.insertEmp("Yvon LAGO", 2, "ADMIN");
-    bd.insertEmp("Bénédicte ASSOH EPSE YAPI", 3, "ADMIN");
+    bd.insertEmp("KOUADJO","Eric","ekouadjio@idconsulting.ie","01020304", 1, "SUPER ADMIN");
+    bd.insertEmp("ADEJINLE","Patrick","padejinle@idconsulting.ie","01020304", 1, "SUPER ADMIN");
+    bd.insertEmp("KONE","Myriame","mnayele@idconsulting.ie","01020304",  2, "USER");
+    bd.insertEmp("KONE","Seydou","kseydou@idconsulting.ie","01020304", 2, "USER");
+    bd.insertEmp("LAGO","Yvon","ylago@idconsulting.ie","01020304", 2, "USER");
+    bd.insertEmp("ASSOH EPSE YAPI","Bénédicte","bassoh@idconsulting.ie","01020304", 3, "ADMIN");
+
+
 
     bd.insertEntr("2018-01-02", 1);
     bd.insertEntr("2018-01-02", 4);
@@ -94,7 +128,7 @@ if(!bd.checkIfTableHasData("Besoins_Sortie") && !bd.checkIfTableHasData("Categor
     bd.insertDemandeBesoin(1, 1, 1);
     bd.insertDemandeBesoin(1, 6, 1);
     MyApplication.setFetch(false);
-}
+}  */
 
 
         bd.RupureCheck();
@@ -112,6 +146,7 @@ if(!bd.checkIfTableHasData("Besoins_Sortie") && !bd.checkIfTableHasData("Categor
             });
             builder.create();
             builder.show();
+            builder.setCancelable(false);
         }
 
 
@@ -231,6 +266,12 @@ if(!bd.checkIfTableHasData("Besoins_Sortie") && !bd.checkIfTableHasData("Categor
                 b.putExtra("passage", "besoin");
                 startActivity(b);
                 break;
+            case R.id.logout:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(this, Authentification.class));
+                finish();
+                break;
+
 
         }
 
@@ -243,5 +284,33 @@ if(!bd.checkIfTableHasData("Besoins_Sortie") && !bd.checkIfTableHasData("Categor
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
+    private void writeNewUser(String userId, String name, String surname, String email, String tel, String department, String profile) {
+        UtilisateurC user = new UtilisateurC(name, surname, email, tel, department, profile);
+        mDatabase.child("users").child(userId).setValue(user);
+    }
 
+@Override
+    public void onStart(){
+        super.onStart();
+
+        String profile=bd.retrieveUserProfile(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        if (profile.equals("USER")){
+            Intent intent=new Intent(Acceuil.this,Affichage.class);
+            intent.putExtra("passage","demande");
+            startActivity(intent);
+            finish();
+        }
+    }
+    public void writeNewBesoin(String libBes,String typBes,String libCat,int seuilBes, String amorBes,int stockBes,int imageBes){
+        String code=libBes;
+        if (libBes.contains(" ")){
+            code=libBes.replace(" ","-");
+        }
+        if (libBes.contains("'")){
+            code=code.replace("'","-");
+        }
+
+        BesoinC cat=new BesoinC(libBes,typBes,libCat,seuilBes,amorBes,stockBes,imageBes);
+        mDatabase.child("Besoin").child(code).setValue(cat);
+    }
 }

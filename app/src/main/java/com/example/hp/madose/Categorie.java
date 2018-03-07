@@ -8,11 +8,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 
 public class Categorie extends AppCompatActivity {
 
 
-
+  DatabaseReference mDatabase;
 
 
     @Override
@@ -23,6 +26,7 @@ public class Categorie extends AppCompatActivity {
         final EditText codeT=(EditText) findViewById(R.id.editCat);
         final Button codeB=(Button) findViewById(R.id.valCat);
         final BaseDeDonne bd=new BaseDeDonne(this);
+        mDatabase= FirebaseDatabase.getInstance().getReference();
 
         codeB.setOnClickListener(new View.OnClickListener() {
     @Override
@@ -34,7 +38,12 @@ public class Categorie extends AppCompatActivity {
             Toast.makeText(getBaseContext(),"Veuillez saisir la catégorie SVP!!",Toast.LENGTH_LONG).show();
         }
         else {
-            bd.insertCat(codeT.getText().toString());
+            String label=codeT.getText().toString();
+            if (codeT.getText().toString().contains("'")){
+                label=codeT.getText().toString().replace("'"," ");
+            }
+            bd.insertCat(label);
+            writeNewCategory(codeT.getText().toString());
             bd.close();
             Toast.makeText(getApplicationContext(), "Catégorie enregistrée avec succès", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(Categorie.this, Affichage.class);
@@ -55,5 +64,17 @@ public class Categorie extends AppCompatActivity {
             }
         });
 
+    }
+    public void writeNewCategory(String libCat){
+        String code=libCat;
+        if (libCat.contains(" ")){
+            code=libCat.replace(" ","-");
+        }
+        if (libCat.contains("'")){
+            code=code.replace("'","-");
+        }
+
+        CategorieC cat=new CategorieC(libCat);
+        mDatabase.child("Categorie").child(code).setValue(cat);
     }
 }

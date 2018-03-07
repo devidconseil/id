@@ -5,104 +5,132 @@ package com.example.hp.madose;
  */
 
 public class BesoinC {
-    int NumBes;
-    String LibBes;
-    String TypeBes;
-    int IdCat;
-    int SeuilBes;
-    String AmorBes;
-    int StockBes;
-    int ImageBes;
+    int numBes;
+    String libBes;
+    String typeBes;
+    int idCat;
+    int seuilBes;
+    String amorBes;
+    int stockBes;
+    int imageBes;
+    String libCat;
 
     void BesoinC(){}
 
+    public String getLibCat() {
+        return libCat;
+    }
+
+    public void setLibCat(String libCat) {
+        this.libCat = libCat;
+    }
+
     public int getNumBes() {
-        return NumBes;
+        return numBes;
     }
 
     public void setNumBes(int numBes) {
-        NumBes = numBes;
+        this.numBes = numBes;
     }
 
     public String getLibBes() {
-        return LibBes;
+        return libBes;
     }
 
     public void setLibBes(String libBes) {
-        LibBes = libBes;
+        this.libBes = libBes;
     }
 
     public String getTypeBes() {
-        return TypeBes;
+        return typeBes;
     }
 
     public void setTypeBes(String typeBes) {
-        TypeBes = typeBes;
+        this.typeBes = typeBes;
     }
 
     public int getIdCat() {
-        return IdCat;
+        return idCat;
     }
 
     public void setIdCat(int idCat) {
-        IdCat = idCat;
+        this.idCat = idCat;
     }
 
     public int getImageBes() {
-        return ImageBes;
+        return imageBes;
     }
 
     public void setImageBes(int imageBes) {
-        ImageBes = imageBes;
+        this.imageBes = imageBes;
     }
 
     public int getSeuilBes() {
-        return SeuilBes;
+        return seuilBes;
     }
 
     public void setSeuilBes(int seuilBes) {
-        SeuilBes = seuilBes;
+        this.seuilBes = seuilBes;
     }
 
     public String getAmorBes() {
-        return AmorBes;
+        return amorBes;
     }
 
     public void setAmorBes(String amorBes) {
-        AmorBes = amorBes;
+        this.amorBes = amorBes;
     }
 
     public int getStockBes() {
-        return StockBes;
+        return stockBes;
     }
 
     public void setStockBes(int stockBes) {
-        StockBes = stockBes;
+        this.stockBes = stockBes;
+    }
+
+    public BesoinC(int numBes, String libBes, String typeBes, int idCat, int seuilBes, String amorBes,int StockBes) {
+        this.numBes = numBes;
+        this.libBes = libBes;
+        this.typeBes = typeBes;
+        this.idCat = idCat;
+        this.seuilBes = seuilBes;
+        this.amorBes = amorBes;
+        this.stockBes=StockBes;
     }
 
     public BesoinC(int numBes, String libBes, String typeBes, int idCat, int seuilBes, String amorBes,int StockBes,int imageBes) {
-        this.NumBes = numBes;
-        this.LibBes = libBes;
-        this.TypeBes = typeBes;
-        this.IdCat = idCat;
-        this.SeuilBes = seuilBes;
-        this.AmorBes = amorBes;
-        this.StockBes=StockBes;
-        this.ImageBes=imageBes;
+        this.numBes = numBes;
+        this.libBes = libBes;
+        this.typeBes = typeBes;
+        this.idCat = idCat;
+        this.seuilBes = seuilBes;
+        this.amorBes = amorBes;
+        this.stockBes=StockBes;
+        this.imageBes=imageBes;
+    }
+    public BesoinC( String libBes, String typeBes, String libCat, int seuilBes, String amorBes,int StockBes,int imageBes) {
+        this.libBes = libBes;
+        this.typeBes = typeBes;
+        this.libCat=libCat;
+        this.seuilBes = seuilBes;
+        this.amorBes = amorBes;
+        this.stockBes=StockBes;
+        this.imageBes=imageBes;
     }
 
     public BesoinC(String libBes) {
-        LibBes = libBes;
+        this.libBes = libBes;
     }
 
     @Override
     public String toString() {
-        return NumBes + " Libellé " + LibBes + "\nType: " + TypeBes +"\nCatégorie: " + IdCat +"\nSeuil: " + SeuilBes +"\nAmor" + AmorBes +"\nStock: " +StockBes+
+        return numBes + " Libellé " + libBes + "\nType: " + typeBes +"\nCatégorie: " + idCat +"\nSeuil: " + seuilBes +"\nAmor" + amorBes +"\nStock: " +stockBes+
                 "\n";
     }
 
     public String libelleBesoin() {
-        return LibBes ;
+        return libBes ;
     }
 
 
