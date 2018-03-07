@@ -8,32 +8,44 @@
         <menu>
             <item
                 android:id="@+id/employé"
+                android:enabled="true"
                 android:icon="@drawable/p_employe"
-                android:title="Employé" />
+                android:title="Employé"
+                android:visible="true" />
             <item
                 android:id="@+id/fournisseur"
+                android:enabled="true"
                 android:icon="@drawable/p_fournisseur"
-                android:title="Fournisseur" />
+                android:title="Fournisseur"
+                android:visible="true" />
 
         </menu>
     </item>
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/categorie"
+            android:enabled="true"
             android:icon="@drawable/p_categorie"
-            android:title="Catégories" />
+            android:title="Catégories"
+            android:visible="true" />
         <item
             android:id="@+id/besoin"
+            android:enabled="true"
             android:icon="@drawable/p_besoin"
-            android:title="Besoin" />
+            android:title="Besoin"
+            android:visible="true" />
         <item
             android:id="@+id/departement"
+            android:enabled="true"
             android:icon="@drawable/p_departement"
-            android:title="Departement" />
+            android:title="Departement"
+            android:visible="true" />
         <item
             android:id="@+id/logout"
+            android:enabled="true"
             android:icon="@drawable/logout"
-            android:title="Déconnexion" />
+            android:title="Déconnexion"
+            android:visible="true" />
     </group>
 
 </menu>

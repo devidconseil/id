@@ -5,54 +5,60 @@ package com.example.hp.madose;
  */
 
 public class FournisseurC {
-    int IdFour;
-    String NomFour;
-    String AdrFour;
-    int TelFour;
+    int idFour;
+    String nomFour;
+    String adrFour;
+    String telFour;
 
     public FournisseurC(){}
 
     public int getIdFour() {
-        return IdFour;
+        return idFour;
     }
 
     public void setIdFour(int idFour) {
-        IdFour = idFour;
+        this.idFour = idFour;
     }
 
     public String getNomFour() {
-        return NomFour;
+        return nomFour;
     }
 
     public void setNomFour(String nomFour) {
-        NomFour = nomFour;
+        this.nomFour = nomFour;
     }
 
     public String getAdrFour() {
-        return AdrFour;
+        return adrFour;
     }
 
     public void setAdrFour(String adrFour) {
-        AdrFour = adrFour;
+        this.adrFour = adrFour;
     }
 
-    public int getTelFour() {
-        return TelFour;
+    public String getTelFour() {
+        return telFour;
     }
 
-    public void setTelFour(int telFour) {
-        TelFour = telFour;
+    public void setTelFour(String telFour) {
+        this.telFour = telFour;
     }
 
-    public FournisseurC(int idFour, String nomFour, String adrFour, int telFour) {
-        IdFour = idFour;
-        NomFour = nomFour;
-        AdrFour = adrFour;
-        TelFour = telFour;
+    public FournisseurC(int idFour, String nomFour, String adrFour, String telFour) {
+        this.idFour = idFour;
+        this.nomFour = nomFour;
+        this.adrFour = adrFour;
+        this.telFour = telFour;
+    }
+    public FournisseurC( String nomFour, String adrFour, String telFour) {
+
+        this.nomFour = nomFour;
+        this.adrFour = adrFour;
+        this.telFour = telFour;
     }
 
     @Override
     public String toString() {
-        return "Fournisseur "+ IdFour +": " + NomFour +"\nAdresse: " + AdrFour + "\nContact: " +TelFour ;
+        return "Fournisseur "+ idFour +": " + nomFour +"\nAdresse: " + adrFour + "\nContact: " +telFour ;
     }
 }

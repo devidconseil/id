@@ -7,6 +7,9 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.GridView;
@@ -15,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,6 +42,7 @@ public class Affichage extends AppCompatActivity {
     private GridView gridView;
     private ScrollView scrollview;
     private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,7 @@ public class Affichage extends AppCompatActivity {
         setContentView(R.layout.activity_affichage);
         bd = new BaseDeDonne(this);
         mDatabase= FirebaseDatabase.getInstance().getReference();
+        mAuth=FirebaseAuth.getInstance();
 
 
 
@@ -79,7 +85,22 @@ public class Affichage extends AppCompatActivity {
         {
 
             fournisseur = (TextView) findViewById(R.id.textView4);
+            mDatabase.child("Fournisseur").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot dataSnapshotFour:dataSnapshot.getChildren()){
+                        FournisseurC four=dataSnapshotFour.getValue(FournisseurC.class);
+                        if (!bd.checkIfFournisseurExist(four.getNomFour())){
+                            bd.insertFour(four.getNomFour(),four.getAdrFour(),four.getTelFour());
+                        }
+                    }
+                }
 
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
             List<FournisseurC> affF = bd.afficheF();
             for (FournisseurC emp : affF) {
                 fournisseur.append(emp.toString() + "\n\n");
@@ -89,6 +110,22 @@ public class Affichage extends AppCompatActivity {
         else if (getIntent().getStringExtra("passage").equals("departement"))
         {
             departement = (TextView) findViewById(R.id.textView4);
+            mDatabase.child("Departement").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot dataSnapshotDepart:dataSnapshot.getChildren()){
+                        DepartementC depart=dataSnapshotDepart.getValue(DepartementC.class);
+                        if (!bd.checkIfDepartmentExist(depart.getLibDep())){
+                            bd.insert(depart.getLibDep());
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
 
             List<DepartementC> affF = bd.afficheDepart();
             for (DepartementC emp : affF) {
@@ -146,6 +183,22 @@ public class Affichage extends AppCompatActivity {
 
         {
             categorie = (TextView) findViewById(R.id.textView2);
+            mDatabase.child("Categorie").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot dataSnapshotCat:dataSnapshot.getChildren()){
+                        CategorieC cat= dataSnapshotCat.getValue(CategorieC.class);
+                        if (!bd.checkIfCategorieExist(cat.getLibCat())){
+                            bd.insertCat(cat.getLibCat());
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
 
             List<CategorieC> affC = bd.afficheCat();
             for (CategorieC emp : affC) {
@@ -247,14 +300,25 @@ public class Affichage extends AppCompatActivity {
 
         if (getIntent().getStringExtra("passage").equals("demande")) {
             demande = (TextView) findViewById(R.id.textView2);
-            demande.setText("LISTE DES DEMANDES DE BESOINS PAR PERSONNE \n\n\n");
-            List<DemandeC> affF = bd.afficheDemande();
-            for (DemandeC emp : affF) {
-                demande.append(emp.toString() + "\n\n");
+            String profile=bd.retrieveUserProfile(mAuth.getCurrentUser().getEmail());
+            if (profile.equals("SUPER ADMIN")) {
+                demande.setText("LISTE DES DEMANDES DE BESOINS PAR PERSONNE \n\n\n");
+                List<DemandeC> affF = bd.afficheDemande();
+                for (DemandeC emp : affF) {
+                    demande.append(emp.toString() + "\n\n");
+                }
+                List<DemandeC> affF1 = bd.afficheDemande1();
+                for (DemandeC emp : affF1) {
+                    demande.append(emp.toString1() + "\n\n");
+                }
             }
-            List<DemandeC> affF1=bd.afficheDemande1();
-            for (DemandeC emp : affF1) {
-                demande.append(emp.toString1() + "\n\n");
+
+            if (profile.equals("USER")){
+                demande.setText("VOTRE LISTE DE DEMANDES \n\n\n");
+                List<DemandeC> affF = bd.afficheDemandeUser(mAuth.getCurrentUser().getEmail());
+                for (DemandeC emp : affF) {
+                    demande.append(emp.toString() + "\n\n");
+                }
             }
         }
 
@@ -407,5 +471,25 @@ public class Affichage extends AppCompatActivity {
 
      }
 
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_affiche, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.deconnexion:
+               mAuth.signOut();
+                startActivity(new Intent(this, Authentification.class));
+                finish();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

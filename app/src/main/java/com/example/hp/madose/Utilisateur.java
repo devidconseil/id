@@ -43,6 +43,7 @@ public class Utilisateur extends AppCompatActivity {
         final EditText telE= findViewById(R.id.contact);
         final Button quitter=(Button) findViewById(R.id.button9);
         final BaseDeDonne bd=new BaseDeDonne(this);
+
         mDatabase= FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
@@ -144,6 +145,7 @@ public class Utilisateur extends AppCompatActivity {
     private void writeNewUser(String userId, String name, String surname, String email, String tel, String department, String profile) {
         UtilisateurC user = new UtilisateurC(name, surname, email, tel, department, profile);
         mDatabase.child("users").child(userId).setValue(user);
+
     }
 
 }

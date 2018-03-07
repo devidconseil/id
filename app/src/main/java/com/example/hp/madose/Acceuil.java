@@ -51,18 +51,32 @@ public class Acceuil extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         bd = new BaseDeDonne(this);
+
         mDatabase= FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
+        String profile=bd.retrieveUserProfile(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        if (profile.equals("USER")){
+            Intent intent=new Intent(Acceuil.this,Affichage.class);
+            intent.putExtra("passage","demande");
+            startActivity(intent);
+            finish();
+        }
 
 
-
+writeNewBesoin("STYLO", "NON AMORTISSABLE", "MATERIEL DE BUREAU", 3, "0", 2,R.drawable.b21);
+        writeNewBesoin("MARKER", "NON AMORTISSABLE", "MATERIEL DE BUREAU", 2, "0", 0,R.drawable.b6);
+        writeNewBesoin("BALAI", "NON AMORTISSABLE","MATERIEL D ENTRETIEN", 2, "0", 0,R.drawable.b9);
+        writeNewBesoin("PAPIER RAM", "NON AMORTISSABLE", "MATERIEL DE BUREAU", 3, "0", 2,R.drawable.b7);
+        writeNewBesoin("CAHIER", "NON AMORTISSABLE", "MATERIEL DE BUREAU", 2, "0", 0,R.drawable.b21);
+        writeNewBesoin("ORDINATEUR", "AMORTISSABLE", "OUTIL INFORMATIQUE", 0, "2020-03-25", 0,R.drawable.b10);
+        writeNewBesoin("IMPRIMANTE", "AMORTISSABLE", "OUTIL INFORMATIQUE", 0, "2020-03-25", 0,R.drawable.b20);
 /*if(!bd.checkIfTableHasData("Besoins_Sortie") && !bd.checkIfTableHasData("Categorie") && !bd.checkIfTableHasData("Demande") && !bd.checkIfTableHasData("Demande_Besoins") && !bd.checkIfTableHasData("Departement") && !bd.checkIfTableHasData("Utilisateur") && !bd.checkIfTableHasData("Besoin") && !bd.checkIfTableHasData("Besoins_Entree") && !bd.checkIfTableHasData("Entree") && !bd.checkIfTableHasData("Fournisseur") && !bd.checkIfTableHasData("Sortie"))
              {
     bd.insertCat("MATERIEL DE BUREAU");
     bd.insertCat("OUTIL INFORMATIQUE");
     bd.insertCat("MATERIEL DE CUISINE");
-    bd.insertCat("MATERIEL D ENTRETIENT");
+    bd.insertCat("MATERIEL D ENTRETIEN");
     bd.insertCat("OUTIL PAUSE CAFE");
 
     bd.insert("INFORMATIQUE");
@@ -270,6 +284,28 @@ public class Acceuil extends AppCompatActivity
         mDatabase.child("users").child(userId).setValue(user);
     }
 
+@Override
+    public void onStart(){
+        super.onStart();
 
+        String profile=bd.retrieveUserProfile(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        if (profile.equals("USER")){
+            Intent intent=new Intent(Acceuil.this,Affichage.class);
+            intent.putExtra("passage","demande");
+            startActivity(intent);
+            finish();
+        }
+    }
+    public void writeNewBesoin(String libBes,String typBes,String libCat,int seuilBes, String amorBes,int stockBes,int imageBes){
+        String code=libBes;
+        if (libBes.contains(" ")){
+            code=libBes.replace(" ","-");
+        }
+        if (libBes.contains("'")){
+            code=code.replace("'","-");
+        }
 
+        BesoinC cat=new BesoinC(libBes,typBes,libCat,seuilBes,amorBes,stockBes,imageBes);
+        mDatabase.child("Besoin").child(code).setValue(cat);
+    }
 }

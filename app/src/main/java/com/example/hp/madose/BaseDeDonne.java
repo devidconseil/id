@@ -33,7 +33,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     private static final String TABLE_BESOIN_ENTREE = "CREATE TABLE Besoins_Entree ( NumBes INTEGER, NumEnt INTEGER, PU INTEGER, Qte INTEGER NOT NULL, MarqueBes TEXT, Autre_Précision TEXT," +
             " PRIMARY KEY(NumBes,NumEnt), FOREIGN KEY(NumEnt) REFERENCES Entree(NumEnt), FOREIGN KEY(NumBes) REFERENCES Besoin(NumBes) );";
     private static final String TABLE_ENTREE = "CREATE TABLE Entree ( `NumEnt` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `DateEnt` INTEGER NOT NULL, `IdFour` INTEGER, FOREIGN KEY(`IdFour`) REFERENCES `Fournisseur`(`IdFour`));";
-    private static final String TABLE_FOURNISSEUR = "CREATE TABLE Fournisseur ( `IdFour` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `NomFour` TEXT NOT NULL, `AdrFour` TEXT, `TelFour` INTEGER );";
+    private static final String TABLE_FOURNISSEUR = "CREATE TABLE Fournisseur ( `IdFour` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `NomFour` TEXT NOT NULL, `AdrFour` TEXT, `TelFour` TEXT);";
     private static final String TABLE_SORTIE = "CREATE TABLE Sortie ( `NumSor` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `DateSor` INTEGER NOT NULL, `NumDem` INTEGER, FOREIGN KEY(`NumDem`) REFERENCES `Demande`(`NumDem`));";
     //   NomEmp,LibDep,ProEmp,IdDep
     //DateSor NumDem** NumSor NumBes Qte MarqueBes Autre précision
@@ -179,7 +179,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     }
     //<<---------------------------********Fournisseur********------------------------------------>>
     //Insert
-    public void insertFour(String nom, String adr, int tel)
+    public void insertFour(String nom, String adr, String tel)
     {
         String entre="insert into Fournisseur( NomFour, AdrFour, TelFour)values('" + nom +"','"+adr+"',"+tel+");";
         this.getWritableDatabase().execSQL(entre);
@@ -187,6 +187,42 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     }
     public Boolean checkIfUserExist(UtilisateurC user){
         String req="select NomEmp,PrenEmp,MailEmp,TelEmp,LibDep,ProEmp from Utilisateur,Departement where Utilisateur.IdDep=Departement.IdDep and MailEmp='"+user.getMailEmp()+"';";
+        Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
+        if(cursor.getCount()>0){
+            cursor.close();
+            return true;
+        }
+        else {
+            cursor.close();
+            return false;
+        }
+    }
+    public Boolean checkIfCategorieExist(String name){
+        String req="select * from Categorie where LibCat='"+name+"';";
+        Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
+        if(cursor.getCount()>0){
+            cursor.close();
+            return true;
+        }
+        else {
+            cursor.close();
+            return false;
+        }
+    }
+    public Boolean checkIfDepartmentExist(String name){
+        String req="select * from Departement where LibDep='"+name+"';";
+        Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
+        if(cursor.getCount()>0){
+            cursor.close();
+            return true;
+        }
+        else {
+            cursor.close();
+            return false;
+        }
+    }
+    public Boolean checkIfFournisseurExist(String name){
+        String req="select * from Fournisseur where NomFour='"+name+"';";
         Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
         if(cursor.getCount()>0){
             cursor.close();
@@ -219,13 +255,23 @@ public class BaseDeDonne extends SQLiteOpenHelper {
 
         while (!cursor.isAfterLast())
         {
-            FournisseurC disp=new FournisseurC(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3));
+            FournisseurC disp=new FournisseurC(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3));
             affF.add(disp);
             cursor.moveToNext();
         }
 
          cursor.close();
          return affF;
+    }
+    public String retrieveUserProfile(String mail){
+        String req="select ProEmp from Utilisateur where MailEmp='"+mail+"';";
+        Cursor cursor = null;
+        try {
+            cursor = this.getReadableDatabase().rawQuery(req,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
     }
     //Textautocomplete
     public ArrayList<String> affiNF()
@@ -429,6 +475,29 @@ public class BaseDeDonne extends SQLiteOpenHelper {
 
 
         String req="select Demande.NumDem,NomEmp,LibBes,Qte,date(dateDem,'unixepoch'),libDep from Demande,Demande_Besoins,Utilisateur,Besoin,Departement where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.NumDem=Demande.NumDem and Demande.IdDep=Departement.IdDep and Utilisateur.IdEmp=Demande.IdEmp;";
+        Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
+        cursor.moveToFirst();
+
+
+        while (!cursor.isAfterLast())
+        {
+
+
+            DemandeC disp=new DemandeC(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3),cursor.getString(4),cursor.getString(5));
+            affD.add(disp);
+            cursor.moveToNext();
+
+        }
+
+        cursor.close();
+        return affD;
+    }
+    public List<DemandeC> afficheDemandeUser(String mail)
+    {
+        List<DemandeC> affD=new ArrayList<>();
+
+
+        String req="select Demande.NumDem,NomEmp,LibBes,Qte,date(dateDem,'unixepoch'),libDep from Demande,Demande_Besoins,Utilisateur,Besoin,Departement where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.NumDem=Demande.NumDem and Demande.IdDep=Departement.IdDep and Utilisateur.IdEmp=Demande.IdEmp and Utilisateur.MailEmp='"+mail+"';";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 

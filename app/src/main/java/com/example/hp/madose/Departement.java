@@ -9,10 +9,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class Departement extends AppCompatActivity {
 
 
-
+   DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,7 @@ public class Departement extends AppCompatActivity {
        final Button annuler=(Button)findViewById(R.id.annulerDep);
        final EditText edite=(EditText)findViewById(R.id.libdep);
        final BaseDeDonne gest=new BaseDeDonne(this);
+       mDatabase= FirebaseDatabase.getInstance().getReference();
 
         valider.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +41,7 @@ public class Departement extends AppCompatActivity {
                 else {
                     gest.insert(edite.getText().toString());
                     gest.close();
+                    writeNewDepartment(edite.getText().toString());
 
                     Toast.makeText(getApplicationContext(), "Departement enregistré avec succès", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(Departement.this, Affichage.class);
@@ -56,5 +61,17 @@ public class Departement extends AppCompatActivity {
 
             }
         });
+    }
+    public void writeNewDepartment(String libDep){
+        String code=libDep;
+        if (libDep.contains(" ")){
+            code=libDep.replace(" ","-");
+        }
+        if (libDep.contains("'")){
+            code=code.replace("'","-");
+        }
+
+        DepartementC cat=new DepartementC(libDep);
+        mDatabase.child("Departement").child(code).setValue(cat);
     }
 }

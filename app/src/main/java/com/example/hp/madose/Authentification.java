@@ -48,7 +48,6 @@ public class Authentification extends AppCompatActivity {
         bd=new BaseDeDonne(this);
         identifiant= findViewById(R.id.iden);
         motpass=(EditText)findViewById(R.id.pass);
-
         mDatabase= FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         progressBar= findViewById(R.id.progressBar3);
@@ -84,13 +83,14 @@ public class Authentification extends AppCompatActivity {
     @Override
     public void onStart(){
         super.onStart();
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(!bd.checkIfTableHasData("Besoins_Sortie") && !bd.checkIfTableHasData("Categorie") && !bd.checkIfTableHasData("Demande") && !bd.checkIfTableHasData("Demande_Besoins") && !bd.checkIfTableHasData("Departement") && !bd.checkIfTableHasData("Utilisateur") && !bd.checkIfTableHasData("Besoin") && !bd.checkIfTableHasData("Besoins_Entree") && !bd.checkIfTableHasData("Entree") && !bd.checkIfTableHasData("Fournisseur") && !bd.checkIfTableHasData("Sortie"))
         {
             bd.insertCat("MATERIEL DE BUREAU");
             bd.insertCat("OUTIL INFORMATIQUE");
             bd.insertCat("MATERIEL DE CUISINE");
-            bd.insertCat("MATERIEL D ENTRETIENT");
+            bd.insertCat("MATERIEL D ENTRETIEN");
             bd.insertCat("OUTIL PAUSE CAFE");
 
             bd.insert("INFORMATIQUE");
@@ -106,10 +106,10 @@ public class Authentification extends AppCompatActivity {
             bd.insertBesoin("ORDINATEUR", "AMORTISSABLE", 2, 0, "2020-03-25", 0,R.drawable.b10);
             bd.insertBesoin("IMPRIMANTE", "AMORTISSABLE", 2, 0, "2020-03-25", 0,R.drawable.b20);
 
-            bd.insertFour("CASH CENTER", "01 bp 4236 Abidjan 01", 22445623);
-            bd.insertFour("CASH IVOIRE", "01 bp 4036 Abidjan 02", 22441683);
-            bd.insertFour("CDCI", "01 bp 1250 Abidjan 10", 22441182);
-            bd.insertFour("SOCOCE", "01 bp 4036 Abidjan 28", 22441683);
+            bd.insertFour("CASH CENTER", "01 bp 4236 Abidjan 01", "22445623");
+            bd.insertFour("CASH IVOIRE", "01 bp 4036 Abidjan 02", "22441683");
+            bd.insertFour("CDCI", "01 bp 1250 Abidjan 10", "22441182");
+            bd.insertFour("SOCOCE", "01 bp 4036 Abidjan 28", "22441683");
 
             bd.insertEmp("KOUADJO","Eric","ekouadjio@idconsulting.ie","01020304", 1, "SUPER ADMIN");
             bd.insertEmp("ADEJINLE","Patrick","padejinle@idconsulting.ie","01020304", 1, "SUPER ADMIN");
@@ -168,7 +168,7 @@ public class Authentification extends AppCompatActivity {
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for (DataSnapshot dataSnapshotUser:dataSnapshot.getChildren()){
                                     UtilisateurC user=dataSnapshotUser.getValue(UtilisateurC.class);
-                                    Toast.makeText(getApplicationContext(),user.getMailEmp(),Toast.LENGTH_SHORT);
+                                  //  Toast.makeText(getApplicationContext(),user.getMailEmp(),Toast.LENGTH_SHORT);
                                     if (!bd.checkIfUserExist(user)){
                                         int s=Integer.parseInt(bd.selectDep(user.getLibDep()));
                                         bd.insertEmp(user.getNomEmp(),user.getPrenEmp(),user.getMailEmp(),user.getTelEmp(),s,user.getProEmp());
@@ -274,4 +274,5 @@ public class Authentification extends AppCompatActivity {
             mProgressDialog.dismiss();
         }
     }
+
 }

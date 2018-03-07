@@ -8,8 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class Fournisseur extends AppCompatActivity {
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+public class Fournisseur extends AppCompatActivity {
+DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +24,7 @@ public class Fournisseur extends AppCompatActivity {
         final EditText fcont=(EditText)findViewById(R.id.contF);
         final Button fbout=(Button)findViewById(R.id.valF);
         final BaseDeDonne bd=new BaseDeDonne(this);
+        mDatabase= FirebaseDatabase.getInstance().getReference();
 
         fbout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,8 +47,9 @@ public class Fournisseur extends AppCompatActivity {
                 }
                 else {
                     int x = Integer.parseInt(fcont.getText().toString());
-                    bd.insertFour(fnom.getText().toString(), fadr.getText().toString(), x);
+                    bd.insertFour(fnom.getText().toString(), fadr.getText().toString(), fcont.getText().toString());
                     bd.close();
+                    writeNewFournisseur(fnom.getText().toString(), fadr.getText().toString(), fcont.getText().toString());
                     Toast.makeText(getApplicationContext(), "Fournisseur enregistré avec succès", Toast.LENGTH_LONG).show();
 
                     Intent intent = new Intent(Fournisseur.this, Affichage.class);
@@ -68,5 +73,17 @@ public class Fournisseur extends AppCompatActivity {
             }
         });
 
+    }
+    public void writeNewFournisseur(String nomFour,String adrFour,String telFour){
+        String code=nomFour;
+        if (nomFour.contains(" ")){
+            code=nomFour.replace(" ","-");
+        }
+        if (nomFour.contains("'")){
+            code=code.replace("'","-");
+        }
+
+        FournisseurC cat=new FournisseurC(nomFour,adrFour,telFour);
+        mDatabase.child("Fournisseur").child(code).setValue(cat);
     }
 }
