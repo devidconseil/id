@@ -195,7 +195,7 @@ public class Authentification extends AppCompatActivity {
         String username = usernameFromEmail(user.getEmail());
        //  writeNewUser(user.getUid(), username, user.getEmail());
         startActivity(new Intent(Authentification.this, Acceuil.class));
-
+        finish();
 
     }
 
@@ -233,6 +233,7 @@ public class Authentification extends AppCompatActivity {
                     Intent intent = new Intent(Authentification.this, Acceuil.class);
                     Log.d(TAG, "signInWithEmail:success");
                     startActivity(intent);
+                    finish();
                   hideProgressDialog();
                 } else {
                     if (bd.checkMailExist(identifiant.getText().toString())) {
@@ -242,6 +243,7 @@ public class Authentification extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     startActivity(new Intent(Authentification.this, Acceuil.class));
+                                    finish();
                                 } else {
                                     hideProgressDialog();
                                     Log.w(TAG, "signInWithEmail:failure", task.getException());
@@ -252,6 +254,14 @@ public class Authentification extends AppCompatActivity {
                                 }
                             }
                         });
+                    } else
+                    {
+                        hideProgressDialog();
+                        Log.w(TAG, "signInWithEmail:failure", task.getException());
+                        Toast.makeText(getApplicationContext(), "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
+                        identifiant.setError("Identifiant ou mot de passe incorrect");
+                        identifiant.requestFocus();
                     }
                 }
 
