@@ -98,13 +98,13 @@ public class Authentification extends AppCompatActivity {
             bd.insert("SECRETARIAT");
             bd.insert("DIRECTION");
 
-            bd.insertBesoin("STYLO", "NON AMORTISSABLE", 1, 3, "0", 2,R.drawable.b5);
-            bd.insertBesoin("MARKER", "NON AMORTISSABLE", 1, 2, "0", 0,R.drawable.b6);
-            bd.insertBesoin("BALAI", "NON AMORTISSABLE", 4, 2, "0", 0,R.drawable.b9);
-            bd.insertBesoin("PAPIER RAM", "NON AMORTISSABLE", 1, 3, "0", 2,R.drawable.b7);
-            bd.insertBesoin("CAHIER", "NON AMORTISSABLE", 1, 2, "0", 0,R.drawable.b21);
-            bd.insertBesoin("ORDINATEUR", "AMORTISSABLE", 2, 0, "2020-03-25", 0,R.drawable.b10);
-            bd.insertBesoin("IMPRIMANTE", "AMORTISSABLE", 2, 0, "2020-03-25", 0,R.drawable.b20);
+            bd.insertBesoin("STYLO", "NON AMORTISSABLE", 1, 3, "0", 2,R.drawable.b21);
+            bd.insertBesoin("MARKER", "NON AMORTISSABLE", 1, 2, "0", 0,R.drawable.b22);
+            bd.insertBesoin("CORBEILLE", "NON AMORTISSABLE", 4, 2, "0", 0,R.drawable.b10);
+            bd.insertBesoin("STICKY NOTES", "NON AMORTISSABLE", 1, 3, "0", 2,R.drawable.b17);
+            bd.insertBesoin("CLIMATISEUR", "AMORTISSABLE", 1, 0, "2020-03-25", 0,R.drawable.b9);
+            bd.insertBesoin("ORDINATEUR", "AMORTISSABLE", 2, 0, "2020-03-25", 0,R.drawable.b26);
+            bd.insertBesoin("IMPRIMANTE", "AMORTISSABLE", 2, 0, "2020-03-25", 0,R.drawable.b14);
 
             bd.insertFour("CASH CENTER", "01 bp 4236 Abidjan 01", "22445623");
             bd.insertFour("CASH IVOIRE", "01 bp 4036 Abidjan 02", "22441683");
@@ -283,6 +283,18 @@ public class Authentification extends AppCompatActivity {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
+    }
+    public void writeNewBesoin(String libBes,String typBes,String libCat,int seuilBes, String amorBes,int stockBes,int imageBes){
+        String code=libBes;
+        if (libBes.contains(" ")){
+            code=libBes.replace(" ","-");
+        }
+        if (libBes.contains("'")){
+            code=code.replace("'","-");
+        }
+
+        BesoinC cat=new BesoinC(libBes,typBes,libCat,seuilBes,amorBes,stockBes,imageBes);
+        mDatabase.child("Besoin").child(code).setValue(cat);
     }
 
 }

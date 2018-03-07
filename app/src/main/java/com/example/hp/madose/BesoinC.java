@@ -15,7 +15,7 @@ public class BesoinC {
     int imageBes;
     String libCat;
 
-    void BesoinC(){}
+    public BesoinC(){}
 
     public String getLibCat() {
         return libCat;
@@ -126,6 +126,10 @@ public class BesoinC {
     @Override
     public String toString() {
         return numBes + " Libellé " + libBes + "\nType: " + typeBes +"\nCatégorie: " + idCat +"\nSeuil: " + seuilBes +"\nAmor" + amorBes +"\nStock: " +stockBes+
+                "\n";
+    }
+    public String toString1() {
+        return numBes + " Libellé " + libBes + "\nType: " + typeBes +"\nCatégorie: " + libCat +"\nSeuil: " + seuilBes +"\nAmor" + amorBes +"\nStock: " +stockBes+
                 "\n";
     }
 
