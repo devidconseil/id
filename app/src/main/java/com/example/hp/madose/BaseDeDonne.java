@@ -251,7 +251,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         List<BesoinC>affB=new ArrayList<>();
         //String req="select NumBes,LibBes,TypeBes,Idcat,SeuilBes,date(AmorBes,'unixepoch') from Besoin where Amorbes BETWEEN strftime('%s','2010-05-04') AND strftime('%s','2060-12-31') ;";
 
-        String req="select NumBes,LibBes,TypeBes,Idcat,SeuilBes,date(AmorBes,'unixepoch'),StockBes from Besoin;";
+        String req="select NumBes,LibBes,TypeBes,Idcat,SeuilBes,date(AmorBes,'unixepoch'),StockBes,Image from Besoin;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -266,7 +266,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         {
 
 
-            BesoinC disp=new BesoinC(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3),cursor.getInt(4),cursor.getString(5),cursor.getInt(6));
+            BesoinC disp=new BesoinC(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3),cursor.getInt(4),cursor.getString(5),cursor.getInt(6),cursor.getInt(7));
             affB.add(disp);
             cursor.moveToNext();
 
@@ -275,6 +275,27 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         cursor.close();
         return affB;
     }
+
+
+    public List<BesoinC> afficheLB()
+    {
+        List<BesoinC>affB=new ArrayList<>();
+
+        String req="select LibBes from Besoin;";
+        Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast())
+        {
+            BesoinC disp=new BesoinC(cursor.getString(0));
+            affB.add(disp);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return affB;
+    }
+
 
     //Textautocomplete
     public ArrayList<String> affiNB()
@@ -446,10 +467,6 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         cursor.close();
         return affD;
     }
-
-
-
-
 
     public String test()
     {

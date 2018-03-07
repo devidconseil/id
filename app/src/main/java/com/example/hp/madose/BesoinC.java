@@ -80,16 +80,6 @@ public class BesoinC {
         StockBes = stockBes;
     }
 
-    public BesoinC(int numBes, String libBes, String typeBes, int idCat, int seuilBes, String amorBes,int StockBes) {
-        this.NumBes = numBes;
-        this.LibBes = libBes;
-        this.TypeBes = typeBes;
-        this.IdCat = idCat;
-        this.SeuilBes = seuilBes;
-        this.AmorBes = amorBes;
-        this.StockBes=StockBes;
-    }
-
     public BesoinC(int numBes, String libBes, String typeBes, int idCat, int seuilBes, String amorBes,int StockBes,int imageBes) {
         this.NumBes = numBes;
         this.LibBes = libBes;
@@ -101,10 +91,21 @@ public class BesoinC {
         this.ImageBes=imageBes;
     }
 
+    public BesoinC(String libBes) {
+        LibBes = libBes;
+    }
 
     @Override
     public String toString() {
         return NumBes + " Libellé " + LibBes + "\nType: " + TypeBes +"\nCatégorie: " + IdCat +"\nSeuil: " + SeuilBes +"\nAmor" + AmorBes +"\nStock: " +StockBes+
                 "\n";
     }
+
+    public String libelleBesoin() {
+        return LibBes ;
+    }
+
+
+
+
 }

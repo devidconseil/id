@@ -49,6 +49,10 @@
     <string name="nom">Nom</string>
     <string name="adresse">Adresse</string>
     <string name="contact">Contact</string>
+    <string name="title_activity_accueil_d">AccueilD</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
 
 
 </resources>

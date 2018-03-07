@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -35,7 +36,15 @@ public class Acceuil extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Toolbar toolbar1=(Toolbar) findViewById(R.id.toolbarA);
+        setSupportActionBar(toolbar1);
+        if (getSupportActionBar()!=null)
+        {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            //toolbar.setVisibility(View.INVISIBLE);
+        }
         bd = new BaseDeDonne(this);
+
 
 
 if(!bd.checkIfTableHasData("Besoins_Sortie") && !bd.checkIfTableHasData("Categorie") && !bd.checkIfTableHasData("Demande") && !bd.checkIfTableHasData("Demande_Besoins") && !bd.checkIfTableHasData("Departement") && !bd.checkIfTableHasData("Employe") && !bd.checkIfTableHasData("Besoin") && !bd.checkIfTableHasData("Besoins_Entree") && !bd.checkIfTableHasData("Entree") && !bd.checkIfTableHasData("Fournisseur") && !bd.checkIfTableHasData("Sortie"))
@@ -51,13 +60,13 @@ if(!bd.checkIfTableHasData("Besoins_Sortie") && !bd.checkIfTableHasData("Categor
     bd.insert("SECRETARIAT");
     bd.insert("DIRECTION");
 
-    bd.insertBesoin("STYLO", "NON AMORTISSABLE", 1, 3, "0", 2,R.drawable.b5);
-    bd.insertBesoin("MARKER", "NON AMORTISSABLE", 1, 2, "0", 0,R.drawable.b6);
-    bd.insertBesoin("BALAI", "NON AMORTISSABLE", 4, 2, "0", 0,R.drawable.b9);
-    bd.insertBesoin("PAPIER RAM", "NON AMORTISSABLE", 1, 3, "0", 2,R.drawable.b7);
-    bd.insertBesoin("CAHIER", "NON AMORTISSABLE", 1, 2, "0", 0,R.drawable.b21);
-    bd.insertBesoin("ORDINATEUR", "AMORTISSABLE", 2, 0, "2020-03-25", 0,R.drawable.b10);
-    bd.insertBesoin("IMPRIMANTE", "AMORTISSABLE", 2, 0, "2020-03-25", 0,R.drawable.b20);
+    bd.insertBesoin("TABLE", "AMORTISSABLE", 1, 0, "2020-03-25", 2,R.drawable.b5);
+    bd.insertBesoin("CAHIER", "NON AMORTISSABLE", 1, 2, "0", 0,R.drawable.b6);
+    bd.insertBesoin("CLIMATISEUR", "AMORTISSABLE", 4, 0, "2020-03-25", 0,R.drawable.b9);
+    bd.insertBesoin("CISEAU", "NON AMORTISSABLE", 1, 3, "0", 2,R.drawable.b7);
+    bd.insertBesoin("STYLO", "NON AMORTISSABLE", 1, 2, "0", 0,R.drawable.b21);
+    bd.insertBesoin("ORDINATEUR", "AMORTISSABLE", 2, 0, "2020-03-25", 0,R.drawable.b26);
+    bd.insertBesoin("IMPRIMANTE", "AMORTISSABLE", 2, 0, "2020-03-25", 0,R.drawable.b14);
 
     bd.insertFour("CASH CENTER", "01 bp 4236 Abidjan 01", 22445623);
     bd.insertFour("CASH IVOIRE", "01 bp 4036 Abidjan 02", 22441683);
@@ -143,9 +152,6 @@ if(!bd.checkIfTableHasData("Besoins_Sortie") && !bd.checkIfTableHasData("Categor
                 startActivity(intent);
             }
         });
-
-
-
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

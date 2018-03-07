@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#E0E4E3"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp">
+
+<android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="6dp"
+    app:cardBackgroundColor="#fff">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@+id/buttonr"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentRight="true">
+        <View
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/ic_keyboard_arrow_down_black_24dp"/>
+    </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/ima"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_toLeftOf="@+id/texten"
+            android:layout_toStartOf="@+id/texten" />
+        <TextView
+            android:id="@+id/textp"
+            android:layout_marginLeft="70dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:padding="8dp"
+            android:text="pere"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/texten"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textp"
+            android:layout_alignStart="@+id/textp"
+            android:layout_below="@+id/textp"
+            android:padding="8dp"
+            android:text="enfant"
+            android:textColor="#585959"
+            android:textSize="16sp" />
+
+        <com.github.aakira.expandablelayout.ExpandableLinearLayout
+            android:id="@+id/expandableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/textp"
+            android:orientation="vertical"
+            app:ael_expanded="false"
+            app:ael_interpolator="bounce">
+
+            <TextView
+                android:id="@+id/textet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="70dp"
+                android:layout_below="@+id/texten"
+                android:padding="8dp"
+                android:text=""
+                android:textColor="#000"
+                android:textSize="16sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+        <TextView
+            android:id="@+id/libS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="70dp"
+            android:layout_below="@+id/textet"
+            android:padding="8dp"
+            android:text="En stock:"
+            android:textSize="16sp" />
+            <TextView
+                android:id="@+id/texteo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="enfant"
+                android:textSize="16sp" />
+            </LinearLayout>
+        </com.github.aakira.expandablelayout.ExpandableLinearLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
+</RelativeLayout>

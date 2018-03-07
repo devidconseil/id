@@ -106,7 +106,6 @@ public class Affichage extends AppCompatActivity {
             List<EmployeC> affE = bd.afficheE();
             for (EmployeC emp : affE) {
                 employe.append(emp.toString() + "\n\n");
-                emp.getNomEmp().toString().length();
             }
 
         }

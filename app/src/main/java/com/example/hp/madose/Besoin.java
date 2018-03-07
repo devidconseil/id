@@ -19,6 +19,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.hp.madose.model.Item;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
@@ -26,6 +27,7 @@ import com.google.android.gms.appindexing.Thing;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class Besoin extends AppCompatActivity {
     RadioButton radio;
@@ -190,20 +192,22 @@ public class Besoin extends AppCompatActivity {
                     int result = radioGroup.getCheckedRadioButtonId();
                     radio = (RadioButton) findViewById(result);
 
+
                 if (radio.getText().toString().equals("AMORTISSABLE"))
                 {
                     var1=edi2.getText().toString();
                     int resId=getResources().getIdentifier(MyApplication.verif1,"drawable",getPackageName());
-                    bd.insertBesoin(editLib.getText().toString(), rb.getText().toString(), var3,0,var1,varo,resId);
-                    Toast.makeText(Besoin.this, "Besoin enregistré avec succès", Toast.LENGTH_LONG).show();
+                    bd.insertBesoin(editLib.getText().toString(), rb.getText().toString(), var3,0,var1,varo,MyApplication.id);
+                    Toast.makeText(Besoin.this, resId, Toast.LENGTH_LONG).show();
                 }
 
                else if (radio.getText().toString().equals("NON AMORTISSABLE"))
                 {
                     var = Integer.parseInt(edi1.getText().toString());
                     int resId=getResources().getIdentifier(MyApplication.verif1,"drawable",getPackageName());
-                    bd.insertBesoin(editLib.getText().toString(), rb.getText().toString(), var3,var,"0",varo,resId);
-                    Toast.makeText(Besoin.this,"Besoin enregistré avec succès", Toast.LENGTH_LONG).show();
+
+                    //bd.insertBesoin(editLib.getText().toString(), rb.getText().toString(), var3,var,"0",varo,MyApplication.id);
+                    Toast.makeText(Besoin.this,resId, Toast.LENGTH_LONG).show();
                 }
 
 

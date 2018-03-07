@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3b3d3b</color>
-    <color name="colorPrimaryDark">#111211</color>
-    <color name="colorAccent">#8e8f8e</color>
+    <color name="colorPrimary">#17631E</color>
+    <color name="colorPrimaryDark">#369936</color>
+    <color name="colorAccent">#17631E</color>
     <color name="common_action_bar_splitter">#d2d2d2</color>
 </resources>

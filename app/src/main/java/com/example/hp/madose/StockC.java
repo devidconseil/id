@@ -109,7 +109,7 @@ public class StockC {
       return  LibBes  +
               "\n" + TypeBes  +
               "\nSeuil d'alerte: " + SeuilBes +
-              "\nEn Stock: " + StockBes + "\n";
+              "\nEn Stock: " + StockBes + "\n"+ImageBes;
   }
 
     public String toString1() {

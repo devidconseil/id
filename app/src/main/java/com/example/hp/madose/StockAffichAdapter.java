@@ -73,8 +73,6 @@ public class StockAffichAdapter extends BaseAdapter {
         }
 
 
-
-
        holder.imageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {

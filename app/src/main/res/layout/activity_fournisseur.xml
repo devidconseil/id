@@ -4,7 +4,7 @@
     android:id="@+id/activity_fournisseur"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#717C7D"
+    android:background="#E0E4E3"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -20,10 +20,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="159dp"
-        android:textColor="#fff"
-        android:textColorHint="@color/common_action_bar_splitter"
-        android:ems="10"
-        android:textStyle="bold"
+        android:background="@drawable/round_corner"
         android:hint="Nom du fournisseur"
         android:inputType="textPersonName" />
 
@@ -34,10 +31,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/nomF"
-        android:textColor="#fff"
-        android:textColorHint="@color/common_action_bar_splitter"
-        android:ems="10"
-        android:textStyle="bold"
+        android:background="@drawable/round_corner"
         android:hint="Adresse"
         android:inputType="textPersonName" />
 
@@ -48,10 +42,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/adrF"
-        android:textColor="#fff"
-        android:textColorHint="@color/common_action_bar_splitter"
-        android:ems="10"
-
+        android:drawableRight="@drawable/ic_phone_black_24dp"
+        android:background="@drawable/round_corner"
         android:hint="@string/contact"
         android:inputType="number" />
 
@@ -60,22 +52,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:backgroundTint="#41AEFF"
-        android:textColor="#fff"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/contF"
-        android:text="Valider" />
+        android:layout_marginTop="13dp"
+        android:backgroundTint="#858687"
+        android:drawableRight="@drawable/ic_save_black_24dp"
+        android:text="enregistrer"
+        android:textColor="#fff" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#fff"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/valF"
-        android:backgroundTint="#ff6666"
-        android:text="Annuler" />
+        android:backgroundTint="#858687"
+        android:drawableRight="@drawable/ic_clear_black_24dp"
+        android:text="Annuler"
+        android:textColor="#fff" />
 </RelativeLayout>
 
 

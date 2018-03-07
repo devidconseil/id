@@ -7,6 +7,7 @@
     android:layout_weight="8"
     android:alignmentMode="alignMargins"
     android:clickable="false"
+    android:background="#E0E4E3"
     android:descendantFocusability="blocksDescendants"
     android:theme="@style/AppTheme"
     android:visibility="visible">

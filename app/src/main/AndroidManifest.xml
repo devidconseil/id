@@ -4,7 +4,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/employe"
+        android:icon="@mipmap/logorecap"
         android:label="RecapApp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -19,7 +19,7 @@
         </activity>
         <activity
             android:name=".Acceuil"
-            android:label="RecapApp"
+            android:label="Accueil"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -101,11 +101,11 @@
             android:label="Sortie" />
         <activity android:name=".Variation" />
         <activity android:name=".CoutTotalBesoin" />
-        <activity android:name=".Listedepartement"></activity>
-
+        <activity android:name=".Listedepartement" />
         <activity
             android:name=".Affich"
-            android:label="Affich"/>
+            android:label="Affich" />
+        <activity android:name=".Display" />
     </application>
 
 </manifest>

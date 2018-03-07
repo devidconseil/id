@@ -6,174 +6,141 @@
     android:id="@+id/activity_besoin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#717C7D"
+    android:background="#E0E4E3"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.hp.madose.Besoin">
 
-    <ScrollView
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/ic_image_black_24dp"
+        tools:ignore="VectorDrawableCompat" />
+
+    <EditText
+        android:id="@+id/libelle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+        android:layout_below="@+id/imageView3"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/round_corner"
+        android:hint="Libellé"
+        android:inputType="textPersonName" />
 
-        <RelativeLayout
+    <AutoCompleteTextView
+        android:id="@+id/autoComplCat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/libelle"
+        android:background="@drawable/round_corner"
+        android:completionHint="Catégorie"
+        android:hint="Catégorie" />
+
+    <RadioGroup
+        android:id="@+id/groupeRadio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/autoComplCat">
+
+        <RadioButton
+            android:id="@+id/radioNonAm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="radioBout"
+            android:text="NON AMORTISSABLE" />
+
+        <RadioButton
+            android:id="@+id/radioAm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="radioBout"
+            android:text="AMORTISSABLE" />
+
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/seuil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/round_corner"
+        android:layout_below="@+id/groupeRadio"
+        android:hint="Seuil"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/peremption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/round_corner"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/seuil"
+        android:hint="Date de péremption"
+        android:inputType="date" />
+
+    <EditText
+        android:id="@+id/stock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/round_corner"
+        android:layout_below="@+id/peremption"
+        android:hint="Stock initial"
+        android:inputType="number" />
+    <!--
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp">
+
+            <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:inputType="textPersonName"
+            android:id="@+id/editText7"
+            android:hint="Numéro" />
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/textInputLayout4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/groupeRadio"
-                android:backgroundTint="#000"
-                android:textColorHint="#fff">
+        </android.support.design.widget.TextInputLayout> -->
 
-                <EditText
-                    android:id="@+id/seuil"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Seuil"
-                    android:inputType="number" />
-            </android.support.design.widget.TextInputLayout>
+    <Button
+        android:id="@+id/enregistre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/stock"
+        android:layout_marginTop="14dp"
+        android:backgroundTint="#858687"
+        android:drawableRight="@drawable/ic_save_black_24dp"
+        android:text="enregistrer"
+        android:textColor="#fff" />
 
+    <Button
+        android:id="@+id/quitterB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/enregistre"
+        android:backgroundTint="#858687"
+        android:drawableRight="@drawable/ic_clear_black_24dp"
+        android:text="Annuler"
+        android:textColor="#fff" />
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/textInputLayout3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@id/imageView3"
-                android:backgroundTint="#000"
-                android:textColorHint="#fff">
-
-                <EditText
-
-                    android:id="@+id/libelle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Libellé"
-                    android:inputType="textPersonName" />
-            </android.support.design.widget.TextInputLayout>
-            <!--
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="50dp">
-
-                <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:id="@+id/editText7"
-                android:hint="Numéro" />
-
-            </android.support.design.widget.TextInputLayout> -->
-
-            <Button
-                android:id="@+id/enregistre"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/textInputLayout"
-                android:backgroundTint="#41AEFF"
-                android:text="Valider"
-                android:textColor="#fff" />
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/textInputLayout6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@id/textInputLayout4"
-                android:backgroundTint="#000"
-                android:textColorHint="#fff">
-
-                <EditText
-                    android:id="@+id/peremption"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Date de péremption"
-                    android:inputType="date" />
-            </android.support.design.widget.TextInputLayout>
-
-            <AutoCompleteTextView
-                android:id="@+id/autoComplCat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textInputLayout3"
-                android:backgroundTint="#000"
-                android:completionHint="Catégorie"
-                android:hint="Catégorie"
-                android:textColorHint="#fff" />
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/textInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/textInputLayout6"
-                android:backgroundTint="#000"
-                android:textColorHint="#fff">
-
-                <EditText
-                    android:id="@+id/stock"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Stock initial"
-                    android:inputType="number" />
-            </android.support.design.widget.TextInputLayout>
-
-            <RadioGroup
-                android:id="@+id/groupeRadio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@id/autoComplCat">
-
-                <RadioButton
-                    android:id="@+id/radioNonAm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#fff"
-                    android:onClick="radioBout"
-                    android:text="NON AMORTISSABLE" />
-
-                <RadioButton
-                    android:id="@+id/radioAm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#fff"
-                    android:onClick="radioBout"
-                    android:text="AMORTISSABLE" />
-
-            </RadioGroup>
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
-
-            <Button
-                android:id="@+id/quitterB"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/enregistre"
-                android:backgroundTint="#ff6666"
-                android:text="Quitter"
-                android:textColor="#fff" />
-
-        </RelativeLayout>
-    </ScrollView>
 
 </RelativeLayout>
