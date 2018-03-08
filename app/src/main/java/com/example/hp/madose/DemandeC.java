@@ -5,27 +5,54 @@ package com.example.hp.madose;
  */
 
 public class DemandeC {
-    int NumDem;
-    String NomEmp;
-    String LibBes;
-    int Qte;
+    int numDem;
+    String nomEmp;
+    String libBes;
+    int qte;
     String  dateDem;
     String libDpe;
 
+    public DemandeC() {
+    }
+
     public int getNumDem() {
-        return NumDem;
+        return numDem;
+    }
+
+    public void setNumDem(int numDem) {
+        this.numDem = numDem;
+    }
+
+    public void setNomEmp(String nomEmp) {
+        this.nomEmp = nomEmp;
+    }
+
+    public void setLibBes(String libBes) {
+        this.libBes = libBes;
+    }
+
+    public void setQte(int qte) {
+        this.qte = qte;
+    }
+
+    public void setDateDem(String dateDem) {
+        this.dateDem = dateDem;
+    }
+
+    public void setLibDpe(String libDpe) {
+        this.libDpe = libDpe;
     }
 
     public String getNomEmp() {
-        return NomEmp;
+        return nomEmp;
     }
 
     public String getLibBes() {
-        return LibBes;
+        return libBes;
     }
 
     public int getQte() {
-        return Qte;
+        return qte;
     }
 
     public String getDateDem() {
@@ -37,37 +64,44 @@ public class DemandeC {
     }
 
     public DemandeC(int numDem, String nomEmp, String libBes, int qte,String dateDem, String libDpe) {
-        NumDem = numDem;
-        NomEmp = nomEmp;
-        LibBes = libBes;
-        Qte = qte;
+        this.numDem = numDem;
+        this.nomEmp = nomEmp;
+        this.libBes = libBes;
+        this.qte = qte;
         this.dateDem = dateDem;
         this.libDpe = libDpe;
     }
 
     public DemandeC(int numDem, String libDpe, String libBes, int qte,String dateDem ) {
-        NumDem = numDem;
-        LibBes = libBes;
-        Qte = qte;
+        this.numDem = numDem;
+        this.libBes = libBes;
+        this.qte = qte;
+        this.dateDem = dateDem;
+        this.libDpe = libDpe;
+    }
+    public DemandeC(String nomEmp,String libDpe, String libBes,String dateDem, int qte ) {
+        this.nomEmp = nomEmp;
+        this.libBes = libBes;
+        this.qte = qte;
         this.dateDem = dateDem;
         this.libDpe = libDpe;
     }
 
     @Override
     public String toString() {
-        return   NumDem +
-                "\nNom de l'employé: " + NomEmp +
-                "\nLibellé : " + LibBes +
-                "\nQuantité: " + Qte +
+        return   numDem +
+                "\nNom de l'employé: " + nomEmp +
+                "\nLibellé : " + libBes +
+                "\nQuantité: " + qte +
                 "\nDate: " + dateDem +
                 "\nDépartement: " + libDpe +"\n\n";
     }
 
     public String toString1() {
-        return   NumDem +
+        return   numDem +
                 " \nDépartement bénéficiaire: " + libDpe +
-                "\nLibellé : " + LibBes +
-                "\nQuantité: " + Qte +
+                "\nLibellé : " + libBes +
+                "\nQuantité: " + qte +
                 "\nDate: " + dateDem +
                 "\n\n";
     }

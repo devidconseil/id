@@ -15,12 +15,16 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Demande extends AppCompatActivity {
 
     boolean fait=false;
+    DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,8 @@ public class Demande extends AppCompatActivity {
         final EditText quant=(EditText)findViewById(R.id.editqt);
         final RadioButton radioButton_emp= findViewById(R.id.radioButton_emp);
         final RadioButton radioButton_dep= findViewById(R.id.radioButton_dep);
+        final RadioGroup radioGroup= findViewById(R.id.radio_group);
+        mDatabase= FirebaseDatabase.getInstance().getReference();
 
 
 
@@ -61,7 +67,7 @@ public class Demande extends AppCompatActivity {
         final int jour=calendar.get(Calendar.DAY_OF_MONTH);
         final int mois=calendar.get(Calendar.MONTH);
         final int annee=calendar.get(Calendar.YEAR);
-        depart.setEnabled(false);
+       depart.setEnabled(false);
 
 
         radioButton_dep.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +76,7 @@ public class Demande extends AppCompatActivity {
                 employe.setVisibility(View.INVISIBLE);
                 employe.setEnabled(false);
                 depart.setVisibility(View.VISIBLE);
-                depart.setEnabled(true);
+                //depart.setEnabled(true);
                 Toast.makeText(getApplicationContext(),"Le bénéficiaire de la demande est un departement",Toast.LENGTH_SHORT).show();
             }
         });
@@ -163,6 +169,7 @@ public class Demande extends AppCompatActivity {
 
                     int dernierEnr = Integer.parseInt(bd.selectIdDem());
                     bd.insertDemandeBesoin(dernierEnr, var3, var4);
+                    writeNewDemande(employe.getText().toString(),depart.getText().toString(),bes.getText().toString(),date.getText().toString(),Integer.parseInt(quant.getText().toString()));
                     bes.setText("");
                     quant.setText("");
                     Toast.makeText(getBaseContext(), "Demande enregistrée avec succès !!", Toast.LENGTH_LONG).show();
@@ -221,6 +228,7 @@ public class Demande extends AppCompatActivity {
                     }
                     int dernierEnr = Integer.parseInt(bd.selectIdDem());
                     bd.insertDemandeBesoin(dernierEnr, var3, var4);
+                    writeNewDemande(employe.getText().toString(),depart.getText().toString(),bes.getText().toString(),date.getText().toString(),Integer.parseInt(quant.getText().toString()));
                     bd.close();
                     Toast.makeText(getBaseContext(), "Sortie enregistrée avec succès !!", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(Demande.this, Acceuil.class);
@@ -241,5 +249,29 @@ public class Demande extends AppCompatActivity {
             }
         });
 
+    }
+    public void writeNewDemande(String nomEmp,String libDpe, String libBes,String dateDem, int qte){
+        String code=nomEmp+"-"+libDpe+"-"+libBes+"-"+dateDem;
+        String cricri="";
+        String cris="";
+        String cristi="";
+        String crissi="";
+        if (nomEmp.contains(" ")){
+            cricri=nomEmp.replace(" ","-");
+            code=cricri+"-"+libDpe+"-"+libBes+"-"+dateDem;
+        }
+        if (dateDem.contains("/")){
+            cris=dateDem.replace("/","-");
+            code=nomEmp+"-"+libDpe+"-"+libBes+"-"+cris;
+        }
+        if (nomEmp.contains("'") || libDpe.contains("'") || libBes.contains("'")){
+            code=code.replace("'","-");
+        }
+        if (libDpe.contains(" ") || libBes.contains(" ")){
+            code=code.replace(" ","-");
+        }
+
+        DemandeC cat=new DemandeC(nomEmp,libDpe,libBes,dateDem,qte);
+        mDatabase.child("Demande").child(code).setValue(cat);
     }
 }

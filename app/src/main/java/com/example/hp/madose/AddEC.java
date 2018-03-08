@@ -5,44 +5,69 @@ package com.example.hp.madose;
  */
 
 public class AddEC {
-    int NumEnt;
-    int DateEnt, IdFour;
+    int numEnt;
+    int dateEnt, idFour;
+    String datEnt,libFour;
 
     public AddEC(int numEnt, int idFour, int dateEnt) {
-        NumEnt = numEnt;
-        IdFour = idFour;
-        DateEnt = dateEnt;
+        this.numEnt = numEnt;
+        this.idFour = idFour;
+        this.dateEnt = dateEnt;
     }
+    public AddEC( String libFour, String datEnt) {
+        this.libFour = libFour;
+        this.datEnt = datEnt;
+    }
+
+    public AddEC() {
+    }
+
     public void AddEC(){}
 
     public int getNumEnt() {
-        return NumEnt;
+        return numEnt;
     }
 
     public void setNumEnt(int numEnt) {
-        NumEnt = numEnt;
+        this.numEnt = numEnt;
     }
 
     public int getDateEnt() {
-        return DateEnt;
+        return dateEnt;
+    }
+
+    public String getDatEnt() {
+        return datEnt;
+    }
+
+    public void setDatEnt(String datEnt) {
+        this.datEnt = datEnt;
+    }
+
+    public String getLibFour() {
+        return libFour;
+    }
+
+    public void setLibFour(String libFour) {
+        this.libFour = libFour;
     }
 
     public void setDateEnt(int dateEnt) {
-        DateEnt = dateEnt;
+        this.dateEnt = dateEnt;
     }
 
     public int getIdFour() {
-        return IdFour;
+        return idFour;
     }
 
     public void setIdFour(int idFour) {
-        IdFour = idFour;
+        this.idFour = idFour;
     }
 
     @Override
     public String toString() {
-        return  "NumEnt=" + NumEnt +
-                ", DateEnt=" + DateEnt +
-                ", IdFour=" + IdFour;
+        return  "numEnt=" + numEnt +
+                ", DateEnt=" + dateEnt +
+                ", IdFour=" + idFour;
     }
 }

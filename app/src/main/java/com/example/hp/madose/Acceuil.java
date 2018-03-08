@@ -123,7 +123,6 @@ public class Acceuil extends AppCompatActivity
     MyApplication.setFetch(false);
 }  */
 
-
         bd.RupureCheck();
         if (MyApplication.isDone() && !MyApplication.isCheck()){
             AlertDialog.Builder builder = new AlertDialog.Builder(Acceuil.this,0x00000005 );
@@ -295,5 +294,38 @@ public class Acceuil extends AppCompatActivity
         }
     }
 
+    public void writeNewAdd(String libBes,String datEnt, int pU, int qte, String marqueBes, String autrePrécision){
+        String code=libBes+"-"+datEnt;
+        if (libBes.contains(" ")){
+            libBes=libBes.replace(" ","-");
+            code=libBes+"-"+datEnt;
+        }
+        if (datEnt.contains("/")){
+            datEnt=datEnt.replace("/","-");
+            code=libBes+"-"+datEnt;
+        }
+        if (libBes.contains("'")){
+            code=code.replace("'","-");
+        }
 
+        AddBEC cat=new AddBEC(libBes,datEnt,pU,qte, marqueBes, autrePrécision);
+        mDatabase.child("Besoins-Entree").child(code).setValue(cat);
+    }
+    public void writeNewEntree(String libFour, String datEnt){
+        String code=libFour+"-"+datEnt;
+        if (libFour.contains(" ")){
+            libFour=libFour.replace(" ","-");
+            code=libFour+"-"+datEnt;
+        }
+        if (datEnt.contains("/")){
+            datEnt=datEnt.replace("/","-");
+            code=libFour+"-"+datEnt;
+        }
+        if (libFour.contains("'")){
+            code=code.replace("'","-");
+        }
+
+        AddEC cat=new AddEC(libFour,datEnt);
+        mDatabase.child("Entree").child(code).setValue(cat);
+    }
 }

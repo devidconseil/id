@@ -16,6 +16,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,6 +31,7 @@ import java.util.List;
 public class Add extends AppCompatActivity {
     int jour,mois,annee;
     boolean fait=false;
+    DatabaseReference mDatabase;
 
 
     @Override
@@ -47,6 +51,7 @@ public class Add extends AppCompatActivity {
         final EditText qte=(EditText)findViewById(R.id.QT);
         final EditText mark=(EditText)findViewById(R.id.marq);
         final EditText autre=(EditText)findViewById(R.id.autre);
+        mDatabase= FirebaseDatabase.getInstance().getReference();
 
 
 
@@ -206,6 +211,7 @@ public class Add extends AppCompatActivity {
                 if (!fait) {
                     int var = Integer.parseInt(dd.selectFour(four.getText().toString()));
                     dd.insertEntr(date.getText().toString(), var);
+                    writeNewEntree(four.getText().toString(),date.getText().toString());
                 }
 
                 int var1=Integer.parseInt(dd.selectIdBes(besoin.getText().toString()));
@@ -216,6 +222,7 @@ public class Add extends AppCompatActivity {
 
                 int dernierEnregistrem= Integer.parseInt(dd.selectIdEnt());
                 dd.insertEntrBes(var1,dernierEnregistrem,prix,quantite,mark.getText().toString(),autre.getText().toString());
+                writeNewAdd(besoin.getText().toString(),date.getText().toString(),prix,quantite,mark.getText().toString(),autre.getText().toString());
 
                //update debut
                int var2=Integer.parseInt(dd.selectStockBes(besoin.getText().toString()));
@@ -289,6 +296,7 @@ public class Add extends AppCompatActivity {
                         date.setText(c + "-" + b + "-" + a);
                         int var = Integer.parseInt(dd.selectFour(four.getText().toString()));
                         dd.insertEntr(date.getText().toString(), var);
+                        writeNewEntree(four.getText().toString(),date.getText().toString());
                     }
 
 
@@ -299,7 +307,13 @@ public class Add extends AppCompatActivity {
 
 
                     int dernierEnregistrem = Integer.parseInt(dd.selectIdEnt());
+                    String a, b, c,d;
+                    a = date.getText().toString().substring(0, 2);
+                    b = date.getText().toString().substring(3, 5);
+                    c = date.getText().toString().substring(6, 10);
+                    d=c + "-" + b + "-" + a;
                     dd.insertEntrBes(var1, dernierEnregistrem, prix, quantite, mark.getText().toString(), autre.getText().toString());
+                    writeNewAdd(besoin.getText().toString(),d, prix, quantite, mark.getText().toString(), autre.getText().toString());
 
                     //update debut
                     int var2 = Integer.parseInt(dd.selectStockBes(besoin.getText().toString()));
@@ -326,5 +340,43 @@ public class Add extends AppCompatActivity {
             }
         });
 
+    }
+    public void writeNewAdd(String libBes,String datEnt, int pU, int qte, String marqueBes, String autrePrécision){
+        String code=libBes+"-"+datEnt;
+        String cricri="";
+        String cris="";
+        if (libBes.contains(" ")){
+            cricri=libBes.replace(" ","-");
+            code=cricri+"-"+datEnt;
+        }
+        if (datEnt.contains("/")){
+            cris=datEnt.replace("/","-");
+            code=libBes+"-"+cris;
+        }
+        if (libBes.contains("'")){
+            code=code.replace("'","-");
+        }
+
+        AddBEC cat=new AddBEC(libBes,datEnt,pU,qte, marqueBes, autrePrécision);
+        mDatabase.child("Besoins-Entree").child(code).setValue(cat);
+    }
+    public void writeNewEntree(String libFour, String datEnt){
+        String code=libFour+"-"+datEnt;
+        String cricri="";
+        String cris="";
+        if (libFour.contains(" ")){
+            cricri=libFour.replace(" ","-");
+            code=cricri+"-"+datEnt;
+        }
+        if (datEnt.contains("/")){
+            cris=datEnt.replace("/","-");
+            code=libFour+"-"+cris;
+        }
+        if (libFour.contains("'")){
+            code=code.replace("'","-");
+        }
+
+        AddEC cat=new AddEC(libFour,datEnt);
+        mDatabase.child("Entree").child(code).setValue(cat);
     }
 }

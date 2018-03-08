@@ -20,23 +20,23 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     private static final String MABASE = "gestion.db";
 
 
-    private static final String TABLE_BESOIN_SORTIE = "CREATE TABLE Besoins_Sortie ( `NumSor` INTEGER, `NumBes` INTEGER, `Qte` INTEGER NOT NULL, `MarqueBes` TEXT, `Autre précision` TEXT," +
+    private static final String TABLE_BESOIN_SORTIE = "CREATE TABLE Besoins_Sortie ( `NumSor` INTEGER, `NumBes` INTEGER, `qte` INTEGER NOT NULL, `marqueBes` TEXT, `Autre précision` TEXT," +
             " PRIMARY KEY(NumSor,NumBes), FOREIGN KEY(NumSor) REFERENCES Sortie(NumSor), FOREIGN KEY(NumBes) REFERENCES Besoin(NumBes) );";
     private static final String TABLE_CATEGORIE = "CREATE TABLE Categorie ( `IdCat` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `LibCat` TEXT NOT NULL );";
-    private static final String TABLE_DEMANDE = "CREATE TABLE Demande ( `NumDem` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `DateDem` INTEGER NOT NULL, `IdEmp` INTEGER, `IdDep` INTEGER, " +
+    private static final String TABLE_DEMANDE = "CREATE TABLE Demande ( `numDem` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `DateDem` INTEGER NOT NULL, `IdEmp` INTEGER, `IdDep` INTEGER, " +
             "FOREIGN KEY(`IdEmp`) REFERENCES `Utilisateur`(`IdEmp`), FOREIGN KEY(`IdDep`) REFERENCES `Departement`(`IdDep`) );";
-    private static final String TABLE_DEMANDE_BESOIN = "CREATE TABLE Demande_Besoins ( `NumDem` INTEGER, `NumBes` INTEGER, `Qte` INTEGER NOT NULL, FOREIGN KEY(`NumBes`) REFERENCES `Besoin`(`NumBes`), PRIMARY KEY(`NumDem`,`NumBes`), FOREIGN KEY(`NumDem`) REFERENCES `Demande`(`NumDem`) );";
+    private static final String TABLE_DEMANDE_BESOIN = "CREATE TABLE Demande_Besoins ( `numDem` INTEGER, `NumBes` INTEGER, `qte` INTEGER NOT NULL, FOREIGN KEY(`NumBes`) REFERENCES `Besoin`(`NumBes`), PRIMARY KEY(`numDem`,`NumBes`), FOREIGN KEY(`numDem`) REFERENCES `Demande`(`numDem`) );";
     private static final String TABLE_DEPARTEMENT = "CREATE TABLE Departement ( `IdDep` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `LibDep` TEXT NOT NULL );";
-    private static final String TABLE_USER = "CREATE TABLE Utilisateur ( `IdEmp` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `NomEmp` TEXT NOT NULL,`PrenEmp` TEXT,`MailEmp` TEXT NOT NULL,`TelEmp` TEXT NOT NULL,`IdDep` INTEGER, `ProEmp` TEXT, FOREIGN KEY(`IdDep`) REFERENCES `Departement`(`IdDep`) );";
-    private static final String TABLE_BESOIN = "CREATE TABLE Besoin ( NumBes INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, LibBes TEXT NOT NULL, TypeBes TEXT NOT NULL, IdCat INTEGER," +
+    private static final String TABLE_USER = "CREATE TABLE Utilisateur ( `IdEmp` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `nomEmp` TEXT NOT NULL,`PrenEmp` TEXT,`MailEmp` TEXT NOT NULL,`TelEmp` TEXT NOT NULL,`IdDep` INTEGER, `ProEmp` TEXT, FOREIGN KEY(`IdDep`) REFERENCES `Departement`(`IdDep`) );";
+    private static final String TABLE_BESOIN = "CREATE TABLE Besoin ( NumBes INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, libBes TEXT NOT NULL, TypeBes TEXT NOT NULL, IdCat INTEGER," +
             " SeuilBes INTEGER, AmorBes INTEGER,`StockBes` INTEGER, `Image` INTEGER, FOREIGN KEY(IdCat) REFERENCES Categorie(IdCat) );";
-    private static final String TABLE_BESOIN_ENTREE = "CREATE TABLE Besoins_Entree ( NumBes INTEGER, NumEnt INTEGER, PU INTEGER, Qte INTEGER NOT NULL, MarqueBes TEXT, Autre_Précision TEXT," +
-            " PRIMARY KEY(NumBes,NumEnt), FOREIGN KEY(NumEnt) REFERENCES Entree(NumEnt), FOREIGN KEY(NumBes) REFERENCES Besoin(NumBes) );";
-    private static final String TABLE_ENTREE = "CREATE TABLE Entree ( `NumEnt` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `DateEnt` INTEGER NOT NULL, `IdFour` INTEGER, FOREIGN KEY(`IdFour`) REFERENCES `Fournisseur`(`IdFour`));";
+    private static final String TABLE_BESOIN_ENTREE = "CREATE TABLE Besoins_Entree ( NumBes INTEGER, numEnt INTEGER, PU INTEGER, qte INTEGER NOT NULL, marqueBes TEXT, autrePrécision TEXT," +
+            " PRIMARY KEY(NumBes,numEnt), FOREIGN KEY(numEnt) REFERENCES Entree(numEnt), FOREIGN KEY(NumBes) REFERENCES Besoin(NumBes) );";
+    private static final String TABLE_ENTREE = "CREATE TABLE Entree ( `numEnt` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `DateEnt` INTEGER NOT NULL, `IdFour` INTEGER, FOREIGN KEY(`IdFour`) REFERENCES `Fournisseur`(`IdFour`));";
     private static final String TABLE_FOURNISSEUR = "CREATE TABLE Fournisseur ( `IdFour` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `NomFour` TEXT NOT NULL, `AdrFour` TEXT, `TelFour` TEXT);";
-    private static final String TABLE_SORTIE = "CREATE TABLE Sortie ( `NumSor` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `DateSor` INTEGER NOT NULL, `NumDem` INTEGER, FOREIGN KEY(`NumDem`) REFERENCES `Demande`(`NumDem`));";
-    //   NomEmp,LibDep,ProEmp,IdDep
-    //DateSor NumDem** NumSor NumBes Qte MarqueBes Autre précision
+    private static final String TABLE_SORTIE = "CREATE TABLE Sortie ( `NumSor` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `DateSor` INTEGER NOT NULL, `numDem` INTEGER, FOREIGN KEY(`numDem`) REFERENCES `Demande`(`numDem`));";
+    //   nomEmp,LibDep,ProEmp,IdDep
+    //DateSor numDem** NumSor NumBes qte marqueBes Autre précision
     public BaseDeDonne(Context context) {
         super(context, MABASE, null, 1);
     }
@@ -156,7 +156,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     //Insert
     public void insertEmp(String nom, String prenom, String mail, String tel, int dep, String profil)
     {
-        String entre = "insert into Utilisateur ( NomEmp, PrenEmp, MailEmp, TelEmp, IdDep, ProEmp )values('" + nom + "','" + prenom + "','" + mail + "','" + tel + "',"+ dep +",'" +profil + "');";
+        String entre = "insert into Utilisateur ( nomEmp, PrenEmp, MailEmp, TelEmp, IdDep, ProEmp )values('" + nom + "','" + prenom + "','" + mail + "','" + tel + "',"+ dep +",'" +profil + "');";
         this.getWritableDatabase().execSQL(entre);
         Log.i("DATABASE", "insert employe");
     }
@@ -165,7 +165,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     public List<UtilisateurC> afficheE() {
 
         List<UtilisateurC> affE = new ArrayList<>();
-        String req = "select NomEmp,PrenEmp,MailEmp,TelEmp,LibDep,ProEmp from Utilisateur,Departement where Departement.IdDep=Utilisateur.IdDep;";
+        String req = "select nomEmp,PrenEmp,MailEmp,TelEmp,LibDep,ProEmp from Utilisateur,Departement where Departement.IdDep=Utilisateur.IdDep;";
         Cursor cursor = this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -186,7 +186,31 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         Log.i("DATABASE","insert fournisseur");
     }
     public Boolean checkIfUserExist(UtilisateurC user){
-        String req="select NomEmp,PrenEmp,MailEmp,TelEmp,LibDep,ProEmp from Utilisateur,Departement where Utilisateur.IdDep=Departement.IdDep and MailEmp='"+user.getMailEmp()+"';";
+        String req="select nomEmp,PrenEmp,MailEmp,TelEmp,LibDep,ProEmp from Utilisateur,Departement where Utilisateur.IdDep=Departement.IdDep and MailEmp='"+user.getMailEmp()+"';";
+        Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
+        if(cursor.getCount()>0){
+            cursor.close();
+            return true;
+        }
+        else {
+            cursor.close();
+            return false;
+        }
+    }
+    public Boolean checkIfBesoinEntreeExist(String name,String name1){
+        String req="select Besoin.NumBes,Entree.NumEnt from Besoins_Entree,Besoin,Entree where Besoins_Entree.NumBes=Besoin.NumBes and Besoins_Entree.NumEnt=Entree.NumEnt and libBes='"+name+"' and DateEnt=strftime('%s','"+name1+"');";
+        Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
+        if(cursor.getCount()>0){
+            cursor.close();
+            return true;
+        }
+        else {
+            cursor.close();
+            return false;
+        }
+    }
+    public Boolean checkIfDemandeExist(String name,String name1,String name2){
+        String req="select numDem,DateDem,Utilisateur.IdEmp,Departement.IdDep from Demande,Utilisateur,Departement where Demande.IdEmp=Utilisateur.IdEmp and Demande.IdDep=Departement.IdDep and ((nomEmp='"+name+"' and DateDem=strftime('%s','"+name1+"')) or (LibDep='"+name2+"' and DateDem=strftime('%s','"+name1+"')));";
         Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
         if(cursor.getCount()>0){
             cursor.close();
@@ -198,7 +222,19 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         }
     }
     public Boolean checkIfBesoinExist(String name){
-        String req="select * from Besoin where LibBes='"+name+"';";
+        String req="select * from Besoin where libBes='"+name+"';";
+        Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
+        if(cursor.getCount()>0){
+            cursor.close();
+            return true;
+        }
+        else {
+            cursor.close();
+            return false;
+        }
+    }
+    public Boolean checkIfEntreeExist(String name,String name1){
+        String req="select NumEnt,DateEnt,Entree.IdFour from Entree,Fournisseur where DateEnt=strftime('%s','"+name+"') and NomFour='"+name1+"' and Entree.IdFour=Fournisseur.IdFour;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
         if(cursor.getCount()>0){
             cursor.close();
@@ -246,7 +282,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         }
     }
     public Boolean checkMailExist(String mail){
-        String req="select NomEmp,PrenEmp,MailEmp,TelEmp,LibDep,ProEmp from Utilisateur,Departement where Utilisateur.IdDep=Departement.IdDep and MailEmp='"+mail  +"';";
+        String req="select nomEmp,PrenEmp,MailEmp,TelEmp,LibDep,ProEmp from Utilisateur,Departement where Utilisateur.IdDep=Departement.IdDep and MailEmp='"+mail  +"';";
         Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
         if(cursor.getCount()>0){
             cursor.close();
@@ -323,7 +359,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
 
     public void insertBesoin(String nom,String type,int categorie,int seuil,String amort,int stockBes,int image)
     {
-        String entre="insert into Besoin(LibBes, TypeBes, IdCat, SeuilBes, AmorBes,StockBes,Image)values('"+nom+"','"+type+"',"+categorie+","+seuil+",strftime('%s','"+amort+"'),"+stockBes+","+image+");";
+        String entre="insert into Besoin(libBes, TypeBes, IdCat, SeuilBes, AmorBes,StockBes,Image)values('"+nom+"','"+type+"',"+categorie+","+seuil+",strftime('%s','"+amort+"'),"+stockBes+","+image+");";
         this.getWritableDatabase().execSQL(entre);
         Log.i("DATABASE","insert Besoin");
     }
@@ -331,9 +367,9 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     public List<BesoinC> afficheB()
     {
         List<BesoinC>affB=new ArrayList<>();
-        //String req="select NumBes,LibBes,TypeBes,Idcat,SeuilBes,date(AmorBes,'unixepoch') from Besoin where Amorbes BETWEEN strftime('%s','2010-05-04') AND strftime('%s','2060-12-31') ;";
+        //String req="select NumBes,libBes,TypeBes,Idcat,SeuilBes,date(AmorBes,'unixepoch') from Besoin where Amorbes BETWEEN strftime('%s','2010-05-04') AND strftime('%s','2060-12-31') ;";
 
-        String req="select LibBes,TypeBes,LibCat,SeuilBes,date(AmorBes,'unixepoch'),StockBes,Image from Besoin,Categorie where Besoin.Idcat=Categorie.IdCat ;";
+        String req="select libBes,TypeBes,LibCat,SeuilBes,date(AmorBes,'unixepoch'),StockBes,Image from Besoin,Categorie where Besoin.Idcat=Categorie.IdCat ;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -363,7 +399,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     {
         List<BesoinC>affB=new ArrayList<>();
 
-        String req="select LibBes from Besoin;";
+        String req="select libBes from Besoin;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -383,7 +419,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     public ArrayList<String> affiNB()
     {
         ArrayList<String>nb=new ArrayList<>();
-        String req="select LibBes from Besoin;";
+        String req="select libBes from Besoin;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -414,7 +450,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
 
     public String selectIdBes(String nomB)
     {
-        String req="select NumBes from Besoin where LibBes='"+nomB+"';";
+        String req="select NumBes from Besoin where libBes='"+nomB+"';";
         Cursor cursor = null;
         try {
 
@@ -435,7 +471,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
 
     public void insertEntrBes(int numB,int numE, int pu, int qte, String marque, String autr)
     {
-        String entre="insert into Besoins_Entree( NumBes, NumEnt, PU, Qte, MarqueBes, Autre_Précision )values(" + numB +","+numE+","+pu+","+qte+",'"+marque+"','"+autr+"');";
+        String entre="insert into Besoins_Entree( NumBes, numEnt, PU, qte, marqueBes, autrePrécision )values(" + numB +","+numE+","+pu+","+qte+",'"+marque+"','"+autr+"');";
         Log.i("DATABASE","insert Entree besoin");
         this.getWritableDatabase().execSQL(entre);
     }
@@ -443,7 +479,19 @@ public class BaseDeDonne extends SQLiteOpenHelper {
 
     public String selectIdEnt()
     {
-        String requete="select MAX(NumEnt) from Entree;";
+        String requete="select MAX(numEnt) from Entree;";
+        Cursor cursor = null;
+        try {
+
+            cursor = this.getReadableDatabase().rawQuery(requete,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
+    public String selectIdEnt(String date)
+    {
+        String requete="select NumEnt from Entree where DateEnt=strftime('%s','"+date+"');";
         Cursor cursor = null;
         try {
 
@@ -507,7 +555,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         List<DemandeC> affD=new ArrayList<>();
 
 
-        String req="select Demande.NumDem,NomEmp,LibBes,Qte,date(dateDem,'unixepoch'),libDep from Demande,Demande_Besoins,Utilisateur,Besoin,Departement where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.NumDem=Demande.NumDem and Demande.IdDep=Departement.IdDep and Utilisateur.IdEmp=Demande.IdEmp;";
+        String req="select Demande.numDem,nomEmp,libBes,qte,date(dateDem,'unixepoch'),libDep from Demande,Demande_Besoins,Utilisateur,Besoin,Departement where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem and Demande.IdDep=Departement.IdDep and Utilisateur.IdEmp=Demande.IdEmp;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -530,7 +578,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         List<DemandeC> affD=new ArrayList<>();
 
 
-        String req="select Demande.NumDem,NomEmp,LibBes,Qte,date(dateDem,'unixepoch'),libDep from Demande,Demande_Besoins,Utilisateur,Besoin,Departement where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.NumDem=Demande.NumDem and Demande.IdDep=Departement.IdDep and Utilisateur.IdEmp=Demande.IdEmp and Utilisateur.MailEmp='"+mail+"';";
+        String req="select Demande.numDem,nomEmp,libBes,qte,date(dateDem,'unixepoch'),libDep from Demande,Demande_Besoins,Utilisateur,Besoin,Departement where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem and Demande.IdDep=Departement.IdDep and Utilisateur.IdEmp=Demande.IdEmp and Utilisateur.MailEmp='"+mail+"';";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -554,7 +602,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         List<DemandeC> affD=new ArrayList<>();
 
 
-        String req="select Demande.NumDem,Departement.LibDep,Besoin.LibBes,Demande_Besoins.Qte,date(Demande.dateDem,'unixepoch') from Demande,Demande_Besoins,Departement,Besoin where Demande.NumDem=Demande_Besoins.NumDem and Demande_Besoins.NumBes=Besoin.NumBes and Demande.IdDep=Departement.IdDep and Demande.IdEmp is null ;";
+        String req="select Demande.numDem,Departement.LibDep,Besoin.libBes,Demande_Besoins.qte,date(Demande.dateDem,'unixepoch') from Demande,Demande_Besoins,Departement,Besoin where Demande.numDem=Demande_Besoins.numDem and Demande_Besoins.NumBes=Besoin.NumBes and Demande.IdDep=Departement.IdDep and Demande.IdEmp is null ;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -641,14 +689,14 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     }
          public void insertDemandeBesoin(int dem, int besoin ,int qte)
     {
-        String entre="insert into Demande_Besoins(NumDem, NumBes, Qte )values("+dem+"," + besoin +","+qte+");";
+        String entre="insert into Demande_Besoins(numDem, NumBes, qte )values("+dem+"," + besoin +","+qte+");";
         Log.i("DATABASE","insert Demande besoin");
         this.getWritableDatabase().execSQL(entre);
     }
 
    public String selectEmpl(String nomF)
     {
-        String req="select NomEmp from Utilisateur where NomEmp='"+nomF+"';";
+        String req="select nomEmp from Utilisateur where nomEmp='"+nomF+"';";
         Cursor cursor = null;
         try {
 
@@ -660,7 +708,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     }
     public String selectEmpId(String nomB)
     {
-        String req="select IdEmp from Utilisateur where NomEmp='"+nomB+"';";
+        String req="select IdEmp from Utilisateur where nomEmp='"+nomB+"';";
         Cursor cursor = null;
         try {
 
@@ -676,7 +724,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     public ArrayList<String> affiNE()
     {
         ArrayList<String>nd=new ArrayList<>();
-        String req="select NomEmp from Utilisateur;";
+        String req="select nomEmp from Utilisateur;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -721,7 +769,31 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     }
     public String selectIdDem()
     {
-        String requete="select MAX(NumDem) from Demande;";
+        String requete="select MAX(numDem) from Demande;";
+        Cursor cursor = null;
+        try {
+
+            cursor = this.getReadableDatabase().rawQuery(requete,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
+    public String selectIdDem(String nomEmp,String date)
+    {
+        String requete="select NomEmp,DateDem from Demande,Utilisateur where Demande.IdEmp=Utilisateur.IdEmp and NomEmp='"+nomEmp+"' and DateDem=strftime('%s','"+date+"');";
+        Cursor cursor = null;
+        try {
+
+            cursor = this.getReadableDatabase().rawQuery(requete,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
+    public String selectIdDem1(String libDep,String date)
+    {
+        String requete="select LibDep,DateDem from Demande,Departement where Demande.IdDep=Departement.IdDep and LibDep='"+libDep+"' and DateDem=strftime('%s','"+date+"');";
         Cursor cursor = null;
         try {
 
@@ -770,7 +842,7 @@ public ArrayList<String> affiNumDem(int idemp)
     public ArrayList<String> affiMarque()
     {
         ArrayList<String>nd=new ArrayList<>();
-        String req="select MarqueBes from Besoins_Entree;";
+        String req="select marqueBes from Besoins_Entree;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -803,7 +875,7 @@ public ArrayList<String> affiNumDem(int idemp)
 
     public String selectNumDem(String date)
     {
-        String req="select NumDem from Demande where DateDem='"+date+"';";
+        String req="select numDem from Demande where DateDem='"+date+"';";
         Cursor cursor = null;
         try {
 
@@ -817,8 +889,8 @@ public ArrayList<String> affiNumDem(int idemp)
     public void insertSortie(String date, String demande)
     {
 
-       //String paco="select NumDem from Sortie,Demande,Utilisateur where Sortie.NumDem=Demande.NumDem and Demande.IdEmp=Emp.IdEmp and Demande.DateDem=strftime('%s','"+demande+"') and Emp.NomEmp='"+employe+"';";
-        String entre="insert into Sortie(DateSor,NumDem)values(strftime('%s','"+date+"'),'"+demande+"');";
+       //String paco="select numDem from Sortie,Demande,Utilisateur where Sortie.numDem=Demande.numDem and Demande.IdEmp=Emp.IdEmp and Demande.DateDem=strftime('%s','"+demande+"') and Emp.nomEmp='"+employe+"';";
+        String entre="insert into Sortie(DateSor,numDem)values(strftime('%s','"+date+"'),'"+demande+"');";
         Log.i("DATABASE","insert Sortie");
         this.getWritableDatabase().execSQL(entre);
 
@@ -826,14 +898,14 @@ public ArrayList<String> affiNumDem(int idemp)
 
     public void insertSortieBesoin(int sortie, int besoin, int qte, String marque, String autr)
     {
-        String entre="insert into Besoins_Sortie (NumSor, NumBes, Qte, MarqueBes, `Autre précision`)values("+sortie+","+besoin+","+qte+",'"+marque+"','"+autr+"');";
+        String entre="insert into Besoins_Sortie (NumSor, NumBes, qte, marqueBes, `Autre précision`)values("+sortie+","+besoin+","+qte+",'"+marque+"','"+autr+"');";
         Log.i("DATABASE","insert SortieBesoin");
         this.getWritableDatabase().execSQL(entre);
     }
     public String selectNumeDem(String demande,String employe)
     {
 
-        String paco="select Demande.NumDem from Demande,Utilisateur where Demande.IdEmp=Utilisateur.IdEmp and Demande.DateDem=strftime('%s','"+demande+"') and Utilisateur.NomEmp='"+employe+"';";
+        String paco="select Demande.numDem from Demande,Utilisateur where Demande.IdEmp=Utilisateur.IdEmp and Demande.DateDem=strftime('%s','"+demande+"') and Utilisateur.nomEmp='"+employe+"';";
         Cursor cursor = null;
         try {
 
@@ -847,7 +919,7 @@ public ArrayList<String> affiNumDem(int idemp)
     public String selectNumeDem1(String demande,String depart)
     {
 
-        String paco="select Demande.NumDem from Demande,Departement where Demande.IdDep=Departement.IdDep and Demande.DateDem=strftime('%s','"+demande+"') and Departement.LibDep='"+depart+"';";
+        String paco="select Demande.numDem from Demande,Departement where Demande.IdDep=Departement.IdDep and Demande.DateDem=strftime('%s','"+demande+"') and Departement.LibDep='"+depart+"';";
         Cursor cursor = null;
         try {
 
@@ -876,7 +948,7 @@ public ArrayList<String> affiNumDem(int idemp)
     public List<Stock1> afficheStock1() {
 
         List<Stock1> affStok1 = new ArrayList<>();
-        String req = "select LibBes,TypeBes,PU,Qte,date(Entree.DateEnt,'unixepoch') FROM Besoin,Besoins_Entree,Entree WHERE Besoin.NumBes=Besoins_Entree.NumBes and Entree.NumEnt=Besoins_Entree.NumEnt;";
+        String req = "select libBes,TypeBes,PU,qte,date(Entree.DateEnt,'unixepoch') FROM Besoin,Besoins_Entree,Entree WHERE Besoin.NumBes=Besoins_Entree.NumBes and Entree.numEnt=Besoins_Entree.numEnt;";
         Cursor cursor = this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -892,7 +964,7 @@ public ArrayList<String> affiNumDem(int idemp)
     public List<Stock2> afficheStock2() {
 
         List<Stock2> affStok2 = new ArrayList<>();
-        String req = "select Besoin.LibBes,Besoin.TypeBes,Qte,NomEmp,date(DateSor,'unixepoch') FROM Besoin,Besoins_Sortie, Demande,Utilisateur,Sortie WHERE Besoin.NumBes=Besoins_Sortie.NumBes and Sortie.NumDem=Demande.NumDem and Utilisateur.IdEmp=Demande.IdEmp and Besoins_Sortie.NumSor=Sortie.NumSor;";
+        String req = "select Besoin.libBes,Besoin.TypeBes,qte,nomEmp,date(DateSor,'unixepoch') FROM Besoin,Besoins_Sortie, Demande,Utilisateur,Sortie WHERE Besoin.NumBes=Besoins_Sortie.NumBes and Sortie.numDem=Demande.numDem and Utilisateur.IdEmp=Demande.IdEmp and Besoins_Sortie.NumSor=Sortie.NumSor;";
         Cursor cursor = this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -908,7 +980,7 @@ public ArrayList<String> affiNumDem(int idemp)
     public List<Stock2> afficheStock3() {
 
         List<Stock2> affStok3 = new ArrayList<>();
-        String req = "select LibBes,TypeBes,LibDep,Qte,date(DateSor,'unixepoch') FROM Besoin,Besoins_Sortie, Demande,Departement,Sortie WHERE Besoin.NumBes=Besoins_Sortie.NumBes and Sortie.NumDem=Demande.NumDem and Departement.IdDep=Demande.IdDep and Besoins_Sortie.NumSor=Sortie.NumSor and Demande.IdEmp is null ;";
+        String req = "select libBes,TypeBes,LibDep,qte,date(DateSor,'unixepoch') FROM Besoin,Besoins_Sortie, Demande,Departement,Sortie WHERE Besoin.NumBes=Besoins_Sortie.NumBes and Sortie.numDem=Demande.numDem and Departement.IdDep=Demande.IdDep and Besoins_Sortie.NumSor=Sortie.NumSor and Demande.IdEmp is null ;";
         Cursor cursor = this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -928,14 +1000,14 @@ public ArrayList<String> affiNumDem(int idemp)
 
     public void upDate(int quant, String nomB)
     {
-        String req="update Besoin set StockBes="+quant+" where LibBes='"+nomB+"';";
+        String req="update Besoin set StockBes="+quant+" where libBes='"+nomB+"';";
         this.getWritableDatabase().execSQL(req);
         Log.i("DATABASE","mise a jour de la table stock");
     }
 
 
     public String selectStockBes(String LibBes){
-        String requete="select StockBes from Besoin where LibBes='"+LibBes+"';";
+        String requete="select StockBes from Besoin where libBes='"+LibBes+"';";
         Cursor cursor = null;
         try {
 
@@ -951,7 +1023,7 @@ public ArrayList<String> affiNumDem(int idemp)
         List<StockC>affS=new ArrayList<>();
 
 
-        String req="select LibBes,TypeBes,SeuilBes,StockBes,Image from Besoin;";
+        String req="select libBes,TypeBes,SeuilBes,StockBes,Image from Besoin;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -974,7 +1046,7 @@ public ArrayList<String> affiNumDem(int idemp)
         List<StockC>affS=new ArrayList<>();
 
 
-        String req="select LibBes,TypeBes,date(AmorBes,'unixepoch'),Image from Besoin;";
+        String req="select libBes,TypeBes,date(AmorBes,'unixepoch'),Image from Besoin;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -998,7 +1070,7 @@ public ArrayList<String> affiNumDem(int idemp)
         List<CoutC>affS=new ArrayList<>();
 
 
-        String req="select Entree.NumEnt,Besoin.LibBes,Besoins_Entree.PU,Besoins_Entree.Qte from Entree,Besoin,Besoins_Entree where Entree.NumEnt=Besoins_Entree.NumEnt and Besoin.NumBes=Besoins_Entree.NumBes and Besoin.LibBes='"+besoin+"';";
+        String req="select Entree.numEnt,Besoin.libBes,Besoins_Entree.PU,Besoins_Entree.qte from Entree,Besoin,Besoins_Entree where Entree.numEnt=Besoins_Entree.numEnt and Besoin.NumBes=Besoins_Entree.NumBes and Besoin.libBes='"+besoin+"';";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -1022,7 +1094,7 @@ public ArrayList<String> affiNumDem(int idemp)
         List<ListAchatC>affS=new ArrayList<>();
 
 
-        String req="select Besoin.LibBes,sum(Qte) as Qte from Besoin,Demande_Besoins,Demande where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.NumDem=Demande.NumDem  group by LibBes;";
+        String req="select Besoin.libBes,sum(qte) as qte from Besoin,Demande_Besoins,Demande where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem  group by libBes;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -1045,7 +1117,7 @@ public ArrayList<String> affiNumDem(int idemp)
         List<RuptureC> affS = new ArrayList<>();
 
 
-        String req = "select LibBes,SeuilBes,StockBes from Besoin where SeuilBes>=StockBes and TypeBes='NON AMORTISSABLE';";
+        String req = "select libBes,SeuilBes,StockBes from Besoin where SeuilBes>=StockBes and TypeBes='NON AMORTISSABLE';";
         Cursor cursor = this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 

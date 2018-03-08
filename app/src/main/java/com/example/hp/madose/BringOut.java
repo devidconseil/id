@@ -188,7 +188,7 @@ public class BringOut extends AppCompatActivity {
                     date.setText(c + "-" + b + "-" + a);
                     bd.insertSortie(date.getText().toString(), num);
                     dernierEnr = Integer.parseInt(bd.selectIdSortie());
-                    //NumSor` INTEGER, `NumBes` INTEGER, `Qte` INTEGER NOT NULL, `MarqueBes` TEXT, `Autre précision`
+                    //NumSor` INTEGER, `NumBes` INTEGER, `qte` INTEGER NOT NULL, `marqueBes` TEXT, `Autre précision`
                     int var = Integer.parseInt(bd.selectIdBes(besoin.getText().toString()));
                     int var1 = Integer.parseInt(qut.getText().toString());
                     bd.insertSortieBesoin(dernierEnr, var, var1, marq.getText().toString(), autr.getText().toString());
@@ -256,7 +256,7 @@ public class BringOut extends AppCompatActivity {
 
 
                     dernierEnr = Integer.parseInt(bd.selectIdSortie());
-                    //NumSor` INTEGER, `NumBes` INTEGER, `Qte` INTEGER NOT NULL, `MarqueBes` TEXT, `Autre précision`
+                    //NumSor` INTEGER, `NumBes` INTEGER, `qte` INTEGER NOT NULL, `marqueBes` TEXT, `Autre précision`
                     int var = Integer.parseInt(bd.selectIdBes(besoin.getText().toString()));
                     int var1 = Integer.parseInt(qut.getText().toString());
                     bd.insertSortieBesoin(dernierEnr, var, var1, marq.getText().toString(), autr.getText().toString());
