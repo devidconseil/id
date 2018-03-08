@@ -208,6 +208,25 @@ public class Affichage extends AppCompatActivity {
 
         if (getIntent().getStringExtra("passage").equals("besoin")) {
              employe = (TextView) findViewById(R.id.textView4);
+
+            mDatabase.child("Besoin").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot dataSnapshotBes:dataSnapshot.getChildren()){
+                       BesoinC cat= dataSnapshotBes.getValue(BesoinC.class);
+                        if (!bd.checkIfBesoinExist(cat.getLibBes())){
+                            int ss=Integer.parseInt(bd.selectCat(cat.getLibCat()));
+                            bd.insertBesoin(cat.getLibBes(),cat.getTypeBes(),ss,cat.getSeuilBes(),cat.getAmorBes(),cat.getStockBes(),cat.getImageBes());
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
              List<BesoinC> affC = bd.afficheB();
              for (BesoinC emp : affC) {
                  employe.append(emp.toString1() + "\n\n");

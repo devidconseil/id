@@ -69,6 +69,10 @@ public class Besoin extends AppCompatActivity {
         radioGroup = (RadioGroup) findViewById(R.id.groupeRadio);
         final Button enregistrer = (Button) findViewById(R.id.enregistre);
         final ImageView imageView= findViewById(R.id.imageView3);
+        final RadioButton radioButton= findViewById(R.id.radioNonAm);
+        final RadioButton radioButton1= findViewById(R.id.radioAm);
+        int result = radioGroup.getCheckedRadioButtonId();
+        radio = (RadioButton) findViewById(result);
         mDatabase= FirebaseDatabase.getInstance().getReference();
 
 
@@ -81,12 +85,19 @@ public class Besoin extends AppCompatActivity {
             }
         });
 
-        auto.setOnClickListener(new View.OnClickListener() {
+
+
+
+
+
+        auto.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(Besoin.this,Listecategorie.class);
-                intent.putExtra("categorie",editLib.getText().toString());
-                startActivity(intent);
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    Intent intent=new Intent(Besoin.this,Listecategorie.class);
+                    intent.putExtra("categorie",editLib.getText().toString());
+                    startActivity(intent);
+                }
             }
         });
 
@@ -193,8 +204,7 @@ public class Besoin extends AppCompatActivity {
 
 
                     int varo = Integer.parseInt(edi3.getText().toString());
-                    int result = radioGroup.getCheckedRadioButtonId();
-                    radio = (RadioButton) findViewById(result);
+
 
                 if (radio.getText().toString().equals("AMORTISSABLE"))
                 {
@@ -256,6 +266,8 @@ public class Besoin extends AppCompatActivity {
 
             edi2.setEnabled(true);
             edi1.setEnabled(false);
+            edi1.setVisibility(View.INVISIBLE);
+            edi2.setVisibility(View.VISIBLE);
             Toast.makeText(getBaseContext(), radio.getText().toString(), Toast.LENGTH_SHORT).show();
         } else
 
@@ -263,6 +275,8 @@ public class Besoin extends AppCompatActivity {
 
             edi1.setEnabled(true);
             edi2.setEnabled(false);
+            edi1.setVisibility(View.VISIBLE);
+            edi2.setVisibility(View.INVISIBLE);
             Toast.makeText(getBaseContext(), radio.getText().toString(), Toast.LENGTH_LONG).show();
         }
 

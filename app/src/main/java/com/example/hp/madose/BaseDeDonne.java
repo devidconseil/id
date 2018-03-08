@@ -197,6 +197,18 @@ public class BaseDeDonne extends SQLiteOpenHelper {
             return false;
         }
     }
+    public Boolean checkIfBesoinExist(String name){
+        String req="select * from Besoin where LibBes='"+name+"';";
+        Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
+        if(cursor.getCount()>0){
+            cursor.close();
+            return true;
+        }
+        else {
+            cursor.close();
+            return false;
+        }
+    }
     public Boolean checkIfCategorieExist(String name){
         String req="select * from Categorie where LibCat='"+name+"';";
         Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
@@ -321,7 +333,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         List<BesoinC>affB=new ArrayList<>();
         //String req="select NumBes,LibBes,TypeBes,Idcat,SeuilBes,date(AmorBes,'unixepoch') from Besoin where Amorbes BETWEEN strftime('%s','2010-05-04') AND strftime('%s','2060-12-31') ;";
 
-        String req="select LibBes,TypeBes,LibCat,SeuilBes,date(AmorBes,'unixepoch'),StockBes,Image from Besoin,Categorie where Besoin.IdCat=Categorie.IdCat;";
+        String req="select LibBes,TypeBes,LibCat,SeuilBes,date(AmorBes,'unixepoch'),StockBes,Image from Besoin,Categorie where Besoin.Idcat=Categorie.IdCat ;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 

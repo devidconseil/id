@@ -15,7 +15,7 @@ public class BesoinC {
     int imageBes;
     String libCat;
 
-    void BesoinC(){}
+    public BesoinC(){}
 
     public String getLibCat() {
         return libCat;

@@ -294,16 +294,6 @@ public class Acceuil extends AppCompatActivity
             finish();
         }
     }
-    public void writeNewBesoin(String libBes,String typBes,String libCat,int seuilBes, String amorBes,int stockBes,int imageBes){
-        String code=libBes;
-        if (libBes.contains(" ")){
-            code=libBes.replace(" ","-");
-        }
-        if (libBes.contains("'")){
-            code=code.replace("'","-");
-        }
 
-        BesoinC cat=new BesoinC(libBes,typBes,libCat,seuilBes,amorBes,stockBes,imageBes);
-        mDatabase.child("Besoin").child(code).setValue(cat);
-    }
+
 }
