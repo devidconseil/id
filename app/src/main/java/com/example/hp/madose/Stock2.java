@@ -69,13 +69,13 @@ public class Stock2 {
                 "\nLe:  "+date+"\n";
     }
     /* public Stock2(String libBes, String typeBes, int qte) {
-            this.LibBes = libBes;
+            this.libBes = libBes;
             this.TypeBes = typeBes;
-            this.Qte = qte;
+            this.qte = qte;
         }
 
         public String getLibBes() {
-            return LibBes;
+            return libBes;
         }
 
         public String getTypeBes() {
@@ -85,14 +85,14 @@ public class Stock2 {
 
 
         public int getQte() {
-            return Qte;
+            return qte;
         }
 
         @Override
         public String toString() {
-            return  "Besoin=" + LibBes +
+            return  "Besoin=" + libBes +
                     "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tType=" + TypeBes +
-                    "\nQuantité=" + Qte;
+                    "\nQuantité=" + qte;
         }*/
 
 

@@ -5,74 +5,104 @@ package com.example.hp.madose;
  */
 
 public class AddBEC {
-    int NumBes, NumEnt, PU, Qte;
-    String MarqueBes, Autre_Précision;
+    int numBes, numEnt, pu, qte;
+    String marqueBes, autrePrécision,datEnt,libBes;
 
-    public AddBEC(int numBes, int numEnt, int PU, int qte, String marqueBes, String autre_Précision) {
-        NumBes = numBes;
-        NumEnt = numEnt;
-        this.PU = PU;
-        Qte = qte;
-        MarqueBes = marqueBes;
-        Autre_Précision = autre_Précision;
+    public String getLibBes() {
+        return libBes;
+    }
+
+    public void setLibBes(String libBes) {
+        this.libBes = libBes;
+    }
+
+    public AddBEC() {
+
+    }
+
+    public AddBEC(int numBes, int numEnt, int pu, int qte, String marqueBes, String autrePrécision) {
+        this.numBes = numBes;
+        this.numEnt = numEnt;
+        this.pu = pu;
+        this.qte = qte;
+        this.marqueBes = marqueBes;
+        this.autrePrécision = autrePrécision;
+
+    }
+    public AddBEC(String libBes, String datEnt, int pu, int qte, String marqueBes, String autrePrécision) {
+        this.libBes=libBes;
+        this.datEnt=datEnt;
+        this.pu = pu;
+        this.qte = qte;
+        this.marqueBes = marqueBes;
+        this.autrePrécision = autrePrécision;
+
     }
 
     public int getNumBes() {
-        return NumBes;
+        return numBes;
+    }
+
+    public String getDatEnt() {
+        return datEnt;
+    }
+
+    public void setDatEnt(String datEnt) {
+        this.datEnt = datEnt;
     }
 
     public void setNumBes(int numBes) {
-        NumBes = numBes;
+        numBes = numBes;
     }
 
     public int getNumEnt() {
-        return NumEnt;
+        return numEnt;
     }
 
     public void setNumEnt(int numEnt) {
-        NumEnt = numEnt;
+        this.numEnt = numEnt;
     }
 
     public int getPU() {
-        return PU;
+        return pu;
     }
 
-    public void setPU(int PU) {
-        this.PU = PU;
+    public void setPU(int pU) {
+        this.pu = pU;
     }
 
     public int getQte() {
-        return Qte;
+        return qte;
     }
 
     public void setQte(int qte) {
-        Qte = qte;
+        this.qte = qte;
     }
 
     public String getMarqueBes() {
-        return MarqueBes;
+        return marqueBes;
     }
 
     public void setMarqueBes(String marqueBes) {
-        MarqueBes = marqueBes;
+        this.marqueBes = marqueBes;
     }
 
-    public String getAutre_Précision() {
-        return Autre_Précision;
+    public String getAutrePrécision() {
+        return autrePrécision;
     }
 
-    public void setAutre_Précision(String autre_Précision) {
-        Autre_Précision = autre_Précision;
+    public void setAutrePrécision(String autrePrécision) {
+        this.autrePrécision = autrePrécision;
     }
 
     @Override
     public String toString() {
-        return  "NumBes=" + NumBes +
-                ", NumEnt=" + NumEnt +
-                ", PU=" + PU +
-                ", Qte=" + Qte +
-                ", MarqueBes='" + MarqueBes + '\'' +
-                ", Autre_Précision='" + Autre_Précision + '\'' +
+        return  "NumBes=" + numBes +
+                ", numEnt=" + numEnt +
+                ", pu=" + pu +
+                ", qte=" + qte +
+                ", marqueBes='" + marqueBes + '\'' +
+                ", autrePrécision='" + autrePrécision + '\'' +
                 '}';
     }
 }

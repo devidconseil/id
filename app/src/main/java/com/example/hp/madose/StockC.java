@@ -99,7 +99,7 @@ public class StockC {
 
   /*  @Override
     public String toString() {
-        return "LibBes=" + LibBes  +
+        return "libBes=" + libBes  +
                 "\nTypeBes=" + TypeBes  +
                 "\nSeuilBes=" + SeuilBes +
                 "\nStockBes=" + StockBes + "\n";

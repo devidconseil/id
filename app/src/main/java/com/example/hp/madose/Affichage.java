@@ -287,6 +287,43 @@ public class Affichage extends AppCompatActivity {
 
         if (getIntent().getStringExtra("passage").equals("entree")) {
             stocke = (TextView) findViewById(R.id.textView2);
+            mDatabase.child("Entree").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot dataSnapshotEnt:dataSnapshot.getChildren()){
+                        AddEC cat= dataSnapshotEnt.getValue(AddEC.class);
+
+                        if (!bd.checkIfEntreeExist(cat.getLibFour(),cat.getDatEnt())){
+                          int ss=Integer.parseInt(bd.selectFour(cat.getLibFour()));
+                            bd.insertEntr(cat.getDatEnt(),ss);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+            mDatabase.child("Besoins-Entree").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot dataSnapshotBesEnt:dataSnapshot.getChildren()){
+                        AddBEC cat= dataSnapshotBesEnt.getValue(AddBEC.class);
+
+                        if (!bd.checkIfBesoinEntreeExist(cat.getLibBes(),cat.getDatEnt())){
+                            int ss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
+                            int sss=Integer.parseInt(bd.selectIdEnt(cat.getDatEnt()));
+                            bd.insertEntrBes(ss,sss,cat.getPU(),cat.getQte(),cat.getMarqueBes(),cat.getAutrePrécision());
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
             stocke.setText("LISTE DES BESOINS (MATERIELS) ENTRES \n\n\n");
             List<Stock1> affF = bd.afficheStock1();
             for (Stock1 emp : affF) {
@@ -319,6 +356,34 @@ public class Affichage extends AppCompatActivity {
 
         if (getIntent().getStringExtra("passage").equals("demande")) {
             demande = (TextView) findViewById(R.id.textView2);
+            mDatabase.child("Demande").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot dataSnapshotDem:dataSnapshot.getChildren()){
+                        DemandeC cat= dataSnapshotDem.getValue(DemandeC.class);
+
+                        if (!bd.checkIfDemandeExist(cat.getNomEmp(),cat.getDateDem(),cat.getLibDpe())){
+                            int ss=Integer.parseInt(bd.selectEmpId(cat.getNomEmp()));
+                            int sss=Integer.parseInt(bd.selectDep(cat.getLibDpe()));
+                            int ssss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
+                            if (cat.getLibDpe().equals("")){
+                                bd.insertDemande(cat.getDateDem(),ss,sss);
+                                bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getNomEmp(),cat.getDateDem())),ssss,cat.getQte());
+                            }
+                            if (cat.getNomEmp().equals("")) {
+                                bd.insertDemande1(cat.getDateDem(),sss);
+                                bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem1(cat.getLibDpe(),cat.getDateDem())),ssss,cat.getQte());
+                            }
+
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
             String profile=bd.retrieveUserProfile(mAuth.getCurrentUser().getEmail());
             if (profile.equals("SUPER ADMIN")) {
                 demande.setText("LISTE DES DEMANDES DE BESOINS PAR PERSONNE \n\n\n");

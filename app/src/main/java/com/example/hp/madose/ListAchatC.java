@@ -32,6 +32,6 @@ public class ListAchatC {
     @Override
     public String toString() {
         return  LibBes + "\n"+
-                "Qte=" + Qte;
+                "qte=" + Qte;
     }
 }

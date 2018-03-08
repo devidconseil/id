@@ -127,8 +127,8 @@ public class Authentification extends AppCompatActivity {
             bd.insertEntrBes(1, 1, 150, 5, "Bic", "bleu");
             bd.insertEntrBes(2, 1, 250, 5, "Bic", "noir, permanent");
             bd.insertEntrBes(6, 2, 450000, 5, "HP", "noir, core i5, portable");
-            bd.insertEntrBes(4, 2, 250000, 5, "HP Laser", "blanc");
-            bd.insertEntrBes(5, 1, 500, 3, "PRIVILEGE", "200 pages");
+            bd.insertEntrBes(4, 2, 250000, 5, "SAMSUNG", "blanc");
+            bd.insertEntrBes(5, 1, 500, 3, "PRIVILEGE", "200 sticks");
 
             bd.insertDemande("2018-01-02", 1, 1);
             bd.insertDemandeBesoin(1, 1, 1);
