@@ -765,7 +765,18 @@ public class BaseDeDonne extends SQLiteOpenHelper {
             if (cursor != null) cursor.close();
         }
     }
+    public String selectIdEmp(String nomB)
+    {
+        String req="select IdEmp from Utilisateur where nomEmp || ' ' || prenEmp='"+nomB+"';";
+        Cursor cursor = null;
+        try {
 
+            cursor = this.getReadableDatabase().rawQuery(req,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
 
     //TextautocompleteEmploye
     public ArrayList<String> affiNE()
