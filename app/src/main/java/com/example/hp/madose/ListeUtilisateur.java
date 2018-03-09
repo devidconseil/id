@@ -26,48 +26,63 @@ public class ListeUtilisateur extends AppCompatActivity {
         setContentView(R.layout.activity_liste_utilisateur);
         BaseDeDonne bd=new BaseDeDonne(this);
 
+//Si cette page s'ouvre à partir de BringOut.class
+if (getIntent().getStringExtra("bringO").equals("sortie")) {
 
-        final List<UtilisateurC> userliste= bd.listeUser();
-        for (UtilisateurC utilisateurC : userliste){
-            list.add(utilisateurC.nomEtprenom());
+    final List<UtilisateurC> userliste = bd.listeUser();
+    for (UtilisateurC utilisateurC : userliste) {
+        list.add(utilisateurC.nomEtprenom());
+    }
+    ListAdapter listAdapter = new ArrayAdapter<UtilisateurC>(this, android.R.layout.simple_list_item_1, userliste);
+    ListView affiche = (ListView) findViewById(R.id.listeUser);
+
+    final ListeUser listeUser = new ListeUser(this, list);
+    affiche.setAdapter(listeUser);
+
+    Intent intent = getIntent();
+    final String varDate = intent.getStringExtra("bringDate");
+    final String var1 = intent.getStringExtra("bringDemande");
+    final String var2 = intent.getStringExtra("bringDepartement");
+    final String var3 = intent.getStringExtra("bringBesoin");
+    final String var4 = intent.getStringExtra("bringMarque");
+    final String var5 = intent.getStringExtra("bringQuantité");
+    final String var6 = intent.getStringExtra("bringAutre");
+   final Boolean var7=intent.getBooleanExtra("bringRadDep",false);
+   final Boolean var8=intent.getBooleanExtra("bringRadEmp",true);
+    final int var9=intent.getIntExtra("bringEmpVis",View.VISIBLE);
+    final int var10=intent.getIntExtra("bringDepVis",View.INVISIBLE);
+
+
+    affiche.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            String depart = String.valueOf(parent.getItemIdAtPosition(position));
+            int varr = Integer.parseInt(depart);
+
+
+            Intent intent = new Intent(ListeUtilisateur.this, BringOut.class);
+            String variable = list.get(position);
+            // intent.putExtra("code","utilisateur");
+            intent.putExtra("employe", variable);
+            intent.putExtra("bringD", varDate);
+            intent.putExtra("bringDem", var1);
+            intent.putExtra("bringDe", var2);
+            intent.putExtra("bringB", var3);
+            intent.putExtra("bringM", var4);
+            intent.putExtra("bringQ", var5);
+            intent.putExtra("bringA", var6);
+            intent.putExtra("etat1",var7);
+            intent.putExtra("etat2",var8);
+            intent.putExtra("etat3",var9);
+            intent.putExtra("etat4",var10);
+            intent.putExtra("code", "listeU");
+            startActivity(intent);
+            finish();
         }
-        ListAdapter listAdapter=new ArrayAdapter<UtilisateurC>(this, android.R.layout.simple_list_item_1, userliste);
-        ListView affiche=(ListView)findViewById(R.id.listeUser);
+    });
+}
+//si cette page s'ouvre à partie de bringOut et du champ de saisie departement
 
-        final ListeUser listeUser=new ListeUser(this,list);
-        affiche.setAdapter(listeUser);
-
-        Intent intent=getIntent();
-        final String varDate=intent.getStringExtra("bringDate");
-        final String var1=intent.getStringExtra("bringPresonne");
-        final String var2=intent.getStringExtra("bringDepartement");
-        final String var3=intent.getStringExtra("bringBesoin");
-        final String var4=intent.getStringExtra("bringMarque");
-        final String var5=intent.getStringExtra("bringQuantité");
-        final String var6=intent.getStringExtra("bringAutre");
-
-        affiche.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String depart= String.valueOf(parent.getItemIdAtPosition(position));
-                int varr=Integer.parseInt(depart);
-
-
-                Intent intent=new Intent(ListeUtilisateur.this,BringOut.class);
-                String variable=list.get(position);
-               // intent.putExtra("code","utilisateur");
-                intent.putExtra("employe",variable);
-                intent.putExtra("bringD",varDate);
-                intent.putExtra("bringP",var1);
-                intent.putExtra("bringDe",var2);
-                intent.putExtra("bringB",var3);
-                intent.putExtra("bringM",var4);
-                intent.putExtra("bringQ",var5);
-                intent.putExtra("bringA",var6);
-                startActivity(intent);
-                finish();
-            }
-        });
 
     }
 

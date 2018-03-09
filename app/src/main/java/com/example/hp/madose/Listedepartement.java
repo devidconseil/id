@@ -26,6 +26,7 @@ public class Listedepartement extends AppCompatActivity {
         setContentView(R.layout.activity_listedepartement);
         BaseDeDonne bd=new BaseDeDonne(this);
 
+
         final List<DepartementC> departem= bd.afficheDepart();
         for (DepartementC departementC : departem){
             liste.add(departementC.toString().substring(14));
@@ -37,33 +38,78 @@ public class Listedepartement extends AppCompatActivity {
         final ListeDepart listeDepart1=new ListeDepart(this,liste);
         affiche.setAdapter(listeDepart1);
 
-        Intent intent=getIntent();
-        final String var2=intent.getStringExtra("employer");
-        final String var1=intent.getStringExtra("employerr");
-        final String var3=intent.getStringExtra("employerrr");
-        final String var4=intent.getStringExtra("employerrrr");
-        final String var5=intent.getStringExtra("employerrrrr");
+        if (getIntent().getStringExtra("bringO").equals("sortie1"))
+        {
+            Intent intent = getIntent();
+            final String varDate = intent.getStringExtra("bringDate");
+            final String var1 = intent.getStringExtra("bringDemande");
+            final String var2 = intent.getStringExtra("bringEmp");
+            final String var3 = intent.getStringExtra("bringBesoin");
+            final String var4 = intent.getStringExtra("bringMarque");
+            final String var5 = intent.getStringExtra("bringQuantité");
+            final String var6 = intent.getStringExtra("bringAutre");
+            final Boolean var7=intent.getBooleanExtra("bringRadDep",true);
+            final Boolean var8=intent.getBooleanExtra("bringRadEmp",false);
+            final int var9=intent.getIntExtra("bringEmpVis",View.INVISIBLE);
+            final int var10=intent.getIntExtra("bringDepVis",View.VISIBLE);
+
+            affiche.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    String depart= String.valueOf(parent.getItemIdAtPosition(position));
+                    int var=Integer.parseInt(depart);
 
 
+                    Intent intent = new Intent(Listedepartement.this, BringOut.class);
+                    String variable = liste.get(position);
+                    // intent.putExtra("code","utilisateur");
+                    intent.putExtra("bringDe", variable);
+                    intent.putExtra("bringD", varDate);
+                    intent.putExtra("bringDem", var1);
+                    intent.putExtra("bringEmp", var2);
+                    intent.putExtra("bringB", var3);
+                    intent.putExtra("bringM", var4);
+                    intent.putExtra("bringQ", var5);
+                    intent.putExtra("bringA", var6);
+                    intent.putExtra("etat1",var7);
+                    intent.putExtra("etat2",var8);
+                    intent.putExtra("etat3",var9);
+                    intent.putExtra("etat4",var10);
+                    startActivity(intent);
+                    finish();
+                }
+            });
 
-        affiche.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String depart= String.valueOf(parent.getItemIdAtPosition(position));
-                int var=Integer.parseInt(depart);
+        }
+        else {
+            Intent intent = getIntent();
+            final String var2 = intent.getStringExtra("employer");
+            final String var1 = intent.getStringExtra("employerr");
+            final String var3 = intent.getStringExtra("employerrr");
+            final String var4 = intent.getStringExtra("employerrrr");
+            final String var5 = intent.getStringExtra("employerrrrr");
 
 
-                Intent intent=new Intent(Listedepartement.this,Utilisateur.class);
-                String variable=liste.get(position);
-                intent.putExtra("departement",variable);
-                intent.putExtra("employer",var2);
-                intent.putExtra("employerr",var1);
-                intent.putExtra("employerrr",var3);
-                intent.putExtra("employerrrr",var4);
-                intent.putExtra("employerrrrr",var5);
-                startActivity(intent);
-            }
-        });
+            affiche.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    String depart = String.valueOf(parent.getItemIdAtPosition(position));
+                    int var = Integer.parseInt(depart);
+
+
+                    Intent intent = new Intent(Listedepartement.this, Utilisateur.class);
+                    String variable = liste.get(position);
+                    intent.putExtra("departement", variable);
+                    intent.putExtra("employer", var2);
+                    intent.putExtra("employerr", var1);
+                    intent.putExtra("employerrr", var3);
+                    intent.putExtra("employerrrr", var4);
+                    intent.putExtra("employerrrrr", var5);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+        }
 
 
     }

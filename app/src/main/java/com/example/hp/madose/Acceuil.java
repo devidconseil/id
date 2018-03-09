@@ -152,6 +152,7 @@ public class Acceuil extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(Acceuil.this, Add.class);
+                intent.putExtra("code","accueil");
                 startActivity(intent);
             }
         });
@@ -161,6 +162,7 @@ public class Acceuil extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(Acceuil.this, BringOut.class);
+                intent.putExtra("code","accueil");
                 startActivity(intent);
             }
         });
@@ -169,6 +171,7 @@ public class Acceuil extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(Acceuil.this, Demande.class);
+                intent.putExtra("code","accueil");
                 startActivity(intent);
             }
         });
@@ -176,6 +179,7 @@ public class Acceuil extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(Acceuil.this, Variation.class);
+                intent.putExtra("code","accueil");
                 startActivity(intent);
             }
         });
