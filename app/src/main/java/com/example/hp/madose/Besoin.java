@@ -104,8 +104,8 @@ public class Besoin extends AppCompatActivity {
         Intent intent=getIntent();
         if (intent != null)
         {
-            editLib.setText(intent.getStringExtra("categorie"));
-            auto.setText(intent.getStringExtra("categoriec"));
+            editLib.setText(intent.getStringExtra("bring"));
+            auto.setText(intent.getStringExtra("employe"));
         }
 
         final Calendar calendar;

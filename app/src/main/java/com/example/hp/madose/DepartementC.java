@@ -31,11 +31,6 @@ public class DepartementC{
         this.libDep = libDep;
     }
 
-    @Override
-    public String toString() {
-        return   idDep + " Departement " + libDep ;
-    }
-
 
     public DepartementC(int idDep, String libDep) {
         this.idDep = idDep;
@@ -43,5 +38,12 @@ public class DepartementC{
     }
     public DepartementC( String libDep) {
         this.libDep = libDep;
+    }
+    @Override
+    public String toString() {
+        return   idDep + " Departement " + libDep ;
+    }
+    public String libDep() {
+        return  libDep ;
     }
 }

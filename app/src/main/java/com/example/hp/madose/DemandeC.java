@@ -86,6 +86,11 @@ public class DemandeC {
         this.dateDem = dateDem;
         this.libDpe = libDpe;
     }
+    public DemandeC(String dateDem ) {
+
+        this.dateDem = dateDem;
+
+    }
 
     @Override
     public String toString() {
@@ -105,4 +110,5 @@ public class DemandeC {
                 "\nDate: " + dateDem +
                 "\n\n";
     }
+    public String dateo() {return dateDem;}
 }

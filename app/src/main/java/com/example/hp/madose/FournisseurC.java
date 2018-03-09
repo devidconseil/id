@@ -50,6 +50,7 @@ public class FournisseurC {
         this.adrFour = adrFour;
         this.telFour = telFour;
     }
+    public FournisseurC(String nomFour){ this.nomFour = nomFour;}
     public FournisseurC( String nomFour, String adrFour, String telFour) {
 
         this.nomFour = nomFour;
@@ -60,5 +61,8 @@ public class FournisseurC {
     @Override
     public String toString() {
         return "Fournisseur "+ idFour +": " + nomFour +"\nAdresse: " + adrFour + "\nContact: " +telFour ;
+    }
+    public String listeFour() {
+        return  nomFour;
     }
 }

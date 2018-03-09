@@ -10,7 +10,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Authentification"
-            android:label="RecapApp">
+            android:label="Authentification">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -113,6 +113,10 @@
             android:name=".Affich"
             android:label="Affich" />
         <activity android:name=".Display" />
+        <activity android:name=".ListeUtilisateur" />
+        <activity android:name=".ListeFournisseur" />
+        <activity android:name=".ListeBesoin" />
+        <activity android:name=".ListeDate"></activity>
     </application>
 
 </manifest>

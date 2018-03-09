@@ -50,7 +50,7 @@ public class Authentification extends AppCompatActivity {
         motpass=(EditText)findViewById(R.id.pass);
         mDatabase= FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
-        progressBar= findViewById(R.id.progressBar3);
+
 
 
 

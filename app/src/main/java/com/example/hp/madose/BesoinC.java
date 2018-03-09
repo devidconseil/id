@@ -89,6 +89,7 @@ public class BesoinC {
         this.stockBes = stockBes;
     }
 
+
     public BesoinC(int numBes, String libBes, String typeBes, int idCat, int seuilBes, String amorBes,int StockBes) {
         this.numBes = numBes;
         this.libBes = libBes;

@@ -100,8 +100,20 @@ public class Add extends AppCompatActivity {
             }
         });  */
 
-
-
+        four.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Add.this, ListeFournisseur.class);
+                startActivity(intent);
+            }
+        });
+        besoin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Add.this, ListeBesoin.class);
+                startActivity(intent);
+            }
+        });
         date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {

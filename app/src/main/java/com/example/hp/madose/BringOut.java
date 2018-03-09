@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -40,6 +42,7 @@ public class BringOut extends AppCompatActivity {
         final RadioButton radioButton_dep= findViewById(R.id.radioButtonDep);
 
         final EditText date=(EditText)findViewById(R.id.editDate);
+
         //AutoTextComplete
         ArrayList<String> nd=bd.affiNE();
         ArrayAdapter<String> dep=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,nd);
@@ -56,6 +59,40 @@ public class BringOut extends AppCompatActivity {
         ArrayList<String> m1=bd.affiMarque();
         ArrayAdapter<String>mar=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,m1);
         marq.setAdapter(mar);
+
+
+
+
+        Intent intent=getIntent();
+        if (intent != null)
+        {
+
+            date.setText(intent.getStringExtra("bringD"));
+            employe.setText(intent.getStringExtra("employe"));
+            departement.setText(intent.getStringExtra("bringDe"));
+            besoin.setText(intent.getStringExtra("bringB"));
+
+            marq.setText(intent.getStringExtra("bringM"));
+            qut.setText(intent.getStringExtra("bringQ"));
+            autr.setText(intent.getStringExtra("bringA"));
+        }
+        employe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(BringOut.this,ListeUtilisateur.class);
+                intent.putExtra("bringDate",date.getText().toString());
+                intent.putExtra("bringO","sortie");
+                intent.putExtra("bringPresonne",employe.getText().toString());
+                intent.putExtra("bringDepartement",departement.getText().toString());
+                intent.putExtra("bringBesoin",besoin.getText().toString());
+                intent.putExtra("bringMarque",marq.getText().toString());
+                intent.putExtra("bringQuantité",qut.getText().toString());
+                intent.putExtra("bringAutre",autr.getText().toString());
+                startActivity(intent);
+            }
+        });
+
+
 
 
 
@@ -94,30 +131,65 @@ public class BringOut extends AppCompatActivity {
             }
         });
 
-        date.setOnClickListener(new View.OnClickListener() {
+        date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View v) {
-                DatePickerDialog datePickerDialog=new DatePickerDialog(BringOut.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month=month+1;
-                        String jour=String.valueOf(dayOfMonth);
-                        String mois=String.valueOf(month);
+            public void onFocusChange(View view, boolean b) {
 
-                        if (month<10){
-                            mois="0"+mois;
+                if (b){
+
+                    DatePickerDialog datePickerDialog=new DatePickerDialog(BringOut.this, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                            month=month+1;
+                            String jour=String.valueOf(dayOfMonth);
+                            String mois=String.valueOf(month);
+
+                            if (month<10){
+                                mois="0"+mois;
+                            }
+                            if (dayOfMonth<10){
+                                jour="0"+jour;
+                            }
+                            date.setText(jour+"/"+mois+"/"+year);
+                            // date.setText(dayOfMonth+"/"+month+"/"+year);
                         }
-                        if (dayOfMonth<10){
-                            jour="0"+jour;
+                    },annee,mois,jour);
+                    datePickerDialog.show();
+
+                    date.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
                         }
-                        date.setText(jour+"/"+mois+"/"+year);
-                      //  date.setText(dayOfMonth+"/"+month+"/"+year);
-                    }
-                },annee,mois,jour);
-                datePickerDialog.show();
+
+                        @Override
+                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable editable) {
+                            date.setError(null);
+
+                        }
+                    });
+
+
+                }
+
+
             }
         });
         //fin diadlogueDatepiker
+       /* demande.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(BringOut.this,ListeDate.class);
+                intent.putExtra("datededemande",employe.getText().toString());
+                startActivity(intent);
+            }
+        });*/
 
        demande.setOnFocusChangeListener(new View.OnFocusChangeListener() {
            @Override
