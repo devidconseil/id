@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -64,19 +65,7 @@ public class BringOut extends AppCompatActivity {
 
 
 
-        Intent intent=getIntent();
-        if (intent != null)
-        {
 
-            date.setText(intent.getStringExtra("bringD"));
-            employe.setText(intent.getStringExtra("employe"));
-            departement.setText(intent.getStringExtra("bringDe"));
-            besoin.setText(intent.getStringExtra("bringB"));
-
-            marq.setText(intent.getStringExtra("bringM"));
-            qut.setText(intent.getStringExtra("bringQ"));
-            autr.setText(intent.getStringExtra("bringA"));
-        }
         employe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,9 +78,27 @@ public class BringOut extends AppCompatActivity {
                 intent.putExtra("bringMarque",marq.getText().toString());
                 intent.putExtra("bringQuantité",qut.getText().toString());
                 intent.putExtra("bringAutre",autr.getText().toString());
+                intent.putExtra("etat1",radioButton_dep.isChecked());
+                intent.putExtra("etat2",radioButton_emp.isChecked());
                 startActivity(intent);
             }
         });
+
+        Intent intent=getIntent();
+        if (intent != null)
+        {
+
+            date.setText(intent.getStringExtra("bringD"));
+            employe.setText(intent.getStringExtra("employe"));
+            departement.setText(intent.getStringExtra("bringDe"));
+            besoin.setText(intent.getStringExtra("bringB"));
+
+            marq.setText(intent.getStringExtra("bringM"));
+            qut.setText(intent.getStringExtra("bringQ"));
+            autr.setText(intent.getStringExtra("bringA"));
+            radioButton_dep.setChecked(intent.getBooleanExtra("etat1",radioButton_dep.isChecked()));
+            radioButton_emp.setChecked(intent.getBooleanExtra("etat2",radioButton_emp.isChecked()));
+        }
 
 
 
@@ -110,8 +117,31 @@ public class BringOut extends AppCompatActivity {
         final int mois=calendar.get(Calendar.MONTH);
         final int annee=calendar.get(Calendar.YEAR);
 
-
-        radioButton_dep.setOnClickListener(new View.OnClickListener() {
+radioButton_dep.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked) {
+            employe.setVisibility(View.INVISIBLE);
+            employe.setEnabled(false);
+            departement.setVisibility(View.VISIBLE);
+            departement.setEnabled(true);
+            Toast.makeText(getApplicationContext(), "Le bénéficiaire de la demande est un departement", Toast.LENGTH_SHORT).show();
+        }
+    }
+});
+radioButton_emp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked) {
+            employe.setVisibility(View.VISIBLE);
+            employe.setEnabled(true);
+            departement.setVisibility(View.INVISIBLE);
+            departement.setEnabled(false);
+            Toast.makeText(getApplicationContext(), "Le bénéficiaire de la demande est un employé", Toast.LENGTH_SHORT).show();
+        }
+    }
+});
+    /*    radioButton_dep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 employe.setVisibility(View.INVISIBLE);
@@ -130,7 +160,7 @@ public class BringOut extends AppCompatActivity {
                 departement.setEnabled(false);
                 Toast.makeText(getApplicationContext(),"Le bénéficiaire de la demande est un employé",Toast.LENGTH_SHORT).show();
             }
-        });
+        });   */
 
         date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
