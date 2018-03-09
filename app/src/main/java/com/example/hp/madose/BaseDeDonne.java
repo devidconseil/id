@@ -210,7 +210,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         }
     }
     public Boolean checkIfDemandeExist(String name,String name1,String name2){
-        String req="select numDem,DateDem,Utilisateur.IdEmp,Departement.IdDep from Demande,Utilisateur,Departement where Demande.IdEmp=Utilisateur.IdEmp and Demande.IdDep=Departement.IdDep and ((nomEmp='"+name+"' and DateDem=strftime('%s','"+name1+"')) or (LibDep='"+name2+"' and DateDem=strftime('%s','"+name1+"')));";
+        String req="select numDem,DateDem,Utilisateur.IdEmp,Departement.IdDep from Demande,Utilisateur,Departement where Demande.IdEmp=Utilisateur.IdEmp and Demande.IdDep=Departement.IdDep and nomEmp='"+name+"' and DateDem=strftime('%s','"+name1+"') and LibDep='"+name2+"' and DateDem=strftime('%s','"+name1+"');";
         Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
         if(cursor.getCount()>0){
             cursor.close();
@@ -781,7 +781,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     }
     public String selectIdDem(String nomEmp,String date)
     {
-        String requete="select NomEmp,DateDem from Demande,Utilisateur where Demande.IdEmp=Utilisateur.IdEmp and NomEmp='"+nomEmp+"' and DateDem=strftime('%s','"+date+"');";
+        String requete="select numDem from Demande,Utilisateur where Demande.IdEmp=Utilisateur.IdEmp and NomEmp='"+nomEmp+"' and DateDem=strftime('%s','"+date+"');";
         Cursor cursor = null;
         try {
 
@@ -793,7 +793,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     }
     public String selectIdDem1(String libDep,String date)
     {
-        String requete="select LibDep,DateDem from Demande,Departement where Demande.IdDep=Departement.IdDep and LibDep='"+libDep+"' and DateDem=strftime('%s','"+date+"');";
+        String requete="select numDem from Demande,Departement where Demande.IdDep=Departement.IdDep and LibDep='"+libDep+"' and DateDem=strftime('%s','"+date+"');";
         Cursor cursor = null;
         try {
 

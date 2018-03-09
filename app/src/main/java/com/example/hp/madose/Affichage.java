@@ -363,14 +363,18 @@ public class Affichage extends AppCompatActivity {
                         DemandeC cat= dataSnapshotDem.getValue(DemandeC.class);
 
                         if (!bd.checkIfDemandeExist(cat.getNomEmp(),cat.getDateDem(),cat.getLibDpe())){
-                            int ss=Integer.parseInt(bd.selectEmpId(cat.getNomEmp()));
-                            int sss=Integer.parseInt(bd.selectDep(cat.getLibDpe()));
+
                             int ssss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
                             if (cat.getLibDpe().equals("")){
+                                int ss=Integer.parseInt(bd.selectEmpId(cat.getNomEmp()));
+                                int sss=0;
                                 bd.insertDemande(cat.getDateDem(),ss,sss);
-                                bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getNomEmp(),cat.getDateDem())),ssss,cat.getQte());
+                                bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem()),ssss,cat.getQte());
+                                Toast.makeText(getApplicationContext(),cat.toString(),Toast.LENGTH_LONG).show();
                             }
                             if (cat.getNomEmp().equals("")) {
+                                int ss=0;
+                                int sss=Integer.parseInt(bd.selectDep(cat.getLibDpe()));
                                 bd.insertDemande1(cat.getDateDem(),sss);
                                 bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem1(cat.getLibDpe(),cat.getDateDem())),ssss,cat.getQte());
                             }
