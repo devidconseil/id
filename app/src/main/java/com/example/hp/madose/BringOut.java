@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -271,16 +272,18 @@ public class BringOut extends AppCompatActivity {
            public void onFocusChange(View v, boolean hasFocus) {
                ArrayList<String> au=new ArrayList<>();
                String var;
-               if (employe.isEnabled()) {
-                    var = bd.selectEmpId(employe.getText().toString());
-                    if (var !=null){
+               if (employe.getVisibility()==View.VISIBLE) {
+                    var = bd.selectIdEmp(employe.getText().toString());
+                    Toast.makeText(getApplicationContext(),var,Toast.LENGTH_LONG);
+                   Log.i("CONSTAT",var);
+                    if (var !=""){
                         au = bd.affiNumDem(Integer.parseInt(var));
                     }
 
                }
-               if (departement.isEnabled()) {
+               if (departement.getVisibility()==View.VISIBLE) {
                    var = bd.selectDep(departement.getText().toString());
-                   if (var !=null){
+                   if (var !=""){
                        au = bd.affiNumDem1(Integer.parseInt(var));
                    }
 

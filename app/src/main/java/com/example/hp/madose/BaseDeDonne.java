@@ -9,6 +9,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Integer.getInteger;
 import static java.lang.Integer.parseInt;
 
 /**
@@ -210,7 +211,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         }
     }
     public Boolean checkIfDemandeExist(String name,String name1,String name2){
-        String req="select numDem,DateDem,Utilisateur.IdEmp,Departement.IdDep from Demande,Utilisateur,Departement where Demande.IdEmp=Utilisateur.IdEmp and Demande.IdDep=Departement.IdDep and nomEmp='"+name+"' and DateDem=strftime('%s','"+name1+"') and LibDep='"+name2+"' and DateDem=strftime('%s','"+name1+"');";
+        String req="select numDem,DateDem,Utilisateur.IdEmp,Departement.IdDep from Demande,Utilisateur,Departement where Demande.IdEmp=Utilisateur.IdEmp and Demande.IdDep=Departement.IdDep and nomEmp='"+name+"' and DateDem=strftime('%s','"+name1+"') and LibDep='"+name2+"';";
         Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
         if(cursor.getCount()>0){
             cursor.close();
@@ -764,7 +765,18 @@ public class BaseDeDonne extends SQLiteOpenHelper {
             if (cursor != null) cursor.close();
         }
     }
+    public String selectIdEmp(String nomB)
+    {
+        String req="select IdEmp from Utilisateur where nomEmp || ' ' || prenEmp='"+nomB+"';";
+        Cursor cursor = null;
+        try {
 
+            cursor = this.getReadableDatabase().rawQuery(req,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
 
     //TextautocompleteEmploye
     public ArrayList<String> affiNE()
@@ -804,6 +816,19 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     public String selectDep(String nomD)
     {
         String req="select IdDep from Departement where LibDep='"+nomD+"';";
+        Cursor cursor = null;
+        try {
+
+            cursor = this.getReadableDatabase().rawQuery(req,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
+    public String selectDepfromUser(String nomD)
+    {
+        int idUser=Integer.parseInt(selectEmpId(nomD));
+        String req="select IdDep from Departement,Utilisateur where Departement.IdDep=Utilisateur.IdDep NomEmp='"+nomD+"' and ;";
         Cursor cursor = null;
         try {
 
