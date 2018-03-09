@@ -634,6 +634,52 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     }
 
 
+    public List<UtilisateurC> listeUser()
+    {
+        List<UtilisateurC> listU=new ArrayList<>();
+
+
+        String req="select nomEmp,prenEmp from Utilisateur;";
+        Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast())
+        {
+
+            UtilisateurC disp=new UtilisateurC(cursor.getString(0),cursor.getString(1));
+            listU.add(disp);
+            cursor.moveToNext();
+
+        }
+
+        cursor.close();
+        return listU;
+    }
+
+
+
+    public List<FournisseurC> listeF()
+    {
+        List<FournisseurC> listF=new ArrayList<>();
+
+
+        String req="select nomFour from Fournisseur;";
+        Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast())
+        {
+
+            FournisseurC disp=new FournisseurC(cursor.getString(0));
+            listF.add(disp);
+            cursor.moveToNext();
+
+        }
+
+        cursor.close();
+        return listF;
+    }
+
 
 
 
@@ -694,7 +740,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         this.getWritableDatabase().execSQL(entre);
     }
 
-   public String selectEmpl(String nomF)
+   /*public String selectEmpl(String nomF)
     {
         String req="select nomEmp from Utilisateur where nomEmp='"+nomF+"';";
         Cursor cursor = null;
@@ -705,7 +751,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         } finally {
             if (cursor != null) cursor.close();
         }
-    }
+    }*/
     public String selectEmpId(String nomB)
     {
         String req="select IdEmp from Utilisateur where nomEmp='"+nomB+"';";

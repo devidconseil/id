@@ -11,26 +11,25 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-
-    tools:backgroundTint="@drawable/ecra">
+    >
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="49dp"
         android:layout_height="37dp"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@mipmap/logorecap" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="App for ID Conseil"
+        android:text="RecapApp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="www.id-consulting.ie" />
+        android:text="Application de gestion des stocks" />
 
 </LinearLayout>

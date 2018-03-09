@@ -15,6 +15,12 @@ public class UtilisateurC {
 
 
     public UtilisateurC(){}
+
+    public UtilisateurC(String nomEmp, String prenEmp) {
+        this.nomEmp = nomEmp;
+        this.prenEmp=prenEmp;
+    }
+
     public int getIdEmp() {
         return idEmp;
     }
@@ -78,7 +84,10 @@ public class UtilisateurC {
 
     @Override
     public String toString() {
-        return "\nNom: " + nomEmp + "\nPrénoms: " + prenEmp + "\nMail: " + mailEmp + "\nTel: " + telEmp + "\nDepartement: " + libDep+ "\nProfil: " + proEmp ;
+        return  nomEmp + "\nPrénoms: " + prenEmp + "\nMail: " + mailEmp + "\nTel: " + telEmp + "\nDepartement: " + libDep+ "\nProfil: " + proEmp ;
+    }
+    public String nomEtprenom() {
+        return  nomEmp + " " + prenEmp ;
     }
 
     public String toStringNom() {
