@@ -31,7 +31,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     private static final String TABLE_USER = "CREATE TABLE Utilisateur ( `IdEmp` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `nomEmp` TEXT NOT NULL,`PrenEmp` TEXT,`MailEmp` TEXT NOT NULL,`TelEmp` TEXT NOT NULL,`IdDep` INTEGER, `ProEmp` TEXT, FOREIGN KEY(`IdDep`) REFERENCES `Departement`(`IdDep`) );";
     private static final String TABLE_BESOIN = "CREATE TABLE Besoin ( NumBes INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, libBes TEXT NOT NULL, TypeBes TEXT NOT NULL, IdCat INTEGER," +
             " SeuilBes INTEGER, AmorBes INTEGER,`StockBes` INTEGER, `Image` INTEGER, FOREIGN KEY(IdCat) REFERENCES Categorie(IdCat) );";
-    private static final String TABLE_BESOIN_ENTREE = "CREATE TABLE Besoins_Entree ( NumBes INTEGER, numEnt INTEGER, PU INTEGER, qte INTEGER NOT NULL, marqueBes TEXT, autrePrécision TEXT," +
+    private static final String TABLE_BESOIN_ENTREE = "CREATE TABLE Besoins_Entree ( NumBes INTEGER, numEnt INTEGER, PU INTEGER, qte INTEGER NOT NULL, marqueBes TEXT, autrePrecision TEXT," +
             " PRIMARY KEY(NumBes,numEnt), FOREIGN KEY(numEnt) REFERENCES Entree(numEnt), FOREIGN KEY(NumBes) REFERENCES Besoin(NumBes) );";
     private static final String TABLE_ENTREE = "CREATE TABLE Entree ( `numEnt` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `DateEnt` INTEGER NOT NULL, `IdFour` INTEGER, FOREIGN KEY(`IdFour`) REFERENCES `Fournisseur`(`IdFour`));";
     private static final String TABLE_FOURNISSEUR = "CREATE TABLE Fournisseur ( `IdFour` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `NomFour` TEXT NOT NULL, `AdrFour` TEXT, `TelFour` TEXT);";
@@ -472,7 +472,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
 
     public void insertEntrBes(int numB,int numE, int pu, int qte, String marque, String autr)
     {
-        String entre="insert into Besoins_Entree( NumBes, numEnt, PU, qte, marqueBes, autrePrécision )values(" + numB +","+numE+","+pu+","+qte+",'"+marque+"','"+autr+"');";
+        String entre="insert into Besoins_Entree( NumBes, numEnt, PU, qte, marqueBes, autrePrecision )values(" + numB +","+numE+","+pu+","+qte+",'"+marque+"','"+autr+"');";
         Log.i("DATABASE","insert Entree besoin");
         this.getWritableDatabase().execSQL(entre);
     }

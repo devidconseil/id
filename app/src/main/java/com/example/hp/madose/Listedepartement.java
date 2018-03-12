@@ -75,6 +75,7 @@ public class Listedepartement extends AppCompatActivity {
                     intent.putExtra("etat2",var8);
                     intent.putExtra("etat3",var9);
                     intent.putExtra("etat4",var10);
+                    intent.putExtra("code", "listeD");
                     startActivity(intent);
                     finish();
                 }

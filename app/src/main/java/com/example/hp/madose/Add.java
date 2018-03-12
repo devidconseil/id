@@ -65,6 +65,15 @@ public class Add extends AppCompatActivity {
         ArrayAdapter<String>nombes=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,nb);
         besoin.setAdapter(nombes);
 
+
+        if (getIntent()!= null)
+        {
+
+        }
+
+
+
+
         //-------insertion dans la base de donnée
 
         //------DATEPCKERDIALOG
@@ -100,18 +109,54 @@ public class Add extends AppCompatActivity {
             }
         });  */
 
+        Intent intent=getIntent();
+        if (intent != null)
+        {
+
+            date.setText(intent.getStringExtra("addD"));
+            four.setText(intent.getStringExtra("addFournisseur"));
+            besoin.setText(intent.getStringExtra("addB"));
+            pu.setText(intent.getStringExtra("addP"));
+            qte.setText(intent.getStringExtra("addQ"));
+            mark.setText(intent.getStringExtra("addM"));
+            autre.setText(intent.getStringExtra("addA"));
+            if (intent.getStringExtra("code").equals("addFF")) {
+                besoin.requestFocus();
+            }
+            else if (intent.getStringExtra("code").equals("addBB"))
+            {
+                pu.requestFocus();
+            }
+
+        }
+
         four.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(Add.this, ListeFournisseur.class);
+                intent.putExtra("addDate",date.getText().toString());
+                intent.putExtra("addBesoin",besoin.getText().toString());
+                intent.putExtra("addPrixU",pu.getText().toString());
+                intent.putExtra("addQt",qte.getText().toString());
+                intent.putExtra("addMark",mark.getText().toString());
+                intent.putExtra("addAutre",autre.getText().toString());
                 startActivity(intent);
+                finish();
             }
         });
         besoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(Add.this, ListeBesoin.class);
+                intent.putExtra("addDate",date.getText().toString());
+                intent.putExtra("addFourni",four.getText().toString());
+                intent.putExtra("addPrixU",pu.getText().toString());
+                intent.putExtra("addQt",qte.getText().toString());
+                intent.putExtra("addMark",mark.getText().toString());
+                intent.putExtra("addAutre",autre.getText().toString());
+                intent.putExtra("codeO","add");
                 startActivity(intent);
+                finish();
             }
         });
         date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -271,7 +316,7 @@ public class Add extends AppCompatActivity {
 
                 }
 
-                else if (!nf.contains(four.getText().toString()) && !four.getText().toString().equals("")){
+               else if (!nf.contains(four.getText().toString()) && !four.getText().toString().equals("")){
                     four.setError("Le fournisseur choisi ne fait pas partie de la liste des fournisseurs de l'entreprise." +
                             "\n Veuillez donc l'ajouter à la liste préalablement en cliquant sur le bouton + " +
                             "\nsinon veuillez entrer un fournisseur faisant partie de la liste.");
@@ -337,6 +382,7 @@ public class Add extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "Approvisionnement enregistré avec succès !!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(Add.this, Acceuil.class);
                     startActivity(intent);
+                    finish();
                 }
 
             }
@@ -348,6 +394,7 @@ public class Add extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(Add.this,Acceuil.class);
                 startActivity(intent);
+                finish();
 
             }
         });

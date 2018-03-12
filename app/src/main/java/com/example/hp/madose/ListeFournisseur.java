@@ -1,10 +1,12 @@
 package com.example.hp.madose;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
@@ -33,6 +35,40 @@ public class ListeFournisseur extends AppCompatActivity {
 
         final ListeFour listeFour=new ListeFour(this,liste);
         affiche.setAdapter(listeFour);
+        Intent intent = getIntent();
+        final String var0 = intent.getStringExtra("addDate");
+        final String var1 = intent.getStringExtra("addBesoion");
+        final String var2 = intent.getStringExtra("addPrixU");
+        final String var3 = intent.getStringExtra("addQt");
+        final String var4 = intent.getStringExtra("addMark");
+        final String var5 = intent.getStringExtra("addAutre");
+
+
+
+        affiche.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String depart = String.valueOf(parent.getItemIdAtPosition(position));
+                int varr = Integer.parseInt(depart);
+
+
+                Intent intent = new Intent(ListeFournisseur.this, Add.class);
+                String variable = liste.get(position);
+                // intent.putExtra("code","utilisateur");
+
+                    intent.putExtra("addFournisseur", variable);
+                    intent.putExtra("addD", var0);
+                    intent.putExtra("addB", var1);
+                    intent.putExtra("addP", var2);
+                    intent.putExtra("addQ", var3);
+                    intent.putExtra("addM", var4);
+                    intent.putExtra("addA", var5);
+                    intent.putExtra("code", "addFF");
+                    startActivity(intent);
+                    finish();
+
+            }
+        });
     }
 
 
