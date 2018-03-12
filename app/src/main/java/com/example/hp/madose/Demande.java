@@ -43,7 +43,97 @@ public class Demande extends AppCompatActivity {
         final RadioGroup radioGroup= findViewById(R.id.radio_group);
         mDatabase= FirebaseDatabase.getInstance().getReference();
 
+        Intent intent=getIntent();
+        if (intent != null)
+        {
 
+            date.setText(intent.getStringExtra("demD"));
+            employe.setText(intent.getStringExtra("demE"));
+            depart.setText(intent.getStringExtra("demDe"));
+            bes.setText(intent.getStringExtra("demB"));
+            quant.setText(intent.getStringExtra("demQ"));
+            radioButton_dep.setChecked(intent.getBooleanExtra("etat1",radioButton_dep.isChecked()));
+            radioButton_emp.setChecked(intent.getBooleanExtra("etat2",radioButton_emp.isChecked()));
+            employe.setVisibility(intent.getIntExtra("etat3",employe.getVisibility()));
+            depart.setVisibility(intent.getIntExtra("etat4",depart.getVisibility()));
+            if (intent.getStringExtra("code").equals("listeD")) {
+                bes.requestFocus();
+            }
+            else if (intent.getStringExtra("code").equals("listeU"))
+            {
+                bes.requestFocus();
+            }
+            else if (intent.getStringExtra("code").equals("listeB"))
+            {
+                quant.requestFocus();
+            }
+            else
+            {
+                date.requestFocus();
+            }
+
+        }
+        employe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Demande.this,ListeUtilisateur.class);
+                intent.putExtra("demDate",date.getText().toString());
+                intent.putExtra("code","demande");
+                intent.putExtra("demBesoin",bes.getText().toString());
+                intent.putExtra("demQuantité",quant.getText().toString());
+                intent.putExtra("etat1",false);
+                intent.putExtra("etat2",true);
+                intent.putExtra("etat3",View.VISIBLE);
+                intent.putExtra("etat4",View.INVISIBLE);
+                startActivity(intent);
+            }
+        });
+        depart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Demande.this,Listedepartement.class);
+                intent.putExtra("demDate",date.getText().toString());
+                intent.putExtra("bringO","sortie1");
+                intent.putExtra("demDemande",depart.getText().toString());
+                intent.putExtra("demBesoin",bes.getText().toString());
+                intent.putExtra("demMarque",quant.getText().toString());
+                intent.putExtra("etat1",true);
+                intent.putExtra("etat2",false);
+                intent.putExtra("etat3",View.INVISIBLE);
+                intent.putExtra("etat4",View.VISIBLE);
+                startActivity(intent);
+            }
+        });
+        bes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (radioButton_emp.isChecked()){
+                    Intent intent=new Intent(Demande.this,ListeBesoin.class);
+                    intent.putExtra("demDate",date.getText().toString());
+                    intent.putExtra("codeO","besoinEmploye");
+                    intent.putExtra("demEmp",employe.getText().toString());
+                    intent.putExtra("demQuantité",quant.getText().toString());
+                    intent.putExtra("etat1",true);
+                    intent.putExtra("etat2",false);
+                    intent.putExtra("etat3",View.INVISIBLE);
+                    intent.putExtra("etat4",View.VISIBLE);
+                    startActivity(intent);
+                }
+                else if (radioButton_dep.isChecked()){
+                    Intent intent=new Intent(Demande.this,ListeBesoin.class);
+                    intent.putExtra("demDate",date.getText().toString());
+                    intent.putExtra("codeO","besoinDepartement");
+                    intent.putExtra("demDepartement",depart.getText().toString());
+                    intent.putExtra("demMarque",quant.getText().toString());
+                    intent.putExtra("etat1",false);
+                    intent.putExtra("etat2",true);
+                    intent.putExtra("etat3",View.VISIBLE);
+                    intent.putExtra("etat4",View.INVISIBLE);
+                    startActivity(intent);
+                }
+            }
+        });
 
         //AutoTextComplete
         ArrayList<String> nd=bd.affiNE();
@@ -124,22 +214,22 @@ public class Demande extends AppCompatActivity {
                 if (date.getText().toString().equals(""))
                 {
                     date.requestFocus();
-                    Toast.makeText(getBaseContext(),"Veuillez saisir la date SVP!",Toast.LENGTH_LONG).show();
+                    date.setError("Veuillez saisir la date SVP!");
                 }
                 else if (employe.getText().toString().equals(""))
                 {
                     employe.requestFocus();
-                    Toast.makeText(getBaseContext(),"Veuillez saisir le nom de l'employé ou du département SVP!",Toast.LENGTH_LONG).show();
+                    employe.setError("Veuillez saisir le nom de l'employé ou du département SVP!");
                 }
                 else if (bes.getText().toString().equals(""))
                 {
                     bes.requestFocus();
-                    Toast.makeText(getBaseContext(),"Veuillez saisir le libellé du besoin SVP!!",Toast.LENGTH_LONG).show();
+                   bes.setError("Veuillez saisir le libellé du besoin SVP!!");
                 }
                 else if (quant.getText().toString().equals(""))
                 {
                     quant.requestFocus();
-                    Toast.makeText(getBaseContext(),"Veuillez saisir la quantité SVP!!",Toast.LENGTH_LONG).show();
+                    quant.setError("Veuillez saisir la quantité SVP!!");
                 }
                 else {
                     String a, b, c, departe;
@@ -185,22 +275,22 @@ public class Demande extends AppCompatActivity {
                 if (date.getText().toString().equals(""))
                 {
                     date.requestFocus();
-                    Toast.makeText(getBaseContext(),"Veuillez saisir la date SVP!",Toast.LENGTH_LONG).show();
+                    date.setError("Veuillez saisir la date SVP!");
                 }
                 else if (employe.getText().toString().equals(""))
                 {
                     employe.requestFocus();
-                    Toast.makeText(getBaseContext(),"Veuillez saisir le nom de l'employé ou du département SVP!",Toast.LENGTH_LONG).show();
+                    employe.setError("Veuillez saisir le nom de l'employé ou du département SVP!");
                 }
                 else if (bes.getText().toString().equals(""))
                 {
                     bes.requestFocus();
-                    Toast.makeText(getBaseContext(),"Veuillez saisir le libellé du besoin SVP!!",Toast.LENGTH_LONG).show();
+                    bes.setError("Veuillez saisir le libellé du besoin SVP!!");
                 }
                 else if (quant.getText().toString().equals(""))
                 {
                     quant.requestFocus();
-                    Toast.makeText(getBaseContext(),"Veuillez saisir la quantité SVP!!",Toast.LENGTH_LONG).show();
+                    quant.setError("Veuillez saisir la quantité SVP!!");
                 }
                 else {
                     if (fait == false) {

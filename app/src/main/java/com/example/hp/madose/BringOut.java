@@ -109,7 +109,7 @@ public class BringOut extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(BringOut.this,ListeUtilisateur.class);
                 intent.putExtra("bringDate",date.getText().toString());
-                intent.putExtra("bringO","sortie");
+                intent.putExtra("code","sortie");
                 intent.putExtra("bringDemande",demande.getText().toString());
                 intent.putExtra("bringDepartement",departement.getText().toString());
                 intent.putExtra("bringBesoin",besoin.getText().toString());
