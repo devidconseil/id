@@ -63,7 +63,7 @@ if (getIntent().getStringExtra("bringO").equals("sortie")) {
             Intent intent = new Intent(ListeUtilisateur.this, BringOut.class);
             String variable = list.get(position);
             // intent.putExtra("code","utilisateur");
-            intent.putExtra("employe", variable);
+            intent.putExtra("bringE", variable);
             intent.putExtra("bringD", varDate);
             intent.putExtra("bringDem", var1);
             intent.putExtra("bringDe", var2);

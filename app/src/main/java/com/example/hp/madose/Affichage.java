@@ -7,6 +7,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -293,7 +294,9 @@ public class Affichage extends AppCompatActivity {
                     for (DataSnapshot dataSnapshotEnt:dataSnapshot.getChildren()){
                         AddEC cat= dataSnapshotEnt.getValue(AddEC.class);
 
+
                         if (!bd.checkIfEntreeExist(cat.getLibFour(),cat.getDatEnt())){
+                            Log.i("SHOW-ME",cat.getLibFour());
                           int ss=Integer.parseInt(bd.selectFour(cat.getLibFour()));
                             bd.insertEntr(cat.getDatEnt(),ss);
                         }

@@ -38,47 +38,137 @@ public class ListeBesoin extends AppCompatActivity {
         affiche.setAdapter(listeBes);
 
         Intent intent = getIntent();
-        final String varDate = intent.getStringExtra("bringDate");
-        final String var1 = intent.getStringExtra("bringDemande");
-        final String var2 = intent.getStringExtra("bringDepartement");
-        final String var3 = intent.getStringExtra("bringEmp");
-        final String var4 = intent.getStringExtra("bringMarque");
-        final String var5 = intent.getStringExtra("bringQuantité");
-        final String var6 = intent.getStringExtra("bringAutre");
-        final Boolean var7=intent.getBooleanExtra("bringRadDep",false);
-        final Boolean var8=intent.getBooleanExtra("bringRadEmp",true);
-        final int var9=intent.getIntExtra("bringEmpVis",View.VISIBLE);
-        final int var10=intent.getIntExtra("bringDepVis",View.INVISIBLE);
+        if (intent.getStringExtra("codeO").equals("besoinEmploye"))
+        {
+            final String varDate = intent.getStringExtra("bringDate");
+            final String var1 = intent.getStringExtra("bringDemande");
+           // final String var2 = intent.getStringExtra("bringDepartement");
+            final String var3 = intent.getStringExtra("bringEmp");
+            final String var4 = intent.getStringExtra("bringMarque");
+            final String var5 = intent.getStringExtra("bringQuantité");
+            final String var6 = intent.getStringExtra("bringAutre");
+
+            final Boolean var7=intent.getBooleanExtra("bringRadDep",false);
+            final Boolean var8=intent.getBooleanExtra("bringRadEmp",true);
+            final int var9=intent.getIntExtra("bringEmpVis",View.VISIBLE);
+            final int var10=intent.getIntExtra("bringDepVis",View.INVISIBLE);
+
+            affiche.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    String depart = String.valueOf(parent.getItemIdAtPosition(position));
+                    int varr = Integer.parseInt(depart);
 
 
-        affiche.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String depart = String.valueOf(parent.getItemIdAtPosition(position));
-                int varr = Integer.parseInt(depart);
+                    Intent intent = new Intent(ListeBesoin.this, BringOut.class);
+                    String variable = liste.get(position);
+                    // intent.putExtra("code","utilisateur");
+
+                        intent.putExtra("bringB", variable);
+                        intent.putExtra("bringD", varDate);
+                        intent.putExtra("bringDem", var1);
+                       // intent.putExtra("bringDe", var2);
+                        intent.putExtra("bringE", var3);
+                        intent.putExtra("bringM", var4);
+                        intent.putExtra("bringQ", var5);
+                        intent.putExtra("bringA", var6);
+                        intent.putExtra("etat1", var7);
+                        intent.putExtra("etat2", var8);
+                        intent.putExtra("etat3", var9);
+                        intent.putExtra("etat4", var10);
+                        intent.putExtra("code", "listeB");
+                        startActivity(intent);
+                        finish();
 
 
-                Intent intent = new Intent(ListeBesoin.this, BringOut.class);
-                String variable = liste.get(position);
-                // intent.putExtra("code","utilisateur");
-                intent.putExtra("employe", variable);
-                intent.putExtra("bringD", varDate);
-                intent.putExtra("bringDem", var1);
-                intent.putExtra("bringDe", var2);
-                intent.putExtra("bringB", var3);
-                intent.putExtra("bringM", var4);
-                intent.putExtra("bringQ", var5);
-                intent.putExtra("bringA", var6);
-                intent.putExtra("etat1",var7);
-                intent.putExtra("etat2",var8);
-                intent.putExtra("etat3",var9);
-                intent.putExtra("etat4",var10);
-                intent.putExtra("code", "listeU");
-                startActivity(intent);
-                finish();
-            }
-        });
+                }
+            });
+        }
+        else if (intent.getStringExtra("codeO").equals("besoinDepartement")){
+            final String varDate = intent.getStringExtra("bringDate");
+            final String var1 = intent.getStringExtra("bringDemande");
+            final String var2 = intent.getStringExtra("bringDepartement");
+            //final String var3 = intent.getStringExtra("bringEmp");
+            final String var4 = intent.getStringExtra("bringMarque");
+            final String var5 = intent.getStringExtra("bringQuantité");
+            final String var6 = intent.getStringExtra("bringAutre");
 
+            final Boolean var77 = intent.getBooleanExtra("bringRadDep", true);
+            final Boolean var88 = intent.getBooleanExtra("bringRadEmp", false);
+            final int var99 = intent.getIntExtra("bringEmpVis", View.INVISIBLE);
+            final int var11 = intent.getIntExtra("bringDepVis", View.VISIBLE);
+
+
+            affiche.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    String depart = String.valueOf(parent.getItemIdAtPosition(position));
+                    int varr = Integer.parseInt(depart);
+
+
+                    Intent intent = new Intent(ListeBesoin.this, BringOut.class);
+                    String variable = liste.get(position);
+                    // intent.putExtra("code","utilisateur");
+
+
+                        intent.putExtra("bringB", variable);
+                        intent.putExtra("bringD", varDate);
+                        intent.putExtra("bringDem", var1);
+                        intent.putExtra("bringDe", var2);
+                        //intent.putExtra("bringE", var3);
+                        intent.putExtra("bringM", var4);
+                        intent.putExtra("bringQ", var5);
+                        intent.putExtra("bringA", var6);
+                        intent.putExtra("etat1", var77);
+                        intent.putExtra("etat2", var88);
+                        intent.putExtra("etat3", var99);
+                        intent.putExtra("etat4", var11);
+                        intent.putExtra("code", "listeB");
+                        startActivity(intent);
+                        finish();
+
+
+
+                }
+            });
+        }
+        else if (intent.getStringExtra("codeO").equals("add")){
+            final String varDate = intent.getStringExtra("addDate");
+            final String var1 = intent.getStringExtra("addFourni");
+            final String var2 = intent.getStringExtra("addPrixU");
+            final String var4 = intent.getStringExtra("addQt");
+            final String var5 = intent.getStringExtra("addMark");
+            final String var6 = intent.getStringExtra("addAutre");
+
+
+            affiche.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    String depart = String.valueOf(parent.getItemIdAtPosition(position));
+                    int varr = Integer.parseInt(depart);
+
+
+                    Intent intent = new Intent(ListeBesoin.this, Add.class);
+                    String variable = liste.get(position);
+                    // intent.putExtra("code","utilisateur");
+
+
+                    intent.putExtra("addB", variable);
+                    intent.putExtra("addD", varDate);
+                    intent.putExtra("addFournisseur", var1);
+                    intent.putExtra("addP", var2);
+                    intent.putExtra("addQ", var4);
+                    intent.putExtra("addM", var5);
+                    intent.putExtra("addA", var6);
+                    intent.putExtra("code", "addBB");
+                    startActivity(intent);
+                    finish();
+
+
+
+                }
+            });
+        }
     }
 
 

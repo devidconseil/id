@@ -46,7 +46,7 @@ public class BringOut extends AppCompatActivity {
         final EditText date=(EditText)findViewById(R.id.editDate);
 
         //AutoTextComplete
-        ArrayList<String> nd=bd.affiNE();
+       /* ArrayList<String> nd=bd.affiNE();
         ArrayAdapter<String> dep=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,nd);
         employe.setAdapter(dep);
 
@@ -56,7 +56,7 @@ public class BringOut extends AppCompatActivity {
 
         ArrayList<String> nb=bd.affiNB();
         ArrayAdapter<String>nombes=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,nb);
-        besoin.setAdapter(nombes);
+        besoin.setAdapter(nombes);*/
 
         ArrayList<String> m1=bd.affiMarque();
         ArrayAdapter<String>mar=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,m1);
@@ -70,19 +70,28 @@ public class BringOut extends AppCompatActivity {
         {
 
             date.setText(intent.getStringExtra("bringD"));
-            employe.setText(intent.getStringExtra("employe"));
+            employe.setText(intent.getStringExtra("bringE"));
             departement.setText(intent.getStringExtra("bringDe"));
             besoin.setText(intent.getStringExtra("bringB"));
             demande.setText(intent.getStringExtra("bringDem"));
             marq.setText(intent.getStringExtra("bringM"));
             qut.setText(intent.getStringExtra("bringQ"));
             autr.setText(intent.getStringExtra("bringA"));
-           radioButton_dep.setChecked(intent.getBooleanExtra("etat1",radioButton_dep.isChecked()));
-           radioButton_emp.setChecked(intent.getBooleanExtra("etat2",radioButton_emp.isChecked()));
-           employe.setVisibility(intent.getIntExtra("etat3",employe.getVisibility()));
+            radioButton_dep.setChecked(intent.getBooleanExtra("etat1",radioButton_dep.isChecked()));
+            radioButton_emp.setChecked(intent.getBooleanExtra("etat2",radioButton_emp.isChecked()));
+            employe.setVisibility(intent.getIntExtra("etat3",employe.getVisibility()));
             departement.setVisibility(intent.getIntExtra("etat4",departement.getVisibility()));
-            departement.requestFocus();
-
+            if (intent.getStringExtra("code").equals("listeD")) {
+                departement.requestFocus();
+            }
+            else if (intent.getStringExtra("code").equals("listeU"))
+            {
+                employe.requestFocus();
+            }
+            else if (intent.getStringExtra("code").equals("listeB"))
+            {
+                besoin.requestFocus();
+            }
         }
 
 
@@ -99,10 +108,10 @@ public class BringOut extends AppCompatActivity {
                 intent.putExtra("bringMarque",marq.getText().toString());
                 intent.putExtra("bringQuantité",qut.getText().toString());
                 intent.putExtra("bringAutre",autr.getText().toString());
-              intent.putExtra("etat1",false);
-               intent.putExtra("etat2",true);
-               intent.putExtra("etat3",View.VISIBLE);
-               intent.putExtra("etat4",View.INVISIBLE);
+                intent.putExtra("etat1",false);
+                intent.putExtra("etat2",true);
+                intent.putExtra("etat3",View.VISIBLE);
+                intent.putExtra("etat4",View.INVISIBLE);
                 startActivity(intent);
             }
         });
@@ -128,9 +137,11 @@ public class BringOut extends AppCompatActivity {
         besoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (radioButton_emp.isChecked()){
                 Intent intent=new Intent(BringOut.this,ListeBesoin.class);
                 intent.putExtra("bringDate",date.getText().toString());
-                intent.putExtra("bringO","sortie1");
+                intent.putExtra("codeO","besoinEmploye");
                 intent.putExtra("bringDemande",demande.getText().toString());
                 intent.putExtra("bringEmp",employe.getText().toString());
                 intent.putExtra("bringBesoin",departement.getText().toString());
@@ -142,6 +153,23 @@ public class BringOut extends AppCompatActivity {
                 intent.putExtra("etat3",View.INVISIBLE);
                 intent.putExtra("etat4",View.VISIBLE);
                 startActivity(intent);
+                }
+                else if (radioButton_dep.isChecked()){
+                    Intent intent=new Intent(BringOut.this,ListeBesoin.class);
+                    intent.putExtra("bringDate",date.getText().toString());
+                    intent.putExtra("codeO","besoinDepartement");
+                    intent.putExtra("bringDemande",demande.getText().toString());
+                    intent.putExtra("bringEmp",employe.getText().toString());
+                    intent.putExtra("bringDepartement",departement.getText().toString());
+                    intent.putExtra("bringMarque",marq.getText().toString());
+                    intent.putExtra("bringQuantité",qut.getText().toString());
+                    intent.putExtra("bringAutre",autr.getText().toString());
+                    intent.putExtra("etat1",false);
+                    intent.putExtra("etat2",true);
+                    intent.putExtra("etat3",View.VISIBLE);
+                    intent.putExtra("etat4",View.INVISIBLE);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -259,16 +287,16 @@ public class BringOut extends AppCompatActivity {
             }
         });
         //fin diadlogueDatepiker
-       /* demande.setOnClickListener(new View.OnClickListener() {
+        demande.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(BringOut.this,ListeDate.class);
                 intent.putExtra("datededemande",employe.getText().toString());
                 startActivity(intent);
             }
-        });*/
+        });
 
-       demande.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+     /*  demande.setOnFocusChangeListener(new View.OnFocusChangeListener() {
            @Override
            public void onFocusChange(View v, boolean hasFocus) {
                ArrayList<String> au=new ArrayList<>();
@@ -276,7 +304,7 @@ public class BringOut extends AppCompatActivity {
                if (employe.getVisibility()==View.VISIBLE) {
                     var = bd.selectIdEmp(employe.getText().toString());
                     Toast.makeText(getApplicationContext(),var,Toast.LENGTH_LONG);
-                   Log.i("CONSTAT",var);
+                  // Log.i("CONSTAT",var);
                     if (var !=""){
                         MyApplication.setEmploye(employe.getText().toString());
                         au = bd.affiNumDem(Integer.parseInt(var));
@@ -321,7 +349,7 @@ public class BringOut extends AppCompatActivity {
                ArrayAdapter<String>aut=new ArrayAdapter<String>(BringOut.this,android.R.layout.simple_list_item_1,au);
                demande.setAdapter(aut);
            }
-       });
+       });*/
 
 
         passage.setOnClickListener(new View.OnClickListener() {
@@ -330,22 +358,22 @@ public class BringOut extends AppCompatActivity {
 
                 if(date.getText().toString().equals(""))
                 {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir la date de sortie SVP!!",Toast.LENGTH_LONG).show();
+                    date.setError("Veuillez saisir la date de sortie SVP!!");
                     date.requestFocus();
                 }
                 else if (demande.getText().toString().equals(""))
                 {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir la date de la demande SVP!!",Toast.LENGTH_LONG).show();
+                    demande.setError("Veuillez saisir la date de la demande SVP!!");
                     demande.requestFocus();
                 }
                 else if (besoin.getText().toString().equals(""))
                 {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir le nom du besoin SVP!!",Toast.LENGTH_LONG).show();
+                    besoin.setError("Veuillez saisir le nom du besoin SVP!!");
                     besoin.requestFocus();
                 }
                 else if (qut.getText().toString().equals(""))
                 {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir le prix unitaire SVP!!",Toast.LENGTH_LONG).show();
+                    qut.setError("Veuillez saisir le prix unitaire SVP!!");
                     qut.requestFocus();
                 }
                else {
@@ -395,22 +423,22 @@ public class BringOut extends AppCompatActivity {
             public void onClick(View v) {
                 if(date.getText().toString().equals(""))
                 {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir la date de sortie SVP!!",Toast.LENGTH_LONG).show();
+                    date.setError("Veuillez saisir la date de sortie SVP!!");
                     date.requestFocus();
                 }
                 else if (demande.getText().toString().equals(""))
                 {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir la date de la demande SVP!!",Toast.LENGTH_LONG).show();
+                    demande.setError("Veuillez saisir la date de la demande SVP!!");
                     demande.requestFocus();
                 }
                 else if (besoin.getText().toString().equals(""))
                 {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir le nom du besoin SVP!!",Toast.LENGTH_LONG).show();
+                    besoin.setError("Veuillez saisir le nom du besoin SVP!!");
                     besoin.requestFocus();
                 }
                 else if (qut.getText().toString().equals(""))
                 {
-                    Toast.makeText(getBaseContext(),"Veuillez saisir le prix unitaire SVP!!",Toast.LENGTH_LONG).show();
+                    qut.setError("Veuillez saisir le prix unitaire SVP!!");
                     qut.requestFocus();
                 }
                 else {
