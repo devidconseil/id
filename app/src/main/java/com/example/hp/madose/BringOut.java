@@ -65,25 +65,6 @@ public class BringOut extends AppCompatActivity {
 
 
 
-
-        employe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(BringOut.this,ListeUtilisateur.class);
-                intent.putExtra("bringDate",date.getText().toString());
-                intent.putExtra("bringO","sortie");
-                intent.putExtra("bringPresonne",employe.getText().toString());
-                intent.putExtra("bringDepartement",departement.getText().toString());
-                intent.putExtra("bringBesoin",besoin.getText().toString());
-                intent.putExtra("bringMarque",marq.getText().toString());
-                intent.putExtra("bringQuantité",qut.getText().toString());
-                intent.putExtra("bringAutre",autr.getText().toString());
-                intent.putExtra("etat1",radioButton_dep.isChecked());
-                intent.putExtra("etat2",radioButton_emp.isChecked());
-                startActivity(intent);
-            }
-        });
-
         Intent intent=getIntent();
         if (intent != null)
         {
@@ -92,13 +73,76 @@ public class BringOut extends AppCompatActivity {
             employe.setText(intent.getStringExtra("employe"));
             departement.setText(intent.getStringExtra("bringDe"));
             besoin.setText(intent.getStringExtra("bringB"));
-
+            demande.setText(intent.getStringExtra("bringDem"));
             marq.setText(intent.getStringExtra("bringM"));
             qut.setText(intent.getStringExtra("bringQ"));
             autr.setText(intent.getStringExtra("bringA"));
-            radioButton_dep.setChecked(intent.getBooleanExtra("etat1",radioButton_dep.isChecked()));
-            radioButton_emp.setChecked(intent.getBooleanExtra("etat2",radioButton_emp.isChecked()));
+           radioButton_dep.setChecked(intent.getBooleanExtra("etat1",radioButton_dep.isChecked()));
+           radioButton_emp.setChecked(intent.getBooleanExtra("etat2",radioButton_emp.isChecked()));
+           employe.setVisibility(intent.getIntExtra("etat3",employe.getVisibility()));
+            departement.setVisibility(intent.getIntExtra("etat4",departement.getVisibility()));
+            departement.requestFocus();
         }
+
+
+
+        employe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(BringOut.this,ListeUtilisateur.class);
+                intent.putExtra("bringDate",date.getText().toString());
+                intent.putExtra("bringO","sortie");
+                intent.putExtra("bringDemande",demande.getText().toString());
+                intent.putExtra("bringDepartement",departement.getText().toString());
+                intent.putExtra("bringBesoin",besoin.getText().toString());
+                intent.putExtra("bringMarque",marq.getText().toString());
+                intent.putExtra("bringQuantité",qut.getText().toString());
+                intent.putExtra("bringAutre",autr.getText().toString());
+              intent.putExtra("etat1",false);
+               intent.putExtra("etat2",true);
+               intent.putExtra("etat3",View.VISIBLE);
+               intent.putExtra("etat4",View.INVISIBLE);
+                startActivity(intent);
+            }
+        });
+        departement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(BringOut.this,Listedepartement.class);
+                intent.putExtra("bringDate",date.getText().toString());
+                intent.putExtra("bringO","sortie1");
+                intent.putExtra("bringDemande",demande.getText().toString());
+                intent.putExtra("bringEmp",employe.getText().toString());
+                intent.putExtra("bringBesoin",besoin.getText().toString());
+                intent.putExtra("bringMarque",marq.getText().toString());
+                intent.putExtra("bringQuantité",qut.getText().toString());
+                intent.putExtra("bringAutre",autr.getText().toString());
+                intent.putExtra("etat1",true);
+                intent.putExtra("etat2",false);
+                intent.putExtra("etat3",View.INVISIBLE);
+                intent.putExtra("etat4",View.VISIBLE);
+                startActivity(intent);
+            }
+        });
+        besoin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(BringOut.this,ListeBesoin.class);
+                intent.putExtra("bringDate",date.getText().toString());
+                intent.putExtra("bringO","sortie1");
+                intent.putExtra("bringDemande",demande.getText().toString());
+                intent.putExtra("bringEmp",employe.getText().toString());
+                intent.putExtra("bringBesoin",departement.getText().toString());
+                intent.putExtra("bringMarque",marq.getText().toString());
+                intent.putExtra("bringQuantité",qut.getText().toString());
+                intent.putExtra("bringAutre",autr.getText().toString());
+                intent.putExtra("etat1",true);
+                intent.putExtra("etat2",false);
+                intent.putExtra("etat3",View.INVISIBLE);
+                intent.putExtra("etat4",View.VISIBLE);
+                startActivity(intent);
+            }
+        });
 
 
 
@@ -117,31 +161,32 @@ public class BringOut extends AppCompatActivity {
         final int mois=calendar.get(Calendar.MONTH);
         final int annee=calendar.get(Calendar.YEAR);
 
-radioButton_dep.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked) {
-            employe.setVisibility(View.INVISIBLE);
-            employe.setEnabled(false);
-            departement.setVisibility(View.VISIBLE);
-            departement.setEnabled(true);
-            Toast.makeText(getApplicationContext(), "Le bénéficiaire de la demande est un departement", Toast.LENGTH_SHORT).show();
-        }
-    }
-});
-radioButton_emp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked) {
-            employe.setVisibility(View.VISIBLE);
-            employe.setEnabled(true);
-            departement.setVisibility(View.INVISIBLE);
-            departement.setEnabled(false);
-            Toast.makeText(getApplicationContext(), "Le bénéficiaire de la demande est un employé", Toast.LENGTH_SHORT).show();
-        }
-    }
-});
-    /*    radioButton_dep.setOnClickListener(new View.OnClickListener() {
+
+        radioButton_dep.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    employe.setVisibility(View.INVISIBLE);
+                    employe.setEnabled(false);
+                    departement.setVisibility(View.VISIBLE);
+                    departement.setEnabled(true);
+                    Toast.makeText(getApplicationContext(), "Le bénéficiaire de la demande est un departement", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        radioButton_emp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    employe.setVisibility(View.VISIBLE);
+                    employe.setEnabled(true);
+                    departement.setVisibility(View.INVISIBLE);
+                    departement.setEnabled(false);
+                    Toast.makeText(getApplicationContext(), "Le bénéficiaire de la demande est un employé", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+  /*      radioButton_dep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 employe.setVisibility(View.INVISIBLE);
@@ -160,7 +205,7 @@ radioButton_emp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeLis
                 departement.setEnabled(false);
                 Toast.makeText(getApplicationContext(),"Le bénéficiaire de la demande est un employé",Toast.LENGTH_SHORT).show();
             }
-        });   */
+        });  */
 
         date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
