@@ -84,6 +84,8 @@ public class Authentification extends AppCompatActivity {
     public void onStart(){
         super.onStart();
 
+
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(!bd.checkIfTableHasData("Besoins_Sortie") && !bd.checkIfTableHasData("Categorie") && !bd.checkIfTableHasData("Demande") && !bd.checkIfTableHasData("Demande_Besoins") && !bd.checkIfTableHasData("Departement") && !bd.checkIfTableHasData("Utilisateur") && !bd.checkIfTableHasData("Besoin") && !bd.checkIfTableHasData("Besoins_Entree") && !bd.checkIfTableHasData("Entree") && !bd.checkIfTableHasData("Fournisseur") && !bd.checkIfTableHasData("Sortie"))
         {
@@ -365,6 +367,23 @@ public class Authentification extends AppCompatActivity {
 
         BesoinC cat=new BesoinC(libBes,typBes,libCat,seuilBes,amorBes,stockBes,imageBes);
         mDatabase.child("Besoin").child(code).setValue(cat);
+    }
+    private void writeNewUser(String userId, String name, String surname, String email, String tel, String department, String profile) {
+        UtilisateurC user = new UtilisateurC(name, surname, email, tel, department, profile);
+        mDatabase.child("users").child(userId).setValue(user);
+
+    }
+    public void writeNewFournisseur(String nomFour,String adrFour,String telFour){
+        String code=nomFour;
+        if (nomFour.contains(" ")){
+            code=nomFour.replace(" ","-");
+        }
+        if (nomFour.contains("'")){
+            code=code.replace("'","-");
+        }
+
+        FournisseurC cat=new FournisseurC(nomFour,adrFour,telFour);
+        mDatabase.child("Fournisseur").child(code).setValue(cat);
     }
 
 }
