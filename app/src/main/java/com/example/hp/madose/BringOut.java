@@ -82,23 +82,26 @@ public class BringOut extends AppCompatActivity {
             employe.setVisibility(intent.getIntExtra("etat3",employe.getVisibility()));
             departement.setVisibility(intent.getIntExtra("etat4",departement.getVisibility()));
             if (intent.getStringExtra("code").equals("listeD")) {
-                departement.requestFocus();
+
             }
             else if (intent.getStringExtra("code").equals("listeU"))
             {
                 employe.requestFocus();
+
             }
             else if (intent.getStringExtra("code").equals("listeB"))
             {
-                demande.requestFocus();
+                besoin.requestFocus();
             }
             else if (intent.getStringExtra("code").equals("affichage"))
             {
                 date.requestFocus();
+
             }
-            else if (intent.getStringExtra("code").equals("listeDa"));
+            else
             {
-                besoin.requestFocus();
+                demande.requestFocus();
+
             }
         }
 
