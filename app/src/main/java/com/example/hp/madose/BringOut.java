@@ -92,6 +92,10 @@ public class BringOut extends AppCompatActivity {
             {
                 besoin.requestFocus();
             }
+            else if (intent.getStringExtra("code").equals("affichage"))
+            {
+                date.requestFocus();
+            }
         }
 
 
@@ -236,7 +240,7 @@ public class BringOut extends AppCompatActivity {
             }
         });  */
 
-        date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+       /* date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
 
@@ -284,6 +288,29 @@ public class BringOut extends AppCompatActivity {
                 }
 
 
+            }
+        });*/
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog datePickerDialog=new DatePickerDialog(BringOut.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        month=month+1;
+                        String jour=String.valueOf(dayOfMonth);
+                        String mois=String.valueOf(month);
+
+                        if (month<10){
+                            mois="0"+mois;
+                        }
+                        if (dayOfMonth<10){
+                            jour="0"+jour;
+                        }
+                        date.setText(jour+"/"+mois+"/"+year);
+                        // date.setText(dayOfMonth+"/"+month+"/"+year);
+                    }
+                },annee,mois,jour);
+                datePickerDialog.show();
             }
         });
         //fin diadlogueDatepiker

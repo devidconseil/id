@@ -535,11 +535,13 @@ public class Affichage extends AppCompatActivity {
              else if (getIntent().getStringExtra("passage").equals("sortie")) {
 
                  Intent intent=new Intent(Affichage.this,BringOut.class);
+                 intent.putExtra("code","affichage");
                  startActivity(intent);
              }
              else if (getIntent().getStringExtra("passage").equals("entree"))
              {
                  Intent intent=new Intent(Affichage.this,Add.class);
+                 intent.putExtra("code","affichage");
                  startActivity(intent);
              }
              else if (getIntent().getStringExtra("passage").equals("demande"))

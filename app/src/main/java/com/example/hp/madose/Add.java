@@ -85,7 +85,7 @@ public class Add extends AppCompatActivity {
         annee=calendar.get(Calendar.YEAR);
         //date.setText(jour+"/"+mois+"/"+annee);
 
-    /*    date.setOnClickListener(new View.OnClickListener() {
+       date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                  DatePickerDialog datePickerDialog=new DatePickerDialog(Add.this, new DatePickerDialog.OnDateSetListener() {
@@ -107,7 +107,7 @@ public class Add extends AppCompatActivity {
                 },annee,mois,jour);
                 datePickerDialog.show();
             }
-        });  */
+        });
 
         Intent intent=getIntent();
         if (intent != null)
@@ -159,7 +159,7 @@ public class Add extends AppCompatActivity {
                 finish();
             }
         });
-        date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+       /* date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
 
@@ -206,9 +206,8 @@ public class Add extends AppCompatActivity {
 
                 }
 
-
             }
-        });
+        });*/
 
 
         final BaseDeDonne dd=new BaseDeDonne(this);
