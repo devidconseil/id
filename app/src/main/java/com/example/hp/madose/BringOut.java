@@ -93,14 +93,14 @@ public class BringOut extends AppCompatActivity {
             {
                 besoin.requestFocus();
             }
-            else if (intent.getStringExtra("code").equals("affichage"))
+            else if (intent.getStringExtra("code").equals("listeDa"))
             {
-                date.requestFocus();
+                demande.requestFocus();
 
             }
             else
             {
-                demande.requestFocus();
+                date.requestFocus();
 
             }
         }
