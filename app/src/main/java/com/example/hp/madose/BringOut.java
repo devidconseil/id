@@ -90,7 +90,7 @@ public class BringOut extends AppCompatActivity {
             }
             else if (intent.getStringExtra("code").equals("listeB"))
             {
-                besoin.requestFocus();
+                demande.requestFocus();
             }
             else if (intent.getStringExtra("code").equals("affichage"))
             {
@@ -321,13 +321,59 @@ public class BringOut extends AppCompatActivity {
         demande.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(BringOut.this,ListeDate.class);
-                intent.putExtra("datededemande",employe.getText().toString());
-                startActivity(intent);
+                ArrayList<String> au=new ArrayList<>();
+                String var;
+                if (employe.getVisibility()==View.VISIBLE) {
+                    var = bd.selectIdEmp(employe.getText().toString());
+                    Toast.makeText(getApplicationContext(),var,Toast.LENGTH_LONG);
+                    // Log.i("CONSTAT",var);
+                    if (var !=""){
+                        MyApplication.setEmploye(employe.getText().toString());
+                        au = bd.affiNumDem(Integer.parseInt(var));
+                        Intent intent=new Intent(BringOut.this,ListeDate.class);
+                        intent.putExtra("bringDate",date.getText().toString());
+                        intent.putExtra("bringO","sortie2");
+                        intent.putExtra("bringEmploye",employe.getText().toString());
+                        intent.putExtra("bringDepartement",departement.getText().toString());
+                        intent.putExtra("bringBesoin",besoin.getText().toString());
+                        intent.putExtra("bringMarque",marq.getText().toString());
+                        intent.putExtra("bringQuantité",qut.getText().toString());
+                        intent.putExtra("bringAutre",autr.getText().toString());
+                        intent.putExtra("bringRadDep",false);
+                        intent.putExtra("bringRadEmp",true);
+                        intent.putExtra("bringEmpVis",View.VISIBLE);
+                        intent.putExtra("bringDepVis",View.INVISIBLE);
+                        startActivity(intent);
+                    }
+
+                }
+                if (departement.getVisibility()==View.VISIBLE) {
+                    var = bd.selectDep(departement.getText().toString());
+                    if (var !=""){
+                        au = bd.affiNumDem1(Integer.parseInt(var));
+                        Intent intent=new Intent(BringOut.this,ListeDate.class);
+                        intent.putExtra("bringDate",date.getText().toString());
+                        intent.putExtra("bringO","sortie1");
+                        intent.putExtra("bringDepartement",departement.getText().toString());
+                        intent.putExtra("bringEmploye",employe.getText().toString());
+                        intent.putExtra("bringBesoin",besoin.getText().toString());
+                        intent.putExtra("bringMarque",marq.getText().toString());
+                        intent.putExtra("bringQuantité",qut.getText().toString());
+                        intent.putExtra("bringAutre",autr.getText().toString());
+                        intent.putExtra("bringRadDep",false);
+                        intent.putExtra("bringRadEmp",true);
+                        intent.putExtra("bringEmpVis",View.VISIBLE);
+                        intent.putExtra("bringDepVis",View.INVISIBLE);
+                        startActivity(intent);
+                    }
+
+                }
+                ArrayAdapter<String>aut=new ArrayAdapter<String>(BringOut.this,android.R.layout.simple_list_item_1,au);
+                demande.setAdapter(aut);
             }
         });
-
-      demande.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+// Avec le listener Focus
+    /*  demande.setOnFocusChangeListener(new View.OnFocusChangeListener() {
            @Override
            public void onFocusChange(View v, boolean hasFocus) {
                ArrayList<String> au=new ArrayList<>();
@@ -380,7 +426,7 @@ public class BringOut extends AppCompatActivity {
                ArrayAdapter<String>aut=new ArrayAdapter<String>(BringOut.this,android.R.layout.simple_list_item_1,au);
                demande.setAdapter(aut);
            }
-       });
+       });  */
 
 
         passage.setOnClickListener(new View.OnClickListener() {
