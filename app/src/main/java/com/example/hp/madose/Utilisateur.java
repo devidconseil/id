@@ -58,6 +58,7 @@ public class Utilisateur extends AppCompatActivity {
 
                 Intent intent=new Intent(Utilisateur.this,Listedepartement.class);
                 intent.putExtra("employer",codeT.getText().toString());
+                intent.putExtra("bringO","utilisateur");
                 intent.putExtra("employerr",codeP.getText().toString());
                 intent.putExtra("employerrr",prenE.getText().toString());
                 intent.putExtra("employerrrr",mailE.getText().toString());

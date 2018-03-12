@@ -22,6 +22,7 @@ public class MyApplication extends Application {
     public static String verif1;
     public static int id;
     public static boolean textView;
+    public static String employe;
 
     public static boolean isFetch() {
         return fetch;
@@ -37,6 +38,14 @@ public class MyApplication extends Application {
 
     public static int getId() {
         return id;
+    }
+
+    public static String getEmploye() {
+        return employe;
+    }
+
+    public static void setEmploye(String employe) {
+        MyApplication.employe = employe;
     }
 
     public static void setId(int id) {

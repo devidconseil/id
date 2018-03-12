@@ -82,6 +82,7 @@ public class BringOut extends AppCompatActivity {
            employe.setVisibility(intent.getIntExtra("etat3",employe.getVisibility()));
             departement.setVisibility(intent.getIntExtra("etat4",departement.getVisibility()));
             departement.requestFocus();
+
         }
 
 
@@ -277,7 +278,22 @@ public class BringOut extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),var,Toast.LENGTH_LONG);
                    Log.i("CONSTAT",var);
                     if (var !=""){
+                        MyApplication.setEmploye(employe.getText().toString());
                         au = bd.affiNumDem(Integer.parseInt(var));
+                        Intent intent=new Intent(BringOut.this,ListeDate.class);
+                        intent.putExtra("bringDate",date.getText().toString());
+                        intent.putExtra("bringO","sortie2");
+                        intent.putExtra("employe",employe.getText().toString());
+                        intent.putExtra("bringDepartement",departement.getText().toString());
+                        intent.putExtra("bringBesoin",besoin.getText().toString());
+                        intent.putExtra("bringMarque",marq.getText().toString());
+                        intent.putExtra("bringQuantité",qut.getText().toString());
+                        intent.putExtra("bringAutre",autr.getText().toString());
+                        intent.putExtra("etat1",false);
+                        intent.putExtra("etat2",true);
+                        intent.putExtra("etat3",View.VISIBLE);
+                        intent.putExtra("etat4",View.INVISIBLE);
+                        startActivity(intent);
                     }
 
                }
@@ -285,6 +301,20 @@ public class BringOut extends AppCompatActivity {
                    var = bd.selectDep(departement.getText().toString());
                    if (var !=""){
                        au = bd.affiNumDem1(Integer.parseInt(var));
+                       Intent intent=new Intent(BringOut.this,ListeDate.class);
+                       intent.putExtra("bringDate",date.getText().toString());
+                       intent.putExtra("bringO","sortie1");
+                       intent.putExtra("bringDemande",demande.getText().toString());
+                       intent.putExtra("bringEmp",employe.getText().toString());
+                       intent.putExtra("bringBesoin",besoin.getText().toString());
+                       intent.putExtra("bringMarque",marq.getText().toString());
+                       intent.putExtra("bringQuantité",qut.getText().toString());
+                       intent.putExtra("bringAutre",autr.getText().toString());
+                       intent.putExtra("etat1",true);
+                       intent.putExtra("etat2",false);
+                       intent.putExtra("etat3",View.INVISIBLE);
+                       intent.putExtra("etat4",View.VISIBLE);
+                       startActivity(intent);
                    }
 
                }

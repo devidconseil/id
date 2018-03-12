@@ -163,6 +163,71 @@ public class Authentification extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
+                        mDatabase.child("Categorie").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot dataSnapshotCat:dataSnapshot.getChildren()){
+                                    CategorieC cat= dataSnapshotCat.getValue(CategorieC.class);
+                                    if (!bd.checkIfCategorieExist(cat.getLibCat())){
+                                        bd.insertCat(cat.getLibCat());
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        mDatabase.child("Fournisseur").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot dataSnapshotFour:dataSnapshot.getChildren()){
+                                    FournisseurC four=dataSnapshotFour.getValue(FournisseurC.class);
+                                    if (!bd.checkIfFournisseurExist(four.getNomFour())){
+                                        bd.insertFour(four.getNomFour(),four.getAdrFour(),four.getTelFour());
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        mDatabase.child("Departement").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot dataSnapshotDepart:dataSnapshot.getChildren()){
+                                    DepartementC depart=dataSnapshotDepart.getValue(DepartementC.class);
+                                    if (!bd.checkIfDepartmentExist(depart.getLibDep())){
+                                        bd.insert(depart.getLibDep());
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        mDatabase.child("Besoin").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot dataSnapshotBes:dataSnapshot.getChildren()){
+                                    BesoinC cat= dataSnapshotBes.getValue(BesoinC.class);
+                                    if (!bd.checkIfBesoinExist(cat.getLibBes())){
+                                        int ss=Integer.parseInt(bd.selectCat(cat.getLibCat()));
+                                        bd.insertBesoin(cat.getLibBes(),cat.getTypeBes(),ss,cat.getSeuilBes(),cat.getAmorBes(),cat.getStockBes(),cat.getImageBes());
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                         mDatabase.child("users").addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -170,6 +235,7 @@ public class Authentification extends AppCompatActivity {
                                     UtilisateurC user=dataSnapshotUser.getValue(UtilisateurC.class);
                                   //  Toast.makeText(getApplicationContext(),user.getMailEmp(),Toast.LENGTH_SHORT);
                                     if (!bd.checkIfUserExist(user)){
+                                        Log.i("MONTRE-MOI",user.getLibDep());
                                         int s=Integer.parseInt(bd.selectDep(user.getLibDep()));
                                         bd.insertEmp(user.getNomEmp(),user.getPrenEmp(),user.getMailEmp(),user.getTelEmp(),s,user.getProEmp());
 

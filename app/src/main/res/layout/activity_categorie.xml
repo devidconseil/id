@@ -19,7 +19,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="244dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/round_corner"
         android:hint="Catégorie"
         android:inputType="textPersonName" />
