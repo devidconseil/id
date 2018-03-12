@@ -80,7 +80,7 @@ public class ListeDate extends AppCompatActivity {
                     intent.putExtra("etat2",var8);
                     intent.putExtra("etat3",var9);
                     intent.putExtra("etat4",var10);
-                    //intent.putExtra("code", "listeU");
+                    intent.putExtra("code", "listeDa");
                     startActivity(intent);
                     finish();
                 }

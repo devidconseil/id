@@ -96,6 +96,10 @@ public class BringOut extends AppCompatActivity {
             {
                 date.requestFocus();
             }
+            else if (intent.getStringExtra("code").equals("listeDa"))
+            {
+                besoin.requestFocus();
+            }
         }
 
 
@@ -323,7 +327,7 @@ public class BringOut extends AppCompatActivity {
             }
         });
 
-     /*  demande.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+      demande.setOnFocusChangeListener(new View.OnFocusChangeListener() {
            @Override
            public void onFocusChange(View v, boolean hasFocus) {
                ArrayList<String> au=new ArrayList<>();
@@ -376,7 +380,7 @@ public class BringOut extends AppCompatActivity {
                ArrayAdapter<String>aut=new ArrayAdapter<String>(BringOut.this,android.R.layout.simple_list_item_1,au);
                demande.setAdapter(aut);
            }
-       });*/
+       });
 
 
         passage.setOnClickListener(new View.OnClickListener() {

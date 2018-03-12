@@ -130,7 +130,7 @@ public class Authentification extends AppCompatActivity {
             bd.insertEntrBes(4, 2, 250000, 5, "SAMSUNG", "blanc");
             bd.insertEntrBes(5, 1, 500, 3, "PRIVILEGE", "200 sticks");
 
-            bd.insertSortie("2018-10-10","2018-01-02");
+            bd.insertSortie("2018-10-10","1");
 
             bd.insertSortieBesoin(1,1,1, "bic","bleu");
 
