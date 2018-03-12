@@ -82,7 +82,7 @@ public class Listedepartement extends AppCompatActivity {
             });
 
         }
-        else {
+        else if (getIntent().getStringExtra("bringO").equals("utilisateur")){
             Intent intent = getIntent();
             final String var2 = intent.getStringExtra("employer");
             final String var1 = intent.getStringExtra("employerr");
