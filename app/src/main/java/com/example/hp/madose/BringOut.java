@@ -96,7 +96,7 @@ public class BringOut extends AppCompatActivity {
             {
                 date.requestFocus();
             }
-            else if (intent.getStringExtra("code").equals("listeDa"))
+            else if (intent.getStringExtra("code").equals("listeDa"));
             {
                 besoin.requestFocus();
             }
@@ -342,16 +342,16 @@ public class BringOut extends AppCompatActivity {
                         Intent intent=new Intent(BringOut.this,ListeDate.class);
                         intent.putExtra("bringDate",date.getText().toString());
                         intent.putExtra("bringO","sortie2");
-                        intent.putExtra("employe",employe.getText().toString());
+                        intent.putExtra("bringEmploye",employe.getText().toString());
                         intent.putExtra("bringDepartement",departement.getText().toString());
                         intent.putExtra("bringBesoin",besoin.getText().toString());
                         intent.putExtra("bringMarque",marq.getText().toString());
                         intent.putExtra("bringQuantité",qut.getText().toString());
                         intent.putExtra("bringAutre",autr.getText().toString());
-                        intent.putExtra("etat1",false);
-                        intent.putExtra("etat2",true);
-                        intent.putExtra("etat3",View.VISIBLE);
-                        intent.putExtra("etat4",View.INVISIBLE);
+                        intent.putExtra("bringRadDep",false);
+                        intent.putExtra("bringRadEmp",true);
+                        intent.putExtra("bringEmpVis",View.VISIBLE);
+                        intent.putExtra("bringDepVis",View.INVISIBLE);
                         startActivity(intent);
                     }
 
