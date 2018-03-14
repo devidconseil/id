@@ -31,6 +31,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 
+import java.util.ArrayList;
+
 
 public class Acceuil extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -62,6 +64,7 @@ public class Acceuil extends AppCompatActivity
 
         mDatabase= FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
+
 
         String profile=bd.retrieveUserProfile(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         if (profile.equals("USER")){

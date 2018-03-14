@@ -84,9 +84,9 @@ public class Authentification extends AppCompatActivity {
     public void onStart(){
         super.onStart();
 
-
-
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
+
         if(!bd.checkIfTableHasData("Besoins_Sortie") && !bd.checkIfTableHasData("Categorie") && !bd.checkIfTableHasData("Demande") && !bd.checkIfTableHasData("Demande_Besoins") && !bd.checkIfTableHasData("Departement") && !bd.checkIfTableHasData("Utilisateur") && !bd.checkIfTableHasData("Besoin") && !bd.checkIfTableHasData("Besoins_Entree") && !bd.checkIfTableHasData("Entree") && !bd.checkIfTableHasData("Fournisseur") && !bd.checkIfTableHasData("Sortie"))
         {
             bd.insertCat("MATERIEL DE BUREAU");
@@ -141,31 +141,13 @@ public class Authentification extends AppCompatActivity {
             bd.insertDemandeBesoin(1, 6, 1);
             MyApplication.setFetch(false);
         }
-        if (currentUser !=null){
-            mDatabase.child("users").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (DataSnapshot dataSnapshotUser:dataSnapshot.getChildren()){
-                        UtilisateurC user=dataSnapshotUser.getValue(UtilisateurC.class);
-                        Toast.makeText(getApplicationContext(),user.getMailEmp(),Toast.LENGTH_SHORT);
-                        if (!bd.checkIfUserExist(user)){
-                            int s=Integer.parseInt(bd.selectDep(user.getLibDep()));
-                            bd.insertEmp(user.getNomEmp(),user.getPrenEmp(),user.getMailEmp(),user.getTelEmp(),s,user.getProEmp());
-
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
-
+        if (currentUser !=null ){
             onAuthSuccess(mAuth.getCurrentUser());
+            Log.i("UNO",FirebaseAuth.getInstance().getCurrentUser().getEmail());
         } else {
+           /*
             mAuth.signInWithEmailAndPassword("test@idconsulting.ie","password").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
@@ -258,16 +240,21 @@ public class Authentification extends AppCompatActivity {
                         Log.w(TAG, "signInWithEmail:failure", task.getException());
                     }
                 }
+
             });
-            mAuth.signOut();
+
+        FirebaseAuth.getInstance().signOut();
+*/
+
         }
     }
 
     private void onAuthSuccess(FirebaseUser user){
         String username = usernameFromEmail(user.getEmail());
        //  writeNewUser(user.getUid(), username, user.getEmail());
-        startActivity(new Intent(Authentification.this, Acceuil.class));
         finish();
+        startActivity(new Intent(Authentification.this, Acceuil.class));
+
 
     }
 

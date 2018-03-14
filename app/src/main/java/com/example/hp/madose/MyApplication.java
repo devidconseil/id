@@ -3,6 +3,7 @@ package com.example.hp.madose;
 import android.app.Application;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 /**
@@ -99,6 +100,8 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+       DatabaseReference userRef= FirebaseDatabase.getInstance().getReference("users");
+       userRef.keepSynced(true);
     }
 
 }
