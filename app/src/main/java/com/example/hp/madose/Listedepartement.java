@@ -38,7 +38,7 @@ public class Listedepartement extends AppCompatActivity {
         final ListeDepart listeDepart1=new ListeDepart(this,liste);
         affiche.setAdapter(listeDepart1);
 
-        if (getIntent().getStringExtra("bringO").equals("sortie1"))
+        if (getIntent().getStringExtra("code").equals("sortie1"))
         {
             Intent intent = getIntent();
             final String varDate = intent.getStringExtra("bringDate");
@@ -82,7 +82,7 @@ public class Listedepartement extends AppCompatActivity {
             });
 
         }
-        else if (getIntent().getStringExtra("bringO").equals("utilisateur")){
+        else if (getIntent().getStringExtra("code").equals("utilisateur")){
             Intent intent = getIntent();
             final String var2 = intent.getStringExtra("employer");
             final String var1 = intent.getStringExtra("employerr");
@@ -111,7 +111,42 @@ public class Listedepartement extends AppCompatActivity {
                 }
             });
         }
+        else  if (getIntent().getStringExtra("code").equals("demande")) {
+            final String varDate = getIntent().getStringExtra("demDate");
+            final String var1 = getIntent().getStringExtra("demBesoin");
+            final String var2 = getIntent().getStringExtra("demQuantité");
+            final Boolean var7 = getIntent().getBooleanExtra("bringRadDep", true);
+            final Boolean var8 = getIntent().getBooleanExtra("bringRadEmp", false);
+            final int var9 = getIntent().getIntExtra("bringEmpVis", View.INVISIBLE);
+            final int var10 = getIntent().getIntExtra("bringDepVis", View.VISIBLE);
 
+
+            affiche.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    String depart = String.valueOf(parent.getItemIdAtPosition(position));
+                    int varr = Integer.parseInt(depart);
+
+
+                    Intent intent = new Intent(Listedepartement.this, Demande.class);
+                    String variable = liste.get(position);
+                    // intent.putExtra("code","utilisateur");
+                    intent.putExtra("demDe", variable);
+                    intent.putExtra("demD", varDate);
+                    intent.putExtra("demB", var1);
+                    intent.putExtra("demQ", var2);
+                    intent.putExtra("etat1", var7);
+                    intent.putExtra("etat2", var8);
+                    intent.putExtra("etat3", var9);
+                    intent.putExtra("etat4", var10);
+                    intent.putExtra("code", "listeDD");
+                    startActivity(intent);
+                    finish();
+                }
+            });
+
+
+        }
 
     }
 

@@ -511,6 +511,7 @@ public class Affichage extends AppCompatActivity {
              {
                  Intent intent=new Intent(Affichage.this,Fournisseur.class);
                  startActivity(intent);
+
              }
              else if (getIntent().getStringExtra("passage").equals("departement"))
              {
@@ -547,6 +548,7 @@ public class Affichage extends AppCompatActivity {
              else if (getIntent().getStringExtra("passage").equals("demande"))
              {
                  Intent intent=new Intent(Affichage.this,Demande.class);
+                 intent.putExtra("code","affichage");
                  startActivity(intent);
              }
          }

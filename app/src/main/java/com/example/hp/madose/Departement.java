@@ -48,6 +48,7 @@ public class Departement extends AppCompatActivity {
                     intent.putExtra("passage", "departement");
                     edite.setText("");
                     startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -58,7 +59,7 @@ public class Departement extends AppCompatActivity {
                 Intent intent=new Intent(Departement.this,Acceuil.class);
                 edite.setText("");
                 startActivity(intent);
-
+                finish();
             }
         });
     }

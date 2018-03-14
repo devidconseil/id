@@ -50,6 +50,7 @@ public class Categorie extends AppCompatActivity {
             intent.putExtra("passage", "categorie");
             codeT.setText("");
             startActivity(intent);
+            finish();
         }
     }
 });
@@ -61,6 +62,7 @@ public class Categorie extends AppCompatActivity {
                 Intent intent=new Intent(Categorie.this,Acceuil.class);
                 codeT.setText("");
                 startActivity(intent);
+                finish();
             }
         });
 

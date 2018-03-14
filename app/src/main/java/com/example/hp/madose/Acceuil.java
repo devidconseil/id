@@ -265,7 +265,8 @@ public class Acceuil extends AppCompatActivity
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(this, Authentification.class));
-                finish();
+                Toast.makeText(getBaseContext(),"Vous êtes à présent deconnectés",Toast.LENGTH_LONG).show();
+                //finish();
                 break;
 
 

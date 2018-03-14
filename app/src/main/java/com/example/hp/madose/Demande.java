@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -86,6 +87,7 @@ public class Demande extends AppCompatActivity {
                 intent.putExtra("etat3",View.VISIBLE);
                 intent.putExtra("etat4",View.INVISIBLE);
                 startActivity(intent);
+                finish();
             }
         });
         depart.setOnClickListener(new View.OnClickListener() {
@@ -93,15 +95,15 @@ public class Demande extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(Demande.this,Listedepartement.class);
                 intent.putExtra("demDate",date.getText().toString());
-                intent.putExtra("bringO","sortie1");
-                intent.putExtra("demDemande",depart.getText().toString());
+                intent.putExtra("code","demande");
                 intent.putExtra("demBesoin",bes.getText().toString());
-                intent.putExtra("demMarque",quant.getText().toString());
+                intent.putExtra("demQuantité",quant.getText().toString());
                 intent.putExtra("etat1",true);
                 intent.putExtra("etat2",false);
                 intent.putExtra("etat3",View.INVISIBLE);
                 intent.putExtra("etat4",View.VISIBLE);
                 startActivity(intent);
+                finish();
             }
         });
         bes.setOnClickListener(new View.OnClickListener() {
@@ -111,26 +113,28 @@ public class Demande extends AppCompatActivity {
                 if (radioButton_emp.isChecked()){
                     Intent intent=new Intent(Demande.this,ListeBesoin.class);
                     intent.putExtra("demDate",date.getText().toString());
-                    intent.putExtra("codeO","besoinEmploye");
+                    intent.putExtra("code","besoinEmployeD");
                     intent.putExtra("demEmp",employe.getText().toString());
                     intent.putExtra("demQuantité",quant.getText().toString());
-                    intent.putExtra("etat1",true);
-                    intent.putExtra("etat2",false);
+                    intent.putExtra("etat1",false);
+                    intent.putExtra("etat2",true);
                     intent.putExtra("etat3",View.INVISIBLE);
                     intent.putExtra("etat4",View.VISIBLE);
                     startActivity(intent);
+                    finish();
                 }
                 else if (radioButton_dep.isChecked()){
                     Intent intent=new Intent(Demande.this,ListeBesoin.class);
                     intent.putExtra("demDate",date.getText().toString());
-                    intent.putExtra("codeO","besoinDepartement");
+                    intent.putExtra("code","besoinDepartementD");
                     intent.putExtra("demDepartement",depart.getText().toString());
-                    intent.putExtra("demMarque",quant.getText().toString());
-                    intent.putExtra("etat1",false);
-                    intent.putExtra("etat2",true);
+                    intent.putExtra("demQuantité",quant.getText().toString());
+                    intent.putExtra("etat1",true);
+                    intent.putExtra("etat2",false);
                     intent.putExtra("etat3",View.VISIBLE);
                     intent.putExtra("etat4",View.INVISIBLE);
                     startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -157,27 +161,33 @@ public class Demande extends AppCompatActivity {
         final int jour=calendar.get(Calendar.DAY_OF_MONTH);
         final int mois=calendar.get(Calendar.MONTH);
         final int annee=calendar.get(Calendar.YEAR);
-       depart.setEnabled(false);
 
 
-        radioButton_dep.setOnClickListener(new View.OnClickListener() {
+
+
+        radioButton_emp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                employe.setVisibility(View.INVISIBLE);
-                employe.setEnabled(false);
-                depart.setVisibility(View.VISIBLE);
-                //depart.setEnabled(true);
-                Toast.makeText(getApplicationContext(),"Le bénéficiaire de la demande est un departement",Toast.LENGTH_SHORT).show();
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    employe.setVisibility(View.VISIBLE);
+                    employe.setEnabled(true);
+                    depart.setVisibility(View.INVISIBLE);
+                    depart.setEnabled(false);
+                    Toast.makeText(getApplicationContext(), "Le bénéficiaire de la demande est un employé", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-        radioButton_emp.setOnClickListener(new View.OnClickListener() {
+        radioButton_dep.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                employe.setVisibility(View.VISIBLE);
-                employe.setEnabled(true);
-                depart.setVisibility(View.INVISIBLE);
-                depart.setEnabled(false);
-                Toast.makeText(getApplicationContext(),"Le bénéficiaire de la demande est un employé",Toast.LENGTH_SHORT).show();
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    employe.setVisibility(View.INVISIBLE);
+                    employe.setEnabled(false);
+                    depart.setVisibility(View.VISIBLE);
+                    depart.setEnabled(true);
+                    Toast.makeText(getApplicationContext(), "Le bénéficiaire de la demande est un departement", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -323,7 +333,7 @@ public class Demande extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "Sortie enregistrée avec succès !!", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(Demande.this, Acceuil.class);
                     startActivity(intent);
-
+                    finish();
                     Toast.makeText(getBaseContext(), "Demande enregistrée avec succès !!", Toast.LENGTH_LONG).show();
                 }
             }
@@ -335,7 +345,7 @@ public class Demande extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(Demande.this,Acceuil.class);
                 startActivity(intent);
-
+                finish();
             }
         });
 

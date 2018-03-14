@@ -66,12 +66,6 @@ public class Add extends AppCompatActivity {
         besoin.setAdapter(nombes);
 
 
-        if (getIntent()!= null)
-        {
-
-        }
-
-
 
 
         //-------insertion dans la base de donnée
@@ -154,7 +148,7 @@ public class Add extends AppCompatActivity {
                 intent.putExtra("addQt",qte.getText().toString());
                 intent.putExtra("addMark",mark.getText().toString());
                 intent.putExtra("addAutre",autre.getText().toString());
-                intent.putExtra("codeO","add");
+                intent.putExtra("code","add");
                 startActivity(intent);
                 finish();
             }

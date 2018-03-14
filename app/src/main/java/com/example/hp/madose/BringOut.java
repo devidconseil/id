@@ -124,25 +124,29 @@ public class BringOut extends AppCompatActivity {
                 intent.putExtra("etat3",View.VISIBLE);
                 intent.putExtra("etat4",View.INVISIBLE);
                 startActivity(intent);
+                finish();
             }
         });
         departement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(BringOut.this,Listedepartement.class);
-                intent.putExtra("bringDate",date.getText().toString());
-                intent.putExtra("bringO","sortie1");
-                intent.putExtra("bringDemande",demande.getText().toString());
-                intent.putExtra("bringEmp",employe.getText().toString());
-                intent.putExtra("bringBesoin",besoin.getText().toString());
-                intent.putExtra("bringMarque",marq.getText().toString());
-                intent.putExtra("bringQuantité",qut.getText().toString());
-                intent.putExtra("bringAutre",autr.getText().toString());
-                intent.putExtra("etat1",true);
-                intent.putExtra("etat2",false);
-                intent.putExtra("etat3",View.INVISIBLE);
-                intent.putExtra("etat4",View.VISIBLE);
+
+
+                    Intent intent = new Intent(BringOut.this, Listedepartement.class);
+                intent.putExtra("bringDate", date.getText().toString());
+                intent.putExtra("code", "sortie1");
+                intent.putExtra("bringDemande", demande.getText().toString());
+                intent.putExtra("bringEmp", employe.getText().toString());
+                intent.putExtra("bringBesoin", besoin.getText().toString());
+                intent.putExtra("bringMarque", marq.getText().toString());
+                intent.putExtra("bringQuantité", qut.getText().toString());
+                intent.putExtra("bringAutre", autr.getText().toString());
+                intent.putExtra("etat1", true);
+                intent.putExtra("etat2", false);
+                intent.putExtra("etat3", View.INVISIBLE);
+                intent.putExtra("etat4", View.VISIBLE);
                 startActivity(intent);
+                finish();
             }
         });
         besoin.setOnClickListener(new View.OnClickListener() {
@@ -152,7 +156,7 @@ public class BringOut extends AppCompatActivity {
                 if (radioButton_emp.isChecked()){
                 Intent intent=new Intent(BringOut.this,ListeBesoin.class);
                 intent.putExtra("bringDate",date.getText().toString());
-                intent.putExtra("codeO","besoinEmploye");
+                intent.putExtra("code","besoinEmploye");
                 intent.putExtra("bringDemande",demande.getText().toString());
                 intent.putExtra("bringEmp",employe.getText().toString());
                 intent.putExtra("bringBesoin",departement.getText().toString());
@@ -164,11 +168,12 @@ public class BringOut extends AppCompatActivity {
                 intent.putExtra("etat3",View.INVISIBLE);
                 intent.putExtra("etat4",View.VISIBLE);
                 startActivity(intent);
+                finish();
                 }
                 else if (radioButton_dep.isChecked()){
                     Intent intent=new Intent(BringOut.this,ListeBesoin.class);
                     intent.putExtra("bringDate",date.getText().toString());
-                    intent.putExtra("codeO","besoinDepartement");
+                    intent.putExtra("code","besoinDepartement");
                     intent.putExtra("bringDemande",demande.getText().toString());
                     intent.putExtra("bringEmp",employe.getText().toString());
                     intent.putExtra("bringDepartement",departement.getText().toString());
@@ -180,6 +185,7 @@ public class BringOut extends AppCompatActivity {
                     intent.putExtra("etat3",View.VISIBLE);
                     intent.putExtra("etat4",View.INVISIBLE);
                     startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -324,56 +330,75 @@ public class BringOut extends AppCompatActivity {
         demande.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<String> au=new ArrayList<>();
+
+                ArrayList<String> au = new ArrayList<>();
                 String var;
-                if (employe.getVisibility()==View.VISIBLE) {
-                    var = bd.selectIdEmp(employe.getText().toString());
-                    Toast.makeText(getApplicationContext(),var,Toast.LENGTH_LONG);
-                    // Log.i("CONSTAT",var);
-                    if (var !=""){
-                        MyApplication.setEmploye(employe.getText().toString());
-                        au = bd.affiNumDem(Integer.parseInt(var));
-                        Intent intent=new Intent(BringOut.this,ListeDate.class);
-                        intent.putExtra("bringDate",date.getText().toString());
-                        intent.putExtra("bringO","sortie2");
-                        intent.putExtra("bringEmploye",employe.getText().toString());
-                        intent.putExtra("bringDepartement",departement.getText().toString());
-                        intent.putExtra("bringBesoin",besoin.getText().toString());
-                        intent.putExtra("bringMarque",marq.getText().toString());
-                        intent.putExtra("bringQuantité",qut.getText().toString());
-                        intent.putExtra("bringAutre",autr.getText().toString());
-                        intent.putExtra("bringRadDep",false);
-                        intent.putExtra("bringRadEmp",true);
-                        intent.putExtra("bringEmpVis",View.VISIBLE);
-                        intent.putExtra("bringDepVis",View.INVISIBLE);
-                        startActivity(intent);
+                if (employe.getVisibility() == View.VISIBLE) {
+                    if (employe.getText().toString().equals("")) {
+                        employe.setError("Veuillez saisir le nom du departement ou de l'employé SVP!!");
+                    } else {
+                        var = bd.selectIdEmp(employe.getText().toString());
+                        if (var == null)
+                        {
+                            Toast.makeText(getBaseContext(),"Ce employé n'a pas éffectué de demande",Toast.LENGTH_LONG).show();
+                        }
+                        //Toast.makeText(getApplicationContext(), var, Toast.LENGTH_LONG);
+                        // Log.i("CONSTAT",var);
+                        else if (var != "") {
+                            MyApplication.setEmploye(employe.getText().toString());
+                            au = bd.affiNumDem(Integer.parseInt(var));
+                            Intent intent = new Intent(BringOut.this, ListeDate.class);
+                            intent.putExtra("bringDate", date.getText().toString());
+                            intent.putExtra("bringO", "sortie2");
+                            intent.putExtra("bringEmploye", employe.getText().toString());
+                            intent.putExtra("bringDepartement", departement.getText().toString());
+                            intent.putExtra("bringBesoin", besoin.getText().toString());
+                            intent.putExtra("bringMarque", marq.getText().toString());
+                            intent.putExtra("bringQuantité", qut.getText().toString());
+                            intent.putExtra("bringAutre", autr.getText().toString());
+                            intent.putExtra("bringRadDep", false);
+                            intent.putExtra("bringRadEmp", true);
+                            intent.putExtra("bringEmpVis", View.VISIBLE);
+                            intent.putExtra("bringDepVis", View.INVISIBLE);
+                            startActivity(intent);
+                            finish();
+                        }
                     }
 
                 }
-                if (departement.getVisibility()==View.VISIBLE) {
-                    var = bd.selectDep(departement.getText().toString());
-                    if (var !=""){
-                        au = bd.affiNumDem1(Integer.parseInt(var));
-                        Intent intent=new Intent(BringOut.this,ListeDate.class);
-                        intent.putExtra("bringDate",date.getText().toString());
-                        intent.putExtra("bringO","sortie1");
-                        intent.putExtra("bringDepartement",departement.getText().toString());
-                        intent.putExtra("bringEmploye",employe.getText().toString());
-                        intent.putExtra("bringBesoin",besoin.getText().toString());
-                        intent.putExtra("bringMarque",marq.getText().toString());
-                        intent.putExtra("bringQuantité",qut.getText().toString());
-                        intent.putExtra("bringAutre",autr.getText().toString());
-                        intent.putExtra("bringRadDep",false);
-                        intent.putExtra("bringRadEmp",true);
-                        intent.putExtra("bringEmpVis",View.VISIBLE);
-                        intent.putExtra("bringDepVis",View.INVISIBLE);
-                        startActivity(intent);
+                if (departement.getVisibility() == View.VISIBLE) {
+                    if (departement.getText().toString().equals("")) {
+                        departement.setError("Veuillez saisir le nom du departement ou de l'employé SVP!!");
+                    } else {
+                        var = bd.selectDep(departement.getText().toString());
+                        if (var == null)
+                        {
+                            Toast.makeText(getBaseContext(),"Ce departement n'a pas éffectué de demande",Toast.LENGTH_LONG).show();
+                        }
+                        else if (var != "") {
+                            au = bd.affiNumDem1(Integer.parseInt(var));
+                            Intent intent = new Intent(BringOut.this, ListeDate.class);
+                            intent.putExtra("bringDate", date.getText().toString());
+                            intent.putExtra("bringO", "sortie1");
+                            intent.putExtra("bringDepartement", departement.getText().toString());
+                            intent.putExtra("bringEmploye", employe.getText().toString());
+                            intent.putExtra("bringBesoin", besoin.getText().toString());
+                            intent.putExtra("bringMarque", marq.getText().toString());
+                            intent.putExtra("bringQuantité", qut.getText().toString());
+                            intent.putExtra("bringAutre", autr.getText().toString());
+                            intent.putExtra("bringRadDep", false);
+                            intent.putExtra("bringRadEmp", true);
+                            intent.putExtra("bringEmpVis", View.VISIBLE);
+                            intent.putExtra("bringDepVis", View.INVISIBLE);
+                            startActivity(intent);
+                            finish();
+                        }
                     }
-
+                    }
+                    ArrayAdapter<String> aut = new ArrayAdapter<String>(BringOut.this, android.R.layout.simple_list_item_1, au);
+                    demande.setAdapter(aut);
                 }
-                ArrayAdapter<String>aut=new ArrayAdapter<String>(BringOut.this,android.R.layout.simple_list_item_1,au);
-                demande.setAdapter(aut);
-            }
+
         });
 // Avec le listener Focus
     /*  demande.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -558,6 +583,7 @@ public class BringOut extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "Sortie enregistrée avec succès !!", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(BringOut.this, Acceuil.class);
                     startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -568,7 +594,7 @@ public class BringOut extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(BringOut.this,Acceuil.class);
                 startActivity(intent);
-
+                finish();
             }
         });
     }

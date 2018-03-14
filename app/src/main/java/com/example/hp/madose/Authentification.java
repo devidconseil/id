@@ -51,10 +51,6 @@ public class Authentification extends AppCompatActivity {
         mDatabase= FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
-
-
-
-
         Button connect= findViewById(R.id.connexion);
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +82,7 @@ public class Authentification extends AppCompatActivity {
 
 
 
+bd.insertEmp("TEST","test","test@idconsulting.ie","01020304",2,"USER");
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(!bd.checkIfTableHasData("Besoins_Sortie") && !bd.checkIfTableHasData("Categorie") && !bd.checkIfTableHasData("Demande") && !bd.checkIfTableHasData("Demande_Besoins") && !bd.checkIfTableHasData("Departement") && !bd.checkIfTableHasData("Utilisateur") && !bd.checkIfTableHasData("Besoin") && !bd.checkIfTableHasData("Besoins_Entree") && !bd.checkIfTableHasData("Entree") && !bd.checkIfTableHasData("Fournisseur") && !bd.checkIfTableHasData("Sortie"))
         {

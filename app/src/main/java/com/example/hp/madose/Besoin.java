@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Parcelable;
 import android.support.annotation.DrawableRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -69,12 +70,15 @@ public class Besoin extends AppCompatActivity {
         radioGroup = (RadioGroup) findViewById(R.id.groupeRadio);
         final Button enregistrer = (Button) findViewById(R.id.enregistre);
         final ImageView imageView= findViewById(R.id.imageView3);
-        final RadioButton radioButton= findViewById(R.id.radioNonAm);
-        final RadioButton radioButton1= findViewById(R.id.radioAm);
+        final RadioButton radioNonAm= findViewById(R.id.radioNonAm);
+        final RadioButton radioAm= findViewById(R.id.radioAm);
         int result = radioGroup.getCheckedRadioButtonId();
         radio = (RadioButton) findViewById(result);
         mDatabase= FirebaseDatabase.getInstance().getReference();
 
+        radioNonAm.isChecked();
+        edi1.setVisibility(View.VISIBLE);
+        edi1.setEnabled(true);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,24 +93,71 @@ public class Besoin extends AppCompatActivity {
 
 
 
-
+        Intent intent=getIntent();
+        if (intent != null)
+        {
+            editLib.setText(intent.getStringExtra("libCat"));
+            edi1.setText(intent.getStringExtra("seuil"));
+            edi2.setText(intent.getStringExtra("peremption"));
+            edi3.setText(intent.getStringExtra("stock"));
+            radioNonAm.setChecked(intent.getBooleanExtra("betat1",radioNonAm.isChecked()));
+            radioAm.setChecked(intent.getBooleanExtra("betat2",radioAm.isChecked()));
+            edi1.setVisibility(intent.getIntExtra("betat3",edi1.getVisibility()));
+            edi2.setVisibility(intent.getIntExtra("betat4",edi2.getVisibility()));
+            auto.setText(intent.getStringExtra("categorie"));
+            if (MyApplication.id>0) {
+                imageView.setImageResource(MyApplication.id);
+            }
+        }
         auto.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus){
+                    if (radioNonAm.isChecked())
+                    {
+                        Intent intent=new Intent(Besoin.this,Listecategorie.class);
+                        intent.putExtra("blibe",editLib.getText().toString());
+                        intent.putExtra("bseuil",edi1.getText().toString());
+                        intent.putExtra("bperemp",edi2.getText().toString());
+                        intent.putExtra("bstock",edi3.getText().toString());
+                        intent.putExtra("code","nonAm");
+                        intent.putExtra("etat1",true);
+                        intent.putExtra("etat2",false);
+                        intent.putExtra("etat3",View.VISIBLE);
+                        intent.putExtra("etat4",View.INVISIBLE);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else if (radioAm.isChecked())
+                    {
+                        Intent intent=new Intent(Besoin.this,Listecategorie.class);
+                        intent.putExtra("blibe",editLib.getText().toString());
+                        intent.putExtra("bseuil",edi1.getText().toString());
+                        intent.putExtra("bperemp",edi2.getText().toString());
+                        intent.putExtra("bstock",edi3.getText().toString());
+                        intent.putExtra("code","Am");
+                        intent.putExtra("etat1",false);
+                        intent.putExtra("etat2",true);
+                        intent.putExtra("etat3",View.INVISIBLE);
+                        intent.putExtra("etat4",View.VISIBLE);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else {
                     Intent intent=new Intent(Besoin.this,Listecategorie.class);
-                    intent.putExtra("categorie",editLib.getText().toString());
+                    intent.putExtra("code","none");
+                    intent.putExtra("blibe",editLib.getText().toString());
+                    intent.putExtra("bseuil",edi1.getText().toString());
+                    intent.putExtra("bperemp",edi2.getText().toString());
+                    intent.putExtra("bstock",edi3.getText().toString());
                     startActivity(intent);
+                    finish();
+                    }
                 }
             }
         });
 
-        Intent intent=getIntent();
-        if (intent != null)
-        {
-            editLib.setText(intent.getStringExtra("bring"));
-            auto.setText(intent.getStringExtra("employe"));
-        }
+
 
         final Calendar calendar;
         calendar=Calendar.getInstance();
@@ -127,7 +178,7 @@ public class Besoin extends AppCompatActivity {
                 editLib.setText("");
                 auto.setText("");
                 startActivity(intent);
-
+                finish();
             }
         });
 
@@ -231,8 +282,8 @@ public class Besoin extends AppCompatActivity {
                     auto.setText("");
                     Intent intent = new Intent(Besoin.this, Affichage.class);
                     intent.putExtra("passage", "besoin");
-
                     startActivity(intent);
+                    finish();
                 }
 
             }
@@ -247,7 +298,7 @@ public class Besoin extends AppCompatActivity {
                 editLib.setText("");
                 auto.setText("");
                 startActivity(intent);
-
+                finish();
             }
         });
 
