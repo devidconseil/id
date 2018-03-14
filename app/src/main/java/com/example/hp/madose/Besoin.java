@@ -9,6 +9,7 @@ import android.os.Parcelable;
 import android.support.annotation.DrawableRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -76,9 +77,9 @@ public class Besoin extends AppCompatActivity {
         radio = (RadioButton) findViewById(result);
         mDatabase= FirebaseDatabase.getInstance().getReference();
 
-        radioNonAm.isChecked();
+       /* radioNonAm.isChecked();
         edi1.setVisibility(View.VISIBLE);
-        edi1.setEnabled(true);
+        edi1.setEnabled(true);*/
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -237,7 +238,9 @@ public class Besoin extends AppCompatActivity {
 
                     int var;
                     String var1;
-                    int var3 = Integer.parseInt(bd.selectCat(auto.getText().toString()));
+
+                   int var3 = Integer.parseInt(bd.selectCat(auto.getText().toString()));
+
 
                     String amort1, amort2, amort3;
                     if (edi2.getText().toString().matches(".*/.*/.*")) {
