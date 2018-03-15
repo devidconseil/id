@@ -33,17 +33,17 @@ DatabaseReference mDatabase;
                 if (fnom.getText().toString().equals(""))
                 {
                     fnom.requestFocus();
-                    Toast.makeText(getApplicationContext(),"Veuillez saisir le nom du fournisseur SVP!!", Toast.LENGTH_LONG).show();
+                    fnom.setError("Veuillez saisir le nom du fournisseur SVP!!");
                 }
                 else if (fadr.getText().toString().equals(""))
                 {
                     fadr.requestFocus();
-                    Toast.makeText(getApplicationContext(),"Veuillez saisir l'adresse du fournisseur SVP!!", Toast.LENGTH_LONG).show();
+                    fadr.setError("Veuillez saisir l'adresse du fournisseur SVP!!");
                 }
                 else if (fcont.getText().toString().equals(""))
                 {
                     fcont.requestFocus();
-                    Toast.makeText(getApplicationContext(),"Veuillez saisir le contact du fournisseur SVP!!", Toast.LENGTH_LONG).show();
+                    fcont.setError("Veuillez saisir le contact du fournisseur SVP!!");
                 }
                 else {
                     int x = Integer.parseInt(fcont.getText().toString());
@@ -58,6 +58,7 @@ DatabaseReference mDatabase;
                     fadr.setText("");
                     fcont.setText("");
                     startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -70,6 +71,7 @@ DatabaseReference mDatabase;
                 fadr.setText("");
                 fcont.setText("");
                 startActivity(intent);
+                finish();
             }
         });
 

@@ -58,7 +58,7 @@ public class Utilisateur extends AppCompatActivity {
             public void onFocusChange(View v, boolean hasFocus) {
 
                 Intent intent=new Intent(Utilisateur.this,Listedepartement.class);
-                intent.putExtra("bringO","utilisateur");
+                intent.putExtra("code","utilisateur");
                 intent.putExtra("employer",codeT.getText().toString());
                 intent.putExtra("bringO","utilisateur");
                 intent.putExtra("employerr",codeP.getText().toString());
@@ -133,6 +133,7 @@ public class Utilisateur extends AppCompatActivity {
                     prenE.setText("");
                     telE.setText("");
                     startActivity(intent);
+                    finish();
                }
             }
         });

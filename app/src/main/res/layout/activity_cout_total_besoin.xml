@@ -15,22 +15,24 @@
         android:id="@+id/autoRecherche"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#fff"
         android:layout_alignParentLeft="true"
-        android:textColorHint="#d2d2d2"
         android:layout_alignParentStart="true"
-        android:layout_above="@id/recherch"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/round_corner"
         android:hint="Saisir le nom du besoin" />
 
     <Button
-        android:text="Recherche"
+        android:id="@+id/recherch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#fff"
-        android:id="@+id/recherch"
-        android:backgroundTint="#41AEFF"
-        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/autoRecherche"
+        android:layout_marginTop="17dp"
+        android:backgroundTint="#858687"
+        android:drawableRight="@drawable/ic_search_dp"
+        android:text="Recherche"
+        android:textColor="@android:color/background_light" />
 
 </RelativeLayout>

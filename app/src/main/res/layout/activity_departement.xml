@@ -11,29 +11,18 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.hp.madose.Departement">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/textInputLayout2"
+
+    <EditText
+        android:id="@+id/libdep"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:backgroundTint="#000"
-        android:textColorHint="#fff">
-
-        <EditText
-            android:id="@+id/libdep"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:backgroundTint="#000"
-            android:ems="10"
-            android:hint="Nom du departement"
-            android:inputType="textPersonName"
-            android:textColorHighlight="#fff"
-            android:textColorHint="#fff"
-            android:textColorLink="#fff" />
-    </android.support.design.widget.TextInputLayout>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/round_corner"
+        android:hint="Nom du departement"
+        android:inputType="textPersonName" />
 
 
     <Button
@@ -42,10 +31,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="270dp"
-        android:backgroundTint="#41AEFF"
-        android:text="Valider"
-        android:textColor="#fff" />
+        android:layout_below="@+id/libdep"
+        android:layout_marginTop="18dp"
+        android:backgroundTint="#858687"
+        android:drawableRight="@drawable/ic_save_black_24dp"
+        android:text="Enregistrer"
+        android:textColor="@color/cardview_light_background" />
 
     <Button
         android:id="@+id/annulerDep"
@@ -54,7 +45,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/validez"
-        android:backgroundTint="#ff6666"
-        android:text="Annuler"
-        android:textColor="#fff" />
+        android:backgroundTint="#858687"
+        android:drawableRight="@drawable/ic_clear_black_24dp"
+        android:text="Quitter"
+        android:textColor="@android:color/background_light" />
 </RelativeLayout>

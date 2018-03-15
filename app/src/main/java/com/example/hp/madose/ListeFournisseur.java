@@ -37,7 +37,7 @@ public class ListeFournisseur extends AppCompatActivity {
         affiche.setAdapter(listeFour);
         Intent intent = getIntent();
         final String var0 = intent.getStringExtra("addDate");
-        final String var1 = intent.getStringExtra("addBesoion");
+        final String var1 = intent.getStringExtra("addBesoin");
         final String var2 = intent.getStringExtra("addPrixU");
         final String var3 = intent.getStringExtra("addQt");
         final String var4 = intent.getStringExtra("addMark");

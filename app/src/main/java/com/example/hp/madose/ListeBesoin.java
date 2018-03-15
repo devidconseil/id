@@ -38,7 +38,7 @@ public class ListeBesoin extends AppCompatActivity {
         affiche.setAdapter(listeBes);
 
         Intent intent = getIntent();
-        if (intent.getStringExtra("codeO").equals("besoinEmploye"))
+        if (intent.getStringExtra("code").equals("besoinEmploye"))
         {
             final String varDate = intent.getStringExtra("bringDate");
             final String var1 = intent.getStringExtra("bringDemande");
@@ -84,7 +84,7 @@ public class ListeBesoin extends AppCompatActivity {
                 }
             });
         }
-        else if (intent.getStringExtra("codeO").equals("besoinDepartement")){
+        else if (intent.getStringExtra("code").equals("besoinDepartement")){
             final String varDate = intent.getStringExtra("bringDate");
             final String var1 = intent.getStringExtra("bringDemande");
             final String var2 = intent.getStringExtra("bringDepartement");
@@ -132,7 +132,7 @@ public class ListeBesoin extends AppCompatActivity {
                 }
             });
         }
-        else if (intent.getStringExtra("codeO").equals("add")){
+        else if (intent.getStringExtra("code").equals("add")){
             final String varDate = intent.getStringExtra("addDate");
             final String var1 = intent.getStringExtra("addFourni");
             final String var2 = intent.getStringExtra("addPrixU");
@@ -169,8 +169,77 @@ public class ListeBesoin extends AppCompatActivity {
                 }
             });
         }
-    }
+        else if (intent.getStringExtra("code").equals("besoinDepartementD")){
+            final String varDate = getIntent().getStringExtra("demDate");
+            final String var1 = getIntent().getStringExtra("demDepartement");
+            final String var2 = getIntent().getStringExtra("demQuantité");
+            final Boolean var7 = getIntent().getBooleanExtra("bringRadDep", true);
+            final Boolean var8 = getIntent().getBooleanExtra("bringRadEmp", false);
+            final int var9 = getIntent().getIntExtra("bringEmpVis", View.INVISIBLE);
+            final int var10 = getIntent().getIntExtra("bringDepVis", View.VISIBLE);
 
+
+            affiche.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    String depart = String.valueOf(parent.getItemIdAtPosition(position));
+                    int varr = Integer.parseInt(depart);
+
+
+                    Intent intent = new Intent(ListeBesoin.this, Demande.class);
+                    String variable = liste.get(position);
+                    // intent.putExtra("code","utilisateur");
+                    intent.putExtra("demB", variable);
+                    intent.putExtra("demD", varDate);
+                    intent.putExtra("demDe", var1);
+                    intent.putExtra("demQ", var2);
+                    intent.putExtra("etat1", var7);
+                    intent.putExtra("etat2", var8);
+                    intent.putExtra("etat3", var9);
+                    intent.putExtra("etat4", var10);
+                    intent.putExtra("code", "listeDD");
+                    startActivity(intent);
+                    finish();
+                }
+            });
+        }
+        else if (intent.getStringExtra("code").equals("besoinEmployeD")){
+            final String varDate = getIntent().getStringExtra("demDate");
+            final String var1 = getIntent().getStringExtra("demEmp");
+            final String var2 = getIntent().getStringExtra("demQuantité");
+            final Boolean var7 = getIntent().getBooleanExtra("bringRadDep", false);
+            final Boolean var8 = getIntent().getBooleanExtra("bringRadEmp", true);
+            final int var9 = getIntent().getIntExtra("bringEmpVis", View.VISIBLE);
+            final int var10 = getIntent().getIntExtra("bringDepVis", View.INVISIBLE);
+
+
+            affiche.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    String depart = String.valueOf(parent.getItemIdAtPosition(position));
+                    int varr = Integer.parseInt(depart);
+
+
+                    Intent intent = new Intent(ListeBesoin.this, Demande.class);
+                    String variable = liste.get(position);
+                    // intent.putExtra("code","utilisateur");
+                    intent.putExtra("demB", variable);
+                    intent.putExtra("demD", varDate);
+                    intent.putExtra("demE", var1);
+                    intent.putExtra("demQ", var2);
+                    intent.putExtra("etat1", var7);
+                    intent.putExtra("etat2", var8);
+                    intent.putExtra("etat3", var9);
+                    intent.putExtra("etat4", var10);
+                    intent.putExtra("code", "listeDD");
+                    startActivity(intent);
+                    finish();
+                }
+            });
+        }
+
+
+    }
 
     class ListeBes extends BaseAdapter
     {

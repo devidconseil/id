@@ -49,18 +49,7 @@ public class Authentification extends AppCompatActivity {
         motpass=(EditText)findViewById(R.id.pass);
 
 
-
-
-
-
         Button connect= findViewById(R.id.connexion);
-        if (MyApplication.getmAuth().getCurrentUser() == null){
-            MyApplication.getmAuth().signInWithEmailAndPassword("test@idconsulting.ie","password");
-
-
-
-        }
-        MyApplication.getmAuth().signOut();
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
