@@ -45,6 +45,7 @@ public class Utilisateur extends AppCompatActivity {
         final BaseDeDonne bd=new BaseDeDonne(this);
 
         mDatabase= FirebaseDatabase.getInstance().getReference();
+        FirebaseDatabase.getInstance().getReference("users").keepSynced(true);
         mAuth = FirebaseAuth.getInstance();
 
         //fonction autotexcomplet

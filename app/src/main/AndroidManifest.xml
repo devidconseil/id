@@ -117,6 +117,7 @@
         <activity android:name=".ListeFournisseur" />
         <activity android:name=".ListeBesoin" />
         <activity android:name=".ListeDate"></activity>
+        <activity android:name=".MyApplication"></activity>
     </application>
 
 </manifest>

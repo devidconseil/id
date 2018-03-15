@@ -53,6 +53,7 @@
         android:imeOptions="actionNext"
         android:inputType="textPassword"
         android:maxLines="1"
+        android:password="true"
         android:singleLine="true" />
 
 

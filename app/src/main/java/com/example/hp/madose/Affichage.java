@@ -579,8 +579,9 @@ public class Affichage extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.deconnexion:
                mAuth.signOut();
-                startActivity(new Intent(this, Authentification.class));
                 finish();
+                startActivity(new Intent(this, Authentification.class));
+
                 return true;
 
             default:

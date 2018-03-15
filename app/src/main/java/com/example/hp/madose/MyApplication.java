@@ -3,6 +3,8 @@ package com.example.hp.madose;
 import android.app.Application;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 /**
@@ -24,6 +26,8 @@ public class MyApplication extends Application {
     public static int id;
     public static boolean textView;
     public static String employe;
+    public static FirebaseAuth mAuth=FirebaseAuth.getInstance();
+    public static DatabaseReference mDatabase=FirebaseDatabase.getInstance().getReference();
 
     public static String getCategorie() {
         return categorie;
@@ -104,10 +108,29 @@ public class MyApplication extends Application {
     public static void setGlobalVarValue(String globalVarValue) {
         mGlobalVarValue = globalVarValue;
     }
+
+    public static FirebaseAuth getmAuth() {
+        return mAuth;
+    }
+
+    public static void setmAuth(FirebaseAuth mAuth) {
+        MyApplication.mAuth = mAuth;
+    }
+
+    public static DatabaseReference getmDatabase() {
+        return mDatabase;
+    }
+
+    public static void setmDatabase(DatabaseReference mDatabase) {
+        MyApplication.mDatabase = mDatabase;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+       DatabaseReference userRef= FirebaseDatabase.getInstance().getReference("users");
+       userRef.keepSynced(true);
     }
 
 }

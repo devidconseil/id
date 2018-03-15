@@ -27,8 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Authentification extends AppCompatActivity {
 
-    FirebaseAuth mAuth;
-    DatabaseReference mDatabase;
+
     final String TAG="alerte";
     ProgressBar progressBar;
     EditText identifiant;
@@ -48,8 +47,7 @@ public class Authentification extends AppCompatActivity {
         bd=new BaseDeDonne(this);
         identifiant= findViewById(R.id.iden);
         motpass=(EditText)findViewById(R.id.pass);
-        mDatabase= FirebaseDatabase.getInstance().getReference();
-        mAuth = FirebaseAuth.getInstance();
+
 
         Button connect= findViewById(R.id.connexion);
         connect.setOnClickListener(new View.OnClickListener() {
@@ -80,10 +78,9 @@ public class Authentification extends AppCompatActivity {
     public void onStart(){
         super.onStart();
 
+        FirebaseUser currentUser = MyApplication.mAuth.getCurrentUser();
 
 
-bd.insertEmp("TEST","test","test@idconsulting.ie","01020304",2,"USER");
-        FirebaseUser currentUser = mAuth.getCurrentUser();
         if(!bd.checkIfTableHasData("Besoins_Sortie") && !bd.checkIfTableHasData("Categorie") && !bd.checkIfTableHasData("Demande") && !bd.checkIfTableHasData("Demande_Besoins") && !bd.checkIfTableHasData("Departement") && !bd.checkIfTableHasData("Utilisateur") && !bd.checkIfTableHasData("Besoin") && !bd.checkIfTableHasData("Besoins_Entree") && !bd.checkIfTableHasData("Entree") && !bd.checkIfTableHasData("Fournisseur") && !bd.checkIfTableHasData("Sortie"))
         {
             bd.insertCat("MATERIEL DE BUREAU");
@@ -138,35 +135,19 @@ bd.insertEmp("TEST","test","test@idconsulting.ie","01020304",2,"USER");
             bd.insertDemandeBesoin(1, 6, 1);
             MyApplication.setFetch(false);
         }
-        if (currentUser !=null){
-            mDatabase.child("users").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (DataSnapshot dataSnapshotUser:dataSnapshot.getChildren()){
-                        UtilisateurC user=dataSnapshotUser.getValue(UtilisateurC.class);
-                        Toast.makeText(getApplicationContext(),user.getMailEmp(),Toast.LENGTH_SHORT);
-                        if (!bd.checkIfUserExist(user)){
-                            int s=Integer.parseInt(bd.selectDep(user.getLibDep()));
-                            bd.insertEmp(user.getNomEmp(),user.getPrenEmp(),user.getMailEmp(),user.getTelEmp(),s,user.getProEmp());
-
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
-
-            onAuthSuccess(mAuth.getCurrentUser());
+        if (MyApplication.getmAuth().getCurrentUser() !=null && ! MyApplication.getmAuth().getCurrentUser().getEmail().toString().equals("test@idconsulting.ie")){
+            onAuthSuccess(MyApplication.getmAuth().getCurrentUser());
+            Log.i("UNO",MyApplication.getmAuth().getCurrentUser().getEmail());
         } else {
-            mAuth.signInWithEmailAndPassword("test@idconsulting.ie","password").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+            MyApplication.getmAuth().signInWithEmailAndPassword("test@idconsulting.ie","password").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
+
                     if (task.isSuccessful()){
-                        mDatabase.child("Categorie").addValueEventListener(new ValueEventListener() {
+
+                        MyApplication.getmDatabase().child("Categorie").addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for (DataSnapshot dataSnapshotCat:dataSnapshot.getChildren()){
@@ -182,7 +163,7 @@ bd.insertEmp("TEST","test","test@idconsulting.ie","01020304",2,"USER");
 
                             }
                         });
-                        mDatabase.child("Fournisseur").addValueEventListener(new ValueEventListener() {
+                        MyApplication.getmDatabase().child("Fournisseur").addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for (DataSnapshot dataSnapshotFour:dataSnapshot.getChildren()){
@@ -198,7 +179,7 @@ bd.insertEmp("TEST","test","test@idconsulting.ie","01020304",2,"USER");
 
                             }
                         });
-                        mDatabase.child("Departement").addValueEventListener(new ValueEventListener() {
+                        MyApplication.getmDatabase().child("Departement").addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for (DataSnapshot dataSnapshotDepart:dataSnapshot.getChildren()){
@@ -214,12 +195,13 @@ bd.insertEmp("TEST","test","test@idconsulting.ie","01020304",2,"USER");
 
                             }
                         });
-                        mDatabase.child("Besoin").addValueEventListener(new ValueEventListener() {
+                        MyApplication.getmDatabase().child("Besoin").addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for (DataSnapshot dataSnapshotBes:dataSnapshot.getChildren()){
                                     BesoinC cat= dataSnapshotBes.getValue(BesoinC.class);
                                     if (!bd.checkIfBesoinExist(cat.getLibBes())){
+                                        Log.i("TESTONS",cat.getLibCat());
                                         int ss=Integer.parseInt(bd.selectCat(cat.getLibCat()));
                                         bd.insertBesoin(cat.getLibBes(),cat.getTypeBes(),ss,cat.getSeuilBes(),cat.getAmorBes(),cat.getStockBes(),cat.getImageBes());
                                     }
@@ -231,7 +213,7 @@ bd.insertEmp("TEST","test","test@idconsulting.ie","01020304",2,"USER");
 
                             }
                         });
-                        mDatabase.child("users").addValueEventListener(new ValueEventListener() {
+                        MyApplication.getmDatabase().child("users").addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for (DataSnapshot dataSnapshotUser:dataSnapshot.getChildren()){
@@ -255,22 +237,27 @@ bd.insertEmp("TEST","test","test@idconsulting.ie","01020304",2,"USER");
                         Log.w(TAG, "signInWithEmail:failure", task.getException());
                     }
                 }
+
             });
-            mAuth.signOut();
-        }
+
+
+FirebaseAuth.getInstance().signOut();
+
+     }
     }
 
     private void onAuthSuccess(FirebaseUser user){
         String username = usernameFromEmail(user.getEmail());
        //  writeNewUser(user.getUid(), username, user.getEmail());
-        startActivity(new Intent(Authentification.this, Acceuil.class));
-        finish();
+      //  finish();
+       startActivity(new Intent(Authentification.this, Acceuil.class));
+
 
     }
 
     private void writeNewUser(String userId, String name, String email) {
         User user = new User(name, email);
-        mDatabase.child("users").child(userId).setValue(user);
+        MyApplication.getmDatabase().child("users").child(userId).setValue(user);
 
 
     }
@@ -292,12 +279,12 @@ bd.insertEmp("TEST","test","test@idconsulting.ie","01020304",2,"USER");
     }
 
     public void signIn(String email, final String password){
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+       MyApplication.getmAuth().signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     // Sign in success, update UI with the signed-in user's information
-                    FirebaseUser user = mAuth.getCurrentUser();
+                    FirebaseUser user = MyApplication.getmAuth().getCurrentUser();
                     //updateUI(user);
                     Intent intent = new Intent(Authentification.this, Acceuil.class);
                     Log.d(TAG, "signInWithEmail:success");
@@ -307,7 +294,7 @@ bd.insertEmp("TEST","test","test@idconsulting.ie","01020304",2,"USER");
                 } else {
                     if (bd.checkMailExist(identifiant.getText().toString())) {
 
-                        mAuth.createUserWithEmailAndPassword(identifiant.getText().toString(), motpass.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        MyApplication.getmAuth().createUserWithEmailAndPassword(identifiant.getText().toString(), motpass.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
@@ -363,11 +350,11 @@ bd.insertEmp("TEST","test","test@idconsulting.ie","01020304",2,"USER");
         }
 
         BesoinC cat=new BesoinC(libBes,typBes,libCat,seuilBes,amorBes,stockBes,imageBes);
-        mDatabase.child("Besoin").child(code).setValue(cat);
+        MyApplication.getmDatabase().child("Besoin").child(code).setValue(cat);
     }
     private void writeNewUser(String userId, String name, String surname, String email, String tel, String department, String profile) {
         UtilisateurC user = new UtilisateurC(name, surname, email, tel, department, profile);
-        mDatabase.child("users").child(userId).setValue(user);
+        MyApplication.getmDatabase().child("users").child(userId).setValue(user);
 
     }
     public void writeNewFournisseur(String nomFour,String adrFour,String telFour){
@@ -380,7 +367,7 @@ bd.insertEmp("TEST","test","test@idconsulting.ie","01020304",2,"USER");
         }
 
         FournisseurC cat=new FournisseurC(nomFour,adrFour,telFour);
-        mDatabase.child("Fournisseur").child(code).setValue(cat);
+        MyApplication.getmDatabase().child("Fournisseur").child(code).setValue(cat);
     }
 
 }
