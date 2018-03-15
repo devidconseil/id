@@ -357,13 +357,16 @@ public class Add extends AppCompatActivity {
 
 
                     int dernierEnregistrem = Integer.parseInt(dd.selectIdEnt());
-                    String a, b, c,d;
-                    a = date.getText().toString().substring(0, 2);
-                    b = date.getText().toString().substring(3, 5);
-                    c = date.getText().toString().substring(6, 10);
-                    d=c + "-" + b + "-" + a;
+                    if (fait==true) {
+                        String a, b, c, d;
+                        a = date.getText().toString().substring(0, 2);
+                        b = date.getText().toString().substring(3, 5);
+                        c = date.getText().toString().substring(6, 10);
+                        date.setText(c + "-" + b + "-" + a);
+                    }
+
                     dd.insertEntrBes(var1, dernierEnregistrem, prix, quantite, mark.getText().toString(), autre.getText().toString());
-                    writeNewAdd(besoin.getText().toString(),d, prix, quantite, mark.getText().toString(), autre.getText().toString());
+                    writeNewAdd(besoin.getText().toString(),date.getText().toString(), prix, quantite, mark.getText().toString(), autre.getText().toString());
 
                     //update debut
                     int var2 = Integer.parseInt(dd.selectStockBes(besoin.getText().toString()));
@@ -381,7 +384,7 @@ public class Add extends AppCompatActivity {
             }
         });
         Button quitter=(Button)findViewById(R.id.quitter);
-        quitter.requestFocus();
+    //    quitter.requestFocus();
         quitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
