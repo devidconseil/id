@@ -34,7 +34,6 @@ public class CategorieC {
         return libCat;
     }
 
-
     public CategorieC(int idCat, String libCat) {
         this.idCat = idCat;
         this.libCat = libCat;
