@@ -30,6 +30,9 @@ public class CategorieC {
     public String toString() {
         return "Categorie " +idCat +" "+ libCat;
     }
+    public String nomcat() {
+        return libCat;
+    }
 
     public CategorieC(int idCat, String libCat) {
         this.idCat = idCat;
