@@ -86,7 +86,6 @@ public class Besoin extends AppCompatActivity {
             edi2.setText(intent.getStringExtra("peremption"));
             edi3.setText(intent.getStringExtra("stock"));
             auto.setText(intent.getStringExtra("categorie"));
-            MyApplication.setCategorie(intent.getStringExtra("categorie"));
             radioNonAm.setChecked(intent.getBooleanExtra("betat1",radioNonAm.isChecked()));
             radioAm.setChecked(intent.getBooleanExtra("betat2",radioAm.isChecked()));
             edi1.setVisibility(intent.getIntExtra("betat3",edi1.getVisibility()));

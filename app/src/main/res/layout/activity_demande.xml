@@ -10,7 +10,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="0dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -22,7 +23,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/round_corner"
-                android:layout_marginTop="40dp"
                 android:drawableRight="@drawable/ic_date_black_24"
                 android:ems="10"
                 android:hint="Date "

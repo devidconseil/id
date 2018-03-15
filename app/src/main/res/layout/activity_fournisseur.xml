@@ -45,7 +45,7 @@
         android:background="@drawable/round_corner"
         android:drawableRight="@drawable/ic_phone_black_24dp"
         android:hint="@string/contact"
-        android:inputType="number" />
+        android:inputType="phone" />
 
     <Button
         android:id="@+id/valF"
