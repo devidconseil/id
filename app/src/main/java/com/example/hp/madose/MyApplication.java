@@ -22,11 +22,20 @@ public class MyApplication extends Application {
     public static boolean fetch=true;
     public static boolean verif=false;
     public static String verif1;
+    public static String categorie;
     public static int id;
     public static boolean textView;
     public static String employe;
     public static FirebaseAuth mAuth=FirebaseAuth.getInstance();
     public static DatabaseReference mDatabase=FirebaseDatabase.getInstance().getReference();
+
+    public static String getCategorie() {
+        return categorie;
+    }
+
+    public static void setCategorie(String categorie) {
+        MyApplication.categorie = categorie;
+    }
 
     public static boolean isFetch() {
         return fetch;
