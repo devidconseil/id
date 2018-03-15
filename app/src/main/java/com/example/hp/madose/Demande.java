@@ -140,7 +140,7 @@ public class Demande extends AppCompatActivity {
         });
 
         //AutoTextComplete
-        ArrayList<String> nd=bd.affiNE();
+        /*ArrayList<String> nd=bd.affiNE();
         ArrayAdapter<String> dep=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,nd);
         employe.setAdapter(dep);
 
@@ -150,7 +150,7 @@ public class Demande extends AppCompatActivity {
 
         ArrayList<String> nb=bd.affiNB();
         ArrayAdapter<String>nombes=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,nb);
-        bes.setAdapter(nombes);
+        bes.setAdapter(nombes);*/
         //FIN
 
 
@@ -314,14 +314,15 @@ public class Demande extends AppCompatActivity {
                     int var3 = Integer.parseInt(bd.selectIdBes(bes.getText().toString()));
                     int var4 = Integer.parseInt(quant.getText().toString());
                     if (!fait) {
-                        if (employe.isEnabled()) {
+                        if (employe.getVisibility()==View.VISIBLE) {
+                            //Toast.makeText(getBaseContext(),employe.getText().toString()+"coucou",Toast.LENGTH_LONG).show();
                             var1 = Integer.parseInt(bd.selectEmpId(employe.getText().toString()));
                             String departe = bd.DepartEmp(var1);
                             var2 = Integer.parseInt(bd.selectDep(departe));
                             bd.insertDemande(date.getText().toString(), var1, var2);
                         }
 
-                        if (depart.isEnabled()) {
+                        if (depart.getVisibility()==View.VISIBLE) {
                             String recup = bd.selectDep(depart.getText().toString());
                             bd.insertDemande1(date.getText().toString(), Integer.parseInt(recup));
                         }

@@ -59,9 +59,9 @@ public class Besoin extends AppCompatActivity {
         //autocomplète
         bd = new BaseDeDonne(this);
         final AutoCompleteTextView auto = (AutoCompleteTextView) findViewById(R.id.autoComplCat);
-        ArrayList<String> nc = bd.affiCC();
+        /*ArrayList<String> nc = bd.affiCC();
         ArrayAdapter<String> nomCat = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nc);
-        auto.setAdapter(nomCat);
+        auto.setAdapter(nomCat);*/
         //autocomplète
 
         final EditText editLib = (EditText) findViewById(R.id.libelle);
@@ -77,6 +77,24 @@ public class Besoin extends AppCompatActivity {
         radio = (RadioButton) findViewById(result);
         mDatabase= FirebaseDatabase.getInstance().getReference();
 
+
+        Intent intent=getIntent();
+        if (intent != null)
+        {
+            editLib.setText(intent.getStringExtra("libCat"));
+            edi1.setText(intent.getStringExtra("seuil"));
+            edi2.setText(intent.getStringExtra("peremption"));
+            edi3.setText(intent.getStringExtra("stock"));
+            auto.setText(intent.getStringExtra("categorie"));
+            MyApplication.setCategorie(intent.getStringExtra("categorie"));
+            radioNonAm.setChecked(intent.getBooleanExtra("betat1",radioNonAm.isChecked()));
+            radioAm.setChecked(intent.getBooleanExtra("betat2",radioAm.isChecked()));
+            edi1.setVisibility(intent.getIntExtra("betat3",edi1.getVisibility()));
+            edi2.setVisibility(intent.getIntExtra("betat4",edi2.getVisibility()));
+            if (MyApplication.id>0) {
+                imageView.setImageResource(MyApplication.id);
+            }
+        }
        /* radioNonAm.isChecked();
         edi1.setVisibility(View.VISIBLE);
         edi1.setEnabled(true);*/
@@ -92,25 +110,7 @@ public class Besoin extends AppCompatActivity {
 
 
 
-
-
-        Intent intent=getIntent();
-        if (intent != null)
-        {
-            editLib.setText(intent.getStringExtra("libCat"));
-            edi1.setText(intent.getStringExtra("seuil"));
-            edi2.setText(intent.getStringExtra("peremption"));
-            edi3.setText(intent.getStringExtra("stock"));
-            radioNonAm.setChecked(intent.getBooleanExtra("betat1",radioNonAm.isChecked()));
-            radioAm.setChecked(intent.getBooleanExtra("betat2",radioAm.isChecked()));
-            edi1.setVisibility(intent.getIntExtra("betat3",edi1.getVisibility()));
-            edi2.setVisibility(intent.getIntExtra("betat4",edi2.getVisibility()));
-            auto.setText(intent.getStringExtra("categorie"));
-            if (MyApplication.id>0) {
-                imageView.setImageResource(MyApplication.id);
-            }
-        }
-        auto.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+     /*   auto.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus){
@@ -156,8 +156,53 @@ public class Besoin extends AppCompatActivity {
                     }
                 }
             }
-        });
+        });*/
+     auto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (radioNonAm.isChecked())
+                {
+                    Intent intent=new Intent(Besoin.this,Listecategorie.class);
+                    intent.putExtra("blibe",editLib.getText().toString());
+                    intent.putExtra("bseuil",edi1.getText().toString());
+                    intent.putExtra("bperemp",edi2.getText().toString());
+                    intent.putExtra("bstock",edi3.getText().toString());
+                    intent.putExtra("code","nonAm");
+                    intent.putExtra("etat1",true);
+                    intent.putExtra("etat2",false);
+                    intent.putExtra("etat3",View.VISIBLE);
+                    intent.putExtra("etat4",View.INVISIBLE);
+                    startActivity(intent);
 
+                }
+                else if (radioAm.isChecked())
+                {
+                    Intent intent=new Intent(Besoin.this,Listecategorie.class);
+                    intent.putExtra("blibe",editLib.getText().toString());
+                    intent.putExtra("bseuil",edi1.getText().toString());
+                    intent.putExtra("bperemp",edi2.getText().toString());
+                    intent.putExtra("bstock",edi3.getText().toString());
+                    intent.putExtra("code","Am");
+                    intent.putExtra("etat1",false);
+                    intent.putExtra("etat2",true);
+                    intent.putExtra("etat3",View.INVISIBLE);
+                    intent.putExtra("etat4",View.VISIBLE);
+                    startActivity(intent);
+
+                }
+                else {
+                    Intent intent=new Intent(Besoin.this,Listecategorie.class);
+                    intent.putExtra("code","none");
+                    intent.putExtra("blibe",editLib.getText().toString());
+                    intent.putExtra("bseuil",edi1.getText().toString());
+                    intent.putExtra("bperemp",edi2.getText().toString());
+                    intent.putExtra("bstock",edi3.getText().toString());
+                    startActivity(intent);
+
+                }
+
+            }
+        });
 
 
         final Calendar calendar;
@@ -238,9 +283,7 @@ public class Besoin extends AppCompatActivity {
 
                     int var;
                     String var1;
-
-                   int var3 = Integer.parseInt(bd.selectCat(auto.getText().toString()));
-
+                    int var3 = Integer.parseInt(bd.selectCat(auto.getText().toString()));
 
                     String amort1, amort2, amort3;
                     if (edi2.getText().toString().matches(".*/.*/.*")) {
@@ -279,10 +322,7 @@ public class Besoin extends AppCompatActivity {
                 }
 
 
-                    edi1.setText("");
-                    edi2.setText("");
-                    editLib.setText("");
-                    auto.setText("");
+
                     Intent intent = new Intent(Besoin.this, Affichage.class);
                     intent.putExtra("passage", "besoin");
                     startActivity(intent);

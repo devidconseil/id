@@ -30,7 +30,7 @@ public class Listecategorie extends AppCompatActivity {
 
         final List<CategorieC> departem= bd.afficheCat();
         for (CategorieC categorieC : departem){
-            liste.add(categorieC.toString().substring(11));
+            liste.add(categorieC.nomcat());
         }
         ListAdapter departe=new ArrayAdapter<CategorieC>(this, android.R.layout.simple_list_item_1, departem);
         ListView affiche=(ListView)findViewById(R.id.listcategorie);

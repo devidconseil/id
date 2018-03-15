@@ -755,7 +755,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     }*/
     public String selectEmpId(String nomB)
     {
-        String req="select IdEmp from Utilisateur where nomEmp='"+nomB+"';";
+        String req="select IdEmp from Utilisateur where nomEmp || ' ' || prenEmp='"+nomB+"';";
         Cursor cursor = null;
         try {
 
