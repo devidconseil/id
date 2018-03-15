@@ -27,8 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Authentification extends AppCompatActivity {
 
-    FirebaseAuth mAuth;
-    DatabaseReference mDatabase;
+
     final String TAG="alerte";
     ProgressBar progressBar;
     EditText identifiant;
@@ -48,14 +47,20 @@ public class Authentification extends AppCompatActivity {
         bd=new BaseDeDonne(this);
         identifiant= findViewById(R.id.iden);
         motpass=(EditText)findViewById(R.id.pass);
-        mDatabase= FirebaseDatabase.getInstance().getReference();
-        mAuth = FirebaseAuth.getInstance();
+
 
 
 
 
 
         Button connect= findViewById(R.id.connexion);
+        if (MyApplication.getmAuth().getCurrentUser() == null){
+            MyApplication.getmAuth().signInWithEmailAndPassword("test@idconsulting.ie","password");
+
+
+
+        }
+        MyApplication.getmAuth().signOut();
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,7 +89,7 @@ public class Authentification extends AppCompatActivity {
     public void onStart(){
         super.onStart();
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseUser currentUser = MyApplication.mAuth.getCurrentUser();
 
 
         if(!bd.checkIfTableHasData("Besoins_Sortie") && !bd.checkIfTableHasData("Categorie") && !bd.checkIfTableHasData("Demande") && !bd.checkIfTableHasData("Demande_Besoins") && !bd.checkIfTableHasData("Departement") && !bd.checkIfTableHasData("Utilisateur") && !bd.checkIfTableHasData("Besoin") && !bd.checkIfTableHasData("Besoins_Entree") && !bd.checkIfTableHasData("Entree") && !bd.checkIfTableHasData("Fournisseur") && !bd.checkIfTableHasData("Sortie"))
@@ -141,17 +146,19 @@ public class Authentification extends AppCompatActivity {
             bd.insertDemandeBesoin(1, 6, 1);
             MyApplication.setFetch(false);
         }
-        if (currentUser !=null ){
-            onAuthSuccess(mAuth.getCurrentUser());
-            Log.i("UNO",FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        if (MyApplication.getmAuth().getCurrentUser() !=null && ! MyApplication.getmAuth().getCurrentUser().getEmail().toString().equals("test@idconsulting.ie")){
+            onAuthSuccess(MyApplication.getmAuth().getCurrentUser());
+            Log.i("UNO",MyApplication.getmAuth().getCurrentUser().getEmail());
         } else {
-           /*
-            mAuth.signInWithEmailAndPassword("test@idconsulting.ie","password").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+            MyApplication.getmAuth().signInWithEmailAndPassword("test@idconsulting.ie","password").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
+
                     if (task.isSuccessful()){
-                        mDatabase.child("Categorie").addValueEventListener(new ValueEventListener() {
+
+                        MyApplication.getmDatabase().child("Categorie").addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for (DataSnapshot dataSnapshotCat:dataSnapshot.getChildren()){
@@ -167,7 +174,7 @@ public class Authentification extends AppCompatActivity {
 
                             }
                         });
-                        mDatabase.child("Fournisseur").addValueEventListener(new ValueEventListener() {
+                        MyApplication.getmDatabase().child("Fournisseur").addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for (DataSnapshot dataSnapshotFour:dataSnapshot.getChildren()){
@@ -183,7 +190,7 @@ public class Authentification extends AppCompatActivity {
 
                             }
                         });
-                        mDatabase.child("Departement").addValueEventListener(new ValueEventListener() {
+                        MyApplication.getmDatabase().child("Departement").addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for (DataSnapshot dataSnapshotDepart:dataSnapshot.getChildren()){
@@ -199,12 +206,13 @@ public class Authentification extends AppCompatActivity {
 
                             }
                         });
-                        mDatabase.child("Besoin").addValueEventListener(new ValueEventListener() {
+                        MyApplication.getmDatabase().child("Besoin").addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for (DataSnapshot dataSnapshotBes:dataSnapshot.getChildren()){
                                     BesoinC cat= dataSnapshotBes.getValue(BesoinC.class);
                                     if (!bd.checkIfBesoinExist(cat.getLibBes())){
+                                        Log.i("TESTONS",cat.getLibCat());
                                         int ss=Integer.parseInt(bd.selectCat(cat.getLibCat()));
                                         bd.insertBesoin(cat.getLibBes(),cat.getTypeBes(),ss,cat.getSeuilBes(),cat.getAmorBes(),cat.getStockBes(),cat.getImageBes());
                                     }
@@ -216,7 +224,7 @@ public class Authentification extends AppCompatActivity {
 
                             }
                         });
-                        mDatabase.child("users").addValueEventListener(new ValueEventListener() {
+                        MyApplication.getmDatabase().child("users").addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for (DataSnapshot dataSnapshotUser:dataSnapshot.getChildren()){
@@ -243,24 +251,24 @@ public class Authentification extends AppCompatActivity {
 
             });
 
-        FirebaseAuth.getInstance().signOut();
-*/
 
-        }
+FirebaseAuth.getInstance().signOut();
+
+     }
     }
 
     private void onAuthSuccess(FirebaseUser user){
         String username = usernameFromEmail(user.getEmail());
        //  writeNewUser(user.getUid(), username, user.getEmail());
-        finish();
-        startActivity(new Intent(Authentification.this, Acceuil.class));
+      //  finish();
+       startActivity(new Intent(Authentification.this, Acceuil.class));
 
 
     }
 
     private void writeNewUser(String userId, String name, String email) {
         User user = new User(name, email);
-        mDatabase.child("users").child(userId).setValue(user);
+        MyApplication.getmDatabase().child("users").child(userId).setValue(user);
 
 
     }
@@ -282,12 +290,12 @@ public class Authentification extends AppCompatActivity {
     }
 
     public void signIn(String email, final String password){
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+       MyApplication.getmAuth().signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     // Sign in success, update UI with the signed-in user's information
-                    FirebaseUser user = mAuth.getCurrentUser();
+                    FirebaseUser user = MyApplication.getmAuth().getCurrentUser();
                     //updateUI(user);
                     Intent intent = new Intent(Authentification.this, Acceuil.class);
                     Log.d(TAG, "signInWithEmail:success");
@@ -297,7 +305,7 @@ public class Authentification extends AppCompatActivity {
                 } else {
                     if (bd.checkMailExist(identifiant.getText().toString())) {
 
-                        mAuth.createUserWithEmailAndPassword(identifiant.getText().toString(), motpass.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        MyApplication.getmAuth().createUserWithEmailAndPassword(identifiant.getText().toString(), motpass.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
@@ -353,11 +361,11 @@ public class Authentification extends AppCompatActivity {
         }
 
         BesoinC cat=new BesoinC(libBes,typBes,libCat,seuilBes,amorBes,stockBes,imageBes);
-        mDatabase.child("Besoin").child(code).setValue(cat);
+        MyApplication.getmDatabase().child("Besoin").child(code).setValue(cat);
     }
     private void writeNewUser(String userId, String name, String surname, String email, String tel, String department, String profile) {
         UtilisateurC user = new UtilisateurC(name, surname, email, tel, department, profile);
-        mDatabase.child("users").child(userId).setValue(user);
+        MyApplication.getmDatabase().child("users").child(userId).setValue(user);
 
     }
     public void writeNewFournisseur(String nomFour,String adrFour,String telFour){
@@ -370,7 +378,7 @@ public class Authentification extends AppCompatActivity {
         }
 
         FournisseurC cat=new FournisseurC(nomFour,adrFour,telFour);
-        mDatabase.child("Fournisseur").child(code).setValue(cat);
+        MyApplication.getmDatabase().child("Fournisseur").child(code).setValue(cat);
     }
 
 }

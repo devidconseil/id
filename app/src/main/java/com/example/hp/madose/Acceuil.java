@@ -267,8 +267,10 @@ public class Acceuil extends AppCompatActivity
                 break;
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(this, Authentification.class));
                 finish();
+                startActivity(new Intent(this, Authentification.class));
+           
+
                 break;
 
 
