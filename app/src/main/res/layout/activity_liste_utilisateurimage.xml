@@ -25,7 +25,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginStart="100dp"
         android:text="user"
-        android:textSize="20dp"
+        android:textSize="18dp"
         android:textColor="#000" />
 
 </RelativeLayout>

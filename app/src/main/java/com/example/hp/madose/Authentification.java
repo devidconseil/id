@@ -47,7 +47,9 @@ public class Authentification extends AppCompatActivity {
         bd=new BaseDeDonne(this);
         identifiant= findViewById(R.id.iden);
         motpass=(EditText)findViewById(R.id.pass);
-
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setTitle("Authentification");
+        }
 
         Button connect= findViewById(R.id.connexion);
         connect.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +142,8 @@ public class Authentification extends AppCompatActivity {
             Log.i("UNO",MyApplication.getmAuth().getCurrentUser().getEmail());
         } else {
 
-            MyApplication.getmAuth().signInWithEmailAndPassword("test@idconsulting.ie","password").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+             MyApplication.getmAuth().signInWithEmailAndPassword("test@idconsulting.ie","password");
+         /*            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -238,7 +241,7 @@ public class Authentification extends AppCompatActivity {
                     }
                 }
 
-            });
+            });  */
 
 
 FirebaseAuth.getInstance().signOut();
