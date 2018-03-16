@@ -33,7 +33,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
             " SeuilBes INTEGER, AmorBes INTEGER,`StockBes` INTEGER, `Image` INTEGER, FOREIGN KEY(IdCat) REFERENCES Categorie(IdCat) );";
     private static final String TABLE_BESOIN_ENTREE = "CREATE TABLE Besoins_Entree ( NumBes INTEGER, numEnt INTEGER, PU INTEGER, qte INTEGER NOT NULL, marqueBes TEXT, autrePrecision TEXT," +
             " PRIMARY KEY(NumBes,numEnt), FOREIGN KEY(numEnt) REFERENCES Entree(numEnt), FOREIGN KEY(NumBes) REFERENCES Besoin(NumBes) );";
-    private static final String TABLE_ENTREE = "CREATE TABLE Entree ( `numEnt` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `DateEnt` INTEGER NOT NULL, `IdFour` INTEGER, FOREIGN KEY(`IdFour`) REFERENCES `Fournisseur`(`IdFour`));";
+    private static final String TABLE_ENTREE = "CREATE TABLE Entree ( `numEnt` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `DateEnt` INTEGER NOT NULL, `IdFour` INTEGER,`HeureEnt` INTEGER NOT NULL,`User` TEXT NOT NULL, FOREIGN KEY(`IdFour`) REFERENCES `Fournisseur`(`IdFour`));";
     private static final String TABLE_FOURNISSEUR = "CREATE TABLE Fournisseur ( `IdFour` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `NomFour` TEXT NOT NULL, `AdrFour` TEXT, `TelFour` TEXT);";
     private static final String TABLE_SORTIE = "CREATE TABLE Sortie ( `NumSor` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `DateSor` INTEGER NOT NULL, `numDem` INTEGER, FOREIGN KEY(`numDem`) REFERENCES `Demande`(`numDem`));";
     //   nomEmp,LibDep,ProEmp,IdDep
@@ -235,7 +235,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         }
     }
     public Boolean checkIfEntreeExist(String name,String name1){
-        String req="select NumEnt,DateEnt,Entree.IdFour from Entree,Fournisseur where DateEnt=strftime('%s','"+name+"') and NomFour='"+name1+"' and Entree.IdFour=Fournisseur.IdFour;";
+        String req="select NumEnt,DateEnt,Entree.IdFour from Entree,Fournisseur where HeureEnt='"+name1+"' and NomFour='"+name+"' and Entree.IdFour=Fournisseur.IdFour;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
         if(cursor.getCount()>0){
             cursor.close();
@@ -357,7 +357,30 @@ public class BaseDeDonne extends SQLiteOpenHelper {
             if (cursor != null) cursor.close();
         }
     }
+    public String selectHeureEnt()
+    {
+        String req="select HeureEnt from Entree order by HeureEnt desc limit 1;";
+        Cursor cursor = null;
+        try {
 
+            cursor = this.getReadableDatabase().rawQuery(req,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
+    public String selectCurrentDate()
+    {
+        String req="select strftime('%s','now');";
+        Cursor cursor = null;
+        try {
+
+            cursor = this.getReadableDatabase().rawQuery(req,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
     public void insertBesoin(String nom,String type,int categorie,int seuil,String amort,int stockBes,int image)
     {
         String entre="insert into Besoin(libBes, TypeBes, IdCat, SeuilBes, AmorBes,StockBes,Image)values('"+nom+"','"+type+"',"+categorie+","+seuil+",strftime('%s','"+amort+"'),"+stockBes+","+image+");";
@@ -463,11 +486,17 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     }
 
 //----Insert
-    public void insertEntr(String date, int idfour)
+    public void insertEntr(String date, int idfour,String heure,String user,Boolean local)
     {
-        String entre="insert into Entree( DateEnt, IdFour)values(strftime('%s','"+date+"'),"+idfour+");";
-        Log.i("DATABASE","insert Entree");
-        this.getWritableDatabase().execSQL(entre);
+        if (local){
+            String entre="insert into Entree( DateEnt, IdFour,HeureEnt,User)values(strftime('%s','"+date+"'),"+idfour+",strftime('%s','now'),'"+user+"') ;";
+            Log.i("DATABASE","insert Entree");
+            this.getWritableDatabase().execSQL(entre);
+        } else {
+            String entre = "insert into Entree( DateEnt, IdFour,HeureEnt,User)values(strftime('%s','" + date + "')," + idfour + ",'"+heure+"','"+user+"');";
+            Log.i("DATABASE", "insert Entree");
+            this.getWritableDatabase().execSQL(entre);
+        }
     }
 
     public void insertEntrBes(int numB,int numE, int pu, int qte, String marque, String autr)
@@ -493,6 +522,18 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     public String selectIdEnt(String date)
     {
         String requete="select NumEnt from Entree where DateEnt=strftime('%s','"+date+"');";
+        Cursor cursor = null;
+        try {
+
+            cursor = this.getReadableDatabase().rawQuery(requete,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
+    public String selectIdEnt(String time,String user)
+    {
+        String requete="select NumEnt from Entree where HeureEnt='"+time+"' and User='"+user+"';";
         Cursor cursor = null;
         try {
 

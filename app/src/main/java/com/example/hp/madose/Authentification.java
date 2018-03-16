@@ -116,8 +116,8 @@ public class Authentification extends AppCompatActivity {
 
 
 
-            bd.insertEntr("2018-01-02", 1);
-            bd.insertEntr("2018-01-02", 4);
+            bd.insertEntr("2018-01-02", 1,"","padejinle@idconsulting.ie",true);
+            bd.insertEntr("2018-01-02", 4,"","padejinle@idconsulting.ie",true);
 
 
             bd.insertEntrBes(1, 1, 150, 5, "Bic", "bleu");

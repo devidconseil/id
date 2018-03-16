@@ -295,10 +295,10 @@ public class Affichage extends AppCompatActivity {
                         AddEC cat= dataSnapshotEnt.getValue(AddEC.class);
 
 
-                        if (!bd.checkIfEntreeExist(cat.getLibFour(),cat.getDatEnt())){
+                        if (!bd.checkIfEntreeExist(cat.getLibFour(),cat.getHeureEnt())){
                             Log.i("SHOW-ME",cat.getLibFour());
                           int ss=Integer.parseInt(bd.selectFour(cat.getLibFour()));
-                            bd.insertEntr(cat.getDatEnt(),ss);
+                            bd.insertEntr(cat.getDatEnt(),ss,cat.getHeureEnt(),cat.getUser(),false);
                         }
                     }
                 }
