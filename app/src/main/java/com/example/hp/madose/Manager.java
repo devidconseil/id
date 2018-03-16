@@ -40,7 +40,7 @@ public class Manager extends BaseDeDonne {
 
         ContentValues vals=new ContentValues();
         vals.put("idDep", dep.getIdDep());
-        vals.put("LibDep",dep.getLibDep());
+        vals.put("libDep",dep.getLibDep());
 
         Log.i("DATABSE","insert invoked");
 

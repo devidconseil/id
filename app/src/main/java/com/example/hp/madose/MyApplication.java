@@ -1,6 +1,9 @@
 package com.example.hp.madose;
 
 import android.app.Application;
+import android.content.Context;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +24,7 @@ public class MyApplication extends Application {
     public static boolean check=false;
     public static boolean fetch=true;
     public static boolean verif=false;
+    public static boolean fait=false;
     public static String verif1;
     public static String categorie;
     public static int id;
@@ -39,6 +43,14 @@ public class MyApplication extends Application {
 
     public static boolean isFetch() {
         return fetch;
+    }
+
+    public static boolean isFait() {
+        return fait;
+    }
+
+    public static void setFait(boolean fait) {
+        MyApplication.fait = fait;
     }
 
     public static boolean isTextView() {
@@ -125,12 +137,15 @@ public class MyApplication extends Application {
         MyApplication.mDatabase = mDatabase;
     }
 
+
     @Override
     public void onCreate() {
         super.onCreate();
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
        DatabaseReference userRef= FirebaseDatabase.getInstance().getReference("users");
        userRef.keepSynced(true);
+
+
     }
 
 }

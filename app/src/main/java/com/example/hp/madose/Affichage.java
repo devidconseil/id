@@ -274,6 +274,31 @@ public class Affichage extends AppCompatActivity {
 
         if (getIntent().getStringExtra("passage").equals("sortie")) {
             stock1 = (TextView) findViewById(R.id.textView2);
+            MyApplication.getmDatabase().child("Sorties").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot dataSnapshotSor:dataSnapshot.getChildren()){
+                        Stock2 cat=dataSnapshotSor.getValue(Stock2.class);
+                        if (!bd.checkIfSortieExist(cat.getNomEmp(),cat.getHeureSor(),cat.getLibDep())){
+                            if (cat.getLibDep().equals("")){
+                                String numDem=bd.selectNumDem2(cat.getDateDem(),cat.getNomEmp());
+                                bd.insertSortie(cat.getDate(),numDem,cat.getHeureSor(),cat.getNomEmp(),false);
+                            }
+                            if (cat.getNomEmp().equals("")){
+                                int var1=Integer.parseInt(bd.selectIdSortie());
+                                int var2=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
+                                bd.insertSortieBesoin(var1,var2,cat.getQte(),cat.getMarqBes(),cat.getAutreP());
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
             stock1.setText("LISTE DES BESOINS (MATERIELS) LIVRES AUX EMPLOYES \n\n\n");
         List<Stock2> affF = bd.afficheStock2();
         List<Stock2> affF1=bd.afficheStock3();
@@ -295,7 +320,7 @@ public class Affichage extends AppCompatActivity {
                         AddEC cat= dataSnapshotEnt.getValue(AddEC.class);
 
 
-                        if (!bd.checkIfEntreeExist(cat.getLibFour(),cat.getHeureEnt())){
+                        if (!bd.checkIfEntreeExist(cat.getLibFour(),cat.getHeureEnt(),cat.user)){
                             Log.i("SHOW-ME",cat.getLibFour());
                           int ss=Integer.parseInt(bd.selectFour(cat.getLibFour()));
                             bd.insertEntr(cat.getDatEnt(),ss,cat.getHeureEnt(),cat.getUser(),false);
@@ -364,21 +389,22 @@ public class Affichage extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot dataSnapshotDem:dataSnapshot.getChildren()){
                         DemandeC cat= dataSnapshotDem.getValue(DemandeC.class);
+                        Log.i("I MISS YOU",cat.getDateDem()+" "+cat.getNomEmp());
 
-                        if (!bd.checkIfDemandeExist(cat.getNomEmp(),cat.getDateDem(),cat.getLibDpe())){
+                        if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())){
 
                             int ssss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
                             if (cat.getLibDpe().equals("")){
                                 int ss=Integer.parseInt(bd.selectEmpId(cat.getNomEmp()));
                                 int sss=0;
-                                bd.insertDemande(cat.getDateDem(),ss,sss);
+                                bd.insertDemande(cat.getDateDem(),ss,sss,cat.getHeureDem(),false);
                                 bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem()),ssss,cat.getQte());
-                                Toast.makeText(getApplicationContext(),cat.toString(),Toast.LENGTH_LONG).show();
+                             //   Toast.makeText(getApplicationContext(),cat.toString(),Toast.LENGTH_LONG).show();
                             }
                             if (cat.getNomEmp().equals("")) {
                                 int ss=0;
                                 int sss=Integer.parseInt(bd.selectDep(cat.getLibDpe()));
-                                bd.insertDemande1(cat.getDateDem(),sss);
+                                bd.insertDemande1(cat.getDateDem(),sss,cat.getHeureDem(),false);
                                 bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem1(cat.getLibDpe(),cat.getDateDem())),ssss,cat.getQte());
                             }
 

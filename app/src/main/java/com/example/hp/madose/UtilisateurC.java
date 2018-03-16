@@ -63,8 +63,8 @@ public class UtilisateurC {
 
   /*  public UtilisateurC(int idEmp, String nomEmp, String prenEmp, String mailEmp, String telEmp, String libDep, String proEmp) {
         IdEmp = idEmp;
-        NomEmp = nomEmp;
-        LibDep = libDep;
+        nomEmp = nomEmp;
+        libDep = libDep;
         ProEmp = proEmp;
         PrenEmp=prenEmp;
         MailEmp=mailEmp;

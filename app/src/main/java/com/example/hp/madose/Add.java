@@ -1,6 +1,7 @@
 package com.example.hp.madose;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.Time;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -32,7 +34,7 @@ import java.util.List;
 
 public class Add extends AppCompatActivity {
     int jour,mois,annee;
-    boolean fait=false;
+    boolean aBoolean=false;
     DatabaseReference mDatabase;
 
 
@@ -84,6 +86,7 @@ public class Add extends AppCompatActivity {
        date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideKeyboard();
                  DatePickerDialog datePickerDialog=new DatePickerDialog(Add.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -217,11 +220,15 @@ public class Add extends AppCompatActivity {
 
                 if (date.getText().toString().equals(""))
                 {
+
                     date.setError("Veuillez saisir la date d'approvisionnement SVP!!");
                     date.requestFocus();
                 }
                 else if (!date.getText().toString().matches("[0-3][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]")){
+
                     date.setError("Votre date ne respecte pas le format JJ/MM/AAAA\nExemple: 01/01/1970");
+                    date.requestFocus();
+
 
                 }
 
@@ -260,7 +267,7 @@ public class Add extends AppCompatActivity {
                 date.setText(c+"-"+b+"-"+a);
 
 
-                if (!fait) {
+                if (! MyApplication.isFait()) {
                     int var = Integer.parseInt(dd.selectFour(four.getText().toString()));
                     dd.insertEntr(date.getText().toString(), var,"",MyApplication.getmAuth().getCurrentUser().getEmail(),true);
                     writeNewEntree(four.getText().toString(),date.getText().toString(),"",MyApplication.getmAuth().getCurrentUser().getEmail());
@@ -289,10 +296,14 @@ public class Add extends AppCompatActivity {
                 mark.setText("");
                 besoin.setText("");
                 dd.close();
+                a=date.getText().toString().substring(0,4);
+                b=date.getText().toString().substring(5,7);
+                c=date.getText().toString().substring(8,10);
+                date.setText(c+"/"+b+"/"+a);
                 Toast.makeText(getBaseContext(),"Approvisionnement enregistré avec succès !!",Toast.LENGTH_SHORT).show();
-                fait=true;
-                }
 
+                }
+                MyApplication.setFait(true);
             }
         });
 
@@ -340,7 +351,7 @@ public class Add extends AppCompatActivity {
                 }
 
                 else {
-                    if (fait == false) {
+                    if (! MyApplication.isFait()) {
                         String a, b, c;
                         a = date.getText().toString().substring(0, 2);
                         b = date.getText().toString().substring(3, 5);
@@ -359,7 +370,7 @@ public class Add extends AppCompatActivity {
 
 
                     int dernierEnregistrem = Integer.parseInt(dd.selectIdEnt());
-                    if (fait==true) {
+                    if (MyApplication.isFait()) {
                         String a, b, c, d;
                         a = date.getText().toString().substring(0, 2);
                         b = date.getText().toString().substring(3, 5);
@@ -382,7 +393,7 @@ public class Add extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
-
+MyApplication.setFait(false);
             }
         });
         Button quitter=(Button)findViewById(R.id.quitter);
@@ -397,6 +408,12 @@ public class Add extends AppCompatActivity {
             }
         });
 
+    }
+    public void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        View v = getCurrentFocus();
+        if (v != null)
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
     public void writeNewAdd(String libBes,String datEnt, int pU, int qte, String marqueBes, String autrePrécision){
         BaseDeDonne bd=new BaseDeDonne(getApplicationContext());
@@ -421,16 +438,18 @@ public class Add extends AppCompatActivity {
         mDatabase.child("Besoins-Entree").child(code).setValue(cat);
     }
     public void writeNewEntree(String libFour, String datEnt, String heureEnt, String user){
-        String code=libFour+"-"+datEnt+heureEnt;
+        BaseDeDonne bd=new BaseDeDonne(getApplicationContext());
+        String now=bd.selectCurrentDate();
+        String code=libFour+"-"+datEnt+"-"+now;
         String cricri="";
         String cris="";
         if (libFour.contains(" ")){
             cricri=libFour.replace(" ","-");
-            code=cricri+"-"+datEnt+heureEnt;
+            code=cricri+"-"+datEnt+"-"+now;
         }
         if (datEnt.contains("/")){
             cris=datEnt.replace("/","-");
-            code=libFour+"-"+cris+heureEnt;
+            code=libFour+"-"+cris+"-"+now;
         }
         if (libFour.contains("'")){
             code=code.replace("'","-");

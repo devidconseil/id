@@ -126,11 +126,11 @@ public class Authentification extends AppCompatActivity {
             bd.insertEntrBes(4, 2, 250000, 5, "SAMSUNG", "blanc");
             bd.insertEntrBes(5, 1, 500, 3, "PRIVILEGE", "200 sticks");
 
-            bd.insertSortie("2018-10-10","1");
+            bd.insertSortie("2018-10-10","1",bd.selectCurrentDate(),"adepatrickade@idconsulting.ie",true);
 
             bd.insertSortieBesoin(1,1,1, "bic","bleu");
 
-            bd.insertDemande("2018-01-02", 1, 1);
+            bd.insertDemande("2018-01-02", 1, 1,bd.selectCurrentDate(),true);
             bd.insertDemandeBesoin(1, 1, 1);
             bd.insertDemandeBesoin(1, 6, 1);
             MyApplication.setFetch(false);
@@ -152,7 +152,7 @@ public class Authentification extends AppCompatActivity {
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for (DataSnapshot dataSnapshotCat:dataSnapshot.getChildren()){
                                     CategorieC cat= dataSnapshotCat.getValue(CategorieC.class);
-                                    if (!bd.checkIfCategorieExist(cat.getLibCat())){
+                                    if (! bd.checkIfCategorieExist(cat.getLibCat())){
                                         bd.insertCat(cat.getLibCat());
                                     }
                                 }

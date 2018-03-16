@@ -6,71 +6,162 @@ package com.example.hp.madose;
 
 public class Stock2 {
 
-        String LibBes,TypeBes,NomEmp,date,LibDep;
-        int  Qte;
+        String libBes, typeBes, nomEmp,date, libDep,heureSor,validationUser,marqBes,autreP,dateDem;
+        int qte;
 
 
     public String getLibBes() {
-        return LibBes;
+        return libBes;
     }
 
     public String getNomEmp() {
-        return NomEmp;
+        return nomEmp;
     }
 
     public int getQte() {
-        return Qte;
+        return qte;
+    }
+
+    public String getDateDem() {
+        return dateDem;
+    }
+
+    public void setDateDem(String dateDem) {
+        this.dateDem = dateDem;
+    }
+
+    public String getMarqBes() {
+        return marqBes;
+
+    }
+
+    public void setMarqBes(String marqBes) {
+        this.marqBes = marqBes;
+    }
+
+    public String getAutreP() {
+        return autreP;
+    }
+
+    public void setAutreP(String autreP) {
+        this.autreP = autreP;
+    }
+
+    public String getHeureSor() {
+        return heureSor;
+
+    }
+
+    public void setHeureSor(String heureSor) {
+        this.heureSor = heureSor;
+    }
+
+    public String getValidationUser() {
+        return validationUser;
+    }
+
+    public void setValidationUser(String validationUser) {
+        this.validationUser = validationUser;
     }
 
     public String getTypeBes() {
-        return TypeBes;
+        return typeBes;
     }
 
     public String getLibDep() {
-        return LibDep;
+        return libDep;
     }
 
     public void setLibDep(String libDep) {
-        LibDep = libDep;
+        this.libDep = libDep;
     }
 
     public String getDate() {
         return date;
     }
 
-    public Stock2(String libBes, String typeBes, int qte, String nomEmp,String Date) {
-        LibBes = libBes;
-        TypeBes = typeBes;
-        Qte = qte;
-        NomEmp = nomEmp;
-        date=Date;
+    public Stock2(String libBes, String typeBes, int qte, String nomEmp,String date) {
+        this.libBes = libBes;
+        this.typeBes = typeBes;
+        this.qte = qte;
+        this.nomEmp = nomEmp;
+        this.date =date;
     }
-    public Stock2(String libBes, String typeBes,String libDep,int qte,String Date) {
-        LibBes = libBes;
-        TypeBes = typeBes;
-        Qte = qte;
-        LibDep = libDep;
-        date=Date;
+    public Stock2(String libBes, String typeBes, int qte, String nomEmp,String date,String heureSor, String validationUser) {
+        this.libBes = libBes;
+        this.typeBes = typeBes;
+        this.qte = qte;
+        this.nomEmp = nomEmp;
+        this.date =date;
+        this.heureSor=heureSor;
+        this.validationUser=validationUser;
+    }
+    public Stock2(String libBes, String typeBes,String libDep,int qte,String date) {
+        this.libBes = libBes;
+        this.typeBes = typeBes;
+        this.qte = qte;
+        this.libDep = libDep;
+        this.date =date;
+    }
+    public Stock2(String libBes, String typeBes,String libDep,int qte,String date,String heureSor, String validationUser) {
+        this.libBes = libBes;
+        this.typeBes = typeBes;
+        this.qte = qte;
+        this.libDep = libDep;
+        this.date =date;
+        this.heureSor=heureSor;
+        this.validationUser=validationUser;
+    }
+
+    public Stock2(String libBes, String marqBes, String autreP, String dateDem, String nomEmp, String date, String libDep, String heureSor, String validationUser, int qte) {
+        this.libBes = libBes;
+        this.marqBes=marqBes;
+        this.autreP=autreP;
+        this.dateDem=dateDem;
+        this.nomEmp = nomEmp;
+        this.date = date;
+        this.libDep = libDep;
+        this.heureSor = heureSor;
+        this.validationUser = validationUser;
+        this.qte = qte;
     }
 
     @Override
     public String toString() {
-        return  "Besoin: " + LibBes  +
-                "\nType: " + TypeBes +
-                "\nQuantité: " + Qte +
-                "\nReçu par: " + NomEmp+
+        return  "Besoin: " + libBes +
+                "\nType: " + typeBes +
+                "\nQuantité: " + qte +
+                "\nReçu par: " + nomEmp +
                 "\nLe:  "+date+"\n";
     }
+    public String toString2() {
+        return  "Besoin: " + libBes +
+                "\nType: " + typeBes +
+                "\nQuantité: " + qte +
+                "\nReçu par: " + nomEmp +
+                "\nLe:  "+date+
+                "\nEt delivré par:  "+validationUser+
+                "\nPour la demande du:  "+dateDem+"\n";
+    }
     public String toString1() {
-        return  "Besoin: " + LibBes  +
-                "\nType: " + TypeBes +
-                "\nQuantité: " + Qte +
-                "\nReçu par le departement " + LibDep+
+        return  "Besoin: " + libBes +
+                "\nType: " + typeBes +
+                "\nQuantité: " + qte +
+                "\nReçu par le departement " + libDep +
                 "\nLe:  "+date+"\n";
+    }
+    public String toString3() {
+        return  "Besoin: " + libBes +
+                "\nType: " + typeBes +
+                "\nQuantité: " + qte +
+                "\nReçu par le departement " + libDep +
+                "\nLe:  "+date+
+                "\nEt delivré par:  "+validationUser+
+                "\nPour la demande du:  "+dateDem+"\n";
     }
     /* public Stock2(String libBes, String typeBes, int qte) {
             this.libBes = libBes;
-            this.TypeBes = typeBes;
+            this.typeBes = typeBes;
             this.qte = qte;
         }
 
@@ -79,7 +170,7 @@ public class Stock2 {
         }
 
         public String getTypeBes() {
-            return TypeBes;
+            return typeBes;
         }
 
 
@@ -91,7 +182,7 @@ public class Stock2 {
         @Override
         public String toString() {
             return  "Besoin=" + libBes +
-                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tType=" + TypeBes +
+                    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tType=" + typeBes +
                     "\nQuantité=" + qte;
         }*/
 
