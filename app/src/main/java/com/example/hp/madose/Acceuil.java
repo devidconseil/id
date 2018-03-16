@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,6 +31,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
+
+
 
 
 public class Acceuil extends AppCompatActivity
@@ -62,6 +65,10 @@ public class Acceuil extends AppCompatActivity
 
         mDatabase= FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
+
+        Time today = new Time(Time.getCurrentTimezone());
+        today.setToNow();
+        Toast.makeText(getApplicationContext(),today.toString(),Toast.LENGTH_LONG);
 
         String profile=bd.retrieveUserProfile(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         if (profile.equals("USER")){

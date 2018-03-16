@@ -19,8 +19,10 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class Demande extends AppCompatActivity {
 
@@ -106,6 +108,7 @@ public class Demande extends AppCompatActivity {
                 finish();
             }
         });
+
         bes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -254,14 +257,14 @@ public class Demande extends AppCompatActivity {
                     int var3 = Integer.parseInt(bd.selectIdBes(bes.getText().toString()));
                     int var4 = Integer.parseInt(quant.getText().toString());
 
-                    if (employe.isEnabled()) {
+                    if (radioButton_emp.isChecked()) {
                         var1 = Integer.parseInt(bd.selectEmpId(employe.getText().toString()));
                         departe = bd.DepartEmp(var1);
                         var2 = Integer.parseInt(bd.selectDep(departe));
                         bd.insertDemande(date.getText().toString(), var1, var2);
                     }
 
-                    if (depart.isEnabled()) {
+                    if (radioButton_dep.isChecked()) {
                         String recup = bd.selectDep(depart.getText().toString());
                         bd.insertDemande1(date.getText().toString(), Integer.parseInt(recup));
                     }
@@ -313,8 +316,8 @@ public class Demande extends AppCompatActivity {
                     int var1, var2;
                     int var3 = Integer.parseInt(bd.selectIdBes(bes.getText().toString()));
                     int var4 = Integer.parseInt(quant.getText().toString());
-                    if (!fait) {
-                        if (employe.getVisibility()==View.VISIBLE) {
+                    if (fait == false) {
+                        if (radioButton_emp.isChecked()) {
                             //Toast.makeText(getBaseContext(),employe.getText().toString()+"coucou",Toast.LENGTH_LONG).show();
                             var1 = Integer.parseInt(bd.selectEmpId(employe.getText().toString()));
                             String departe = bd.DepartEmp(var1);
@@ -322,7 +325,7 @@ public class Demande extends AppCompatActivity {
                             bd.insertDemande(date.getText().toString(), var1, var2);
                         }
 
-                        if (depart.getVisibility()==View.VISIBLE) {
+                        if (radioButton_dep.isChecked()) {
                             String recup = bd.selectDep(depart.getText().toString());
                             bd.insertDemande1(date.getText().toString(), Integer.parseInt(recup));
                         }
