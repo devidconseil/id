@@ -12,6 +12,8 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -27,29 +29,37 @@ public class TableListe extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table_liste);
 
+        TextView textView1=(TextView)findViewById(R.id.n1);
+        TextView textView2=(TextView)findViewById(R.id.n2);
+        TextView textView3=(TextView)findViewById(R.id.n3);
+        TextView textView4=(TextView)findViewById(R.id.n4);
+        TextView textView5=(TextView)findViewById(R.id.n5);
+        TextView textView6=(TextView)findViewById(R.id.n6);
+
+
         BaseDeDonne bd=new BaseDeDonne(this);
 
 
         final List<UtilisateurC> departem= bd.afficheE();
         for (UtilisateurC utilisateurC : departem){
-            liste.add(utilisateurC.toStringNom());
-            liste.add(utilisateurC.toStringPren());
-            liste.add(utilisateurC.toStringMail());
-            liste.add(utilisateurC.toStringTel());
-            liste.add(utilisateurC.toStringDepart());
-            liste.add(utilisateurC.toStringProf());
+                textView1.append(utilisateurC.toStringNom()+"\n\n");
+                textView2.append(utilisateurC.toStringPren()+"\n\n");
+                textView3.append(utilisateurC.toStringMail()+"\n\n");
+                textView4.append(utilisateurC.toStringTel()+"\n\n");
+                textView5.append(utilisateurC.toStringDepart()+"\n\n");
+                textView6.append(utilisateurC.toStringProf()+"\n\n");
 
         }
         ListAdapter departe=new ArrayAdapter<UtilisateurC>(this, android.R.layout.simple_list_item_1, departem);
-        ListView affiche=(ListView)findViewById(R.id.maliste);
+       ListView affiche=(ListView)findViewById(R.id.maliste);
 
 
-        final ListUtilisateur listeUti=new ListUtilisateur(this,liste);
-        affiche.setAdapter(listeUti);
+       // final ListUtilisateur listeUti=new ListUtilisateur(this,liste);
+        affiche.setAdapter(departe);
 
     }
 
-    class ListUtilisateur extends BaseAdapter
+   class ListUtilisateur extends BaseAdapter
     {
 
         Context context;
@@ -79,32 +89,21 @@ public class TableListe extends AppCompatActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
 
             convertView=getLayoutInflater().inflate(R.layout.activity_table_liste_image,null);
-            LinearLayout linearLayout=(LinearLayout)findViewById(R.id.listUtilisateur);
-            TextView textView1=(TextView)convertView.findViewById(R.id.nro1);
-            TextView textView2=(TextView)convertView.findViewById(R.id.nro2);
-            TextView textView3=(TextView)convertView.findViewById(R.id.nro3);
-            TextView textView4=(TextView)convertView.findViewById(R.id.nro4);
-            TextView textView5=(TextView)convertView.findViewById(R.id.nro5);
-            TextView textView6=(TextView)convertView.findViewById(R.id.nro6);
-           if (position==0)
-           {
+            TextView textView1=(TextView)convertView.findViewById(R.id.n1);
+            TextView textView2=(TextView)convertView.findViewById(R.id.n2);
+            TextView textView3=(TextView)convertView.findViewById(R.id.n3);
+            TextView textView4=(TextView)convertView.findViewById(R.id.n4);
+            TextView textView5=(TextView)convertView.findViewById(R.id.n5);
+            TextView textView6=(TextView)convertView.findViewById(R.id.n6);
 
-                textView1.setText("Nom");
-                textView2.setText("Prénom");
-                textView3.setText("E-mail");
-                textView4.setText("Contact");
-                textView5.setText("Departement");
-                textView6.setText("Profil");
-            }
-            else
-            {
+
                 textView1.setText(listeU.get(position));
                 textView2.setText(listeU.get(position));
                 textView3.setText(listeU.get(position));
                 textView4.setText(listeU.get(position));
                 textView5.setText(listeU.get(position));
                 textView6.setText(listeU.get(position));
-            }
+
             return convertView;
         }
     }

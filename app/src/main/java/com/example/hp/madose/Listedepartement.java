@@ -178,17 +178,10 @@ public class Listedepartement extends AppCompatActivity {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
 
-
                 convertView=getLayoutInflater().inflate(R.layout.activity_listedepartementimage,null);
 
                 TextView textView=(TextView)convertView.findViewById(R.id.textView6);
 
-                if (position==0) {
-                    textView.setText("bonjour");
-                    textView.setBackgroundColor(0xFF12FF45);
-
-                }
-                else
                 textView.setText(listee.get(position));
 
                 return convertView;

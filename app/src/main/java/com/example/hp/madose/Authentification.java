@@ -47,7 +47,9 @@ public class Authentification extends AppCompatActivity {
         bd=new BaseDeDonne(this);
         identifiant= findViewById(R.id.iden);
         motpass=(EditText)findViewById(R.id.pass);
-
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setTitle("Authentification");
+        }
 
         Button connect= findViewById(R.id.connexion);
         connect.setOnClickListener(new View.OnClickListener() {

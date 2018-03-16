@@ -20,7 +20,7 @@ public class Variation extends AppCompatActivity {
         TextView demand= findViewById(R.id.textView9);
         TextView liste_achats= findViewById(R.id.textView10);
         Button test=(Button)findViewById(R.id.boutontest);
-        Button test2=(Button)findViewById(R.id.afficheU);
+        //Button test2=(Button)findViewById(R.id.afficheU);
 
         entrees.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,12 +93,12 @@ public class Variation extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        test2.setOnClickListener(new View.OnClickListener() {
+      /*  test2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(Variation.this, TableListe.class);
                 startActivity(intent);
             }
-        });
+        });*/
     }
 }
