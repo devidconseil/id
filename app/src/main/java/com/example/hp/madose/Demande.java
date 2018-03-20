@@ -367,6 +367,7 @@ public class Demande extends AppCompatActivity {
                 Intent intent=new Intent(Demande.this,Acceuil.class);
                 startActivity(intent);
                 finish();
+                MyApplication.setFait(false);
             }
         });
 

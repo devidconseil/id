@@ -1,5 +1,7 @@
 package com.example.hp.madose;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -114,26 +116,47 @@ public class Utilisateur extends AppCompatActivity {
                     Toast.makeText(getBaseContext(),"Veuillez saisir le département de l'utilisateur SVP!",Toast.LENGTH_LONG).show();
                 }
                 else {
+                    if (codeT.getText().toString().contains("'")){
+                        codeT.getText().toString().replace("'","''");
+                    }
+                    if (prenE.getText().toString().contains("'")){
+                        prenE.getText().toString().replace("'","''");
+                    }
                     int x = Integer.parseInt(bd.selectDep(codeD.getText().toString()));
                     if (!bd.checkMailExist(mailE.getText().toString())) {
                         bd.insertEmp(codeT.getText().toString(), prenE.getText().toString(), mailE.getText().toString(), telE.getText().toString(), x, codeP.getText().toString());
                         bd.close();
+                        String username=mailE.getText().toString().split("@")[0];
+
+                        writeNewUser(username+"-"+codeT.getText().toString(),codeT.getText().toString(),prenE.getText().toString(),mailE.getText().toString(),telE.getText().toString(),codeD.getText().toString(),codeP.getText().toString());
+
+                        Toast.makeText(getApplicationContext(), "Utilisateur enregistré avec succès", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(Utilisateur.this, Affichage.class);
+                        intent.putExtra("passage", "employe");
+                        codeT.setText("");
+                        codeP.setText("");
+                        codeD.setText("");
+                        mailE.setText("");
+                        prenE.setText("");
+                        telE.setText("");
+                        startActivity(intent);
+                        finish();
                     }
-                    String username=mailE.getText().toString().split("@")[0];
+                    else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Utilisateur.this,0x00000005 );
+                        builder.setMessage("Cet utilisateur ne peut être créé car il existe déjà");
+                        builder.setTitle("Echec");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                    writeNewUser(username+"-"+codeT.getText().toString(),codeT.getText().toString(),prenE.getText().toString(),mailE.getText().toString(),telE.getText().toString(),codeD.getText().toString(),codeP.getText().toString());
+                            }
+                        });
+                        builder.create();
+                        builder.show();
+                    }
 
-                    Toast.makeText(getApplicationContext(), "Utilisateur enregistré avec succès", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(Utilisateur.this, Affichage.class);
-                    intent.putExtra("passage", "employe");
-                    codeT.setText("");
-                    codeP.setText("");
-                    codeD.setText("");
-                    mailE.setText("");
-                    prenE.setText("");
-                    telE.setText("");
-                    startActivity(intent);
-                    finish();
+
                }
             }
         });

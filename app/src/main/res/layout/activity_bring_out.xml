@@ -139,9 +139,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:background="@drawable/round_corner"
                 android:layout_below="@+id/sortieQt"
-                android:hint="Marque"/>
+                android:background="@drawable/round_corner"
+                android:hint="Marque"
+                android:imeOptions="flagNavigateNext" />
 
             <AutoCompleteTextView
                 android:id="@+id/autoCompAutre"

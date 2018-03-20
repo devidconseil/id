@@ -7,7 +7,7 @@ package com.example.hp.madose;
 public class Stock2 {
 
         String libBes, typeBes, nomEmp,date, libDep,heureSor,validationUser,marqBes,autreP,dateDem;
-        int qte;
+        int qte,numSor;
 
 
     public String getLibBes() {
@@ -24,6 +24,14 @@ public class Stock2 {
 
     public String getDateDem() {
         return dateDem;
+    }
+
+    public int getNumSor() {
+        return numSor;
+    }
+
+    public void setNumSor(int numSor) {
+        this.numSor = numSor;
     }
 
     public void setDateDem(String dateDem) {
@@ -80,7 +88,18 @@ public class Stock2 {
         return date;
     }
 
-    public Stock2(String libBes, String typeBes, int qte, String nomEmp,String date) {
+    public Stock2() {
+    }
+
+    public Stock2(String libBes, String typeBes, int qte, String nomEmp, String date) {
+        this.libBes = libBes;
+        this.typeBes = typeBes;
+        this.qte = qte;
+        this.nomEmp = nomEmp;
+        this.date =date;
+    }
+    public Stock2(int numSor,String libBes, String typeBes, int qte, String nomEmp, String date) {
+        this.numSor= numSor;
         this.libBes = libBes;
         this.typeBes = typeBes;
         this.qte = qte;
@@ -128,7 +147,8 @@ public class Stock2 {
 
     @Override
     public String toString() {
-        return  "Besoin: " + libBes +
+        return numSor+
+                "\nBesoin: " + libBes +
                 "\nType: " + typeBes +
                 "\nQuantité: " + qte +
                 "\nReçu par: " + nomEmp +

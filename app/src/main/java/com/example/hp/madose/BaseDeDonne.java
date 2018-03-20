@@ -210,8 +210,10 @@ public class BaseDeDonne extends SQLiteOpenHelper {
             return false;
         }
     }
-    public Boolean checkIfDemandeExist(String name,String name1,String name2){
-        String req="select numDem,DateDem,Utilisateur.IdEmp,Departement.IdDep from Demande,Utilisateur,Departement where Demande.IdEmp=Utilisateur.IdEmp and Demande.IdDep=Departement.IdDep and nomEmp || ' ' || prenEmp='"+name+"' and HeureDem='"+name1+"' and libDep='"+name2+"';";
+    public Boolean checkIfDemandeExist(String name,String name1){
+
+        String req="select Demande.numDem,DateDem,Utilisateur.IdEmp,Departement.IdDep from Demande,Utilisateur,Departement,Demande_Besoins where Demande.IdEmp=Utilisateur.IdEmp  and Demande.numDem=Demande_Besoins.numDem and Utilisateur.nomEmp || ' ' || Utilisateur.PrenEmp='"+name+"' and HeureDem='"+name1+"';";
+        Log.i("VERIF",req);
         Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
         if(cursor.getCount()>0){
             cursor.close();
@@ -222,8 +224,33 @@ public class BaseDeDonne extends SQLiteOpenHelper {
             return false;
         }
     }
-    public Boolean checkIfSortieExist(String name,String name1,String name2){
-        String req="select numDem,DateDem,Utilisateur.IdEmp,Departement.IdDep from Sortie,Demande,Utilisateur,Departement where Sortie.IdEmp=Utilisateur.IdEmp and Sortie.IdDep=Departement.IdDep and nomEmp || ' ' || prenEmp='"+name+"' and HeureSor'"+name1+"' and libDep='"+name2+"';";
+    public Boolean checkIfDemandeBesoinExist(String name,String name1,String name2){
+        String req="select Demande.numDem,DateDem,Utilisateur.IdEmp,Departement.IdDep,libBes from Demande,Utilisateur,Departement,Demande_Besoins,Besoin where Demande_Besoins.NumBes=Besoin.NumBes and Demande.IdEmp=Utilisateur.IdEmp and Demande.numDem=Demande_Besoins.numDem and Utilisateur.nomEmp || ' ' || Utilisateur.PrenEmp='"+name+"' and HeureDem='"+name1+"' and libBes='"+name2+"';";
+        Log.i("A FLE",req);
+        Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
+        if(cursor.getCount()>0){
+            cursor.close();
+            return true;
+        }
+        else {
+            cursor.close();
+            return false;
+        }
+    }
+    public Boolean checkIfSortieExist(String name,String name1){
+        String req="select Sortie.numDem,DateDem,Utilisateur.IdEmp,Departement.IdDep from Sortie,Demande,Utilisateur,Departement where Demande.IdEmp=Utilisateur.IdEmp and Demande.IdDep=Departement.IdDep and nomEmp || ' ' || prenEmp='"+name+"' and HeureSor='"+name1+"';";
+        Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
+        if(cursor.getCount()>0){
+            cursor.close();
+            return true;
+        }
+        else {
+            cursor.close();
+            return false;
+        }
+    }
+    public Boolean checkIfSortieEntreeExist(String name,String name1,String name2){
+        String req="select Sortie.numDem,DateDem,Utilisateur.IdEmp,Departement.IdDep from Besoin,Sortie,Demande,Utilisateur,Departement,Besoins_Sortie where Demande.IdEmp=Utilisateur.IdEmp and Demande.IdDep=Departement.IdDep and Besoin.NumBes=Besoins_Sortie.NumBes and nomEmp || ' ' || prenEmp='"+name+"' and Sortie.HeureSor='"+name1+"' and libBes='"+name2+"';";
         Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
         if(cursor.getCount()>0){
             cursor.close();
@@ -633,7 +660,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         List<DemandeC> affD=new ArrayList<>();
 
 
-        String req="select Demande.numDem,nomEmp,libBes,qte,date(dateDem,'unixepoch'),libDep from Demande,Demande_Besoins,Utilisateur,Besoin,Departement where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem and Demande.IdDep=Departement.IdDep and Utilisateur.IdEmp=Demande.IdEmp;";
+        String req="select Demande.numDem,nomEmp||' '||prenEmp,libBes,qte,date(dateDem,'unixepoch'),libDep from Demande,Demande_Besoins,Utilisateur,Besoin,Departement where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem and Utilisateur.IdDep=Departement.IdDep and Utilisateur.IdEmp=Demande.IdEmp;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -1160,12 +1187,12 @@ public ArrayList<String> affiNumDem(int idemp)
     public List<Stock2> afficheStock2() {
 
         List<Stock2> affStok2 = new ArrayList<>();
-        String req = "select Besoin.libBes,Besoin.typeBes,qte,nomEmp,date(DateSor,'unixepoch') FROM Besoin,Besoins_Sortie, Demande,Utilisateur,Sortie WHERE Besoin.NumBes=Besoins_Sortie.NumBes and Sortie.numDem=Demande.numDem and Utilisateur.IdEmp=Demande.IdEmp and Besoins_Sortie.NumSor=Sortie.NumSor;";
+        String req = "select Sortie.NumSor,Besoin.libBes,Besoin.typeBes,qte,nomEmp || ' ' || PrenEmp,date(DateSor,'unixepoch') FROM Besoin,Besoins_Sortie, Demande,Utilisateur,Sortie WHERE Besoin.NumBes=Besoins_Sortie.NumBes and Sortie.numDem=Demande.numDem and Utilisateur.IdEmp=Demande.IdEmp and Besoins_Sortie.NumSor=Sortie.NumSor;";
         Cursor cursor = this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
-            Stock2 disp = new Stock2(cursor.getString(0), cursor.getString(1), cursor.getInt(2),cursor.getString(3),cursor.getString(4));
+            Stock2 disp = new Stock2(cursor.getInt(0),cursor.getString(1), cursor.getString(2), cursor.getInt(3),cursor.getString(4),cursor.getString(5));
             affStok2.add(disp);
             cursor.moveToNext();
         }

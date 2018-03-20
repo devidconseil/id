@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -65,6 +66,7 @@ public class Acceuil extends AppCompatActivity
 
         mDatabase= FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
+
 
         Time today = new Time(Time.getCurrentTimezone());
         today.setToNow();
@@ -221,6 +223,8 @@ public class Acceuil extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.acceuil, menu);
+        TextView status= findViewById(R.id.textView13);
+        status.setText("\nConnecté en tant que: "+MyApplication.getmAuth().getCurrentUser().getEmail());
         return true;
     }
 

@@ -40,7 +40,7 @@ public class Categorie extends AppCompatActivity {
         else {
             String label=codeT.getText().toString();
             if (codeT.getText().toString().contains("'")){
-                label=codeT.getText().toString().replace("'"," ");
+                label=codeT.getText().toString().replace("'","''");
             }
             bd.insertCat(label);
             writeNewCategory(codeT.getText().toString());

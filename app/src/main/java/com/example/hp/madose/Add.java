@@ -270,7 +270,7 @@ public class Add extends AppCompatActivity {
                 if (! MyApplication.isFait()) {
                     int var = Integer.parseInt(dd.selectFour(four.getText().toString()));
                     dd.insertEntr(date.getText().toString(), var,"",MyApplication.getmAuth().getCurrentUser().getEmail(),true);
-                    writeNewEntree(four.getText().toString(),date.getText().toString(),"",MyApplication.getmAuth().getCurrentUser().getEmail());
+                    writeNewEntree(four.getText().toString(),date.getText().toString(),bd.selectHeureEnt(),MyApplication.getmAuth().getCurrentUser().getEmail());
                 }
 
                 int var1=Integer.parseInt(dd.selectIdBes(besoin.getText().toString()));
@@ -404,6 +404,7 @@ MyApplication.setFait(false);
                 Intent intent=new Intent(Add.this,Acceuil.class);
                 startActivity(intent);
                 finish();
+                MyApplication.setFait(false);
 
             }
         });

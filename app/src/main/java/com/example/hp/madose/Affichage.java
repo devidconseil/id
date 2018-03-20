@@ -279,16 +279,16 @@ public class Affichage extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot dataSnapshotSor:dataSnapshot.getChildren()){
                         Stock2 cat=dataSnapshotSor.getValue(Stock2.class);
-                        if (!bd.checkIfSortieExist(cat.getNomEmp(),cat.getHeureSor(),cat.getLibDep())){
-                            if (cat.getLibDep().equals("")){
+                        Log.i("VOILA SORTIE",cat.getNomEmp()+" "+cat.getDateDem());
+                        if (!bd.checkIfSortieEntreeExist(cat.getNomEmp(),cat.getHeureSor(),cat.getLibBes())){
+                            if (! bd.checkIfSortieExist(cat.getNomEmp(),cat.getHeureSor())){
                                 String numDem=bd.selectNumDem2(cat.getDateDem(),cat.getNomEmp());
                                 bd.insertSortie(cat.getDate(),numDem,cat.getHeureSor(),cat.getNomEmp(),false);
                             }
-                            if (cat.getNomEmp().equals("")){
                                 int var1=Integer.parseInt(bd.selectIdSortie());
                                 int var2=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
                                 bd.insertSortieBesoin(var1,var2,cat.getQte(),cat.getMarqBes(),cat.getAutreP());
-                            }
+
                         }
                     }
                 }
@@ -391,13 +391,15 @@ public class Affichage extends AppCompatActivity {
                         DemandeC cat= dataSnapshotDem.getValue(DemandeC.class);
                         Log.i("I MISS YOU",cat.getDateDem()+" "+cat.getNomEmp());
 
-                        if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())){
+                        if (! bd.checkIfDemandeBesoinExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibBes())){
 
                             int ssss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
                             if (cat.getLibDpe().equals("")){
                                 int ss=Integer.parseInt(bd.selectEmpId(cat.getNomEmp()));
-                                int sss=0;
-                                bd.insertDemande(cat.getDateDem(),ss,sss,cat.getHeureDem(),false);
+                                int sss=Integer.parseInt(bd.selectDep(bd.DepartEmp(ss)));
+                                if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem())) {
+                                    bd.insertDemande(cat.getDateDem(), ss, sss, cat.getHeureDem(), false);
+                                }
                                 bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem()),ssss,cat.getQte());
                              //   Toast.makeText(getApplicationContext(),cat.toString(),Toast.LENGTH_LONG).show();
                             }

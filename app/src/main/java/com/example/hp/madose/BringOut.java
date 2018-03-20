@@ -25,7 +25,7 @@ import java.util.Calendar;
 
 public class BringOut extends AppCompatActivity {
 
-    boolean fait=false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,7 @@ public class BringOut extends AppCompatActivity {
         final RadioButton radioButton_dep= findViewById(R.id.radioButtonDep);
 
         final EditText date=(EditText)findViewById(R.id.editDate);
+
 
         //AutoTextComplete
        /* ArrayList<String> nd=bd.affiNE();
@@ -488,10 +489,10 @@ public class BringOut extends AppCompatActivity {
 
 
                     String num = new String();
-                    if (employe.isEnabled()) {
+                    if (radioButton_emp.isChecked()) {
                         num = bd.selectNumeDem(demande.getText().toString(), employe.getText().toString());
                     }
-                    if (departement.isEnabled()) {
+                    if (radioButton_dep.isChecked()) {
                         num = bd.selectNumeDem1(demande.getText().toString(), departement.getText().toString());
                     }
                     int dernierEnr;
@@ -502,7 +503,9 @@ public class BringOut extends AppCompatActivity {
                     b = date.getText().toString().substring(3, 5);
                     c = date.getText().toString().substring(6, 10);
                     date.setText(c + "-" + b + "-" + a);
+                    if (!MyApplication.isFait()){
                     bd.insertSortie(date.getText().toString(), num,"",MyApplication.mAuth.getCurrentUser().getEmail(),true);
+                    }
                     dernierEnr = Integer.parseInt(bd.selectIdSortie());
                     //NumSor` INTEGER, `NumBes` INTEGER, `qte` INTEGER NOT NULL, `marqueBes` TEXT, `Autre précision`
                     int var = Integer.parseInt(bd.selectIdBes(besoin.getText().toString()));
@@ -526,7 +529,7 @@ public class BringOut extends AppCompatActivity {
                     date.setText(c+"/"+b+"/"+a);
 
                     Toast.makeText(getBaseContext(), "Sortie enregistrée avec succès !!", Toast.LENGTH_LONG).show();
-                    fait = true;
+                    MyApplication.setFait(true);
                 }
             }
         });
@@ -556,17 +559,17 @@ public class BringOut extends AppCompatActivity {
                 }
                 else {
                     String num = new String();
-                    if (employe.isEnabled()) {
+                    if (radioButton_emp.isChecked()) {
                         num = bd.selectNumeDem(demande.getText().toString(), employe.getText().toString());
                     }
-                    if (departement.isEnabled()) {
+                    if (radioButton_dep.isChecked()) {
                         num = bd.selectNumeDem1(demande.getText().toString(), departement.getText().toString());
                     }
                     int dernierEnr;
                     // bd.insertSortie(date.getText().toString(),num);
                     // bd.close();
 
-                    if (fait == false) {
+                    if (! MyApplication.isFait()) {
                         String a, b, c;
                         a = date.getText().toString().substring(0, 2);
                         b = date.getText().toString().substring(3, 5);
@@ -581,6 +584,13 @@ public class BringOut extends AppCompatActivity {
                     //NumSor` INTEGER, `NumBes` INTEGER, `qte` INTEGER NOT NULL, `marqueBes` TEXT, `Autre précision`
                     int var = Integer.parseInt(bd.selectIdBes(besoin.getText().toString()));
                     int var1 = Integer.parseInt(qut.getText().toString());
+                    if (MyApplication.isFait()) {
+                        String a, b, c, d;
+                        a = date.getText().toString().substring(0, 2);
+                        b = date.getText().toString().substring(3, 5);
+                        c = date.getText().toString().substring(6, 10);
+                        date.setText(c + "-" + b + "-" + a);
+                    }
                     bd.insertSortieBesoin(dernierEnr, var, var1, marq.getText().toString(), autr.getText().toString());
                     writeNewSortie(besoin.getText().toString(),marq.getText().toString(),autr.getText().toString(),demande.getText().toString(),employe.getText().toString(),date.getText().toString(),departement.getText().toString(),bd.selectHeureSor(),MyApplication.getmAuth().getCurrentUser().getEmail(),var1);
 
@@ -595,7 +605,9 @@ public class BringOut extends AppCompatActivity {
                     Intent intent = new Intent(BringOut.this, Acceuil.class);
                     startActivity(intent);
                     finish();
+                    MyApplication.setFait(false);
                 }
+
             }
         });
 
@@ -606,6 +618,7 @@ public class BringOut extends AppCompatActivity {
                 Intent intent=new Intent(BringOut.this,Acceuil.class);
                 startActivity(intent);
                 finish();
+                MyApplication.setFait(false);
             }
         });
     }

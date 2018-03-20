@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/nav_header_height"
+    android:layout_height="200dp"
     android:background="@drawable/ecra"
     android:gravity="bottom"
     android:orientation="vertical"
@@ -31,5 +31,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Application de gestion des stocks" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="
+Connecté en tant que "
+        android:textColor="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color" />
 
 </LinearLayout>

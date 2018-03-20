@@ -50,7 +50,7 @@
         android:background="@drawable/round_corner"
         android:hint="Mot de passe"
         android:imeActionId="6"
-        android:imeOptions="actionNext"
+        android:imeOptions="actionDone"
         android:inputType="textPassword"
         android:maxLines="1"
         android:password="true"
