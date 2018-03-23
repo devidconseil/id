@@ -2,13 +2,18 @@ package com.example.hp.madose;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by HP on 28/12/2017.
@@ -141,9 +146,204 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        final BaseDeDonne bd=new BaseDeDonne(this);
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
        DatabaseReference userRef= FirebaseDatabase.getInstance().getReference("users");
        userRef.keepSynced(true);
+
+
+        mDatabase.child("Fournisseur").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotFour:dataSnapshot.getChildren()){
+                    FournisseurC four=dataSnapshotFour.getValue(FournisseurC.class);
+                    if (!bd.checkIfFournisseurExist(four.getNomFour())){
+                        bd.insertFour(four.getNomFour(),four.getAdrFour(),four.getTelFour());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mDatabase.child("Departement").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotDepart:dataSnapshot.getChildren()){
+                    DepartementC depart=dataSnapshotDepart.getValue(DepartementC.class);
+                    if (!bd.checkIfDepartmentExist(depart.getLibDep())){
+                        bd.insert(depart.getLibDep());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mDatabase.child("Categorie").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotCat:dataSnapshot.getChildren()){
+                    CategorieC cat= dataSnapshotCat.getValue(CategorieC.class);
+                    if (!bd.checkIfCategorieExist(cat.getLibCat())){
+                        bd.insertCat(cat.getLibCat());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mDatabase.child("users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotUser:dataSnapshot.getChildren()){
+                    UtilisateurC user=dataSnapshotUser.getValue(UtilisateurC.class);
+                    Log.i("CHAQUE USER",user.getMailEmp());
+                    if (!bd.checkIfUserExist(user)){
+                        int s=Integer.parseInt(bd.selectDep(user.getLibDep()));
+                        bd.insertEmp(user.getNomEmp(),user.getPrenEmp(),user.getMailEmp(),user.getTelEmp(),s,user.getProEmp());
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mDatabase.child("Besoin").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotBes:dataSnapshot.getChildren()){
+                    BesoinC cat= dataSnapshotBes.getValue(BesoinC.class);
+                    if (!bd.checkIfBesoinExist(cat.getLibBes())){
+                        int ss=Integer.parseInt(bd.selectCat(cat.getLibCat()));
+                        bd.insertBesoin(cat.getLibBes(),cat.getTypeBes(),ss,cat.getSeuilBes(),cat.getAmorBes(),cat.getStockBes(),cat.getImageBes());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mDatabase.child("Entree").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotEnt:dataSnapshot.getChildren()){
+                    AddEC cat= dataSnapshotEnt.getValue(AddEC.class);
+
+
+                    if (!bd.checkIfEntreeExist(cat.getLibFour(),cat.getHeureEnt(),cat.user)){
+                        Log.i("SHOW-ME",cat.getLibFour());
+                        int ss=Integer.parseInt(bd.selectFour(cat.getLibFour()));
+                        bd.insertEntr(cat.getDatEnt(),ss,cat.getHeureEnt(),cat.getUser(),false);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mDatabase.child("Besoins-Entree").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotBesEnt:dataSnapshot.getChildren()){
+                    AddBEC cat= dataSnapshotBesEnt.getValue(AddBEC.class);
+
+                    if (!bd.checkIfBesoinEntreeExist(cat.getLibBes(),cat.getDatEnt(),bd.selectHeureEnt(),bd.selectUserEnt(bd.selectHeureEnt()))){
+                        int ss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
+                        int sss=Integer.parseInt(bd.selectIdEnt(cat.getDatEnt()));
+                        bd.insertEntrBes(ss,sss,cat.getPU(),cat.getQte(),cat.getMarqueBes(),cat.getAutrePrécision());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mDatabase.child("Demande").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotDem:dataSnapshot.getChildren()){
+                    DemandeC cat= dataSnapshotDem.getValue(DemandeC.class);
+                    Log.i("I MISS YOU",cat.getDateDem()+" "+cat.getNomEmp());
+
+                    if (! bd.checkIfDemandeBesoinExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibBes(),cat.getDateDem())){
+
+                        int ssss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
+                        if (cat.getLibDpe().equals("")){
+                            int ss=Integer.parseInt(bd.selectEmpId(cat.getNomEmp()));
+                            int sss=Integer.parseInt(bd.selectDep(bd.DepartEmp(ss)));
+                            if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem())) {
+                                bd.insertDemande(cat.getDateDem(), ss, sss, cat.getHeureDem(), false);
+                            }
+                            bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem()),ssss,cat.getQte());
+                            //   Toast.makeText(getApplicationContext(),cat.toString(),Toast.LENGTH_LONG).show();
+                        }
+                        if (cat.getNomEmp().equals("")) {
+                            int ss=0;
+                            int sss=Integer.parseInt(bd.selectDep(cat.getLibDpe()));
+                            bd.insertDemande1(cat.getDateDem(),sss,cat.getHeureDem(),false);
+                            bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem1(cat.getLibDpe(),cat.getDateDem())),ssss,cat.getQte());
+                        }
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        MyApplication.getmDatabase().child("Sorties").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotSor:dataSnapshot.getChildren()){
+                    Stock2 cat=dataSnapshotSor.getValue(Stock2.class);
+                    Log.i("VOILA SORTIE",cat.getNomEmp()+" "+cat.getDateDem());
+                    if (!bd.checkIfSortieEntreeExist(cat.getNomEmp(),cat.getHeureSor(),cat.getLibBes(),cat.getDate())){
+                        if (! bd.checkIfSortieExist(cat.getNomEmp(),cat.getHeureSor())){
+                            String numDem=bd.selectNumDem2(cat.getDateDem(),cat.getNomEmp());
+                            bd.insertSortie(cat.getDate(),numDem,cat.getHeureSor(),cat.getNomEmp(),false);
+                        }
+                        int var1=Integer.parseInt(bd.selectIdSortie());
+                        int var2=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
+                        bd.insertSortieBesoin(var1,var2,cat.getQte(),cat.getMarqBes(),cat.getAutreP());
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
 
 
     }

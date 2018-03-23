@@ -13,18 +13,42 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 public class Listedepartement extends AppCompatActivity {
-    BaseDeDonne bd=new BaseDeDonne(this);
+   BaseDeDonne bd=new BaseDeDonne(this);
     List<String> liste=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listedepartement);
-        BaseDeDonne bd=new BaseDeDonne(this);
+     final   BaseDeDonne bd=new BaseDeDonne(this);
+
+
+       MyApplication.getmDatabase().child("Departement").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotDepart:dataSnapshot.getChildren()){
+                    DepartementC depart=dataSnapshotDepart.getValue(DepartementC.class);
+                    if (!bd.checkIfDepartmentExist(depart.getLibDep())){
+                        bd.insert(depart.getLibDep());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
         final List<DepartementC> departem= bd.afficheDepart();

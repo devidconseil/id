@@ -62,7 +62,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@color/cast_expanded_controller_background_color"
+
         android:clickable="false"
         android:longClickable="true" />
 

@@ -71,7 +71,6 @@ public class Acceuil extends AppCompatActivity
         Time today = new Time(Time.getCurrentTimezone());
         today.setToNow();
         Toast.makeText(getApplicationContext(),today.toString(),Toast.LENGTH_LONG);
-
         String profile=bd.retrieveUserProfile(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         if (profile.equals("USER")){
             Intent intent=new Intent(Acceuil.this,Affichage.class);
@@ -311,7 +310,7 @@ public class Acceuil extends AppCompatActivity
         }
     }
 
-    public void writeNewAdd(String libBes,String datEnt, int pU, int qte, String marqueBes, String autrePrécision){
+    public void writeNewAdd(String heureEnt,String libBes,String datEnt, int pU, int qte, String marqueBes, String autrePrécision){
         String code=libBes+"-"+datEnt;
         if (libBes.contains(" ")){
             libBes=libBes.replace(" ","-");
@@ -325,7 +324,7 @@ public class Acceuil extends AppCompatActivity
             code=code.replace("'","-");
         }
 
-        AddBEC cat=new AddBEC(libBes,datEnt,pU,qte, marqueBes, autrePrécision);
+        AddBEC cat=new AddBEC(heureEnt,libBes,datEnt,pU,qte, marqueBes, autrePrécision);
         mDatabase.child("Besoins-Entree").child(code).setValue(cat);
     }
     public void writeNewEntree(String libFour, String datEnt){

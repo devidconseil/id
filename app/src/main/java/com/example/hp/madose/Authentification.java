@@ -115,6 +115,7 @@ public class Authentification extends AppCompatActivity {
             bd.insertEmp("KONE","Seydou","kseydou@idconsulting.ie","01020304", 2, "USER");
             bd.insertEmp("LAGO","Yvon","ylago@idconsulting.ie","01020304", 2, "USER");
             bd.insertEmp("ASSOH EPSE YAPI","Bénédicte","bassoh@idconsulting.ie","01020304", 3, "ADMIN");
+            bd.insertEmp("DROH","Agostino","adroh@idconsulting.ie","01020304", 4, "SUPER ADMIN");
 
 
 
@@ -125,8 +126,8 @@ public class Authentification extends AppCompatActivity {
             bd.insertEntrBes(1, 1, 150, 5, "Bic", "bleu");
             bd.insertEntrBes(2, 1, 250, 5, "Bic", "noir, permanent");
             bd.insertEntrBes(6, 2, 450000, 5, "HP", "noir, core i5, portable");
-            bd.insertEntrBes(4, 2, 250000, 5, "SAMSUNG", "blanc");
-            bd.insertEntrBes(5, 1, 500, 3, "PRIVILEGE", "200 sticks");
+            bd.insertEntrBes(4, 2, 500, 5, "PRIVILEGE", "200 sticks");
+            bd.insertEntrBes(5, 1, 250000, 3, "SAMSUNG", "blanc");
 
             bd.insertSortie("2018-10-10","1",bd.selectCurrentDate(),"adepatrickade@idconsulting.ie",true);
 
@@ -142,8 +143,7 @@ public class Authentification extends AppCompatActivity {
             Log.i("UNO",MyApplication.getmAuth().getCurrentUser().getEmail());
         } else {
 
-             MyApplication.getmAuth().signInWithEmailAndPassword("test@idconsulting.ie","password");
-         /*            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+             MyApplication.getmAuth().signInWithEmailAndPassword("test@idconsulting.ie","password").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -241,7 +241,7 @@ public class Authentification extends AppCompatActivity {
                     }
                 }
 
-            });  */
+            });
 
 
 FirebaseAuth.getInstance().signOut();

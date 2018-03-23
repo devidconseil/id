@@ -53,6 +53,43 @@ public class Utilisateur extends AppCompatActivity {
         //fonction autotexcomplet
 
 
+        mDatabase.child("Departement").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotDepart:dataSnapshot.getChildren()){
+                    DepartementC depart=dataSnapshotDepart.getValue(DepartementC.class);
+                    if (!bd.checkIfDepartmentExist(depart.getLibDep())){
+                        bd.insert(depart.getLibDep());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        mDatabase.child("users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotUser:dataSnapshot.getChildren()){
+                    UtilisateurC user=dataSnapshotUser.getValue(UtilisateurC.class);
+                    Log.i("CHAQUE USER",user.getMailEmp());
+                    if (!bd.checkIfUserExist(user)){
+                        int s=Integer.parseInt(bd.selectDep(user.getLibDep()));
+                        bd.insertEmp(user.getNomEmp(),user.getPrenEmp(),user.getMailEmp(),user.getTelEmp(),s,user.getProEmp());
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
 
         //fonction liste view
         codeD.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -168,6 +205,29 @@ public class Utilisateur extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    @Override
+    public void onBackPressed(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(Utilisateur.this,0x00000005 );
+        builder.setMessage("Voulez-vous abandonner l'enregistrement?");
+        builder.setTitle("Attention!");
+        builder.setPositiveButton("OUI", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent=new Intent(Utilisateur.this,Acceuil.class);
+                startActivity(intent);
+                finish();
+                MyApplication.setFait(false);
+            }
+        });
+        builder.setNegativeButton("NON", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.create();
+        builder.show();
     }
     private void writeNewUser(String userId, String name, String surname, String email, String tel, String department, String profile) {
         UtilisateurC user = new UtilisateurC(name, surname, email, tel, department, profile);

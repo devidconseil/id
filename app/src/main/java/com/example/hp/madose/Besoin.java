@@ -1,6 +1,8 @@
 package com.example.hp.madose;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -25,8 +27,11 @@ import com.example.hp.madose.model.Item;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 import java.util.ArrayList;
@@ -76,6 +81,41 @@ public class Besoin extends AppCompatActivity {
         int result = radioGroup.getCheckedRadioButtonId();
         radio = (RadioButton) findViewById(result);
         mDatabase= FirebaseDatabase.getInstance().getReference();
+
+        mDatabase.child("Categorie").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotCat:dataSnapshot.getChildren()){
+                    CategorieC cat= dataSnapshotCat.getValue(CategorieC.class);
+                    if (!bd.checkIfCategorieExist(cat.getLibCat())){
+                        bd.insertCat(cat.getLibCat());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mDatabase.child("Besoin").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotBes:dataSnapshot.getChildren()){
+                    BesoinC cat= dataSnapshotBes.getValue(BesoinC.class);
+                    if (!bd.checkIfBesoinExist(cat.getLibBes())){
+                        int ss=Integer.parseInt(bd.selectCat(cat.getLibCat()));
+                        bd.insertBesoin(cat.getLibBes(),cat.getTypeBes(),ss,cat.getSeuilBes(),cat.getAmorBes(),cat.getStockBes(),cat.getImageBes());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
         Intent intent=getIntent();
@@ -277,55 +317,65 @@ public class Besoin extends AppCompatActivity {
                     auto.setError("Veuillez saisir la catégorie du besoin SVP!!");
                 }
                 else {
-                    int resul = radioGroup.getCheckedRadioButtonId();
-                    rb = (RadioButton) findViewById(resul);
+                    if (! bd.checkIfBesoinExist(editLib.getText().toString())) {
+                        int resul = radioGroup.getCheckedRadioButtonId();
+                        rb = (RadioButton) findViewById(resul);
 
-                    int var;
-                    String var1;
-                    int var3 = Integer.parseInt(bd.selectCat(auto.getText().toString()));
+                        int var;
+                        String var1;
+                        int var3 = Integer.parseInt(bd.selectCat(auto.getText().toString()));
 
-                    String amort1, amort2, amort3;
-                    if (edi2.getText().toString().matches(".*/.*/.*")) {
-                        amort1 = edi2.getText().toString().substring(0, 2);
-                        amort2 = edi2.getText().toString().substring(3, 5);
-                        amort3 = edi2.getText().toString().substring(6, 10);
-                        if (Integer.parseInt(amort1) <= 31 && Integer.parseInt(amort2) <= 12 && Integer.parseInt(amort3) >= 1970) {
-                            edi2.setText(amort3 + "-" + amort2 + "-" + amort1);
+                        String amort1, amort2, amort3;
+                        if (edi2.getText().toString().matches(".*/.*/.*")) {
+                            amort1 = edi2.getText().toString().substring(0, 2);
+                            amort2 = edi2.getText().toString().substring(3, 5);
+                            amort3 = edi2.getText().toString().substring(6, 10);
+                            if (Integer.parseInt(amort1) <= 31 && Integer.parseInt(amort2) <= 12 && Integer.parseInt(amort3) >= 1970) {
+                                edi2.setText(amort3 + "-" + amort2 + "-" + amort1);
 
-                        } else {
-                            Toast.makeText(getBaseContext(), "Erreur", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getBaseContext(), "Erreur", Toast.LENGTH_LONG).show();
+                            }
+
                         }
 
+
+                        int varo = Integer.parseInt(edi3.getText().toString());
+
+
+                        if (radio.getText().toString().equals("AMORTISSABLE")) {
+                            var1 = edi2.getText().toString();
+                            int resId = getResources().getIdentifier(MyApplication.verif1, "drawable", getPackageName());
+                            bd.insertBesoin(editLib.getText().toString(), rb.getText().toString(), var3, 0, var1, varo, resId);
+                            writeNewBesoin(editLib.getText().toString(), rb.getText().toString(), auto.getText().toString(), 0, var1, varo, resId);
+                            Toast.makeText(Besoin.this, "Besoin enregistré avec succès", Toast.LENGTH_LONG).show();
+                        } else if (radio.getText().toString().equals("NON AMORTISSABLE")) {
+                            var = Integer.parseInt(edi1.getText().toString());
+                            int resId = getResources().getIdentifier(MyApplication.verif1, "drawable", getPackageName());
+                            bd.insertBesoin(editLib.getText().toString(), rb.getText().toString(), var3, var, "0", varo, resId);
+                            writeNewBesoin(editLib.getText().toString(), rb.getText().toString(), auto.getText().toString(), var, "0", varo, resId);
+                            Toast.makeText(Besoin.this, "Besoin enregistré avec succès", Toast.LENGTH_LONG).show();
+                        }
+
+
+                        Intent intent = new Intent(Besoin.this, Affichage.class);
+                        intent.putExtra("passage", "besoin");
+                        startActivity(intent);
+                        finish();
                     }
+                    else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Besoin.this,0x00000005 );
+                        builder.setMessage("Ce besoin ne peut être créé car il existe déjà");
+                        builder.setTitle("Echec");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-
-                    int varo = Integer.parseInt(edi3.getText().toString());
-
-
-                if (radio.getText().toString().equals("AMORTISSABLE"))
-                {
-                    var1=edi2.getText().toString();
-                    int resId=getResources().getIdentifier(MyApplication.verif1,"drawable",getPackageName());
-                    bd.insertBesoin(editLib.getText().toString(), rb.getText().toString(), var3,0,var1,varo,resId);
-                    writeNewBesoin(editLib.getText().toString(),rb.getText().toString(),auto.getText().toString(),0,var1,varo,resId);
-                    Toast.makeText(Besoin.this, "Besoin enregistré avec succès", Toast.LENGTH_LONG).show();
-                }
-
-               else if (radio.getText().toString().equals("NON AMORTISSABLE"))
-                {
-                    var = Integer.parseInt(edi1.getText().toString());
-                    int resId=getResources().getIdentifier(MyApplication.verif1,"drawable",getPackageName());
-                    bd.insertBesoin(editLib.getText().toString(), rb.getText().toString(), var3,var,"0",varo,resId);
-                    writeNewBesoin(editLib.getText().toString(), rb.getText().toString(), auto.getText().toString(),var,"0",varo,resId);
-                    Toast.makeText(Besoin.this,"Besoin enregistré avec succès", Toast.LENGTH_LONG).show();
-                }
-
-
-
-                    Intent intent = new Intent(Besoin.this, Affichage.class);
-                    intent.putExtra("passage", "besoin");
-                    startActivity(intent);
-                    finish();
+                            }
+                        });
+                        builder.create();
+                        builder.show();
+                    }
                 }
 
             }
@@ -373,6 +423,29 @@ public class Besoin extends AppCompatActivity {
             Toast.makeText(getBaseContext(), radio.getText().toString(), Toast.LENGTH_LONG).show();
         }
 
+    }
+    @Override
+    public void onBackPressed(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(Besoin.this,0x00000005 );
+        builder.setMessage("Voulez-vous abandonner l'enregistrement?");
+        builder.setTitle("Attention!");
+        builder.setPositiveButton("OUI", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent=new Intent(Besoin.this,Acceuil.class);
+                startActivity(intent);
+                finish();
+                MyApplication.setFait(false);
+            }
+        });
+        builder.setNegativeButton("NON", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.create();
+        builder.show();
     }
 
     public void writeNewBesoin(String libBes,String typBes,String libCat,int seuilBes, String amorBes,int stockBes,int imageBes){
