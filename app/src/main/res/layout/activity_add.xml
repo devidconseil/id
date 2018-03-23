@@ -32,7 +32,7 @@
                 android:layout_alignParentTop="true"
                 android:background="@drawable/round_corner"
                 android:drawableRight="@drawable/ic_date_black_24"
-                android:ems="10"
+
                 android:hint="Date"
                 android:imeOptions="actionNext"/>
 

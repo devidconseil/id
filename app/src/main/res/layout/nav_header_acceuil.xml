@@ -32,5 +32,12 @@
         android:layout_height="wrap_content"
         android:text="Application de gestion des stocks" />
 
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="
+Connecté en tant que "
+        android:textColor="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color" />
 
 </LinearLayout>

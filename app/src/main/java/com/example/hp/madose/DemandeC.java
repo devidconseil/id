@@ -11,6 +11,7 @@ public class DemandeC {
     int qte;
     String  dateDem;
     String libDpe;
+    String heureDem;
 
     public DemandeC() {
     }
@@ -34,6 +35,16 @@ public class DemandeC {
     public void setQte(int qte) {
         this.qte = qte;
     }
+
+    public String getHeureDem() {
+        return heureDem;
+    }
+
+    public void setHeureDem(String heureDem) {
+        this.heureDem = heureDem;
+    }
+
+
 
     public void setDateDem(String dateDem) {
         this.dateDem = dateDem;
@@ -85,6 +96,15 @@ public class DemandeC {
         this.qte = qte;
         this.dateDem = dateDem;
         this.libDpe = libDpe;
+    }
+    public DemandeC(String nomEmp,String libDpe, String libBes,String dateDem, int qte, String heureDem) {
+        this.nomEmp = nomEmp;
+        this.libBes = libBes;
+        this.qte = qte;
+        this.dateDem = dateDem;
+        this.libDpe = libDpe;
+        this.heureDem=heureDem;
+
     }
     public DemandeC(String dateDem ) {
 

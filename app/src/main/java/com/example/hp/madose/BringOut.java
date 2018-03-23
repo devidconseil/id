@@ -1,6 +1,7 @@
 package com.example.hp.madose;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -23,7 +25,7 @@ import java.util.Calendar;
 
 public class BringOut extends AppCompatActivity {
 
-    boolean fait=false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class BringOut extends AppCompatActivity {
         final RadioButton radioButton_dep= findViewById(R.id.radioButtonDep);
 
         final EditText date=(EditText)findViewById(R.id.editDate);
+
 
         //AutoTextComplete
        /* ArrayList<String> nd=bd.affiNE();
@@ -306,6 +309,7 @@ public class BringOut extends AppCompatActivity {
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideKeyboard();
                 DatePickerDialog datePickerDialog=new DatePickerDialog(BringOut.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -373,7 +377,7 @@ public class BringOut extends AppCompatActivity {
                         var = bd.selectDep(departement.getText().toString());
                         if (var == null)
                         {
-                            Toast.makeText(getBaseContext(),"Ce departement n'a pas éffectué de demande",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(),"Ce departement n'a pas effectué de demande",Toast.LENGTH_LONG).show();
                         }
                         else if (var != "") {
                             au = bd.affiNumDem1(Integer.parseInt(var));
@@ -485,10 +489,10 @@ public class BringOut extends AppCompatActivity {
 
 
                     String num = new String();
-                    if (employe.isEnabled()) {
+                    if (radioButton_emp.isChecked()) {
                         num = bd.selectNumeDem(demande.getText().toString(), employe.getText().toString());
                     }
-                    if (departement.isEnabled()) {
+                    if (radioButton_dep.isChecked()) {
                         num = bd.selectNumeDem1(demande.getText().toString(), departement.getText().toString());
                     }
                     int dernierEnr;
@@ -499,12 +503,15 @@ public class BringOut extends AppCompatActivity {
                     b = date.getText().toString().substring(3, 5);
                     c = date.getText().toString().substring(6, 10);
                     date.setText(c + "-" + b + "-" + a);
-                    bd.insertSortie(date.getText().toString(), num);
+                    if (!MyApplication.isFait()){
+                    bd.insertSortie(date.getText().toString(), num,"",MyApplication.mAuth.getCurrentUser().getEmail(),true);
+                    }
                     dernierEnr = Integer.parseInt(bd.selectIdSortie());
                     //NumSor` INTEGER, `NumBes` INTEGER, `qte` INTEGER NOT NULL, `marqueBes` TEXT, `Autre précision`
                     int var = Integer.parseInt(bd.selectIdBes(besoin.getText().toString()));
                     int var1 = Integer.parseInt(qut.getText().toString());
                     bd.insertSortieBesoin(dernierEnr, var, var1, marq.getText().toString(), autr.getText().toString());
+                    writeNewSortie(besoin.getText().toString(),marq.getText().toString(),autr.getText().toString(),demande.getText().toString(),employe.getText().toString(),date.getText().toString(),departement.getText().toString(),bd.selectHeureSor(),MyApplication.getmAuth().getCurrentUser().getEmail(),var1);
                     //update debut
                     int var2 = Integer.parseInt(bd.selectStockBes(besoin.getText().toString()));
                     int var3 = var2 - var1;
@@ -516,9 +523,13 @@ public class BringOut extends AppCompatActivity {
                     marq.setText("");
                     autr.setText("");
                     bd.close();
+                    a=date.getText().toString().substring(0,4);
+                    b=date.getText().toString().substring(5,7);
+                    c=date.getText().toString().substring(8,10);
+                    date.setText(c+"/"+b+"/"+a);
 
                     Toast.makeText(getBaseContext(), "Sortie enregistrée avec succès !!", Toast.LENGTH_LONG).show();
-                    fait = true;
+                    MyApplication.setFait(true);
                 }
             }
         });
@@ -548,23 +559,24 @@ public class BringOut extends AppCompatActivity {
                 }
                 else {
                     String num = new String();
-                    if (employe.isEnabled()) {
+                    if (radioButton_emp.isChecked()) {
                         num = bd.selectNumeDem(demande.getText().toString(), employe.getText().toString());
                     }
-                    if (departement.isEnabled()) {
+                    if (radioButton_dep.isChecked()) {
                         num = bd.selectNumeDem1(demande.getText().toString(), departement.getText().toString());
                     }
                     int dernierEnr;
                     // bd.insertSortie(date.getText().toString(),num);
                     // bd.close();
 
-                    if (fait == false) {
+                    if (! MyApplication.isFait()) {
                         String a, b, c;
                         a = date.getText().toString().substring(0, 2);
                         b = date.getText().toString().substring(3, 5);
                         c = date.getText().toString().substring(6, 10);
                         date.setText(c + "-" + b + "-" + a);
-                        bd.insertSortie(date.getText().toString(), num);
+                        bd.insertSortie(date.getText().toString(), num,"",MyApplication.getmAuth().getCurrentUser().getEmail(),true);
+
                     }
 
 
@@ -572,7 +584,16 @@ public class BringOut extends AppCompatActivity {
                     //NumSor` INTEGER, `NumBes` INTEGER, `qte` INTEGER NOT NULL, `marqueBes` TEXT, `Autre précision`
                     int var = Integer.parseInt(bd.selectIdBes(besoin.getText().toString()));
                     int var1 = Integer.parseInt(qut.getText().toString());
+                    if (MyApplication.isFait()) {
+                        String a, b, c, d;
+                        a = date.getText().toString().substring(0, 2);
+                        b = date.getText().toString().substring(3, 5);
+                        c = date.getText().toString().substring(6, 10);
+                        date.setText(c + "-" + b + "-" + a);
+                    }
                     bd.insertSortieBesoin(dernierEnr, var, var1, marq.getText().toString(), autr.getText().toString());
+                    writeNewSortie(besoin.getText().toString(),marq.getText().toString(),autr.getText().toString(),demande.getText().toString(),employe.getText().toString(),date.getText().toString(),departement.getText().toString(),bd.selectHeureSor(),MyApplication.getmAuth().getCurrentUser().getEmail(),var1);
+
                     //update debut
                     int var2 = Integer.parseInt(bd.selectStockBes(besoin.getText().toString()));
                     int var3 = var2 - var1;
@@ -584,7 +605,9 @@ public class BringOut extends AppCompatActivity {
                     Intent intent = new Intent(BringOut.this, Acceuil.class);
                     startActivity(intent);
                     finish();
+                    MyApplication.setFait(false);
                 }
+
             }
         });
 
@@ -595,7 +618,38 @@ public class BringOut extends AppCompatActivity {
                 Intent intent=new Intent(BringOut.this,Acceuil.class);
                 startActivity(intent);
                 finish();
+                MyApplication.setFait(false);
             }
         });
+    }
+    public void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        View v = getCurrentFocus();
+        if (v != null)
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+    }
+    public void writeNewSortie(String libBes, String marqBes, String autreP, String dateDem, String nomEmp, String date, String libDep, String heureSor, String validationUser, int qte){
+        BaseDeDonne bd=new BaseDeDonne(getApplicationContext());
+        String now=bd.selectCurrentDate();
+        String code=nomEmp+"-"+libDep+"-"+libBes+"-"+now;
+        String cricri="";
+
+        if (nomEmp.contains(" ")){
+            cricri=nomEmp.replace(" ","-");
+            code=cricri+"-"+libDep+"-"+libBes+"-"+now;
+        }
+  /*      if (dateDem.contains("/")){
+            cris=dateDem.replace("/","-");
+            code=nomEmp+"-"+libDpe+"-"+libBes+"-"+cris;
+        }   */
+        if (nomEmp.contains("'") || libDep.contains("'") || libBes.contains("'")){
+            code=code.replace("'","-");
+        }
+        if (libDep.contains(" ") || libBes.contains(" ")){
+            code=code.replace(" ","-");
+        }
+
+        Stock2 cat=new Stock2(libBes,marqBes,autreP,dateDem,nomEmp,date,libDep,heureSor,validationUser,qte);
+        MyApplication.getmDatabase().child("Sorties").child(code).setValue(cat);
     }
 }
