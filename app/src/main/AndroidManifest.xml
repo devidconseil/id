@@ -67,22 +67,6 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Entrees"
-            android:label="@string/title_activity_entrees"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".Sorties"
-            android:label="@string/title_activity_sorties"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -118,7 +102,10 @@
         <activity android:name=".ListeBesoin" />
         <activity android:name=".ListeDate" />
         <activity android:name=".MyApplication" />
-        <activity android:name=".TableListe"></activity>
+        <activity android:name=".TableListe" />
+        <activity android:name=".Listes.ListeRupture" />
+        <activity android:name=".Listes.StockSup" />
+        <activity android:name=".Listes.StockEgale"></activity>
     </application>
 
 </manifest>

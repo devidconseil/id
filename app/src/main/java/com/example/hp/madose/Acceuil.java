@@ -3,11 +3,18 @@ package com.example.hp.madose;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabItem;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.CardView;
@@ -18,8 +25,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v4.app.Fragment;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -32,12 +47,20 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 
-
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Acceuil extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+
+    /**
+     * The {@link ViewPager} that will host the section contents.
+     */
+    private ViewPager mViewPager;
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -63,6 +86,8 @@ public class Acceuil extends AppCompatActivity
         }
         bd = new BaseDeDonne(this);
 
+
+
         mDatabase= FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
@@ -77,6 +102,18 @@ public class Acceuil extends AppCompatActivity
             startActivity(intent);
             finish();
         }
+
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mSectionsPagerAdapter.getItem(3);
+
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+
+
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
 
 /*if(!bd.checkIfTableHasData("Besoins_Sortie") && !bd.checkIfTableHasData("Categorie") && !bd.checkIfTableHasData("Demande") && !bd.checkIfTableHasData("Demande_Besoins") && !bd.checkIfTableHasData("Departement") && !bd.checkIfTableHasData("Utilisateur") && !bd.checkIfTableHasData("Besoin") && !bd.checkIfTableHasData("Besoins_Entree") && !bd.checkIfTableHasData("Entree") && !bd.checkIfTableHasData("Fournisseur") && !bd.checkIfTableHasData("Sortie"))
@@ -148,50 +185,18 @@ public class Acceuil extends AppCompatActivity
             builder.setCancelable(false);
         }
 
+/*mmmmmmmmmmmmmmmmmmmmmmmmmmm zone de turbulence mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm*/
 
-        CardView cardView=findViewById(R.id.acBout1);
-        CardView cardView2=findViewById(R.id.acBout2);
-        CardView cardView3=findViewById(R.id.acBout3);
-        CardView cardView4=findViewById(R.id.acBout4);
-
-
-        cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(Acceuil.this, Add.class);
-                intent.putExtra("code","accueil");
-                startActivity(intent);
-            }
-        });
-
-
-        cardView3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(Acceuil.this, BringOut.class);
-                intent.putExtra("code","accueil");
-                startActivity(intent);
-            }
-        });
-
-        cardView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(Acceuil.this, Demande.class);
-                intent.putExtra("code","accueil");
-                startActivity(intent);
-            }
-        });
-        cardView4.setOnClickListener(new View.OnClickListener() {
+       /* cardView4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(Acceuil.this, Variation.class);
                 intent.putExtra("code","accueil");
                 startActivity(intent);
             }
-        });
+        });*/
 
-
+/*mmmmmmmmmmmmmmmmmmmmmmmmmm fin de turbulence mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm*/
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -341,4 +346,58 @@ public class Acceuil extends AppCompatActivity
         AddEC cat=new AddEC(libFour,datEnt);
         mDatabase.child("Entree").child(code).setValue(cat);
     }
+
+
+
+    /**
+     * A placeholder fragment containing a simple view.
+     */
+
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    Frag_accueil_ac fra1=new Frag_accueil_ac();
+                    return fra1;
+
+                case 1:
+                    Frag_accueil_enregistrer fra2=new Frag_accueil_enregistrer();
+                    return fra2;
+                case 2:
+                    Frag_accueil_listes fra3=new Frag_accueil_listes();
+                    return fra3;
+                default:
+                    return null;
+            }
+
+        }
+
+        @Override
+        public int getCount() {
+            // Show 3 total pages.
+            return 3;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return "SECTION 1";
+                case 1:
+                    return "SECTION 2";
+                case 2:
+                    return "SECTION 3";
+            }
+            return null;
+        }
+    }
+
+
+
 }

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_centerInParent="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="0dp">
+
+ <ScrollView
+     android:layout_width="match_parent"
+     android:layout_height="match_parent">
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical" >
+
+   <com.github.mikephil.charting.charts.PieChart
+       android:id="@+id/chart"
+       android:layout_width="300dp"
+       android:layout_height="300dp"
+       android:layout_centerHorizontal="true"></com.github.mikephil.charting.charts.PieChart>
+
+   <Button
+       android:id="@+id/butinfe"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignLeft="@+id/butegale"
+       android:layout_alignStart="@+id/butegale"
+       android:layout_below="@+id/butegale"
+       android:textColor="#fff"
+       android:backgroundTint="#FA564A"
+       android:text="0" />
+
+   <Button
+       android:id="@+id/butegale"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignLeft="@+id/butsup"
+       android:layout_alignStart="@+id/butsup"
+       android:layout_below="@+id/butsup"
+       android:backgroundTint="#f1c40f"
+       android:textColor="#fff"
+       android:text="0" />
+
+   <Button
+       android:id="@+id/butsup"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignLeft="@+id/chart"
+       android:layout_alignStart="@+id/chart"
+       android:layout_below="@+id/chart"
+       android:textColor="#fff"
+       android:layout_marginTop="14dp"
+       android:backgroundTint="#2ecc71"
+       android:text="0" />
+
+   <TextView
+       android:id="@+id/sup"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignBaseline="@+id/butsup"
+       android:layout_alignBottom="@+id/butsup"
+       android:layout_toEndOf="@+id/butsup"
+       android:layout_toRightOf="@+id/butsup"
+       android:textColor="#000"
+       android:text="Stock supérieur au seuil d'alert." />
+
+   <TextView
+       android:id="@+id/egale"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignBaseline="@+id/butegale"
+       android:layout_alignBottom="@+id/butegale"
+       android:layout_toEndOf="@+id/butegale"
+       android:layout_toRightOf="@+id/butegale"
+       android:textColor="#000"
+       android:text="Stock égale au seuil d'alert." />
+
+   <TextView
+       android:id="@+id/inferieur"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignBaseline="@+id/butinfe"
+       android:layout_alignBottom="@+id/butinfe"
+       android:layout_toEndOf="@+id/butinfe"
+       android:layout_toRightOf="@+id/butinfe"
+       android:text="Stock inférieur au seuil d'alert."
+       android:textColor="#000" />
+
+   <TextView
+       android:id="@+id/ts"
+       android:layout_width="wrap_content"
+       android:visibility="invisible"
+       android:layout_height="wrap_content"
+       android:layout_alignParentBottom="true"
+       android:layout_alignParentLeft="true"
+       android:layout_alignParentStart="true"
+       android:text="" />
+
+   <TextView
+       android:id="@+id/te"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignEnd="@+id/ts"
+       android:layout_alignRight="@+id/ts"
+       android:layout_below="@+id/butegale"
+       android:text=""
+       android:visibility="invisible" />
+
+   <TextView
+       android:id="@+id/ti"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_above="@+id/butinfe"
+       android:layout_toLeftOf="@+id/butegale"
+       android:layout_toStartOf="@+id/butegale"
+       android:text=""
+       android:visibility="invisible" />
+  </RelativeLayout>
+ </ScrollView>
+
+
+</RelativeLayout>

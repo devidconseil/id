@@ -12,65 +12,77 @@
     tools:context="com.example.hp.madose.Fournisseur">
 
 
-    <EditText
-        android:id="@+id/nomF"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="60dp"
-        android:background="@drawable/round_corner"
-        android:hint="Nom du fournisseur"
-        android:inputType="textPersonName" />
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/adrF"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/nomF"
-        android:background="@drawable/round_corner"
-        android:hint="Adresse"
-        android:inputType="textPersonName" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/contF"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/adrF"
-        android:background="@drawable/round_corner"
-        android:drawableRight="@drawable/ic_phone_black_24dp"
-        android:hint="@string/contact"
-        android:inputType="phone" />
+            <EditText
+                android:id="@+id/nomF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="60dp"
+                android:background="@drawable/round_corner"
+                android:hint="Nom du fournisseur"
+                android:inputType="textPersonName" />
 
-    <Button
-        android:id="@+id/valF"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/contF"
-        android:layout_marginTop="13dp"
-        android:backgroundTint="#858687"
-        android:drawableRight="@drawable/ic_save_black_24dp"
-        android:text="enregistrer"
-        android:textColor="#fff" />
+            <EditText
+                android:id="@+id/adrF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/nomF"
+                android:background="@drawable/round_corner"
+                android:hint="Adresse"
+                android:inputType="textPersonName" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/valF"
-        android:backgroundTint="#858687"
-        android:drawableRight="@drawable/ic_clear_black_24dp"
-        android:text="Annuler"
-        android:textColor="#fff" />
+            <EditText
+                android:id="@+id/contF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/adrF"
+                android:background="@drawable/round_corner"
+                android:drawableRight="@drawable/ic_phone_black_24dp"
+                android:hint="@string/contact"
+                android:inputType="phone" />
+
+            <Button
+                android:id="@+id/valF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/contF"
+                android:layout_marginTop="13dp"
+                android:backgroundTint="#858687"
+                android:drawableRight="@drawable/ic_save_black_24dp"
+                android:text="enregistrer"
+                android:textColor="#fff" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/valF"
+                android:backgroundTint="#858687"
+                android:drawableRight="@drawable/ic_clear_black_24dp"
+                android:text="Annuler"
+                android:textColor="#fff" />
+        </RelativeLayout>
+    </ScrollView>
+
 </RelativeLayout>
 
 

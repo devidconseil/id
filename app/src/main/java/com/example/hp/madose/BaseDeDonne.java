@@ -42,6 +42,8 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         super(context, MABASE, null, 1);
     }
 
+
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table if exists Fournisseur");
@@ -1228,8 +1230,7 @@ public ArrayList<String> affiNumDem(int idemp)
     public List<RuptureC> RupureCheck() {
         List<RuptureC> affS = new ArrayList<>();
 
-
-        String req = "select libBes,SeuilBes,StockBes from Besoin where SeuilBes>=StockBes and TypeBes='NON AMORTISSABLE';";
+        String req = "select libBes,SeuilBes,StockBes from Besoin where SeuilBes>StockBes and TypeBes='NON AMORTISSABLE';";
         Cursor cursor = this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -1255,15 +1256,181 @@ public ArrayList<String> affiNumDem(int idemp)
                 return affS;
             }
 
+        cursor.close();
+        return affS;
+
+    }
+
+    public List<RuptureC> StockSup() {
+        List<RuptureC> affS = new ArrayList<>();
+
+        String req = "select libBes,SeuilBes,StockBes from Besoin where SeuilBes<StockBes and TypeBes='NON AMORTISSABLE';";
+        Cursor cursor = this.getReadableDatabase().rawQuery(req, null);
+        cursor.moveToFirst();
+
+        if (!(!checkIfTableHasData("Besoins_Sortie") && !checkIfTableHasData("Categorie") && !checkIfTableHasData("Demande") && !checkIfTableHasData("Demande_Besoins") && !checkIfTableHasData("Departement") && !checkIfTableHasData("Utilisateur") && !checkIfTableHasData("Besoin") && !checkIfTableHasData("Besoins_Entree") && !checkIfTableHasData("Entree") && !checkIfTableHasData("Fournisseur") && !checkIfTableHasData("Sortie"))) {
+
+            while (!cursor.isAfterLast()) {
+
+                RuptureC disp = new RuptureC(cursor.getString(0), cursor.getInt(1), cursor.getInt(2));
+
+                affS.add(disp);
+                cursor.moveToNext();
+                // }
+
+            }
+            if (cursor.moveToFirst()) {
+                MyApplication.setDone(true);
+            } else {
+                MyApplication.setDone(false);
+            }
 
 
-
+            cursor.close();
+            return affS;
+        }
 
         cursor.close();
         return affS;
 
+    }
+    public List<RuptureC> StockInf() {
+        List<RuptureC> affS = new ArrayList<>();
+
+        String req = "select libBes,SeuilBes,StockBes from Besoin where SeuilBes=StockBes and TypeBes='NON AMORTISSABLE';";
+        Cursor cursor = this.getReadableDatabase().rawQuery(req, null);
+        cursor.moveToFirst();
+
+        if (!(!checkIfTableHasData("Besoins_Sortie") && !checkIfTableHasData("Categorie") && !checkIfTableHasData("Demande") && !checkIfTableHasData("Demande_Besoins") && !checkIfTableHasData("Departement") && !checkIfTableHasData("Utilisateur") && !checkIfTableHasData("Besoin") && !checkIfTableHasData("Besoins_Entree") && !checkIfTableHasData("Entree") && !checkIfTableHasData("Fournisseur") && !checkIfTableHasData("Sortie"))) {
+
+            while (!cursor.isAfterLast()) {
+
+                RuptureC disp = new RuptureC(cursor.getString(0), cursor.getInt(1), cursor.getInt(2));
+
+                affS.add(disp);
+                cursor.moveToNext();
+                // }
+
+            }
+            if (cursor.moveToFirst()) {
+                MyApplication.setDone(true);
+            } else {
+                MyApplication.setDone(false);
+            }
+
+
+            cursor.close();
+            return affS;
+        }
+
+        cursor.close();
+        return affS;
 
     }
+    public List<RuptureC> CountRup() {
+        List<RuptureC> affS = new ArrayList<>();
+
+        String req = "select COUNT(libBes) from Besoin where StockBes<SeuilBes and TypeBes='NON AMORTISSABLE';";
+        Cursor cursor = this.getReadableDatabase().rawQuery(req, null);
+        cursor.moveToFirst();
+
+        if (!(!checkIfTableHasData("Besoins_Sortie") && !checkIfTableHasData("Categorie") && !checkIfTableHasData("Demande") && !checkIfTableHasData("Demande_Besoins") && !checkIfTableHasData("Departement") && !checkIfTableHasData("Utilisateur") && !checkIfTableHasData("Besoin") && !checkIfTableHasData("Besoins_Entree") && !checkIfTableHasData("Entree") && !checkIfTableHasData("Fournisseur") && !checkIfTableHasData("Sortie"))) {
+
+            while (!cursor.isAfterLast()) {
+
+                RuptureC disp = new RuptureC(cursor.getString(0));
+
+                affS.add(disp);
+                cursor.moveToNext();
+                // }
+
+            }
+            if (cursor.moveToFirst()) {
+                MyApplication.setDone(true);
+            } else {
+                MyApplication.setDone(false);
+            }
+
+
+            cursor.close();
+            return affS;
+        }
+
+        cursor.close();
+        return affS;
+
+    }
+    public List<RuptureC> CountSup() {
+        List<RuptureC> affS = new ArrayList<>();
+
+        String req = "select COUNT(libBes) from Besoin where StockBes>SeuilBes and TypeBes='NON AMORTISSABLE';";
+        Cursor cursor = this.getReadableDatabase().rawQuery(req, null);
+        cursor.moveToFirst();
+
+        if (!(!checkIfTableHasData("Besoins_Sortie") && !checkIfTableHasData("Categorie") && !checkIfTableHasData("Demande") && !checkIfTableHasData("Demande_Besoins") && !checkIfTableHasData("Departement") && !checkIfTableHasData("Utilisateur") && !checkIfTableHasData("Besoin") && !checkIfTableHasData("Besoins_Entree") && !checkIfTableHasData("Entree") && !checkIfTableHasData("Fournisseur") && !checkIfTableHasData("Sortie"))) {
+
+            while (!cursor.isAfterLast()) {
+
+                RuptureC disp = new RuptureC(cursor.getString(0));
+
+                affS.add(disp);
+                cursor.moveToNext();
+                // }
+
+            }
+            if (cursor.moveToFirst()) {
+                MyApplication.setDone(true);
+            } else {
+                MyApplication.setDone(false);
+            }
+
+
+            cursor.close();
+            return affS;
+        }
+
+        cursor.close();
+        return affS;
+
+    }
+    public List<RuptureC> CountEg() {
+        List<RuptureC> affS = new ArrayList<>();
+
+        String req = "select COUNT(libBes) from Besoin where StockBes=SeuilBes and TypeBes='NON AMORTISSABLE';";
+        Cursor cursor = this.getReadableDatabase().rawQuery(req, null);
+        cursor.moveToFirst();
+
+        if (!(!checkIfTableHasData("Besoins_Sortie") && !checkIfTableHasData("Categorie") && !checkIfTableHasData("Demande") && !checkIfTableHasData("Demande_Besoins") && !checkIfTableHasData("Departement") && !checkIfTableHasData("Utilisateur") && !checkIfTableHasData("Besoin") && !checkIfTableHasData("Besoins_Entree") && !checkIfTableHasData("Entree") && !checkIfTableHasData("Fournisseur") && !checkIfTableHasData("Sortie"))) {
+
+            while (!cursor.isAfterLast()) {
+
+                RuptureC disp = new RuptureC(cursor.getString(0));
+
+                affS.add(disp);
+                cursor.moveToNext();
+                // }
+
+            }
+            if (cursor.moveToFirst()) {
+                MyApplication.setDone(true);
+            } else {
+                MyApplication.setDone(false);
+            }
+
+
+            cursor.close();
+            return affS;
+        }
+
+        cursor.close();
+        return affS;
+
+    }
+
+
+
+
+
     public void deleteUser(String mail){
         String req="delete from Utilisateur where MailEmp='"+mail+"';";
         this.getWritableDatabase().execSQL(req);

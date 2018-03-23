@@ -1,31 +1,40 @@
 package com.example.hp.madose;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
-public class Variation extends AppCompatActivity {
+/**
+ * Created by erick on 20/03/2018.
+ */
 
+public class Frag_accueil_listes extends Fragment {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_variation);
-        TextView entrees= findViewById(R.id.listeE);
-        TextView demande= findViewById(R.id.listeD);
-        TextView sortie= findViewById(R.id.listeS);
-        TextView stock= findViewById(R.id.stock);
-        TextView demand= findViewById(R.id.textView9);
-        TextView liste_achats= findViewById(R.id.textView10);
-        Button test=(Button)findViewById(R.id.boutontest);
-        Button test2=(Button)findViewById(R.id.button4);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+
+        View rootView = inflater.inflate(R.layout.fragment_listes, container, false);
+
+        Button entrees= rootView.findViewById(R.id.listeE);
+        Button demande= rootView.findViewById(R.id.listeD);
+        Button sortie= rootView.findViewById(R.id.listeS);
+        Button stock= rootView.findViewById(R.id.stock);
+        Button demand= rootView.findViewById(R.id.textView9);
+        Button liste_achats= rootView.findViewById(R.id.textView10);
+        Button rupture= rootView.findViewById(R.id.rupture);
+        Button test=(Button)rootView.findViewById(R.id.boutontest);
+        Button test2=(Button)rootView.findViewById(R.id.button4);
+
 
         entrees.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Variation.this,Affichage.class);
+                Intent intent=new Intent(getActivity(),Affichage.class);
                 intent.putExtra("passage","entree");
                 startActivity(intent);
             }
@@ -34,7 +43,7 @@ public class Variation extends AppCompatActivity {
         demande.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Variation.this,CoutTotalBesoin.class);
+                Intent intent=new Intent(getActivity(),CoutTotalBesoin.class);
                 intent.putExtra("passage","demande");
                 startActivity(intent);
             }
@@ -43,7 +52,7 @@ public class Variation extends AppCompatActivity {
         sortie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Variation.this,Affichage.class);
+                Intent intent=new Intent(getActivity(),Affichage.class);
                 intent.putExtra("passage","sortie");
                 startActivity(intent);
             }
@@ -52,7 +61,7 @@ public class Variation extends AppCompatActivity {
         stock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Variation.this,Affichage.class);
+                Intent intent=new Intent(getActivity(),Affichage.class);
                 intent.putExtra("passage","stock");
                 startActivity(intent);
             }
@@ -61,18 +70,18 @@ public class Variation extends AppCompatActivity {
         demand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Variation.this,Affichage.class);
+                Intent intent=new Intent(getActivity(),Affichage.class);
                 intent.putExtra("passage","demande");
                 startActivity(intent);
             }
         });
-        TextView rupture= findViewById(R.id.rupture);
+
 
 
         rupture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Variation.this,Affichage.class);
+                Intent intent=new Intent(getActivity(),Affichage.class);
                 intent.putExtra("passage","Rupture");
                 startActivity(intent);
             }
@@ -81,24 +90,26 @@ public class Variation extends AppCompatActivity {
         liste_achats.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(Variation.this,Affichage.class);
+                Intent intent=new Intent(getActivity(),Affichage.class);
                 intent.putExtra("passage","Liste_achats");
                 startActivity(intent);
             }
         });
+
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(Variation.this, Display.class);
+                Intent intent=new Intent(getActivity(), Display.class);
                 startActivity(intent);
             }
         });
         test2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Variation.this, TableListe.class);
+                Intent intent=new Intent(getActivity(), TableListe.class);
                 startActivity(intent);
             }
         });
+        return rootView;
     }
 }

@@ -14,96 +14,133 @@
     tools:context="com.example.hp.madose.Besoin">
 
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        app:srcCompat="@drawable/ic_image_black_24dp"
-        tools:ignore="VectorDrawableCompat" />
-
-    <EditText
-        android:id="@+id/libelle"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/imageView3"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/round_corner"
-        android:hint="Libellé"
-        android:inputType="textPersonName" />
+        android:layout_height="match_parent">
 
-    <AutoCompleteTextView
-        android:id="@+id/autoComplCat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/libelle"
-        android:background="@drawable/round_corner"
-        android:drawableRight="@drawable/ic_fleche_a_droit_24dp"
-        android:completionHint="Catégorie"
-        android:hint="Catégorie" />
-
-    <RadioGroup
-        android:id="@+id/groupeRadio"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@id/autoComplCat">
-
-        <RadioButton
-            android:id="@+id/radioNonAm"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="radioBout"
-            android:text="NON AMORTISSABLE" />
+            android:orientation="vertical" >
 
-        <RadioButton
-            android:id="@+id/radioAm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="radioBout"
-            android:text="AMORTISSABLE" />
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                app:srcCompat="@drawable/ic_image_black_24dp"
+                tools:ignore="VectorDrawableCompat" />
 
-    </RadioGroup>
+            <AutoCompleteTextView
+                android:id="@+id/autoComplCat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/libelle"
+                android:background="@drawable/round_corner"
+                android:completionHint="Catégorie"
+                android:drawableRight="@drawable/ic_fleche_a_droit_24dp"
+                android:hint="Catégorie" />
 
-    <EditText
-        android:id="@+id/seuil"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@drawable/round_corner"
-        android:layout_below="@+id/groupeRadio"
-        android:hint="Seuil"
-        android:inputType="number" />
+            <Button
+                android:id="@+id/quitterB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/enregistre"
+                android:backgroundTint="#858687"
+                android:drawableRight="@drawable/ic_clear_black_24dp"
+                android:text="Annuler"
+                android:textColor="#fff" />
 
-    <EditText
-        android:id="@+id/peremption"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/groupeRadio"
-        android:drawableRight="@drawable/ic_date_black_24"
-        android:background="@drawable/round_corner"
-        android:hint="Date de péremption"
-        android:inputType="date" />
+            <EditText
+                android:id="@+id/libelle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/imageView3"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/round_corner"
+                android:hint="Libellé"
+                android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/stock"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@drawable/round_corner"
-        android:layout_below="@+id/peremption"
-        android:hint="Stock initial"
-        android:inputType="number" />
+            <EditText
+                android:id="@+id/seuil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/groupeRadio"
+                android:background="@drawable/round_corner"
+                android:hint="Seuil"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/peremption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/groupeRadio"
+                android:background="@drawable/round_corner"
+                android:drawableRight="@drawable/ic_date_black_24"
+                android:hint="Date de péremption"
+                android:inputType="date" />
+
+            <RadioGroup
+                android:id="@+id/groupeRadio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/autoComplCat">
+
+                <RadioButton
+                    android:id="@+id/radioNonAm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="radioBout"
+                    android:text="NON AMORTISSABLE" />
+
+                <RadioButton
+                    android:id="@+id/radioAm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="radioBout"
+                    android:text="AMORTISSABLE" />
+
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/enregistre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/stock"
+                android:layout_marginTop="14dp"
+                android:backgroundTint="#858687"
+                android:drawableRight="@drawable/ic_save_black_24dp"
+                android:text="enregistrer"
+                android:textColor="#fff" />
+
+            <EditText
+                android:id="@+id/stock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/peremption"
+                android:background="@drawable/round_corner"
+                android:hint="Stock initial"
+                android:inputType="number" />
+        </RelativeLayout>
+    </ScrollView>
+
     <!--
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -118,31 +155,6 @@
             android:hint="Numéro" />
 
         </android.support.design.widget.TextInputLayout> -->
-
-    <Button
-        android:id="@+id/enregistre"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/stock"
-        android:layout_marginTop="14dp"
-        android:backgroundTint="#858687"
-        android:drawableRight="@drawable/ic_save_black_24dp"
-        android:text="enregistrer"
-        android:textColor="#fff" />
-
-    <Button
-        android:id="@+id/quitterB"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/enregistre"
-        android:backgroundTint="#858687"
-        android:drawableRight="@drawable/ic_clear_black_24dp"
-        android:text="Annuler"
-        android:textColor="#fff" />
 
 
 </RelativeLayout>

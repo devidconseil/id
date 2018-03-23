@@ -12,104 +12,114 @@
     tools:context="com.example.hp.madose.Utilisateur">
 
 
-    <Button
-        android:id="@+id/valEmp"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/autoCompDep"
-        android:layout_marginTop="13dp"
-        android:backgroundTint="#858687"
-        android:drawableRight="@drawable/ic_save_black_24dp"
-        android:text="enregistrer"
-        android:textColor="#fff" />
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/button9"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/valEmp"
-        android:backgroundTint="#858687"
-        android:drawableRight="@drawable/ic_clear_black_24dp"
-        android:text="Annuler"
-        android:textColor="#fff" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/nomEmp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp"
-        android:background="@drawable/round_corner"
-        android:hint="Nom"
-        android:inputType="textPersonName" />
+            <EditText
+                android:id="@+id/nomEmp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/round_corner"
+                android:hint="Nom"
+                android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/prenEmp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="false"
-        android:layout_below="@+id/nomEmp"
-        android:background="@drawable/round_corner"
-        android:hint="Prénoms"
-        android:inputType="textPersonName"
-       />
+            <Button
+                android:id="@+id/valEmp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/autoCompDep"
+                android:layout_marginTop="13dp"
+                android:backgroundTint="#858687"
+                android:drawableRight="@drawable/ic_save_black_24dp"
+                android:text="enregistrer"
+                android:textColor="#fff" />
 
-    <EditText
-        android:id="@+id/profil"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/contact"
-        android:ems="10"
-        android:hint="Profil"
-        android:inputType="textPersonName"
-        android:background="@drawable/round_corner" />
+            <Button
+                android:id="@+id/button9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/valEmp"
+                android:backgroundTint="#858687"
+                android:drawableRight="@drawable/ic_clear_black_24dp"
+                android:text="Annuler"
+                android:textColor="#fff" />
 
-    <EditText
-        android:id="@+id/contact"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/email"
-        android:ems="10"
-        android:hint="Téléphone"
-        android:inputType="phone"
-        android:background="@drawable/round_corner" />
+            <EditText
+                android:id="@+id/profil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/contact"
+                android:background="@drawable/round_corner"
+                android:ems="10"
+                android:hint="Profil"
+                android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/prenEmp"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="text|textEmailAddress"
-        android:background="@drawable/round_corner" />
+            <EditText
+                android:id="@+id/prenEmp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="false"
+                android:layout_below="@+id/nomEmp"
+                android:background="@drawable/round_corner"
+                android:hint="Prénoms"
+                android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/autoCompDep"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/profil"
-        android:background="@drawable/round_corner"
-        android:drawableRight="@drawable/ic_fleche_a_droit_24dp"
-        android:ems="10"
-        android:hint="Departement"
-        android:inputType="textPersonName" />
+            <EditText
+                android:id="@+id/contact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/email"
+                android:background="@drawable/round_corner"
+                android:ems="10"
+                android:hint="Téléphone"
+                android:inputType="phone" />
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/prenEmp"
+                android:background="@drawable/round_corner"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="text|textEmailAddress" />
+
+            <EditText
+                android:id="@+id/autoCompDep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/profil"
+                android:background="@drawable/round_corner"
+                android:drawableRight="@drawable/ic_fleche_a_droit_24dp"
+                android:ems="10"
+                android:hint="Departement"
+                android:inputType="textPersonName" />
+        </RelativeLayout>
+    </ScrollView>
 
 
 </RelativeLayout>

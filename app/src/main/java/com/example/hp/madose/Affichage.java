@@ -280,7 +280,7 @@ public class Affichage extends AppCompatActivity {
         for (Stock2 emp : affF) {
             stock1.append(emp.toString() + "\n\n");
            }
-        for (Stock2 emp : affF1) {
+       for (Stock2 emp : affF1) {
                 stock1.append(emp.toString1() + "\n\n");
             }
 
@@ -462,8 +462,7 @@ public class Affichage extends AppCompatActivity {
             cout.setText("LISTE DES BESOINS (MATERIELS) EN RUPTURE \n\n\n");
 
             boolean a = true;
-
-
+            
             List<RuptureC> affF = bd.RupureCheck();
             //     Toast.makeText(getBaseContext(),getIntent().getStringExtra("passage"),Toast.LENGTH_LONG);
             for (RuptureC emp : affF) {

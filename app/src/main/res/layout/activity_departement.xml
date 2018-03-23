@@ -12,41 +12,53 @@
     tools:context="com.example.hp.madose.Departement">
 
 
-    <EditText
-        android:id="@+id/libdep"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="60dp"
-        android:background="@drawable/round_corner"
-        android:hint="Nom du departement"
-        android:inputType="textPersonName" />
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/libdep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="60dp"
+                android:background="@drawable/round_corner"
+                android:hint="Nom du departement"
+                android:inputType="textPersonName" />
+
+            <Button
+                android:id="@+id/validez"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/libdep"
+                android:layout_marginTop="18dp"
+                android:backgroundTint="#858687"
+                android:drawableRight="@drawable/ic_save_black_24dp"
+                android:text="Enregistrer"
+                android:textColor="@color/cardview_light_background" />
+
+            <Button
+                android:id="@+id/annulerDep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/validez"
+                android:backgroundTint="#858687"
+                android:drawableRight="@drawable/ic_clear_black_24dp"
+                android:text="Quitter"
+                android:textColor="@android:color/background_light" />
+        </RelativeLayout>
+    </ScrollView>
 
 
-    <Button
-        android:id="@+id/validez"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/libdep"
-        android:layout_marginTop="18dp"
-        android:backgroundTint="#858687"
-        android:drawableRight="@drawable/ic_save_black_24dp"
-        android:text="Enregistrer"
-        android:textColor="@color/cardview_light_background" />
-
-    <Button
-        android:id="@+id/annulerDep"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/validez"
-        android:backgroundTint="#858687"
-        android:drawableRight="@drawable/ic_clear_black_24dp"
-        android:text="Quitter"
-        android:textColor="@android:color/background_light" />
 </RelativeLayout>

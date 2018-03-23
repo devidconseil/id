@@ -3,5 +3,7 @@
     <color name="colorPrimary">#17631E</color>
     <color name="colorPrimaryDark">#369936</color>
     <color name="colorAccent">#17631E</color>
-    <color name="common_action_bar_splitter">#d2d2d2</color>
+    <color name="gris">#d1d2d2</color>
+    <color name="bleu_marine">#aae0f2</color>
+
 </resources>

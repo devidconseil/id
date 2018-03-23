@@ -18,6 +18,26 @@ public class Stock2 {
         return NomEmp;
     }
 
+    public void setLibBes(String libBes) {
+        LibBes = libBes;
+    }
+
+    public void setTypeBes(String typeBes) {
+        TypeBes = typeBes;
+    }
+
+    public void setNomEmp(String nomEmp) {
+        NomEmp = nomEmp;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setQte(int qte) {
+        Qte = qte;
+    }
+
     public int getQte() {
         return Qte;
     }
