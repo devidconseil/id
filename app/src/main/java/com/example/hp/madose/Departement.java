@@ -1,6 +1,8 @@
 package com.example.hp.madose;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,6 +41,7 @@ public class Departement extends AppCompatActivity {
                     Toast.makeText(getBaseContext(),"Veuillez saisir le nom du departement SVP!!",Toast.LENGTH_LONG).show();
                 }
                 else {
+                    if (! gest.checkIfDepartmentExist(edite.getText().toString())){
                     gest.insert(edite.getText().toString());
                     gest.close();
                     writeNewDepartment(edite.getText().toString());
@@ -49,6 +52,20 @@ public class Departement extends AppCompatActivity {
                     edite.setText("");
                     startActivity(intent);
                     finish();
+                    }
+                    else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Departement.this,0x00000005 );
+                        builder.setMessage("Ce departement ne peut être créé car il existe déjà");
+                        builder.setTitle("Echec");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                        builder.create();
+                        builder.show();
+                    }
                 }
             }
         });
@@ -62,6 +79,29 @@ public class Departement extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    @Override
+    public void onBackPressed(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(Departement.this,0x00000005 );
+        builder.setMessage("Voulez-vous abandonner l'enregistrement?");
+        builder.setTitle("Attention!");
+        builder.setPositiveButton("OUI", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent=new Intent(Departement.this,Acceuil.class);
+                startActivity(intent);
+                finish();
+                MyApplication.setFait(false);
+            }
+        });
+        builder.setNegativeButton("NON", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.create();
+        builder.show();
     }
     public void writeNewDepartment(String libDep){
         String code=libDep;

@@ -1,7 +1,9 @@
 package com.example.hp.madose;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,8 +20,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -28,7 +33,8 @@ import java.util.Date;
 
 public class Demande extends AppCompatActivity {
 
-    boolean fait=false;
+
+
     DatabaseReference mDatabase;
 
     @Override
@@ -47,6 +53,76 @@ public class Demande extends AppCompatActivity {
         final RadioButton radioButton_dep= findViewById(R.id.radioButton_dep);
         final RadioGroup radioGroup= findViewById(R.id.radio_group);
         mDatabase= FirebaseDatabase.getInstance().getReference();
+
+
+        mDatabase.child("Departement").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotDepart:dataSnapshot.getChildren()){
+                    DepartementC depart=dataSnapshotDepart.getValue(DepartementC.class);
+                    if (!bd.checkIfDepartmentExist(depart.getLibDep())){
+                        bd.insert(depart.getLibDep());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        mDatabase.child("Categorie").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotCat:dataSnapshot.getChildren()){
+                    CategorieC cat= dataSnapshotCat.getValue(CategorieC.class);
+                    if (!bd.checkIfCategorieExist(cat.getLibCat())){
+                        bd.insertCat(cat.getLibCat());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        mDatabase.child("users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotUser:dataSnapshot.getChildren()){
+                    UtilisateurC user=dataSnapshotUser.getValue(UtilisateurC.class);
+                    Log.i("CHAQUE USER",user.getMailEmp());
+                    if (!bd.checkIfUserExist(user)){
+                        int s=Integer.parseInt(bd.selectDep(user.getLibDep()));
+                        bd.insertEmp(user.getNomEmp(),user.getPrenEmp(),user.getMailEmp(),user.getTelEmp(),s,user.getProEmp());
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        mDatabase.child("Besoin").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotBes:dataSnapshot.getChildren()){
+                    BesoinC cat= dataSnapshotBes.getValue(BesoinC.class);
+                    if (!bd.checkIfBesoinExist(cat.getLibBes())){
+                        int ss=Integer.parseInt(bd.selectCat(cat.getLibCat()));
+                        bd.insertBesoin(cat.getLibBes(),cat.getTypeBes(),ss,cat.getSeuilBes(),cat.getAmorBes(),cat.getStockBes(),cat.getImageBes());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         Intent intent=getIntent();
         if (intent != null)
@@ -249,44 +325,70 @@ public class Demande extends AppCompatActivity {
                 }
                 else {
                     String a, b, c, departe;
-                    a = date.getText().toString().substring(0, 2);
-                    b = date.getText().toString().substring(3, 5);
-                    c = date.getText().toString().substring(6, 10);
-                    date.setText(c + "-" + b + "-" + a);
+                    if (! date.getText().toString().matches("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]")) {
 
-
-                    int var1, var2;
-
-                    int var3 = Integer.parseInt(bd.selectIdBes(bes.getText().toString()));
-                    int var4 = Integer.parseInt(quant.getText().toString());
-
-                    if (radioButton_emp.isChecked()) {
-                        var1 = Integer.parseInt(bd.selectEmpId(employe.getText().toString()));
-                        departe = bd.DepartEmp(var1);
-                        var2 = Integer.parseInt(bd.selectDep(departe));
-                        bd.insertDemande(date.getText().toString(), var1, var2,"",true);
+                        a = date.getText().toString().substring(0, 2);
+                        b = date.getText().toString().substring(3, 5);
+                        c = date.getText().toString().substring(6, 10);
+                        date.setText(c + "-" + b + "-" + a);
                     }
 
-                    if (radioButton_dep.isChecked()) {
-                        String recup = bd.selectDep(depart.getText().toString());
-                        bd.insertDemande1(date.getText().toString(), Integer.parseInt(recup),"",true);
+                    if (! bd.checkIfDemandeBesoinExist(employe.getText().toString(),bd.selectHeureDem(),bes.getText().toString(),date.getText().toString())) {
+
+
+                        int var1, var2;
+
+                        int var3 = Integer.parseInt(bd.selectIdBes(bes.getText().toString()));
+                        int var4 = Integer.parseInt(quant.getText().toString());
+
+
+                        if (! MyApplication.isFait()) {
+                            if (radioButton_emp.isChecked()) {
+                                var1 = Integer.parseInt(bd.selectEmpId(employe.getText().toString()));
+                                departe = bd.DepartEmp(var1);
+                                var2 = Integer.parseInt(bd.selectDep(departe));
+                                bd.insertDemande(date.getText().toString(), var1, var2, "", true);
+                            }
+
+                            if (radioButton_dep.isChecked()) {
+                                String recup = bd.selectDep(depart.getText().toString());
+                                bd.insertDemande1(date.getText().toString(), Integer.parseInt(recup), "", true);
+                            }
+                        }
+
+
+                        int dernierEnr = Integer.parseInt(bd.selectIdDem());
+                        bd.insertDemandeBesoin(dernierEnr, var3, var4);
+
+                        writeNewDemande(employe.getText().toString(), depart.getText().toString(), bes.getText().toString(), date.getText().toString(), Integer.parseInt(quant.getText().toString()), bd.selectHeureDem());
+                        bes.setText("");
+                        quant.setText("");
+                        if (date.getText().toString().matches("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]")) {
+                            a = date.getText().toString().substring(0, 4);
+                            b = date.getText().toString().substring(5, 7);
+                            c = date.getText().toString().substring(8, 10);
+                            date.setText(c + "/" + b + "/" + a);
+                        }
+                        Toast.makeText(getBaseContext(), "Demande enregistrée avec succès !!", Toast.LENGTH_LONG).show();
+
+                        MyApplication.setFait(true);
                     }
+                    else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Demande.this,0x00000005 );
+                        builder.setMessage("Ce besoin a été déjà enregistré");
+                        builder.setTitle("Echec");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-
-                    int dernierEnr = Integer.parseInt(bd.selectIdDem());
-                    bd.insertDemandeBesoin(dernierEnr, var3, var4);
-
-                    writeNewDemande(employe.getText().toString(),depart.getText().toString(),bes.getText().toString(),date.getText().toString(),Integer.parseInt(quant.getText().toString()),bd.selectHeureDem());
-                    bes.setText("");
-                    quant.setText("");
-                    a=date.getText().toString().substring(0,4);
-                    b=date.getText().toString().substring(5,7);
-                    c=date.getText().toString().substring(8,10);
-                    date.setText(c+"/"+b+"/"+a);
-                    Toast.makeText(getBaseContext(), "Demande enregistrée avec succès !!", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        builder.create();
+                        builder.show();
+                    }
 
                 }
-                MyApplication.setFait(true);
+
             }
         });
 
@@ -315,48 +417,75 @@ public class Demande extends AppCompatActivity {
                     quant.setError("Veuillez saisir la quantité SVP!!");
                 }
                 else {
-                    if (! MyApplication.isFait()) {
-                        String a, b, c;
+
+                    String a, b, c;
+                    if (! date.getText().toString().matches("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]")) {
+
                         a = date.getText().toString().substring(0, 2);
                         b = date.getText().toString().substring(3, 5);
                         c = date.getText().toString().substring(6, 10);
                         date.setText(c + "-" + b + "-" + a);
                     }
+
+                    if (! bd.checkIfDemandeBesoinExist(employe.getText().toString(),bd.selectHeureDem(),bes.getText().toString(),date.getText().toString())){
+                    if (!MyApplication.isFait()) {
+                   /*     String a, b, c;
+                        a = date.getText().toString().substring(0, 2);
+                        b = date.getText().toString().substring(3, 5);
+                        c = date.getText().toString().substring(6, 10);
+                        date.setText(c + "-" + b + "-" + a);  */
+                    }
                     int var1, var2;
                     int var3 = Integer.parseInt(bd.selectIdBes(bes.getText().toString()));
                     int var4 = Integer.parseInt(quant.getText().toString());
-                    if (! MyApplication.isFait()) {
+                    if (!MyApplication.isFait()) {
                         if (radioButton_emp.isChecked()) {
                             //Toast.makeText(getBaseContext(),employe.getText().toString()+"coucou",Toast.LENGTH_LONG).show();
                             var1 = Integer.parseInt(bd.selectEmpId(employe.getText().toString()));
                             String departe = bd.DepartEmp(var1);
                             var2 = Integer.parseInt(bd.selectDep(departe));
-                            bd.insertDemande(date.getText().toString(), var1, var2,"",true);
+                            bd.insertDemande(date.getText().toString(), var1, var2, "", true);
                         }
 
                         if (radioButton_dep.isChecked()) {
                             String recup = bd.selectDep(depart.getText().toString());
-                            bd.insertDemande1(date.getText().toString(), Integer.parseInt(recup),"",true);
+                            bd.insertDemande1(date.getText().toString(), Integer.parseInt(recup), "", true);
                         }
                     }
                     int dernierEnr = Integer.parseInt(bd.selectIdDem());
                     if (MyApplication.isFait()) {
-                        String a, b, c, d;
+                       /* String a, b, c, d;
                         a = date.getText().toString().substring(0, 2);
                         b = date.getText().toString().substring(3, 5);
                         c = date.getText().toString().substring(6, 10);
-                        date.setText(c + "-" + b + "-" + a);
+                        date.setText(c + "-" + b + "-" + a);  */
                     }
                     bd.insertDemandeBesoin(dernierEnr, var3, var4);
-                    writeNewDemande(employe.getText().toString(),depart.getText().toString(),bes.getText().toString(),date.getText().toString(),Integer.parseInt(quant.getText().toString()),bd.selectHeureDem());
+                    writeNewDemande(employe.getText().toString(), depart.getText().toString(), bes.getText().toString(), date.getText().toString(), Integer.parseInt(quant.getText().toString()), bd.selectHeureDem());
                     bd.close();
                     Toast.makeText(getBaseContext(), "Sortie enregistrée avec succès !!", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(Demande.this, Acceuil.class);
                     startActivity(intent);
                     finish();
                     Toast.makeText(getBaseContext(), "Demande enregistrée avec succès !!", Toast.LENGTH_LONG).show();
+
+                    MyApplication.setFait(false);
+                   }
+                   else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Demande.this,0x00000005 );
+                    builder.setMessage("Ce besoin a été déjà enregistré");
+                    builder.setTitle("Echec");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    builder.create();
+                    builder.show();
+                   }
                 }
-                MyApplication.setFait(false);
+
             }
         });
 
@@ -377,6 +506,29 @@ public class Demande extends AppCompatActivity {
         View v = getCurrentFocus();
         if (v != null)
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+    }
+    @Override
+    public void onBackPressed(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(Demande.this,0x00000005 );
+        builder.setMessage("Voulez-vous abandonner l'enregistrement?");
+        builder.setTitle("Attention!");
+        builder.setPositiveButton("OUI", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent=new Intent(Demande.this,Acceuil.class);
+                startActivity(intent);
+                finish();
+                MyApplication.setFait(false);
+            }
+        });
+        builder.setNegativeButton("NON", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.create();
+        builder.show();
     }
     public void writeNewDemande(String nomEmp,String libDpe, String libBes,String dateDem, int qte, String heureDem){
         BaseDeDonne bd=new BaseDeDonne(getApplicationContext());

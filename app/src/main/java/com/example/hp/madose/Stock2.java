@@ -46,6 +46,8 @@ public class Stock2 {
         return dateDem;
     }
 
+
+
     public int getNumSor() {
         return numSor;
     }
@@ -126,6 +128,15 @@ public class Stock2 {
         this.nomEmp = nomEmp;
         this.date =date;
     }
+    public Stock2(int numSor,String libBes, String typeBes, int qte, String nomEmp, String date,String heureSor) {
+        this.numSor= numSor;
+        this.libBes = libBes;
+        this.typeBes = typeBes;
+        this.qte = qte;
+        this.nomEmp = nomEmp;
+        this.date =date;
+        this.heureSor=heureSor;
+    }
     public Stock2(String libBes, String typeBes, int qte, String nomEmp,String date,String heureSor, String validationUser) {
         this.libBes = libBes;
         this.typeBes = typeBes;
@@ -134,6 +145,7 @@ public class Stock2 {
         this.date =date;
         this.heureSor=heureSor;
         this.validationUser=validationUser;
+
     }
     public Stock2(String libBes, String typeBes,String libDep,int qte,String date) {
         this.libBes = libBes;
@@ -163,6 +175,7 @@ public class Stock2 {
         this.heureSor = heureSor;
         this.validationUser = validationUser;
         this.qte = qte;
+
     }
 
     @Override
@@ -172,7 +185,7 @@ public class Stock2 {
                 "\nType: " + typeBes +
                 "\nQuantité: " + qte +
                 "\nReçu par: " + nomEmp +
-                "\nLe:  "+date+"\n";
+                "\nLe:  "+date+"\n"+heureSor;
     }
     public String toString2() {
         return  "Besoin: " + libBes +

@@ -13,6 +13,10 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +30,23 @@ public class Listecategorie extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listecategorie);
 
-        BaseDeDonne bd=new BaseDeDonne(this);
+       final  BaseDeDonne bd=new BaseDeDonne(this);
+        MyApplication.getmDatabase().child("Categorie").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotCat:dataSnapshot.getChildren()){
+                    CategorieC cat= dataSnapshotCat.getValue(CategorieC.class);
+                    if (!bd.checkIfCategorieExist(cat.getLibCat())){
+                        bd.insertCat(cat.getLibCat());
+                    }
+                }
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         final List<CategorieC> departem= bd.afficheCat();
         for (CategorieC categorieC : departem){
             liste.add(categorieC.nomcat());

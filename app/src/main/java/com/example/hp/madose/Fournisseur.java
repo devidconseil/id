@@ -1,5 +1,7 @@
 package com.example.hp.madose;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -46,6 +48,7 @@ DatabaseReference mDatabase;
                     fcont.setError("Veuillez saisir le contact du fournisseur SVP!!");
                 }
                 else {
+                    if (! bd.checkIfFournisseurExist(fnom.getText().toString())){
                     int x = Integer.parseInt(fcont.getText().toString());
                     bd.insertFour(fnom.getText().toString(), fadr.getText().toString(), fcont.getText().toString());
                     bd.close();
@@ -59,6 +62,20 @@ DatabaseReference mDatabase;
                     fcont.setText("");
                     startActivity(intent);
                     finish();
+                    }
+                    else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Fournisseur.this,0x00000005 );
+                        builder.setMessage("Ce fournisseur ne peut être créé car il existe déjà");
+                        builder.setTitle("Echec");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                        builder.create();
+                        builder.show();
+                    }
                 }
             }
         });
@@ -75,6 +92,29 @@ DatabaseReference mDatabase;
             }
         });
 
+    }
+    @Override
+    public void onBackPressed(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(Fournisseur.this,0x00000005 );
+        builder.setMessage("Voulez-vous abandonner l'enregistrement?");
+        builder.setTitle("Attention!");
+        builder.setPositiveButton("OUI", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent=new Intent(Fournisseur.this,Acceuil.class);
+                startActivity(intent);
+                finish();
+                MyApplication.setFait(false);
+            }
+        });
+        builder.setNegativeButton("NON", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.create();
+        builder.show();
     }
     public void writeNewFournisseur(String nomFour,String adrFour,String telFour){
         String code=nomFour;

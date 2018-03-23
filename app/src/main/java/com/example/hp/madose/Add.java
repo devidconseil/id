@@ -1,7 +1,9 @@
 package com.example.hp.madose;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,8 +21,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 import java.text.SimpleDateFormat;
@@ -57,7 +62,39 @@ public class Add extends AppCompatActivity {
         final EditText autre=(EditText)findViewById(R.id.autre);
         mDatabase= FirebaseDatabase.getInstance().getReference();
 
+        mDatabase.child("Fournisseur").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotFour:dataSnapshot.getChildren()){
+                    FournisseurC four=dataSnapshotFour.getValue(FournisseurC.class);
+                    if (!bd.checkIfFournisseurExist(four.getNomFour())){
+                        bd.insertFour(four.getNomFour(),four.getAdrFour(),four.getTelFour());
+                    }
+                }
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        mDatabase.child("Besoin").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotBes:dataSnapshot.getChildren()){
+                    BesoinC cat= dataSnapshotBes.getValue(BesoinC.class);
+                    if (!bd.checkIfBesoinExist(cat.getLibBes())){
+                        int ss=Integer.parseInt(bd.selectCat(cat.getLibCat()));
+                        bd.insertBesoin(cat.getLibBes(),cat.getTypeBes(),ss,cat.getSeuilBes(),cat.getAmorBes(),cat.getStockBes(),cat.getImageBes());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
         //---------AutoTextComplete
@@ -260,50 +297,74 @@ public class Add extends AppCompatActivity {
                     qte.requestFocus();
                 }
                 else {
-                String a,b,c;
-                a=date.getText().toString().substring(0,2);
-                b=date.getText().toString().substring(3,5);
-                c=date.getText().toString().substring(6,10);
-                date.setText(c+"-"+b+"-"+a);
+                    String a, b, c;
+                    if (! date.getText().toString().matches("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]")) {
+
+                        a = date.getText().toString().substring(0, 2);
+                        b = date.getText().toString().substring(3, 5);
+                        c = date.getText().toString().substring(6, 10);
+                        date.setText(c + "-" + b + "-" + a);
+                    }
+
+                    if (!bd.checkIfBesoinEntreeExist(besoin.getText().toString(), date.getText().toString(),bd.selectHeureEnt(),bd.selectUserEnt(bd.selectHeureEnt()))) {
 
 
-                if (! MyApplication.isFait()) {
-                    int var = Integer.parseInt(dd.selectFour(four.getText().toString()));
-                    dd.insertEntr(date.getText().toString(), var,"",MyApplication.getmAuth().getCurrentUser().getEmail(),true);
-                    writeNewEntree(four.getText().toString(),date.getText().toString(),bd.selectHeureEnt(),MyApplication.getmAuth().getCurrentUser().getEmail());
-                }
+                        if (!MyApplication.isFait()) {
+                            int var = Integer.parseInt(dd.selectFour(four.getText().toString()));
+                            dd.insertEntr(date.getText().toString(), var, "", MyApplication.getmAuth().getCurrentUser().getEmail(), true);
+                            writeNewEntree(four.getText().toString(), date.getText().toString(), bd.selectHeureEnt(), MyApplication.getmAuth().getCurrentUser().getEmail());
+                        }
 
-                int var1=Integer.parseInt(dd.selectIdBes(besoin.getText().toString()));
+                        int var1 = Integer.parseInt(dd.selectIdBes(besoin.getText().toString()));
 
-                int quantite=Integer.parseInt(qte.getText().toString());
-                int prix=Integer.parseInt(pu.getText().toString());
-
-
-                int dernierEnregistrem= Integer.parseInt(dd.selectIdEnt());
-                dd.insertEntrBes(var1,dernierEnregistrem,prix,quantite,mark.getText().toString(),autre.getText().toString());
-                writeNewAdd(besoin.getText().toString(),date.getText().toString(),prix,quantite,mark.getText().toString(),autre.getText().toString());
-
-               //update debut
-               int var2=Integer.parseInt(dd.selectStockBes(besoin.getText().toString()));
-               int var3=var2+quantite;
-               dd.upDate(var3,besoin.getText().toString());
-                //update fin
+                        int quantite = Integer.parseInt(qte.getText().toString());
+                        int prix = Integer.parseInt(pu.getText().toString());
 
 
-                pu.setText("");
-                qte.setText("");
-                autre.setText("");
-                mark.setText("");
-                besoin.setText("");
-                dd.close();
-                a=date.getText().toString().substring(0,4);
-                b=date.getText().toString().substring(5,7);
-                c=date.getText().toString().substring(8,10);
-                date.setText(c+"/"+b+"/"+a);
-                Toast.makeText(getBaseContext(),"Approvisionnement enregistré avec succès !!",Toast.LENGTH_SHORT).show();
+                        int dernierEnregistrem = Integer.parseInt(dd.selectIdEnt());
+                        dd.insertEntrBes(var1, dernierEnregistrem, prix, quantite, mark.getText().toString(), autre.getText().toString());
+                        writeNewAdd(bd.selectHeureEnt(),besoin.getText().toString(), date.getText().toString(), prix, quantite, mark.getText().toString(), autre.getText().toString());
 
-                }
-                MyApplication.setFait(true);
+                        //update debut
+                        int var2 = Integer.parseInt(dd.selectStockBes(besoin.getText().toString()));
+                        int var3 = var2 + quantite;
+                        dd.upDate(var3, besoin.getText().toString());
+                        //update fin
+
+
+                        pu.setText("");
+                        qte.setText("");
+                        autre.setText("");
+                        mark.setText("");
+                        besoin.setText("");
+                        dd.close();
+                        if (date.getText().toString().matches("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]")) {
+                            a = date.getText().toString().substring(0, 4);
+                            b = date.getText().toString().substring(5, 7);
+                            c = date.getText().toString().substring(8, 10);
+                            date.setText(c + "/" + b + "/" + a);
+                        }
+                        Toast.makeText(getBaseContext(), "Approvisionnement enregistré avec succès !!", Toast.LENGTH_SHORT).show();
+                        MyApplication.setFait(true);
+
+                    }
+                    else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Add.this,0x00000005 );
+                        builder.setMessage("Ce besoin a été déjà enregistré");
+                        builder.setTitle("Echec");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                        builder.create();
+                        builder.show();
+                    }
+                   }
+
+
+
             }
         });
 
@@ -351,49 +412,75 @@ public class Add extends AppCompatActivity {
                 }
 
                 else {
-                    if (! MyApplication.isFait()) {
-                        String a, b, c;
+
+                    String a, b, c;
+                    if (! date.getText().toString().matches("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]")) {
                         a = date.getText().toString().substring(0, 2);
                         b = date.getText().toString().substring(3, 5);
                         c = date.getText().toString().substring(6, 10);
                         date.setText(c + "-" + b + "-" + a);
+                    }
+                    if (!MyApplication.isFait()) {
+
+                 /*       String a, b, c;
+                        a = date.getText().toString().substring(0, 2);
+                        b = date.getText().toString().substring(3, 5);
+                        c = date.getText().toString().substring(6, 10);
+                        date.setText(c + "-" + b + "-" + a);  */
                         int var = Integer.parseInt(dd.selectFour(four.getText().toString()));
-                        dd.insertEntr(date.getText().toString(), var,"",MyApplication.getmAuth().getCurrentUser().getEmail(),true);
-                        writeNewEntree(four.getText().toString(),date.getText().toString(),bd.selectHeureEnt(),MyApplication.getmAuth().getCurrentUser().getEmail());
+                        dd.insertEntr(date.getText().toString(), var, "", MyApplication.getmAuth().getCurrentUser().getEmail(), true);
+                        writeNewEntree(four.getText().toString(), date.getText().toString(), bd.selectHeureEnt(), MyApplication.getmAuth().getCurrentUser().getEmail());
                     }
 
+                    if (! bd.checkIfBesoinEntreeExist(besoin.getText().toString(),date.getText().toString(),bd.selectHeureEnt(),bd.selectUserEnt(bd.selectHeureEnt()))) {
 
-                    int var1 = Integer.parseInt(dd.selectIdBes(besoin.getText().toString()));
+                        int var1 = Integer.parseInt(dd.selectIdBes(besoin.getText().toString()));
 
-                    int quantite = Integer.parseInt(qte.getText().toString());
-                    int prix = Integer.parseInt(pu.getText().toString());
+                        int quantite = Integer.parseInt(qte.getText().toString());
+                        int prix = Integer.parseInt(pu.getText().toString());
 
 
-                    int dernierEnregistrem = Integer.parseInt(dd.selectIdEnt());
-                    if (MyApplication.isFait()) {
-                        String a, b, c, d;
+                        int dernierEnregistrem = Integer.parseInt(dd.selectIdEnt());
+                        if (MyApplication.isFait()) {
+                     /*   String a, b, c, d;
                         a = date.getText().toString().substring(0, 2);
                         b = date.getText().toString().substring(3, 5);
                         c = date.getText().toString().substring(6, 10);
-                        date.setText(c + "-" + b + "-" + a);
+                        date.setText(c + "-" + b + "-" + a);  */
+                        }
+
+                        dd.insertEntrBes(var1, dernierEnregistrem, prix, quantite, mark.getText().toString(), autre.getText().toString());
+                        writeNewAdd(bd.selectHeureEnt(),besoin.getText().toString(), date.getText().toString(), prix, quantite, mark.getText().toString(), autre.getText().toString());
+
+                        //update debut
+                        int var2 = Integer.parseInt(dd.selectStockBes(besoin.getText().toString()));
+                        int var3 = var2 + quantite;
+                        dd.upDate(var3, besoin.getText().toString());
+                        //update fin
+
+                        dd.close();
+                        Toast.makeText(getBaseContext(), "Approvisionnement enregistré avec succès !!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(Add.this, Acceuil.class);
+                        startActivity(intent);
+                        finish();
+
+                        MyApplication.setFait(false);
                     }
+                    else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Add.this,0x00000005 );
+                        builder.setMessage("Ce besoin a été déjà enregistré");
+                        builder.setTitle("Echec");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                    dd.insertEntrBes(var1, dernierEnregistrem, prix, quantite, mark.getText().toString(), autre.getText().toString());
-                    writeNewAdd(besoin.getText().toString(),date.getText().toString(), prix, quantite, mark.getText().toString(), autre.getText().toString());
-
-                    //update debut
-                    int var2 = Integer.parseInt(dd.selectStockBes(besoin.getText().toString()));
-                    int var3 = var2 + quantite;
-                    dd.upDate(var3, besoin.getText().toString());
-                    //update fin
-
-                    dd.close();
-                    Toast.makeText(getBaseContext(), "Approvisionnement enregistré avec succès !!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Add.this, Acceuil.class);
-                    startActivity(intent);
-                    finish();
+                            }
+                        });
+                        builder.create();
+                        builder.show();
+                    }
                 }
-MyApplication.setFait(false);
+
             }
         });
         Button quitter=(Button)findViewById(R.id.quitter);
@@ -416,7 +503,32 @@ MyApplication.setFait(false);
         if (v != null)
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
-    public void writeNewAdd(String libBes,String datEnt, int pU, int qte, String marqueBes, String autrePrécision){
+    @Override
+    public void onBackPressed(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(Add.this,0x00000005 );
+        builder.setMessage("Voulez-vous abandonner l'enregistrement?");
+        builder.setTitle("Attention!");
+        builder.setPositiveButton("OUI", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent=new Intent(Add.this,Acceuil.class);
+                startActivity(intent);
+                finish();
+                MyApplication.setFait(false);
+            }
+        });
+        builder.setNegativeButton("NON", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.create();
+        builder.show();
+    }
+
+
+    public void writeNewAdd(String heureEnt,String libBes,String datEnt, int pU, int qte, String marqueBes, String autrePrécision){
         BaseDeDonne bd=new BaseDeDonne(getApplicationContext());
        String now=bd.selectCurrentDate();
 
@@ -435,7 +547,7 @@ MyApplication.setFait(false);
             code=code.replace("'","-");
         }
 
-        AddBEC cat=new AddBEC(libBes,datEnt,pU,qte, marqueBes, autrePrécision);
+        AddBEC cat=new AddBEC(heureEnt,libBes,datEnt,pU,qte, marqueBes, autrePrécision);
         mDatabase.child("Besoins-Entree").child(code).setValue(cat);
     }
     public void writeNewEntree(String libFour, String datEnt, String heureEnt, String user){
