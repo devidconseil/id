@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -26,10 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class Demande extends AppCompatActivity {
 
@@ -308,10 +304,15 @@ public class Demande extends AppCompatActivity {
                     date.requestFocus();
                     date.setError("Veuillez saisir la date SVP!");
                 }
-                else if (employe.getText().toString().equals(""))
+                else if (employe.getText().toString().equals("") && radioButton_emp.isChecked())
                 {
                     employe.requestFocus();
                     employe.setError("Veuillez saisir le nom de l'employé ou du département SVP!");
+                }
+                else if (depart.getText().toString().equals("") )
+                {
+                    depart.requestFocus();
+                    depart.setError("Veuillez saisir le nom de l'employé ou du département SVP!");
                 }
                 else if (bes.getText().toString().equals(""))
                 {
@@ -392,7 +393,7 @@ public class Demande extends AppCompatActivity {
             }
         });
 
-        Button enregistre=(Button)findViewById(R.id.annul);
+        Button enregistre=(Button)findViewById(R.id.enregistre);
         enregistre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -401,10 +402,15 @@ public class Demande extends AppCompatActivity {
                     date.requestFocus();
                     date.setError("Veuillez saisir la date SVP!");
                 }
-                else if (employe.getText().toString().equals(""))
+                else if (employe.getText().toString().equals("") && radioButton_emp.isChecked())
                 {
                     employe.requestFocus();
                     employe.setError("Veuillez saisir le nom de l'employé ou du département SVP!");
+                }
+                else if (depart.getText().toString().equals("") )
+                {
+                    depart.requestFocus();
+                    depart.setError("Veuillez saisir le nom de l'employé ou du département SVP!");
                 }
                 else if (bes.getText().toString().equals(""))
                 {
