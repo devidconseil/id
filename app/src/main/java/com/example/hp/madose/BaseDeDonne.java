@@ -210,9 +210,9 @@ public class BaseDeDonne extends SQLiteOpenHelper {
             return false;
         }
     }
-    public Boolean checkIfDemandeExist(String name,String name1){
+    public Boolean checkIfDemandeExist(String name,String name1,String name2){
 
-        String req="select Demande.numDem,DateDem,Utilisateur.IdEmp,Departement.IdDep from Demande,Utilisateur,Departement,Demande_Besoins where Demande.IdEmp=Utilisateur.IdEmp  and Demande.numDem=Demande_Besoins.numDem and Utilisateur.nomEmp || ' ' || Utilisateur.PrenEmp='"+name+"' and HeureDem='"+name1+"';";
+        String req="select Demande.numDem,DateDem,Utilisateur.IdEmp,Departement.IdDep from Demande,Utilisateur,Departement,Demande_Besoins where Demande.numDem=Demande_Besoins.numDem and ((Demande.IdEmp=Utilisateur.IdEmp and Utilisateur.nomEmp || ' ' || Utilisateur.PrenEmp='"+name+"' and HeureDem='"+name1+"') or (Demande.IdDep=Departement.IdDep and Demande.IdEmp is null and Departement.libDep='"+name2+"' and HeureDem='"+name1+"'));";
         Log.i("VERIF",req);
         Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
         if(cursor.getCount()>0){
@@ -224,8 +224,22 @@ public class BaseDeDonne extends SQLiteOpenHelper {
             return false;
         }
     }
-    public Boolean checkIfDemandeBesoinExist(String name,String name1,String name2,String name3){
-        String req="select Demande.numDem,DateDem,Utilisateur.IdEmp,Departement.IdDep,libBes from Demande,Utilisateur,Departement,Demande_Besoins,Besoin where Demande_Besoins.NumBes=Besoin.NumBes and Demande.IdEmp=Utilisateur.IdEmp and Demande.numDem=Demande_Besoins.numDem and Utilisateur.nomEmp || ' ' || Utilisateur.PrenEmp='"+name+"' and HeureDem='"+name1+"' and libBes='"+name2+"' and Demande.DateDem=strftime('%s','"+name3+"');";
+ /*   public Boolean checkIfDemandeExist(int id,String name1){
+
+        String req="select Demande.numDem,DateDem,Utilisateur.IdEmp,Departement.IdDep from Demande,Utilisateur,Departement,Demande_Besoins where Demande.IdDep=Departement.IdDep  and Demande.numDem=Demande_Besoins.numDem and Demande.IdEmp is null and Utilisateur.nomEmp || ' ' || Utilisateur.PrenEmp='"+name+"' and HeureDem='"+name1+"';";
+        Log.i("VERIF",req);
+        Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
+        if(cursor.getCount()>0){
+            cursor.close();
+            return true;
+        }
+        else {
+            cursor.close();
+            return false;
+        }
+    }  */
+    public Boolean checkIfDemandeBesoinExist(String name,String name1,String name2,String name3,String name4){
+        String req="select Demande.numDem,DateDem,Utilisateur.IdEmp,Departement.IdDep,libBes from Demande,Utilisateur,Departement,Demande_Besoins,Besoin where Demande_Besoins.NumBes=Besoin.NumBes and Demande.numDem=Demande_Besoins.numDem and ((Demande.IdEmp=Utilisateur.IdEmp and Utilisateur.IdDep=Departement.IdDep and Utilisateur.nomEmp || ' ' || Utilisateur.PrenEmp='"+name+"' and HeureDem='"+name1+"' and libBes='"+name2+"' and Demande.DateDem=strftime('%s','"+name3+"')) or (Demande.IdDep=Departement.IdDep and Demande.IdEmp is null and Departement.libDep='"+name4+"' and HeureDem='"+name1+"' and libBes='"+name2+"' and Demande.DateDem=strftime('%s','"+name3+"'))) ;";
         Log.i("A FLE",req);
         Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
         if(cursor.getCount()>0){
@@ -613,6 +627,18 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     public String selectIdEnt(String time,String user)
     {
         String requete="select NumEnt from Entree where HeureEnt='"+time+"' and User='"+user+"';";
+        Cursor cursor = null;
+        try {
+
+            cursor = this.getReadableDatabase().rawQuery(requete,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
+    public String selectIdEnt(int time)
+    {
+        String requete="select NumEnt from Entree where HeureEnt="+time+" ;";
         Cursor cursor = null;
         try {
 
@@ -1031,6 +1057,22 @@ public ArrayList<String> affiNumDem(int idemp)
     {
         ArrayList<String>nd=new ArrayList<>();
         String req="select date(DateDem,'unixepoch') as paco from Demande where IdDep='"+iddep+"' and IdEmp is null order by paco desc limit 3;";
+        Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast())
+        {
+            nd.add(cursor.getString(0));
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return nd;
+    }
+    public ArrayList<String> affiNumDem11(int iddep)
+    {
+        ArrayList<String>nd=new ArrayList<>();
+        String req="select date(DateDem,'unixepoch') as paco,HeureDem  from Demande where IdDep='"+iddep+"' and IdEmp is null order by paco desc limit 3;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 

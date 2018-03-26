@@ -308,10 +308,15 @@ public class Demande extends AppCompatActivity {
                     date.requestFocus();
                     date.setError("Veuillez saisir la date SVP!");
                 }
-                else if (employe.getText().toString().equals(""))
+                else if (employe.getText().toString().equals("") && radioButton_emp.isChecked())
                 {
                     employe.requestFocus();
-                    employe.setError("Veuillez saisir le nom de l'employé ou du département SVP!");
+                    employe.setError("Veuillez saisir le nom de l'employé  SVP!");
+                }
+                else if (depart.getText().toString().equals("") && radioButton_dep.isChecked())
+                {
+                    depart.requestFocus();
+                    depart.setError("Veuillez saisir le nom du département SVP!");
                 }
                 else if (bes.getText().toString().equals(""))
                 {
@@ -333,7 +338,7 @@ public class Demande extends AppCompatActivity {
                         date.setText(c + "-" + b + "-" + a);
                     }
 
-                    if (! bd.checkIfDemandeBesoinExist(employe.getText().toString(),bd.selectHeureDem(),bes.getText().toString(),date.getText().toString())) {
+                    if (! bd.checkIfDemandeBesoinExist(employe.getText().toString(),bd.selectHeureDem(),bes.getText().toString(),date.getText().toString(),depart.getText().toString())) {
 
 
                         int var1, var2;
@@ -401,10 +406,15 @@ public class Demande extends AppCompatActivity {
                     date.requestFocus();
                     date.setError("Veuillez saisir la date SVP!");
                 }
-                else if (employe.getText().toString().equals(""))
+                else if (employe.getText().toString().equals("") && radioButton_emp.isChecked())
                 {
                     employe.requestFocus();
-                    employe.setError("Veuillez saisir le nom de l'employé ou du département SVP!");
+                    employe.setError("Veuillez saisir le nom de l'employé SVP!");
+                }
+                else if (depart.getText().toString().equals("") && radioButton_dep.isChecked())
+                {
+                    depart.requestFocus();
+                    depart.setError("Veuillez saisir le nom du département SVP!");
                 }
                 else if (bes.getText().toString().equals(""))
                 {
@@ -427,7 +437,7 @@ public class Demande extends AppCompatActivity {
                         date.setText(c + "-" + b + "-" + a);
                     }
 
-                    if (! bd.checkIfDemandeBesoinExist(employe.getText().toString(),bd.selectHeureDem(),bes.getText().toString(),date.getText().toString())){
+                    if (! bd.checkIfDemandeBesoinExist(employe.getText().toString(),bd.selectHeureDem(),bes.getText().toString(),date.getText().toString(),depart.getText().toString())){
                     if (!MyApplication.isFait()) {
                    /*     String a, b, c;
                         a = date.getText().toString().substring(0, 2);

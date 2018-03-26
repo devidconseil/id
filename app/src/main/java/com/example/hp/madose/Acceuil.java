@@ -167,7 +167,7 @@ public class Acceuil extends AppCompatActivity
 }  */
 
         bd.RupureCheck();
-        if (MyApplication.isDone() && !MyApplication.isCheck()){
+/*        if (MyApplication.isDone() && !MyApplication.isCheck()){
             AlertDialog.Builder builder = new AlertDialog.Builder(Acceuil.this,0x00000005 );
             builder.setMessage("Certains de vos articles sont en rupture");
             builder.setTitle("Rupture");
@@ -182,7 +182,7 @@ public class Acceuil extends AppCompatActivity
             builder.create();
             builder.show();
             builder.setCancelable(false);
-        }
+        }   */
 
 /*mmmmmmmmmmmmmmmmmmmmmmmmmmm zone de turbulence mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm*/
 

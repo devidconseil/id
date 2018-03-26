@@ -131,13 +131,13 @@ public class BringOut extends AppCompatActivity {
                     DemandeC cat= dataSnapshotDem.getValue(DemandeC.class);
                     Log.i("I MISS YOU",cat.getDateDem()+" "+cat.getNomEmp());
 
-                    if (! bd.checkIfDemandeBesoinExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibBes(),cat.getDateDem())){
+                    if (! bd.checkIfDemandeBesoinExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibBes(),cat.getDateDem(),cat.getLibDpe())){
 
                         int ssss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
                         if (cat.getLibDpe().equals("")){
                             int ss=Integer.parseInt(bd.selectEmpId(cat.getNomEmp()));
                             int sss=Integer.parseInt(bd.selectDep(bd.DepartEmp(ss)));
-                            if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem())) {
+                            if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())) {
                                 bd.insertDemande(cat.getDateDem(), ss, sss, cat.getHeureDem(), false);
                             }
                             bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem()),ssss,cat.getQte());
@@ -450,7 +450,7 @@ public class BringOut extends AppCompatActivity {
 
                 ArrayList<String> au = new ArrayList<>();
                 String var;
-                if (employe.getVisibility() == View.VISIBLE) {
+                if (radioButton_emp.isChecked()) {
                     if (employe.getText().toString().equals("")) {
                         employe.setError("Veuillez saisir le nom du departement ou de l'employé SVP!!");
                     } else {
@@ -483,7 +483,7 @@ public class BringOut extends AppCompatActivity {
                     }
 
                 }
-                if (departement.getVisibility() == View.VISIBLE) {
+                if (radioButton_dep.isChecked()) {
                     if (departement.getText().toString().equals("")) {
                         departement.setError("Veuillez saisir le nom du departement ou de l'employé SVP!!");
                     } else {
@@ -503,10 +503,10 @@ public class BringOut extends AppCompatActivity {
                             intent.putExtra("bringMarque", marq.getText().toString());
                             intent.putExtra("bringQuantité", qut.getText().toString());
                             intent.putExtra("bringAutre", autr.getText().toString());
-                            intent.putExtra("bringRadDep", false);
-                            intent.putExtra("bringRadEmp", true);
-                            intent.putExtra("bringEmpVis", View.VISIBLE);
-                            intent.putExtra("bringDepVis", View.INVISIBLE);
+                            intent.putExtra("bringRadDep", true);
+                            intent.putExtra("bringRadEmp", false);
+                            intent.putExtra("bringEmpVis", View.INVISIBLE);
+                            intent.putExtra("bringDepVis", View.VISIBLE);
                             startActivity(intent);
                             finish();
                         }

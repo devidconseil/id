@@ -289,13 +289,13 @@ public class MyApplication extends Application {
                     DemandeC cat= dataSnapshotDem.getValue(DemandeC.class);
                     Log.i("I MISS YOU",cat.getDateDem()+" "+cat.getNomEmp());
 
-                    if (! bd.checkIfDemandeBesoinExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibBes(),cat.getDateDem())){
+                    if (! bd.checkIfDemandeBesoinExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibBes(),cat.getDateDem(),cat.getLibDpe())){
 
                         int ssss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
                         if (cat.getLibDpe().equals("")){
                             int ss=Integer.parseInt(bd.selectEmpId(cat.getNomEmp()));
                             int sss=Integer.parseInt(bd.selectDep(bd.DepartEmp(ss)));
-                            if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem())) {
+                            if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())) {
                                 bd.insertDemande(cat.getDateDem(), ss, sss, cat.getHeureDem(), false);
                             }
                             bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem()),ssss,cat.getQte());

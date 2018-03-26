@@ -46,14 +46,18 @@ public class Affichage extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String a="";
     private String b="";
+    private Boolean count=false;
+    private Boolean count1=false;
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_affichage);
         bd = new BaseDeDonne(this);
         mDatabase= FirebaseDatabase.getInstance().getReference();
         mAuth=FirebaseAuth.getInstance();
+
        /* listView= findViewById(R.id.listeview);
         listView.setVisibility(View.INVISIBLE);  */
 
@@ -283,13 +287,13 @@ public class Affichage extends AppCompatActivity {
                         DemandeC cat= dataSnapshotDem.getValue(DemandeC.class);
                         Log.i("I MISS YOU",cat.getDateDem()+" "+cat.getNomEmp());
 
-                        if (! bd.checkIfDemandeBesoinExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibBes(),cat.getDateDem())){
+                        if (! bd.checkIfDemandeBesoinExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibBes(),cat.getDateDem(),cat.getLibDpe())){
 
                             int ssss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
                             if (cat.getLibDpe().equals("")){
                                 int ss=Integer.parseInt(bd.selectEmpId(cat.getNomEmp()));
                                 int sss=Integer.parseInt(bd.selectDep(bd.DepartEmp(ss)));
-                                if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem())) {
+                                if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())) {
                                     bd.insertDemande(cat.getDateDem(), ss, sss, cat.getHeureDem(), false);
                                 }
                                 bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem()),ssss,cat.getQte());
@@ -299,7 +303,7 @@ public class Affichage extends AppCompatActivity {
                                 int ss=0;
                                 int sss=Integer.parseInt(bd.selectDep(cat.getLibDpe()));
                                 bd.insertDemande1(cat.getDateDem(),sss,cat.getHeureDem(),false);
-                                bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem1(cat.getLibDpe(),cat.getDateDem())),ssss,cat.getQte());
+                                bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem()),ssss,cat.getQte());
                             }
 
                         }
@@ -341,23 +345,27 @@ public class Affichage extends AppCompatActivity {
                         DemandeC cat= dataSnapshotDem.getValue(DemandeC.class);
                         Log.i("I MISS YOU",cat.getDateDem()+" "+cat.getNomEmp());
 
-                        if (! bd.checkIfDemandeBesoinExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibBes(),cat.getDateDem())){
+                        if (! bd.checkIfDemandeBesoinExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibBes(),cat.getDateDem(),cat.getLibDpe())){
 
                             int ssss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
                             if (cat.getLibDpe().equals("")){
                                 int ss=Integer.parseInt(bd.selectEmpId(cat.getNomEmp()));
                                 int sss=Integer.parseInt(bd.selectDep(bd.DepartEmp(ss)));
-                                if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem())) {
+                                if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())) {
                                     bd.insertDemande(cat.getDateDem(), ss, sss, cat.getHeureDem(), false);
                                 }
                                 bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem()),ssss,cat.getQte());
                                 //   Toast.makeText(getApplicationContext(),cat.toString(),Toast.LENGTH_LONG).show();
+
                             }
                             if (cat.getNomEmp().equals("")) {
                                 int ss=0;
                                 int sss=Integer.parseInt(bd.selectDep(cat.getLibDpe()));
-                                bd.insertDemande1(cat.getDateDem(),sss,cat.getHeureDem(),false);
-                                bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem1(cat.getLibDpe(),cat.getDateDem())),ssss,cat.getQte());
+                                if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())) {
+                                    bd.insertDemande1(cat.getDateDem(), sss, cat.getHeureDem(), false);
+                                }
+                               // bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem1(cat.getLibDpe(),cat.getDateDem())),ssss,cat.getQte());
+                                bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem()),ssss,cat.getQte());
                             }
 
                         }
@@ -386,8 +394,17 @@ public class Affichage extends AppCompatActivity {
                                 int var1=Integer.parseInt(bd.selectIdSortie());
                                 int var2=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
                                 bd.insertSortieBesoin(var1,var2,cat.getQte(),cat.getMarqBes(),cat.getAutreP());
+                                count1=true;
 
                         }
+                    }
+                    if (count1){
+                        finish();
+                        Intent intent=new Intent(Affichage.this,Affichage.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        //intent.putExtra("passage","affichage2");
+                        intent.putExtra("passage","sortie");
+                        startActivity(intent);
                     }
                 }
 
@@ -411,6 +428,7 @@ public class Affichage extends AppCompatActivity {
 
         if (getIntent().getStringExtra("passage").equals("entree")) {
             stocke = (TextView) findViewById(R.id.textView2);
+
 
             mDatabase.child("Entree").addValueEventListener(new ValueEventListener() {
                 @Override
@@ -442,10 +460,27 @@ public class Affichage extends AppCompatActivity {
                         if (!bd.checkIfBesoinEntreeExist(cat.getLibBes(),cat.getDatEnt(),cat.getHeureEnt(),bd.selectUserEnt(cat.getHeureEnt()))){
                             Log.i("MONTRE-MOI",cat.getLibBes()+" "+cat.getDatEnt()+" "+cat.getHeureEnt()+" "+bd.selectUserEnt(cat.getHeureEnt()));
                             int ss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
-                            int sss=Integer.parseInt(bd.selectIdEnt(cat.getDatEnt()));
+                            Log.i("REAL",""+cat.getHeureEnt());
+                            int sss=Integer.parseInt(bd.selectIdEnt(Integer.parseInt(cat.getHeureEnt())));
+
                             bd.insertEntrBes(ss,sss,cat.getPU(),cat.getQte(),cat.getMarqueBes(),cat.getAutrePrécision());
+
+
+                           count=true;
+
+
                         }
+
                     }
+                    if (count){
+                        finish();
+                        Intent intent=new Intent(Affichage.this,Affichage.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        //intent.putExtra("passage","affichage2");
+                        intent.putExtra("passage","entree");
+                        startActivity(intent);
+                    }
+
                 }
 
                 @Override
