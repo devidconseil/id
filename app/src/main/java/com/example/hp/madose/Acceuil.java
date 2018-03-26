@@ -75,6 +75,7 @@ public class Acceuil extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_acceuil);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -210,6 +211,7 @@ public class Acceuil extends AppCompatActivity
 
     }
 
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -224,8 +226,10 @@ public class Acceuil extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.acceuil, menu);
-        TextView status= findViewById(R.id.textView13);
-        status.setText("\nConnecté en tant que: "+MyApplication.getmAuth().getCurrentUser().getEmail());
+        if (! bd.retrieveUserProfile(MyApplication.getmAuth().getCurrentUser().getEmail()).equals("USER")) {
+            TextView status = findViewById(R.id.textView13);
+            status.setText("\nConnecté en tant que: " + MyApplication.getmAuth().getCurrentUser().getEmail());
+        }
         return true;
     }
 
@@ -301,7 +305,9 @@ public class Acceuil extends AppCompatActivity
 
 @Override
     public void onStart(){
-        super.onStart();
+
+
+    super.onStart();
 
         String profile=bd.retrieveUserProfile(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         if (profile.equals("USER")){
