@@ -62,6 +62,15 @@ public class FournisseurC {
     public String toString() {
         return "Fournisseur "+ idFour +": " + nomFour +"\nAdresse: " + adrFour + "\nContact: " +telFour ;
     }
+    public String toStringNomFour() {
+        return  nomFour ;
+    }
+    public String toStringAdressFour() {
+        return  adrFour ;
+    }
+    public String toStringContactFour() {
+        return  telFour ;
+    }
     public String listeFour() {
         return  nomFour;
     }

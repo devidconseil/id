@@ -3,18 +3,24 @@ package com.example.hp.madose;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.ActionMenuView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.GridView;
 import android.widget.ScrollView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,7 +57,10 @@ public class Affichage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_affichage);
+
         bd = new BaseDeDonne(this);
+        List<String> maliste=new ArrayList<>();
+        TableLayout tableLayout;
         mDatabase= FirebaseDatabase.getInstance().getReference();
         mAuth=FirebaseAuth.getInstance();
        /* listView= findViewById(R.id.listeview);
@@ -109,6 +118,108 @@ public class Affichage extends AppCompatActivity {
             for (FournisseurC emp : affF) {
                 fournisseur.append(emp.toString() + "\n\n");
             }
+            //Tableau affichage fournisseur
+           /* tableLayout=(TableLayout)findViewById(R.id.tabAff);
+            tableLayout.setPadding(12,16,12,16);
+            TableRow tl=new TableRow(this);
+            tl.setBackgroundColor(Color.parseColor("#17631E"));
+            tl.setPadding(12,16,12,16);
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
+                tl.setLayoutParams(new ActionMenuView.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+
+                TextView nomt = new TextView(this);
+                nomt.setText("NOM");
+                nomt.setTextColor(Color.parseColor("#FFFFFF"));
+                nomt.setTypeface(null, Typeface.BOLD);
+                nomt.setPadding(20, 15, 20, 15);
+                tl.addView(nomt);
+                TextView prent = new TextView(this);
+                prent.setTypeface(null, Typeface.BOLD);
+                prent.setTextColor(Color.parseColor("#FFFFFF"));
+                prent.setText("ADRESSE");
+                prent.setPadding(20, 15, 20, 15);
+                tl.addView(prent);
+                TextView mailt = new TextView(this);
+                mailt.setTypeface(null, Typeface.BOLD);
+                mailt.setTextColor(Color.parseColor("#FFFFFF"));
+                mailt.setText("CONTACT");
+                mailt.setPadding(20, 15, 20, 15);
+                tl.addView(mailt);
+            }
+            else{
+
+                TextView nomt = new TextView(this);
+                nomt.setText("NOM");
+                nomt.setTextColor(Color.parseColor("#FFFFFF"));
+                nomt.setTypeface(null, Typeface.BOLD);
+                nomt.setPadding(5, 10, 5, 10);
+                tl.addView(nomt);
+                TextView prent = new TextView(this);
+                prent.setTypeface(null, Typeface.BOLD);
+                prent.setTextColor(Color.parseColor("#FFFFFF"));
+                prent.setText("ADRESSE");
+                prent.setPadding(5, 10, 5, 10);
+                tl.addView(prent);
+                TextView mailt = new TextView(this);
+                mailt.setTypeface(null, Typeface.BOLD);
+                mailt.setTextColor(Color.parseColor("#FFFFFF"));
+                mailt.setText("CONTACT");
+                mailt.setPadding(5, 10, 5, 10);
+                tl.addView(mailt);
+            }
+            tableLayout.addView(tl,new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+
+            List<FournisseurC> affF = bd.afficheF();
+            int count=0;
+            for (FournisseurC emp : affF) {
+                //fournisseur.append(emp.toString() + "\n\n");
+                TableRow tr = new TableRow(this);
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
+                    tr.setLayoutParams(new ActionMenuView.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+                    tr.setPadding(20, 16, 20, 16);
+                if (count % 2 != 0) tr.setBackgroundColor(Color.parseColor("#d1d2d2"));
+                TextView nomF = new TextView(this);
+                nomF.setPadding(20, 15, 20, 15);
+                nomF.setTextColor(Color.parseColor("#000000"));
+                nomF.setText(emp.toStringNomFour());
+                nomF.setTypeface(null, Typeface.BOLD);
+                tr.addView(nomF);
+                TextView adressF = new TextView(this);
+                adressF.setTextColor(Color.parseColor("#000000"));
+                adressF.setPadding(20, 15, 20, 15);
+                adressF.setText(String.valueOf(emp.toStringAdressFour()));
+                tr.addView(adressF);
+                TextView contactF = new TextView(this);
+                contactF.setTextColor(Color.parseColor("#000000"));
+                contactF.setPadding(20, 15, 20, 15);
+                contactF.setText(String.valueOf(emp.toStringContactFour()));
+                tr.addView(contactF);
+            }
+            else{
+                    tr.setLayoutParams(new ActionMenuView.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+                    tr.setPadding(5, 5, 5, 5);
+                    if (count % 2 != 0) tr.setBackgroundColor(Color.parseColor("#d1d2d2"));
+                    TextView nomF = new TextView(this);
+                    nomF.setPadding(5, 10, 5, 10);
+                    nomF.setTextColor(Color.parseColor("#000000"));
+                    nomF.setText(emp.toStringNomFour());
+                    nomF.setTypeface(null, Typeface.BOLD);
+                    tr.addView(nomF);
+                    TextView adressF = new TextView(this);
+                    adressF.setTextColor(Color.parseColor("#000000"));
+                    adressF.setPadding(5, 10, 5, 10);
+                    adressF.setText(String.valueOf(emp.toStringAdressFour()));
+                    tr.addView(adressF);
+                    TextView contactF = new TextView(this);
+                    contactF.setTextColor(Color.parseColor("#000000"));
+                    contactF.setPadding(5, 10, 5, 10);
+                    contactF.setText(String.valueOf(emp.toStringContactFour()));
+                    tr.addView(contactF);
+                }
+                tableLayout.addView(tr,new TableLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
+                count++;
+            }*/
+
         }
 
         else if (getIntent().getStringExtra("passage").equals("departement"))

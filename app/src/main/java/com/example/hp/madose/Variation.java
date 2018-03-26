@@ -13,12 +13,11 @@ public class Variation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_variation);
-        TextView entrees= findViewById(R.id.listeE);
-        TextView demande= findViewById(R.id.listeD);
-        TextView sortie= findViewById(R.id.listeS);
-        TextView stock= findViewById(R.id.stock);
-        TextView demand= findViewById(R.id.textView9);
-        TextView liste_achats= findViewById(R.id.textView10);
+        Button entrees= findViewById(R.id.listeE);
+        Button demande= findViewById(R.id.listeD);
+        Button sortie= findViewById(R.id.listeS);
+        Button demand= findViewById(R.id.listDe);
+        Button liste_achats= findViewById(R.id.textView10);
         Button test=(Button)findViewById(R.id.boutontest);
         Button test2=(Button)findViewById(R.id.button4);
 
@@ -49,14 +48,14 @@ public class Variation extends AppCompatActivity {
             }
         });
 
-        stock.setOnClickListener(new View.OnClickListener() {
+       /* stock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(Variation.this,Affichage.class);
                 intent.putExtra("passage","stock");
                 startActivity(intent);
             }
-        });
+        });*/
 
         demand.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +65,7 @@ public class Variation extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        TextView rupture= findViewById(R.id.rupture);
+        Button rupture= findViewById(R.id.rupture);
 
 
         rupture.setOnClickListener(new View.OnClickListener() {
