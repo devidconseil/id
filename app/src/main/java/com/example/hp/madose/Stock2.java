@@ -23,7 +23,7 @@ public class Stock2 {
     }
 
     public void setTypeBes(String typeBes) {
-        this.typeBes = typeBes;
+        this.libBes = typeBes;
     }
 
     public void setNomEmp(String nomEmp) {

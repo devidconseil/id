@@ -1419,7 +1419,7 @@ public ArrayList<String> affiNumDem(int idemp)
         return affS;
 
     }
-    public List<RuptureC> StockInf() {
+    public List<RuptureC> StockEg() {
         List<RuptureC> affS = new ArrayList<>();
 
         String req = "select libBes,SeuilBes,StockBes from Besoin where SeuilBes=StockBes and TypeBes='NON AMORTISSABLE';";
