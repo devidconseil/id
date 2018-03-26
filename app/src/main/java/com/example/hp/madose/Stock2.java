@@ -19,15 +19,15 @@ public class Stock2 {
     }
 
     public void setLibBes(String libBes) {
-        LibBes = libBes;
+        this.libBes = libBes;
     }
 
     public void setTypeBes(String typeBes) {
-        TypeBes = typeBes;
+        this.typeBes = typeBes;
     }
 
     public void setNomEmp(String nomEmp) {
-        NomEmp = nomEmp;
+        this.nomEmp = nomEmp;
     }
 
     public void setDate(String date) {
@@ -35,7 +35,7 @@ public class Stock2 {
     }
 
     public void setQte(int qte) {
-        Qte = qte;
+        this.qte = qte;
     }
 
     public int getQte() {
