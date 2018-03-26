@@ -57,7 +57,7 @@ public class StockEgale extends AppCompatActivity {
         tl.addView(mailt);
         tableLayout.addView(tl, new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
-        List<RuptureC> affF = bd.StockSup();
+        List<RuptureC> affF = bd.StockEg();
         int count = 0;
         for (RuptureC emp : affF) {
 

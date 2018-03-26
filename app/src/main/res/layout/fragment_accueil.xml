@@ -59,35 +59,35 @@
 
    <TextView
        android:id="@+id/sup"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
        android:layout_alignBaseline="@+id/butsup"
        android:layout_alignBottom="@+id/butsup"
        android:layout_toEndOf="@+id/butsup"
        android:layout_toRightOf="@+id/butsup"
-       android:textColor="#000"
-       android:text="Stock supérieur au seuil d'alert." />
+       android:text="Besoin supérieur au seuil d'alert."
+       android:textColor="#000" />
 
    <TextView
        android:id="@+id/egale"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
        android:layout_alignBaseline="@+id/butegale"
        android:layout_alignBottom="@+id/butegale"
        android:layout_toEndOf="@+id/butegale"
        android:layout_toRightOf="@+id/butegale"
-       android:textColor="#000"
-       android:text="Stock égale au seuil d'alert." />
+       android:text="Besoin égale au seuil d'alert."
+       android:textColor="#000" />
 
    <TextView
        android:id="@+id/inferieur"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
        android:layout_alignBaseline="@+id/butinfe"
        android:layout_alignBottom="@+id/butinfe"
        android:layout_toEndOf="@+id/butinfe"
        android:layout_toRightOf="@+id/butinfe"
-       android:text="Stock inférieur au seuil d'alert."
+       android:text="Besoin inférieur au seuil d'alert."
        android:textColor="#000" />
 
    <TextView
