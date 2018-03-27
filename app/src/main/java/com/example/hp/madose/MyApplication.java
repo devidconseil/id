@@ -324,9 +324,9 @@ public class MyApplication extends Application {
                 for (DataSnapshot dataSnapshotSor:dataSnapshot.getChildren()){
                     Stock2 cat=dataSnapshotSor.getValue(Stock2.class);
                     Log.i("VOILA SORTIE",cat.getNomEmp()+" "+cat.getDateDem());
-                    if (!bd.checkIfSortieEntreeExist(cat.getNomEmp(),cat.getHeureSor(),cat.getLibBes(),cat.getDate())){
+                    if (!bd.checkIfSortieEntreeExist(cat.getNomEmp(),cat.getHeureSor(),cat.getLibBes(),cat.getDate(),cat.getLibDep())){
                         if (! bd.checkIfSortieExist(cat.getNomEmp(),cat.getHeureSor())){
-                            String numDem=bd.selectNumDem2(cat.getDateDem(),cat.getNomEmp());
+                            String numDem=bd.selectNumeDem(cat.getDateDem(),cat.getNomEmp());
                             bd.insertSortie(cat.getDate(),numDem,cat.getHeureSor(),cat.getNomEmp(),false);
                         }
                         int var1=Integer.parseInt(bd.selectIdSortie());

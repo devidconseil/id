@@ -383,7 +383,7 @@ public class Affichage extends AppCompatActivity {
                     for (DataSnapshot dataSnapshotSor:dataSnapshot.getChildren()){
                         Stock2 cat=dataSnapshotSor.getValue(Stock2.class);
                         Log.i("VOILA SORTIE",cat.getNomEmp()+" "+cat.getDateDem());
-                        if (! bd.checkIfSortieEntreeExist(cat.getNomEmp(),cat.getHeureSor(),cat.getLibBes(),cat.getDate())){
+                        if (! bd.checkIfSortieEntreeExist(cat.getNomEmp(),cat.getHeureSor(),cat.getLibBes(),cat.getDate(),cat.getLibDep())){
                             Log.i("VOILAHEIN",cat.getNomEmp()+" "+cat.getHeureSor()+" "+cat.getLibBes()+" "+cat.getDate());
                             if (! bd.checkIfSortieExist(cat.getNomEmp(),cat.getHeureSor())){
                                 Log.i("VOILATOUT",cat.getNomEmp()+" "+cat.getHeureSor());

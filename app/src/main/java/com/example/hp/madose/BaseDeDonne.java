@@ -266,8 +266,8 @@ public class BaseDeDonne extends SQLiteOpenHelper {
             return false;
         }
     }
-    public Boolean checkIfSortieEntreeExist(String name,String name1,String name2,String name3){
-        String req="select Sortie.numDem,DateDem,Utilisateur.IdEmp,Departement.IdDep from Besoin,Sortie,Demande,Utilisateur,Departement,Besoins_Sortie where Demande.IdEmp=Utilisateur.IdEmp and Demande.IdDep=Departement.IdDep and Besoin.NumBes=Besoins_Sortie.NumBes and nomEmp || ' ' || prenEmp='"+name+"' and Sortie.HeureSor='"+name1+"' and libBes='"+name2+"' and Sortie.DateSor=strftime('%s','"+name3+"') ;";
+    public Boolean checkIfSortieEntreeExist(String name,String name1,String name2,String name3,String name4){
+        String req="select Sortie.numDem,DateDem,Demande.IdEmp,Demande.IdDep,libBes from Besoin,Sortie,Demande,Utilisateur,Departement,Besoins_Sortie where Besoin.NumBes=Besoins_Sortie.NumBes and Besoins_Sortie.NumSor=Sortie.NumSor and Demande.numDem=Sortie.numDem and(( Demande.IdEmp=Utilisateur.IdEmp and Utilisateur.IdDep=Departement.IdDep and nomEmp || ' ' || prenEmp='"+name+"') or(libDep='"+name4+"' and Demande.IdEmp is null and Demande.IdDep=Departement.IdDep)) and Sortie.HeureSor='"+name1+"' and libBes='"+name2+"' and Sortie.DateSor=strftime('%s','"+name3+"') ;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
         if(cursor.getCount()>0){
             cursor.close();
@@ -1039,13 +1039,13 @@ public class BaseDeDonne extends SQLiteOpenHelper {
 public ArrayList<String> affiNumDem(int idemp)
 {
     ArrayList<String>nd=new ArrayList<>();
-    String req="select date(DateDem,'unixepoch') as paco from Demande where IdEmp='"+idemp+"' order by paco desc limit 3;";
+    String req="select date(DateDem,'unixepoch'),datetime(HeureDem,'unixepoch') as paco from Demande where IdEmp='"+idemp+"' order by HeureDem desc limit 3;";
     Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
     cursor.moveToFirst();
 
     while (!cursor.isAfterLast())
     {
-        nd.add(cursor.getString(0));
+        nd.add(cursor.getString(1));
         cursor.moveToNext();
     }
 
@@ -1072,13 +1072,14 @@ public ArrayList<String> affiNumDem(int idemp)
     public ArrayList<String> affiNumDem11(int iddep)
     {
         ArrayList<String>nd=new ArrayList<>();
-        String req="select date(DateDem,'unixepoch') as paco,HeureDem  from Demande where IdDep='"+iddep+"' and IdEmp is null order by paco desc limit 3;";
+        String req="select date(DateDem,'unixepoch') as paco,datetime(HeureDem,'unixepoch')  from Demande where IdDep='"+iddep+"' and IdEmp is null order by HeureDem desc limit 3 ;";
+
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast())
         {
-            nd.add(cursor.getString(0));
+            nd.add(cursor.getString(1));
             cursor.moveToNext();
         }
 
@@ -1187,7 +1188,7 @@ public ArrayList<String> affiNumDem(int idemp)
     public String selectNumDem1(String demande,String depart)
     {
 
-        String paco="select Demande.numDem from Demande,Departement where Demande.IdDep=Departement.IdDep and Demande.HeureDem='"+demande+"' and Departement.libDep='"+depart+"';";
+        String paco="select Demande.numDem from Demande,Departement where Demande.IdDep=Departement.IdDep and Demande.HeureDem=strftime('%s','"+demande+"') and Departement.libDep='"+depart+"';";
         Cursor cursor = null;
         try {
 
@@ -1200,7 +1201,7 @@ public ArrayList<String> affiNumDem(int idemp)
     public String selectNumDem2(String demande,String employe)
     {
 
-        String paco="select Demande.numDem from Demande,Utilisateur where Demande.IdEmp=Utilisateur.IdEmp and Demande.DateDem=strftime('%s','"+demande+"') and Utilisateur.nomEmp || ' ' || Utilisateur.prenEmp='"+employe+"';";
+        String paco="select Demande.numDem from Demande,Utilisateur where Demande.IdEmp=Utilisateur.IdEmp and Demande.HeureDem=strftime('%s','"+demande+"') and Utilisateur.nomEmp || ' ' || Utilisateur.prenEmp='"+employe+"';";
         Cursor cursor = null;
         try {
 

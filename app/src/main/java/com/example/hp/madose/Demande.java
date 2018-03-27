@@ -330,6 +330,7 @@ public class Demande extends AppCompatActivity {
                 }
                 else {
                     String a, b, c, departe;
+                    int var1, var2;
                     if (! date.getText().toString().matches("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]")) {
 
                         a = date.getText().toString().substring(0, 2);
@@ -337,29 +338,24 @@ public class Demande extends AppCompatActivity {
                         c = date.getText().toString().substring(6, 10);
                         date.setText(c + "-" + b + "-" + a);
                     }
+                    if (! MyApplication.isFait()) {
+                        if (radioButton_emp.isChecked()) {
+                            var1 = Integer.parseInt(bd.selectEmpId(employe.getText().toString()));
+                            departe = bd.DepartEmp(var1);
+                            var2 = Integer.parseInt(bd.selectDep(departe));
+                            bd.insertDemande(date.getText().toString(), var1, var2, "", true);
+                        }
 
+                        if (radioButton_dep.isChecked()) {
+                            String recup = bd.selectDep(depart.getText().toString());
+                            bd.insertDemande1(date.getText().toString(), Integer.parseInt(recup), "", true);
+                        }
+                    }
                     if (! bd.checkIfDemandeBesoinExist(employe.getText().toString(),bd.selectHeureDem(),bes.getText().toString(),date.getText().toString(),depart.getText().toString())) {
 
 
-                        int var1, var2;
-
                         int var3 = Integer.parseInt(bd.selectIdBes(bes.getText().toString()));
                         int var4 = Integer.parseInt(quant.getText().toString());
-
-
-                        if (! MyApplication.isFait()) {
-                            if (radioButton_emp.isChecked()) {
-                                var1 = Integer.parseInt(bd.selectEmpId(employe.getText().toString()));
-                                departe = bd.DepartEmp(var1);
-                                var2 = Integer.parseInt(bd.selectDep(departe));
-                                bd.insertDemande(date.getText().toString(), var1, var2, "", true);
-                            }
-
-                            if (radioButton_dep.isChecked()) {
-                                String recup = bd.selectDep(depart.getText().toString());
-                                bd.insertDemande1(date.getText().toString(), Integer.parseInt(recup), "", true);
-                            }
-                        }
 
 
                         int dernierEnr = Integer.parseInt(bd.selectIdDem());
@@ -436,8 +432,6 @@ public class Demande extends AppCompatActivity {
                         c = date.getText().toString().substring(6, 10);
                         date.setText(c + "-" + b + "-" + a);
                     }
-
-                    if (! bd.checkIfDemandeBesoinExist(employe.getText().toString(),bd.selectHeureDem(),bes.getText().toString(),date.getText().toString(),depart.getText().toString())){
                     if (!MyApplication.isFait()) {
                    /*     String a, b, c;
                         a = date.getText().toString().substring(0, 2);
@@ -445,6 +439,8 @@ public class Demande extends AppCompatActivity {
                         c = date.getText().toString().substring(6, 10);
                         date.setText(c + "-" + b + "-" + a);  */
                     }
+                    if (! bd.checkIfDemandeBesoinExist(employe.getText().toString(),bd.selectHeureDem(),bes.getText().toString(),date.getText().toString(),depart.getText().toString())){
+
                     int var1, var2;
                     int var3 = Integer.parseInt(bd.selectIdBes(bes.getText().toString()));
                     int var4 = Integer.parseInt(quant.getText().toString());

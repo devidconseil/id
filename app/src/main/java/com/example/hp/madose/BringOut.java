@@ -146,8 +146,10 @@ public class BringOut extends AppCompatActivity {
                         if (cat.getNomEmp().equals("")) {
                             int ss=0;
                             int sss=Integer.parseInt(bd.selectDep(cat.getLibDpe()));
-                            bd.insertDemande1(cat.getDateDem(),sss,cat.getHeureDem(),false);
-                            bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem1(cat.getLibDpe(),cat.getDateDem())),ssss,cat.getQte());
+                            if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())) {
+                                bd.insertDemande1(cat.getDateDem(), sss, cat.getHeureDem(), false);
+                            }
+                            bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem()),ssss,cat.getQte());
                         }
 
                     }
@@ -490,7 +492,7 @@ public class BringOut extends AppCompatActivity {
                         var = bd.selectDep(departement.getText().toString());
                         if (var == null)
                         {
-                            Toast.makeText(getBaseContext(),"Ce departement n'a pas effectué de demande",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext() ,"Ce departement n'a pas effectué de demande",Toast.LENGTH_LONG).show();
                         }
                         else if (var != "") {
                             au = bd.affiNumDem1(Integer.parseInt(var));
@@ -603,10 +605,10 @@ public class BringOut extends AppCompatActivity {
 
                     String num = new String();
                     if (radioButton_emp.isChecked()) {
-                        num = bd.selectNumeDem(demande.getText().toString(), employe.getText().toString());
+                        num = bd.selectNumDem2(demande.getText().toString(), employe.getText().toString());
                     }
                     if (radioButton_dep.isChecked()) {
-                        num = bd.selectNumeDem1(demande.getText().toString(), departement.getText().toString());
+                        num = bd.selectNumDem1(demande.getText().toString(), departement.getText().toString());
                     }
                     int dernierEnr;
                     // bd.insertSortie(date.getText().toString(),num);
@@ -619,12 +621,12 @@ public class BringOut extends AppCompatActivity {
                         c = date.getText().toString().substring(6, 10);
                         date.setText(c + "-" + b + "-" + a);
                     }
+                    if (!MyApplication.isFait()) {
+                        bd.insertSortie(date.getText().toString(), num, "", MyApplication.mAuth.getCurrentUser().getEmail(), true);
+                    }
+                    if (! bd.checkIfSortieEntreeExist(employe.getText().toString(),bd.selectHeureSor(),besoin.getText().toString(),date.getText().toString(),departement.getText().toString())) {
 
-                    if (! bd.checkIfSortieEntreeExist(employe.getText().toString(),bd.selectHeureSor(),besoin.getText().toString(),date.getText().toString())) {
 
-                        if (!MyApplication.isFait()) {
-                            bd.insertSortie(date.getText().toString(), num, "", MyApplication.mAuth.getCurrentUser().getEmail(), true);
-                        }
                         dernierEnr = Integer.parseInt(bd.selectIdSortie());
                         //NumSor` INTEGER, `NumBes` INTEGER, `qte` INTEGER NOT NULL, `marqueBes` TEXT, `Autre précision`
                         int var = Integer.parseInt(bd.selectIdBes(besoin.getText().toString()));
@@ -695,10 +697,10 @@ public class BringOut extends AppCompatActivity {
                 else {
                     String num = new String();
                     if (radioButton_emp.isChecked()) {
-                        num = bd.selectNumeDem(demande.getText().toString(), employe.getText().toString());
+                        num = bd.selectNumDem2(demande.getText().toString(), employe.getText().toString());
                     }
                     if (radioButton_dep.isChecked()) {
-                        num = bd.selectNumeDem1(demande.getText().toString(), departement.getText().toString());
+                        num = bd.selectNumDem1(demande.getText().toString(), departement.getText().toString());
                     }
                     int dernierEnr;
                     // bd.insertSortie(date.getText().toString(),num);
@@ -712,17 +714,18 @@ public class BringOut extends AppCompatActivity {
                         c = date.getText().toString().substring(6, 10);
                         date.setText(c + "-" + b + "-" + a);
                     }
-                    if (! bd.checkIfSortieEntreeExist(employe.getText().toString(),bd.selectHeureSor(),besoin.getText().toString(),date.getText().toString())) {
-
-                        if (!MyApplication.isFait()) {
+                    if (!MyApplication.isFait()) {
                      /*       String a, b, c;
                             a = date.getText().toString().substring(0, 2);
                             b = date.getText().toString().substring(3, 5);
                             c = date.getText().toString().substring(6, 10);
                             date.setText(c + "-" + b + "-" + a);   */
-                            bd.insertSortie(date.getText().toString(), num, "", MyApplication.getmAuth().getCurrentUser().getEmail(), true);
+                        bd.insertSortie(date.getText().toString(), num, "", MyApplication.getmAuth().getCurrentUser().getEmail(), true);
 
-                        }
+                    }
+
+                    if (! bd.checkIfSortieEntreeExist(employe.getText().toString(),bd.selectHeureSor(),besoin.getText().toString(),date.getText().toString(),departement.getText().toString())) {
+
 
 
                         dernierEnr = Integer.parseInt(bd.selectIdSortie());
