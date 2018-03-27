@@ -84,7 +84,7 @@ public class UtilisateurC {
 
     @Override
     public String toString() {
-        return  nomEmp + "\nPrénoms: " + prenEmp + "\nMail: " + mailEmp + "\nTel: " + telEmp + "\nDepartement: " + libDep+ "\nProfil: " + proEmp ;
+        return  "Nom: "+nomEmp + "\nPrénoms: " + prenEmp + "\nMail: " + mailEmp + "\nTel: " + telEmp + "\nDepartement: " + libDep+ "\nProfil: " + proEmp ;
     }
     public String nomEtprenom() {
         return  nomEmp + " " + prenEmp ;

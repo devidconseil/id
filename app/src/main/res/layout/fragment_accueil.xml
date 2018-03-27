@@ -65,7 +65,7 @@
        android:layout_alignBottom="@+id/butsup"
        android:layout_toEndOf="@+id/butsup"
        android:layout_toRightOf="@+id/butsup"
-       android:text="Besoin supérieur au seuil d'alert."
+       android:text="Stock supérieur au seuil d'alert."
        android:textColor="#000" />
 
    <TextView
@@ -76,7 +76,7 @@
        android:layout_alignBottom="@+id/butegale"
        android:layout_toEndOf="@+id/butegale"
        android:layout_toRightOf="@+id/butegale"
-       android:text="Besoin égale au seuil d'alert."
+       android:text="Stock égale au seuil d'alert."
        android:textColor="#000" />
 
    <TextView
@@ -87,7 +87,7 @@
        android:layout_alignBottom="@+id/butinfe"
        android:layout_toEndOf="@+id/butinfe"
        android:layout_toRightOf="@+id/butinfe"
-       android:text="Besoin inférieur au seuil d'alert."
+       android:text="Stock inférieur au seuil d'alert."
        android:textColor="#000" />
 
    <TextView

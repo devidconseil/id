@@ -24,7 +24,7 @@ public class Frag_accueil_listes extends Fragment {
         Button demande= rootView.findViewById(R.id.listeD);
         Button sortie= rootView.findViewById(R.id.listeS);
         Button stock= rootView.findViewById(R.id.stock);
-        Button demand= rootView.findViewById(R.id.textView9);
+        Button demand= rootView.findViewById(R.id.listDe);
         Button liste_achats= rootView.findViewById(R.id.textView10);
         Button rupture= rootView.findViewById(R.id.rupture);
         Button test=(Button)rootView.findViewById(R.id.boutontest);
@@ -58,14 +58,14 @@ public class Frag_accueil_listes extends Fragment {
             }
         });
 
-        stock.setOnClickListener(new View.OnClickListener() {
+       /* stock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getActivity(),Affichage.class);
                 intent.putExtra("passage","stock");
                 startActivity(intent);
             }
-        });
+        });*/
 
         demand.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,8 +75,6 @@ public class Frag_accueil_listes extends Fragment {
                 startActivity(intent);
             }
         });
-
-
 
         rupture.setOnClickListener(new View.OnClickListener() {
             @Override
