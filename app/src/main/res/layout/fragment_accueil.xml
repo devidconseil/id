@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_centerInParent="true"
+    android:background="#fff"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="0dp">
+    android:paddingTop="10dp">
 
  <ScrollView
      android:layout_width="match_parent"
@@ -21,7 +22,9 @@
        android:id="@+id/chart"
        android:layout_width="300dp"
        android:layout_height="300dp"
-       android:layout_centerHorizontal="true"></com.github.mikephil.charting.charts.PieChart>
+       android:layout_centerHorizontal="true">
+    bonjour
+   </com.github.mikephil.charting.charts.PieChart>
 
    <Button
        android:id="@+id/butinfe"
@@ -31,7 +34,7 @@
        android:layout_alignStart="@+id/butegale"
        android:layout_below="@+id/butegale"
        android:textColor="#fff"
-       android:backgroundTint="#FA564A"
+       android:backgroundTint="#E10F0C"
        android:text="0" />
 
    <Button
@@ -41,7 +44,7 @@
        android:layout_alignLeft="@+id/butsup"
        android:layout_alignStart="@+id/butsup"
        android:layout_below="@+id/butsup"
-       android:backgroundTint="#f1c40f"
+       android:backgroundTint="#FF9801"
        android:textColor="#fff"
        android:text="0" />
 
@@ -54,7 +57,7 @@
        android:layout_below="@+id/chart"
        android:textColor="#fff"
        android:layout_marginTop="14dp"
-       android:backgroundTint="#2ecc71"
+       android:backgroundTint="#369936"
        android:text="0" />
 
    <TextView
@@ -65,7 +68,7 @@
        android:layout_alignBottom="@+id/butsup"
        android:layout_toEndOf="@+id/butsup"
        android:layout_toRightOf="@+id/butsup"
-       android:text="Stock supérieur au seuil d'alert."
+       android:text="Matériels supérieur au seuil d'alerte."
        android:textColor="#000" />
 
    <TextView
@@ -76,7 +79,7 @@
        android:layout_alignBottom="@+id/butegale"
        android:layout_toEndOf="@+id/butegale"
        android:layout_toRightOf="@+id/butegale"
-       android:text="Stock égale au seuil d'alert."
+       android:text="Matériels égale au seuil d'alerte."
        android:textColor="#000" />
 
    <TextView
@@ -87,7 +90,7 @@
        android:layout_alignBottom="@+id/butinfe"
        android:layout_toEndOf="@+id/butinfe"
        android:layout_toRightOf="@+id/butinfe"
-       android:text="Stock inférieur au seuil d'alert."
+       android:text="Matériels inférieur au seuil d'alerte."
        android:textColor="#000" />
 
    <TextView

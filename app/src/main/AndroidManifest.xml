@@ -106,7 +106,8 @@
         <activity android:name=".Listes.ListeRupture" />
         <activity android:name=".Listes.StockSup" />
         <activity android:name=".Listes.StockEgale" />
-        <activity android:name=".PageDeChargement"></activity>
+        <activity android:name=".PageDeChargement" />
+        <activity android:name=".Listes.FournisseurListe"></activity>
     </application>
 
 </manifest>

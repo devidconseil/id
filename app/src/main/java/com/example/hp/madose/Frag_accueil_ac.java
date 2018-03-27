@@ -114,16 +114,22 @@ public class Frag_accueil_ac extends Fragment {
             }
         });
 
+        int total=Integer.parseInt(ts.getText().toString())+Integer.parseInt(te.getText().toString())+Integer.parseInt(ti.getText().toString());
+        int supe=Integer.parseInt(ts.getText().toString())*100/total;
+        int eg=Integer.parseInt(te.getText().toString())*100/total;
+        int in=Integer.parseInt(ti.getText().toString())*100/total;
         int rainfall[]={Integer.parseInt(ts.getText().toString()),Integer.parseInt(te.getText().toString()),Integer.parseInt(ti.getText().toString())};
-        String mois[]={"Sup.","Egale","Inf."};
+        String mois[]={supe+"%",eg+"%",in+"%"};
         List<PieEntry> pieEntries=new ArrayList<>();
         for (int i=0;i<rainfall.length;i++)
         {
             pieEntries.add(new PieEntry(rainfall[i],mois[i]));
         }
         PieDataSet dataSet=new PieDataSet(pieEntries,"");
+        dataSet.setValueTextSize(0);
+        dataSet.setValueLineColor(Color.parseColor("#ffffff"));
         //dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-        dataSet.setColors(new int[] { Color.parseColor("#2ecc71"), Color.parseColor("#f1c40f"), Color.parseColor("#FA564A")});
+        dataSet.setColors(new int[] { Color.parseColor("#369936"), Color.parseColor("#FF9801"), Color.parseColor("#E10F0C")});
         PieData data=new PieData(dataSet);
 
 
