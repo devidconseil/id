@@ -314,7 +314,6 @@ public class Demande extends AppCompatActivity {
                     depart.requestFocus();
                     depart.setError("Veuillez saisir le nom du département SVP!");
                 }
-
                 else if (bes.getText().toString().equals(""))
                 {
                     bes.requestFocus();
@@ -327,7 +326,6 @@ public class Demande extends AppCompatActivity {
                 }
                 else {
                     String a, b, c, departe;
-                    int var1, var2;
                     if (! date.getText().toString().matches("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]")) {
 
                         a = date.getText().toString().substring(0, 2);
@@ -409,7 +407,6 @@ public class Demande extends AppCompatActivity {
                     depart.requestFocus();
                     depart.setError("Veuillez saisir le nom du département SVP!");
                 }
-
                 else if (bes.getText().toString().equals(""))
                 {
                     bes.requestFocus();

@@ -19,7 +19,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <EditText
                 android:id="@+id/nomEmp"
@@ -28,7 +28,6 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="0dp"
                 android:background="@drawable/round_corner"
                 android:hint="Nom"
                 android:inputType="textPersonName" />
@@ -39,8 +38,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/autoCompDep"
-                android:layout_marginTop="13dp"
+                android:layout_below="@+id/profil"
+                android:layout_marginTop="11dp"
                 android:backgroundTint="#858687"
                 android:drawableRight="@drawable/ic_save_black_24dp"
                 android:text="enregistrer"
@@ -50,25 +49,23 @@
                 android:id="@+id/button9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
                 android:layout_below="@+id/valEmp"
+                android:layout_centerHorizontal="true"
                 android:backgroundTint="#858687"
                 android:drawableRight="@drawable/ic_clear_black_24dp"
                 android:text="Annuler"
                 android:textColor="#fff" />
 
-            <EditText
+            <Spinner
                 android:id="@+id/profil"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/contact"
+                android:layout_below="@+id/autoCompDep"
                 android:background="@drawable/round_corner"
-                android:ems="10"
-                android:hint="Profil"
-                android:inputType="textPersonName" />
+                />
+
 
             <EditText
                 android:id="@+id/prenEmp"
@@ -112,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/profil"
+                android:layout_below="@+id/contact"
                 android:background="@drawable/round_corner"
                 android:drawableRight="@drawable/ic_fleche_a_droit_24dp"
                 android:ems="10"

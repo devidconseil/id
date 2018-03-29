@@ -57,7 +57,7 @@ public class Affichage extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_affichage);
 
@@ -66,7 +66,6 @@ public class Affichage extends AppCompatActivity {
         TableLayout tableLayout;
         mDatabase= FirebaseDatabase.getInstance().getReference();
         mAuth=FirebaseAuth.getInstance();
-
        /* listView= findViewById(R.id.listeview);
         listView.setVisibility(View.INVISIBLE);  */
 
@@ -468,7 +467,6 @@ public class Affichage extends AppCompatActivity {
                                 Log.i("Je DOIS VOIR",bd.selectIdDem(cat.getHeureDem())+" "+ssss);
                                 bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
                                 //   Toast.makeText(getApplicationContext(),cat.toString(),Toast.LENGTH_LONG).show();
-
                             }
                             if (cat.getNomEmp().equals("")) {
                                 int ss=0;
@@ -542,7 +540,6 @@ public class Affichage extends AppCompatActivity {
         if (getIntent().getStringExtra("passage").equals("entree")) {
             stocke = (TextView) findViewById(R.id.textView2);
 
-
             mDatabase.child("Entree").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -583,7 +580,6 @@ public class Affichage extends AppCompatActivity {
 
 
                         }
-
                     }
                     if (count){
                         finish();
