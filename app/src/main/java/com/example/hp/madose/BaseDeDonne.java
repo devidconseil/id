@@ -291,6 +291,19 @@ public class BaseDeDonne extends SQLiteOpenHelper {
             return false;
         }
     }
+    public Boolean checkIfSortieEntreeExist(String name,String name1){
+
+        String req="select Sortie.NumSor,Sortie.numDem,Besoins_Sortie.NumBes from Sortie,Demande,Besoin,Besoins_Sortie where Sortie.NumSor=Besoins_Sortie.NumSor and Besoin.NumBes=Besoins_Sortie.NumBes and Demande.numDem=Sortie.numDem and Sortie.HeureSor='"+name+"' and libBes='"+name1+"' ;";
+        Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
+        if(cursor.getCount()>0){
+            cursor.close();
+            return true;
+        }
+        else {
+            cursor.close();
+            return false;
+        }
+    }
     public Boolean checkIfBesoinExist(String name){
         String req="select * from Besoin where libBes='"+name+"';";
         Cursor cursor=this.getReadableDatabase().rawQuery(req,null);

@@ -624,7 +624,7 @@ public class BringOut extends AppCompatActivity {
                     if (!MyApplication.isFait()) {
                         bd.insertSortie(date.getText().toString(), num, "", MyApplication.mAuth.getCurrentUser().getEmail(), true);
                     }
-                    if (! bd.checkIfSortieEntreeExist(employe.getText().toString(),bd.selectHeureSor(),besoin.getText().toString(),date.getText().toString(),departement.getText().toString())) {
+                    if (! bd.checkIfSortieEntreeExist(bd.selectHeureSor(),besoin.getText().toString())) {
 
 
                         dernierEnr = Integer.parseInt(bd.selectIdSortie());
@@ -724,7 +724,7 @@ public class BringOut extends AppCompatActivity {
 
                     }
 
-                    if (! bd.checkIfSortieEntreeExist(employe.getText().toString(),bd.selectHeureSor(),besoin.getText().toString(),date.getText().toString(),departement.getText().toString())) {
+                    if (! bd.checkIfSortieEntreeExist(bd.selectHeureSor(),besoin.getText().toString())) {
 
 
 
