@@ -131,7 +131,7 @@ public class BringOut extends AppCompatActivity {
                     DemandeC cat= dataSnapshotDem.getValue(DemandeC.class);
                     Log.i("I MISS YOU",cat.getDateDem()+" "+cat.getNomEmp());
 
-                    if (! bd.checkIfDemandeBesoinExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibBes(),cat.getDateDem(),cat.getLibDpe())){
+                    if (! bd.checkIfDemandeBesoinExist(cat.getHeureDem(),cat.getLibBes())){
 
                         int ssss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
                         if (cat.getLibDpe().equals("")){
@@ -140,7 +140,7 @@ public class BringOut extends AppCompatActivity {
                             if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())) {
                                 bd.insertDemande(cat.getDateDem(), ss, sss, cat.getHeureDem(), false);
                             }
-                            bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem()),ssss,cat.getQte());
+                            bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
                             //   Toast.makeText(getApplicationContext(),cat.toString(),Toast.LENGTH_LONG).show();
                         }
                         if (cat.getNomEmp().equals("")) {
@@ -149,7 +149,7 @@ public class BringOut extends AppCompatActivity {
                             if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())) {
                                 bd.insertDemande1(cat.getDateDem(), sss, cat.getHeureDem(), false);
                             }
-                            bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem()),ssss,cat.getQte());
+                            bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
                         }
 
                     }

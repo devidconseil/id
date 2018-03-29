@@ -289,7 +289,7 @@ public class MyApplication extends Application {
                     DemandeC cat= dataSnapshotDem.getValue(DemandeC.class);
                     Log.i("I MISS YOU",cat.getDateDem()+" "+cat.getNomEmp());
 
-                    if (! bd.checkIfDemandeBesoinExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibBes(),cat.getDateDem(),cat.getLibDpe())){
+                    if (! bd.checkIfDemandeBesoinExist(cat.getHeureDem(),cat.getLibBes())){
 
                         int ssss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
                         if (cat.getLibDpe().equals("")){
@@ -298,7 +298,7 @@ public class MyApplication extends Application {
                             if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())) {
                                 bd.insertDemande(cat.getDateDem(), ss, sss, cat.getHeureDem(), false);
                             }
-                            bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem()),ssss,cat.getQte());
+                            bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
                             //   Toast.makeText(getApplicationContext(),cat.toString(),Toast.LENGTH_LONG).show();
                         }
                         if (cat.getNomEmp().equals("")) {
@@ -325,7 +325,7 @@ public class MyApplication extends Application {
                     Stock2 cat=dataSnapshotSor.getValue(Stock2.class);
                     Log.i("VOILA SORTIE",cat.getNomEmp()+" "+cat.getDateDem());
                     if (!bd.checkIfSortieEntreeExist(cat.getNomEmp(),cat.getHeureSor(),cat.getLibBes(),cat.getDate(),cat.getLibDep())){
-                        if (! bd.checkIfSortieExist(cat.getNomEmp(),cat.getHeureSor())){
+                        if (! bd.checkIfSortieExist(cat.getNomEmp(),cat.getHeureSor(),cat.getLibDep())){
                             String numDem=bd.selectNumeDem(cat.getDateDem(),cat.getNomEmp());
                             bd.insertSortie(cat.getDate(),numDem,cat.getHeureSor(),cat.getNomEmp(),false);
                         }

@@ -305,15 +305,16 @@ public class Add extends AppCompatActivity {
                         c = date.getText().toString().substring(6, 10);
                         date.setText(c + "-" + b + "-" + a);
                     }
+                    if (!MyApplication.isFait()) {
+                        int var = Integer.parseInt(dd.selectFour(four.getText().toString()));
+                        dd.insertEntr(date.getText().toString(), var, "", MyApplication.getmAuth().getCurrentUser().getEmail(), true);
+                        writeNewEntree(four.getText().toString(), date.getText().toString(), bd.selectHeureEnt(), MyApplication.getmAuth().getCurrentUser().getEmail());
+                    }
 
                     if (!bd.checkIfBesoinEntreeExist(besoin.getText().toString(), date.getText().toString(),bd.selectHeureEnt(),bd.selectUserEnt(bd.selectHeureEnt()))) {
 
 
-                        if (!MyApplication.isFait()) {
-                            int var = Integer.parseInt(dd.selectFour(four.getText().toString()));
-                            dd.insertEntr(date.getText().toString(), var, "", MyApplication.getmAuth().getCurrentUser().getEmail(), true);
-                            writeNewEntree(four.getText().toString(), date.getText().toString(), bd.selectHeureEnt(), MyApplication.getmAuth().getCurrentUser().getEmail());
-                        }
+
 
                         int var1 = Integer.parseInt(dd.selectIdBes(besoin.getText().toString()));
 

@@ -212,7 +212,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     }
     public Boolean checkIfDemandeExist(String name,String name1,String name2){
 
-        String req="select Demande.numDem,DateDem,Utilisateur.IdEmp,Departement.IdDep from Demande,Utilisateur,Departement,Demande_Besoins where Demande.numDem=Demande_Besoins.numDem and ((Demande.IdEmp=Utilisateur.IdEmp and Utilisateur.nomEmp || ' ' || Utilisateur.PrenEmp='"+name+"' and HeureDem='"+name1+"') or (Demande.IdDep=Departement.IdDep and Demande.IdEmp is null and Departement.libDep='"+name2+"' and HeureDem='"+name1+"'));";
+        String req="select Demande.numDem,DateDem,Utilisateur.IdEmp,Departement.IdDep from Demande,Utilisateur,Departement where Demande.IdDep=Departement.IdDep and ((Demande.IdEmp=Utilisateur.IdEmp and Utilisateur.nomEmp || ' ' || Utilisateur.PrenEmp='"+name+"' and HeureDem='"+name1+"') or (Demande.IdEmp is null and Departement.libDep='"+name2+"' and HeureDem='"+name1+"'));";
         Log.i("VERIF",req);
         Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
         if(cursor.getCount()>0){
@@ -239,7 +239,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         }
     }  */
     public Boolean checkIfDemandeBesoinExist(String name,String name1,String name2,String name3,String name4){
-        String req="select Demande.numDem,DateDem,Utilisateur.IdEmp,Departement.IdDep,libBes from Demande,Utilisateur,Departement,Demande_Besoins,Besoin where Demande_Besoins.NumBes=Besoin.NumBes and Demande.numDem=Demande_Besoins.numDem and ((Demande.IdEmp=Utilisateur.IdEmp and Utilisateur.IdDep=Departement.IdDep and Utilisateur.nomEmp || ' ' || Utilisateur.PrenEmp='"+name+"' and HeureDem='"+name1+"' and libBes='"+name2+"' and Demande.DateDem=strftime('%s','"+name3+"')) or (Demande.IdDep=Departement.IdDep and Demande.IdEmp is null and Departement.libDep='"+name4+"' and HeureDem='"+name1+"' and libBes='"+name2+"' and Demande.DateDem=strftime('%s','"+name3+"'))) ;";
+        String req="select Demande.numDem,DateDem,Utilisateur.IdEmp,Departement.IdDep,libBes from Demande,Utilisateur,Departement,Demande_Besoins,Besoin where Demande_Besoins.NumBes=Besoin.NumBes and Demande.numDem=Demande_Besoins.numDem and ((Demande.IdEmp=Utilisateur.IdEmp and Utilisateur.IdDep=Departement.IdDep and Utilisateur.nomEmp || ' ' || Utilisateur.PrenEmp='"+name+"' and HeureDem='"+name1+"' and libBes='"+name2+"' and Demande.DateDem=strftime('%s','"+name3+"')) or (Demande.IdDep=Departement.IdDep and Demande.IdEmp is null and Departement.libDep='"+name4+"' and HeureDem='"+name1+"' and libBes='"+name2+"' and Demande.DateDem=strftime('%s','"+name3+"')))  ;";
         Log.i("A FLE",req);
         Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
         if(cursor.getCount()>0){
@@ -251,8 +251,21 @@ public class BaseDeDonne extends SQLiteOpenHelper {
             return false;
         }
     }
-    public Boolean checkIfSortieExist(String name,String name1){
-        String req="select Sortie.numDem from Sortie,Utilisateur,Demande where Demande.IdEmp=Utilisateur.IdEmp and Sortie.numDem=Demande.numDem and HeureSor='"+name1+"' and nomEmp||' '||PrenEmp='"+name+"'  ;";
+    public Boolean checkIfDemandeBesoinExist(String name,String name1){
+        String req="select Demande_Besoins.numDem,Demande_Besoins.NumBes from Besoin,Demande_Besoins,Demande where Demande.numDem=Demande_Besoins.numDem and Demande_Besoins.numBes=Besoin.NumBes and HeureDem='"+name+"' and libBes='"+name1+"' ;";
+        Log.i("ALE",req);
+        Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
+        if(cursor.getCount()>0){
+            cursor.close();
+            return true;
+        }
+        else {
+            cursor.close();
+            return false;
+        }
+    }
+    public Boolean checkIfSortieExist(String name,String name1,String depart){
+        String req="select Sortie.numDem from Sortie,Utilisateur,Demande,Departement where Sortie.numDem=Demande.numDem and HeureSor='"+name1+"' and (( Demande.IdEmp=Utilisateur.IdEmp and nomEmp||' '||PrenEmp='"+name+"') or ( Departement.IdDep=Demande.IdDep and libDep='"+depart+"' and Demande.IdEmp is null)) ;";
         //or (Demande.IdDep=Departement.IdDep and Departement.libDep='RECHERCHE' and Demande.IdEmp is null)
 
         Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
@@ -1034,6 +1047,18 @@ public class BaseDeDonne extends SQLiteOpenHelper {
             if (cursor != null) cursor.close();
         }
     }
+    public String selectIdDem(String heure)
+    {
+        String requete="select numDem from Demande where HeureDem='"+heure+"';";
+        Cursor cursor = null;
+        try {
+
+            cursor = this.getReadableDatabase().rawQuery(requete,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
 //-------------------------**********SORTIE(BringOut)***********-----------------------------------
 //TextautocompleteNumDemand
 public ArrayList<String> affiNumDem(int idemp)
@@ -1162,6 +1187,19 @@ public ArrayList<String> affiNumDem(int idemp)
     {
 
         String paco="select Demande.numDem from Demande,Utilisateur where Demande.IdEmp=Utilisateur.IdEmp and Demande.DateDem=strftime('%s','"+demande+"') and Utilisateur.nomEmp||' '||Utilisateur.prenEmp='"+employe+"';";
+        Cursor cursor = null;
+        try {
+
+            cursor = this.getReadableDatabase().rawQuery(paco,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
+    public String selectNumeDem(String demande,String employe,String depart)
+    {
+
+        String paco="select Demande.numDem from Demande,Utilisateur,Departement where Demande.HeureDem=strftime('%s','"+demande+"') and ((Demande.IdEmp=Utilisateur.IdEmp and Utilisateur.nomEmp||' '||Utilisateur.prenEmp='"+employe+"') or ( Demande.IdDep=Departement.IdDep and libDep='"+depart+"' and Demande.IdEmp is null));";
         Cursor cursor = null;
         try {
 

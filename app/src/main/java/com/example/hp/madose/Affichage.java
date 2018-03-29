@@ -389,7 +389,7 @@ public class Affichage extends AppCompatActivity {
 
 
         }
-        if (getIntent().getStringExtra("passage").equals("demande")) {
+          if (getIntent().getStringExtra("passage").equals("demande")) {
             demande = (TextView) findViewById(R.id.textView2);
             mDatabase.child("Demande").addValueEventListener(new ValueEventListener() {
                 @Override
@@ -398,7 +398,7 @@ public class Affichage extends AppCompatActivity {
                         DemandeC cat= dataSnapshotDem.getValue(DemandeC.class);
                         Log.i("I MISS YOU",cat.getDateDem()+" "+cat.getNomEmp());
 
-                        if (! bd.checkIfDemandeBesoinExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibBes(),cat.getDateDem(),cat.getLibDpe())){
+                        if (! bd.checkIfDemandeBesoinExist(cat.getHeureDem(),cat.getLibBes())){
 
                             int ssss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
                             if (cat.getLibDpe().equals("")){
@@ -407,14 +407,14 @@ public class Affichage extends AppCompatActivity {
                                 if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())) {
                                     bd.insertDemande(cat.getDateDem(), ss, sss, cat.getHeureDem(), false);
                                 }
-                                bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem()),ssss,cat.getQte());
+                                bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
                                 //   Toast.makeText(getApplicationContext(),cat.toString(),Toast.LENGTH_LONG).show();
                             }
                             if (cat.getNomEmp().equals("")) {
                                 int ss=0;
                                 int sss=Integer.parseInt(bd.selectDep(cat.getLibDpe()));
                                 bd.insertDemande1(cat.getDateDem(),sss,cat.getHeureDem(),false);
-                                bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem()),ssss,cat.getQte());
+                                bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
                             }
 
                         }
@@ -454,9 +454,9 @@ public class Affichage extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot dataSnapshotDem:dataSnapshot.getChildren()){
                         DemandeC cat= dataSnapshotDem.getValue(DemandeC.class);
-                        Log.i("I MISS YOU",cat.getDateDem()+" "+cat.getNomEmp());
+                        Log.i("I MISS YOU",cat.getDateDem()+" "+cat.getNomEmp()+" "+bd.selectIdBes(cat.getLibBes()));
 
-                        if (! bd.checkIfDemandeBesoinExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibBes(),cat.getDateDem(),cat.getLibDpe())){
+                        if (! bd.checkIfDemandeBesoinExist(cat.getHeureDem(),cat.getLibBes())){
 
                             int ssss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
                             if (cat.getLibDpe().equals("")){
@@ -465,7 +465,8 @@ public class Affichage extends AppCompatActivity {
                                 if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())) {
                                     bd.insertDemande(cat.getDateDem(), ss, sss, cat.getHeureDem(), false);
                                 }
-                                bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem()),ssss,cat.getQte());
+                                Log.i("Je DOIS VOIR",bd.selectIdDem(cat.getHeureDem())+" "+ssss);
+                                bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
                                 //   Toast.makeText(getApplicationContext(),cat.toString(),Toast.LENGTH_LONG).show();
 
                             }
@@ -476,7 +477,8 @@ public class Affichage extends AppCompatActivity {
                                     bd.insertDemande1(cat.getDateDem(), sss, cat.getHeureDem(), false);
                                 }
                                // bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem1(cat.getLibDpe(),cat.getDateDem())),ssss,cat.getQte());
-                                bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem()),ssss,cat.getQte());
+                                Log.i("ON DOIT VOIR",bd.selectIdDem(cat.getHeureDem())+" "+ssss);
+                                bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
                             }
 
                         }
@@ -493,12 +495,12 @@ public class Affichage extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot dataSnapshotSor:dataSnapshot.getChildren()){
                         Stock2 cat=dataSnapshotSor.getValue(Stock2.class);
-                        Log.i("VOILA SORTIE",cat.getNomEmp()+" "+cat.getDateDem());
+                        Log.i("VOILA SORTIE",cat.getNomEmp()+" "+cat.getDateDem()+" "+cat.getLibDep());
                         if (! bd.checkIfSortieEntreeExist(cat.getNomEmp(),cat.getHeureSor(),cat.getLibBes(),cat.getDate(),cat.getLibDep())){
                             Log.i("VOILAHEIN",cat.getNomEmp()+" "+cat.getHeureSor()+" "+cat.getLibBes()+" "+cat.getDate());
-                            if (! bd.checkIfSortieExist(cat.getNomEmp(),cat.getHeureSor())){
+                            if (! bd.checkIfSortieExist(cat.getNomEmp(),cat.getHeureSor(),cat.getLibDep())){
                                 Log.i("VOILATOUT",cat.getNomEmp()+" "+cat.getHeureSor());
-                                String numDem=bd.selectNumeDem(cat.getDateDem(),cat.getNomEmp());
+                                String numDem=bd.selectNumeDem(cat.getDateDem(),cat.getNomEmp(),cat.getLibDep());
                                 Log.i("TOUTDEH",""+numDem);
                                 bd.insertSortie(cat.getDate(),numDem,cat.getHeureSor(),cat.getNomEmp(),false);
                             }

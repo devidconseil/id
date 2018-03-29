@@ -314,11 +314,7 @@ public class Demande extends AppCompatActivity {
                     depart.requestFocus();
                     depart.setError("Veuillez saisir le nom du département SVP!");
                 }
-                else if (depart.getText().toString().equals("") )
-                {
-                    depart.requestFocus();
-                    depart.setError("Veuillez saisir le nom de l'employé ou du département SVP!");
-                }
+
                 else if (bes.getText().toString().equals(""))
                 {
                     bes.requestFocus();
@@ -352,7 +348,7 @@ public class Demande extends AppCompatActivity {
                             bd.insertDemande1(date.getText().toString(), Integer.parseInt(recup), "", true);
                         }
                     }
-                    if (! bd.checkIfDemandeBesoinExist(employe.getText().toString(),bd.selectHeureDem(),bes.getText().toString(),date.getText().toString(),depart.getText().toString())) {
+                    if (! bd.checkIfDemandeBesoinExist(bd.selectHeureDem(),bes.getText().toString())) {
 
 
                         int var3 = Integer.parseInt(bd.selectIdBes(bes.getText().toString()));
@@ -413,11 +409,7 @@ public class Demande extends AppCompatActivity {
                     depart.requestFocus();
                     depart.setError("Veuillez saisir le nom du département SVP!");
                 }
-                else if (depart.getText().toString().equals("") )
-                {
-                    depart.requestFocus();
-                    depart.setError("Veuillez saisir le nom de l'employé ou du département SVP!");
-                }
+
                 else if (bes.getText().toString().equals(""))
                 {
                     bes.requestFocus();
@@ -445,7 +437,7 @@ public class Demande extends AppCompatActivity {
                         c = date.getText().toString().substring(6, 10);
                         date.setText(c + "-" + b + "-" + a);  */
                     }
-                    if (! bd.checkIfDemandeBesoinExist(employe.getText().toString(),bd.selectHeureDem(),bes.getText().toString(),date.getText().toString(),depart.getText().toString())){
+                    if (! bd.checkIfDemandeBesoinExist(bd.selectHeureDem(),bes.getText().toString())){
 
                     int var1, var2;
                     int var3 = Integer.parseInt(bd.selectIdBes(bes.getText().toString()));
