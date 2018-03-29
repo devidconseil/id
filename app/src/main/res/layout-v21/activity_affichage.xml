@@ -92,14 +92,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" >
                     <TextView
                         android:id="@+id/textView4"
                         android:layout_width="match_parent"
@@ -121,8 +114,6 @@
                         android:stretchColumns="1"
                         android:layout_centerInParent="true"
                         android:id="@+id/tabAff"></TableLayout>
-                </RelativeLayout>
-            </HorizontalScrollView>
 
         </RelativeLayout>
 
