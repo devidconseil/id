@@ -410,7 +410,7 @@ public class Affichage extends AppCompatActivity {
                                 int ss=0;
                                 int sss=Integer.parseInt(bd.selectDep(cat.getLibDpe()));
                                 bd.insertDemande1(cat.getDateDem(),sss,cat.getHeureDem(),false);
-                                bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem1(cat.getLibDpe(),cat.getDateDem())),ssss,cat.getQte());
+                                bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem()),ssss,cat.getQte());
                             }
 
                         }

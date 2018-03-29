@@ -92,12 +92,12 @@ public class Variation extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        test2.setOnClickListener(new View.OnClickListener() {
+     /*   test2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(Variation.this, TableListe.class);
                 startActivity(intent);
             }
-        });
+        });*/
     }
 }

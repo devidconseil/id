@@ -256,7 +256,7 @@ public class Acceuil extends AppCompatActivity
                 startActivity(c);
                 break;
             case R.id.fournisseur:
-                Intent g = new Intent(Acceuil.this, Affichage.class);
+                Intent g = new Intent(Acceuil.this, FournisseurListe.class);
                 g.putExtra("passage", "fournisseur");
                 startActivity(g);
                 break;

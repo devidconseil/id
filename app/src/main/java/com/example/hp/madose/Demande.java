@@ -309,7 +309,7 @@ public class Demande extends AppCompatActivity {
                     employe.requestFocus();
                     employe.setError("Veuillez saisir le nom de l'employé ou du département SVP!");
                 }
-                else if (depart.getText().toString().equals("") )
+                else if (depart.getText().toString().equals("") && radioButton_dep.isChecked() )
                 {
                     depart.requestFocus();
                     depart.setError("Veuillez saisir le nom de l'employé ou du département SVP!");
@@ -407,7 +407,7 @@ public class Demande extends AppCompatActivity {
                     employe.requestFocus();
                     employe.setError("Veuillez saisir le nom de l'employé ou du département SVP!");
                 }
-                else if (depart.getText().toString().equals("") )
+                else if (depart.getText().toString().equals("") && radioButton_dep.isChecked() )
                 {
                     depart.requestFocus();
                     depart.setError("Veuillez saisir le nom de l'employé ou du département SVP!");

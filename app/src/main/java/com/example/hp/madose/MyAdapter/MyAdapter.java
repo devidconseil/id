@@ -37,7 +37,9 @@ class MyViewHolderWithouChild extends RecyclerView.ViewHolder{
 
     public MyViewHolderWithouChild(View itemView) {
         super(itemView);
-        textView=itemView.findViewById(R.id.textp);
+        textView=itemView.findViewById(R.id.fourNom);
+        textView=itemView.findViewById(R.id.fourContact);
+        textView=itemView.findViewById(R.id.fourAdres);
     }
 }
 class MyViewHolderWithChild extends RecyclerView.ViewHolder {

@@ -8,8 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,7 +26,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class Utilisateur extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class Utilisateur extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     DatabaseReference mDatabase;
     FirebaseAuth mAuth;
@@ -37,7 +42,6 @@ public class Utilisateur extends AppCompatActivity {
 
 
         final EditText codeT=(EditText) findViewById(R.id.nomEmp);
-        final EditText codeP=(EditText) findViewById(R.id.profil);
         final EditText codeD=(EditText) findViewById(R.id.autoCompDep);
         final Button codeB=(Button) findViewById(R.id.valEmp);
         final EditText prenE= findViewById(R.id.prenEmp);
@@ -50,8 +54,12 @@ public class Utilisateur extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference("users").keepSynced(true);
         mAuth = FirebaseAuth.getInstance();
 
-        //fonction autotexcomplet
-
+        final Spinner spinner=(Spinner) findViewById(R.id.profil);
+        final String []utilisateur={"Choisir le profil","USER","ADMIN","SUPER ADMIN"};
+        spinner.setOnItemSelectedListener(this);
+       ArrayAdapter arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_spinner_item,utilisateur);
+       arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+       spinner.setAdapter(arrayAdapter);
 
         mDatabase.child("Departement").addValueEventListener(new ValueEventListener() {
             @Override
@@ -92,19 +100,25 @@ public class Utilisateur extends AppCompatActivity {
 
 
         //fonction liste view
-        codeD.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        codeD.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-
+            public void onClick(View v) {
                 Intent intent=new Intent(Utilisateur.this,Listedepartement.class);
                 intent.putExtra("code","utilisateur");
                 intent.putExtra("employer",codeT.getText().toString());
                 intent.putExtra("bringO","utilisateur");
-                intent.putExtra("employerr",codeP.getText().toString());
+                // intent.putExtra("employerr",codeP.getT().toString());
                 intent.putExtra("employerrr",prenE.getText().toString());
                 intent.putExtra("employerrrr",mailE.getText().toString());
                 intent.putExtra("employerrrrr",telE.getText().toString());
                 startActivity(intent);
+            }
+        });
+        codeD.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+
             }
         });
 
@@ -113,7 +127,7 @@ public class Utilisateur extends AppCompatActivity {
         {
             codeD.setText(intent.getStringExtra("departement"));
             codeT.setText(intent.getStringExtra("employer"));
-            codeP.setText(intent.getStringExtra("employerr"));
+           // codeP.setText(intent.getStringExtra("employerr"));
             prenE.setText(intent.getStringExtra("employerrr"));
             mailE.setText(intent.getStringExtra("employerrrr"));
             telE.setText(intent.getStringExtra("employerrrrr"));
@@ -124,27 +138,27 @@ public class Utilisateur extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final EditText codeT=(EditText) findViewById(R.id.nomEmp);
-                final EditText codeP=(EditText) findViewById(R.id.profil);
+                final Spinner codeP=(Spinner) findViewById(R.id.profil);
                // Toast.makeText(getBaseContext(),"Veuillez saisir le nom de l'emplyé SVP!",Toast.LENGTH_LONG).show();
 
                 if (codeT.getText().toString().equals(""))
                 {
                     codeT.requestFocus();
-                    Toast.makeText(getBaseContext(),"Veuillez saisir le nom de l'utilisateur SVP!",Toast.LENGTH_LONG).show();
+                    codeT.setError("Veuillez saisir le nom de l'utilisateur SVP!");;
                 }
                 else if (mailE.getText().toString().equals(""))
                 {
                     mailE.requestFocus();
-                    Toast.makeText(getBaseContext(),"Veuillez saisir l'adresse mail de l'utilisateur SVP!",Toast.LENGTH_LONG).show();
+                    mailE.setError("Veuillez saisir l'adresse mail de l'utilisateur SVP!");
                 }
                 else if (telE.getText().toString().equals(""))
                 {
                     telE.requestFocus();
-                    Toast.makeText(getBaseContext(),"Veuillez saisir le numéro de téléphone de l'utilisateur SVP!",Toast.LENGTH_LONG).show();
+                    telE.setError("Veuillez saisir le numéro de téléphone de l'utilisateur SVP!");
                 }
-                else if (codeP.getText().toString().equals(""))
+                else if (spinner.getSelectedItem().toString().equals("Choisir le profil"))
                 {
-                    codeP.requestFocus();
+                    spinner.requestFocus();
                     Toast.makeText(getBaseContext(),"Veuillez saisir le profil de l'utilisateur SVP!",Toast.LENGTH_LONG).show();
                 }
                 else if (codeD.getText().toString().equals(""))
@@ -161,23 +175,24 @@ public class Utilisateur extends AppCompatActivity {
                     }
                     int x = Integer.parseInt(bd.selectDep(codeD.getText().toString()));
                     if (!bd.checkMailExist(mailE.getText().toString())) {
-                        bd.insertEmp(codeT.getText().toString(), prenE.getText().toString(), mailE.getText().toString(), telE.getText().toString(), x, codeP.getText().toString());
+                       bd.insertEmp(codeT.getText().toString(), prenE.getText().toString(), mailE.getText().toString(), telE.getText().toString(), x, spinner.getSelectedItem().toString());
                         bd.close();
                         String username=mailE.getText().toString().split("@")[0];
 
-                        writeNewUser(username+"-"+codeT.getText().toString(),codeT.getText().toString(),prenE.getText().toString(),mailE.getText().toString(),telE.getText().toString(),codeD.getText().toString(),codeP.getText().toString());
+                        writeNewUser(username+"-"+codeT.getText().toString(),codeT.getText().toString(),prenE.getText().toString(),mailE.getText().toString(),telE.getText().toString(),codeD.getText().toString(),spinner.getSelectedItem().toString());
 
                         Toast.makeText(getApplicationContext(), "Utilisateur enregistré avec succès", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(Utilisateur.this, Affichage.class);
                         intent.putExtra("passage", "employe");
                         codeT.setText("");
-                        codeP.setText("");
+                       // codeP.setText("");
                         codeD.setText("");
                         mailE.setText("");
                         prenE.setText("");
                         telE.setText("");
                         startActivity(intent);
                         finish();
+                        Toast.makeText(getApplicationContext(), spinner.getOnItemSelectedListener().toString(), Toast.LENGTH_LONG).show();
                     }
                     else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(Utilisateur.this,0x00000005 );
@@ -235,4 +250,14 @@ public class Utilisateur extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        parent.getItemAtPosition(position).toString();
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }

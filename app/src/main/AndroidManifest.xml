@@ -102,7 +102,6 @@
         <activity android:name=".ListeBesoin" />
         <activity android:name=".ListeDate" />
         <activity android:name=".MyApplication" />
-        <activity android:name=".TableListe" />
         <activity android:name=".Listes.ListeRupture" />
         <activity android:name=".Listes.StockSup" />
         <activity android:name=".Listes.StockEgale" />

@@ -19,9 +19,7 @@ import java.util.List;
 public class Display extends AppCompatActivity {
 
    RecyclerView list;
-   ImageView imageView;
    TextView textView;
-   LinearLayout linearLayout;
    RecyclerView.LayoutManager layoutManager;
    List<Item>items =new ArrayList<>();
    List<Item>ite =new ArrayList<>();
