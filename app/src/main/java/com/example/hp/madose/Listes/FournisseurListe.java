@@ -1,6 +1,7 @@
 package com.example.hp.madose.Listes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,8 +16,11 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.hp.madose.Acceuil;
+import com.example.hp.madose.Affichage;
 import com.example.hp.madose.BaseDeDonne;
 import com.example.hp.madose.BesoinC;
+import com.example.hp.madose.Fournisseur;
 import com.example.hp.madose.FournisseurC;
 import com.example.hp.madose.MyAdapter.MyAdapter;
 import com.example.hp.madose.MyAdapter.MyAdapterFour;
@@ -42,8 +46,25 @@ public class FournisseurListe extends AppCompatActivity {
 
         listItem=new ArrayList<>();
 
-
         setDataFour();
+
+        findViewById(R.id.floatingRet).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(FournisseurListe.this,Acceuil.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        findViewById(R.id.floatingAj).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                    Intent intent = new Intent(FournisseurListe.this, Fournisseur.class);
+                    startActivity(intent);
+
+            }
+            });
     }
 
     private void setDataFour()

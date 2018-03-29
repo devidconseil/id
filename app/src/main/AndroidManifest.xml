@@ -98,7 +98,8 @@
             android:label="Affich" />
         <activity android:name=".Display" />
         <activity android:name=".ListeUtilisateur" />
-        <activity android:name=".ListeFournisseur" />
+        <activity android:name=".ListeFournisseur"
+            android:label="Liste des fournisseurs"/>
         <activity android:name=".ListeBesoin" />
         <activity android:name=".ListeDate" />
         <activity android:name=".MyApplication" />
@@ -106,7 +107,8 @@
         <activity android:name=".Listes.StockSup" />
         <activity android:name=".Listes.StockEgale" />
         <activity android:name=".PageDeChargement" />
-        <activity android:name=".Listes.FournisseurListe"></activity>
+        <activity android:name=".Listes.FournisseurListe"
+            android:label="Liste des fournisseurs"></activity>
     </application>
 
 </manifest>
