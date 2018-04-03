@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E0E4E3"
+    tools:context="com.example.hp.madose.Listes.DepartementListe">
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatAj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/floatRet"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:adjustViewBounds="false"
+        android:background="#fff"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="visible"
+        app:backgroundTint="@color/cardview_light_background"
+        app:elevation="5dp"
+        app:fabSize="normal"
+        app:rippleColor="@color/cardview_light_background"
+        app:srcCompat="@android:drawable/ic_input_add"
+        tools:targetApi="o" />
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatRet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/floatAj"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/floatAj"
+        android:layout_marginBottom="17dp"
+        android:adjustViewBounds="false"
+        android:autofillHints="@color/cardview_shadow_end_color"
+        android:background="#fff"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="visible"
+        app:backgroundTint="#369936"
+        app:elevation="5dp"
+        app:fabSize="normal"
+        app:rippleColor="@color/cardview_light_background"
+        app:srcCompat="@drawable/ic_home_black_24dp"
+        tools:ignore="VectorDrawableCompat"
+        tools:targetApi="o" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listedesD"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

@@ -54,10 +54,10 @@
     <string name="tab_text_2">Tab 2</string>
     <string name="tab_text_3">Tab 3</string>
 
-<string-array name="utilisateur">
-    <item>USER</item>
-    <item>ADMIN</item>
-    <item>SUPER ADMIN</item>
-</string-array>
+    <string-array name="utilisateur">
+        <item>USER</item>
+        <item>ADMIN</item>
+        <item>SUPER ADMIN</item>
+    </string-array>
 
 </resources>

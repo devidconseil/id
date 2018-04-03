@@ -31,6 +31,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.app.Fragment;
 
+import com.example.hp.madose.Listes.CategorieListe;
+import com.example.hp.madose.Listes.DepartementListe;
 import com.example.hp.madose.Listes.FournisseurListe;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -265,12 +267,12 @@ public class Acceuil extends AppCompatActivity
                 startActivity(g);
                 break;
             case R.id.departement:
-                Intent p = new Intent(Acceuil.this, Affichage.class);
+                Intent p = new Intent(Acceuil.this, DepartementListe.class);
                 p.putExtra("passage", "departement");
                 startActivity(p);
                 break;
             case R.id.categorie:
-                Intent k = new Intent(Acceuil.this, Affichage.class);
+                Intent k = new Intent(Acceuil.this, CategorieListe.class);
                 k.putExtra("passage", "categorie");
                 startActivity(k);
                 break;

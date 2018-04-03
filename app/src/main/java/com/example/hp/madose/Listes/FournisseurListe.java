@@ -40,6 +40,7 @@ public class FournisseurListe extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fournisseur_liste);
+
         recyclerView=(RecyclerView)findViewById(R.id.listedesF);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
