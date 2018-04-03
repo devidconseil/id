@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -252,6 +253,7 @@ public class Add extends AppCompatActivity {
 
         final Button passage=(Button)findViewById(R.id.AjouterEn);
         passage.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 
