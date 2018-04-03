@@ -2,24 +2,19 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title=""
-        android:icon="@drawable/ic_menu_manage">
-        <menu>
-            <item
-                android:id="@+id/employé"
-                android:enabled="true"
-                android:icon="@drawable/p_employe"
-                android:title="Utilisateur"
-                android:visible="true" />
-            <item
-                android:id="@+id/fournisseur"
-                android:enabled="true"
-                android:icon="@drawable/p_fournisseur"
-                android:title="Fournisseur"
-                android:visible="true" />
-        </menu>
-    </item>
     <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/employé"
+            android:enabled="true"
+            android:icon="@drawable/p_employe"
+            android:title="Utilisateur"
+            android:visible="true" />
+        <item
+            android:id="@+id/fournisseur"
+            android:enabled="true"
+            android:icon="@drawable/p_fournisseur"
+            android:title="Fournisseur"
+            android:visible="true" />
         <item
             android:id="@+id/categorie"
             android:enabled="true"
