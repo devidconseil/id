@@ -124,14 +124,32 @@ public class Authentification extends AppCompatActivity {
 
 
             bd.insertEntrBes(1, 1, 150, 5, "Bic", "bleu");
+            int var2 = Integer.parseInt(bd.selectStockBes("STYLO"));
+            int var3 = var2 + 5;
+            bd.upDate(var3, "STYLO");
             bd.insertEntrBes(2, 1, 250, 5, "Bic", "noir, permanent");
+            var2 = Integer.parseInt(bd.selectStockBes("MARKER"));
+            var3 = var2 + 5;
+            bd.upDate(var3, "MARKER");
             bd.insertEntrBes(6, 2, 450000, 5, "HP", "noir, core i5, portable");
+            var2 = Integer.parseInt(bd.selectStockBes("ORDINATEUR"));
+            var3 = var2 + 5;
+            bd.upDate(var3, "ORDINATEUR");
             bd.insertEntrBes(4, 2, 500, 5, "PRIVILEGE", "200 sticks");
+            var2 = Integer.parseInt(bd.selectStockBes("STICKY NOTES"));
+            var3 = var2 + 5;
+            bd.upDate(var3, "ORDINATEUR");
             bd.insertEntrBes(5, 1, 250000, 3, "SAMSUNG", "blanc");
+            var2 = Integer.parseInt(bd.selectStockBes("IMPRIMANTE"));
+            var3 = var2 + 3;
+            bd.upDate(var3, "IMPRIMANTE");
 
             bd.insertSortie("2018-10-10","1",bd.selectCurrentDate(),"adepatrickade@idconsulting.ie",true);
 
             bd.insertSortieBesoin(1,1,1, "bic","bleu");
+            var2 = Integer.parseInt(bd.selectStockBes("STYLO"));
+            var3 = var2 - 1;
+            bd.upDate(var3, "STYLO");
 
             bd.insertDemande("2018-01-02", 1, 1,bd.selectCurrentDate(),true);
             bd.insertDemandeBesoin(1, 1, 1);

@@ -505,6 +505,10 @@ public class Affichage extends AppCompatActivity {
                                 int var1=Integer.parseInt(bd.selectIdSortie());
                                 int var2=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
                                 bd.insertSortieBesoin(var1,var2,cat.getQte(),cat.getMarqBes(),cat.getAutreP());
+
+                            int varP = Integer.parseInt(bd.selectStockBes(cat.getLibBes()));
+                            int var3 = varP - cat.getQte();
+                            bd.upDate(var3, cat.getLibBes());
                                 count1=true;
 
                         }
@@ -575,7 +579,9 @@ public class Affichage extends AppCompatActivity {
 
                             bd.insertEntrBes(ss,sss,cat.getPU(),cat.getQte(),cat.getMarqueBes(),cat.getAutrePrécision());
 
-
+                            int var2 = Integer.parseInt(bd.selectStockBes(cat.getLibBes()));
+                            int var3 = var2 + cat.getQte();
+                            bd.upDate(var3, cat.getLibBes());
                            count=true;
 
 

@@ -272,6 +272,9 @@ public class MyApplication extends Application {
                         int ss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
                         int sss=Integer.parseInt(bd.selectIdEnt(cat.getDatEnt()));
                         bd.insertEntrBes(ss,sss,cat.getPU(),cat.getQte(),cat.getMarqueBes(),cat.getAutrePrécision());
+                        int var2 = Integer.parseInt(bd.selectStockBes(cat.getLibBes()));
+                        int var3 = var2 + cat.getQte();
+                        bd.upDate(var3, cat.getLibBes());
                     }
                 }
             }
@@ -332,6 +335,9 @@ public class MyApplication extends Application {
                         int var1=Integer.parseInt(bd.selectIdSortie());
                         int var2=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
                         bd.insertSortieBesoin(var1,var2,cat.getQte(),cat.getMarqBes(),cat.getAutreP());
+                        int varP = Integer.parseInt(bd.selectStockBes(cat.getLibBes()));
+                        int var3 = varP - cat.getQte();
+                        bd.upDate(var3, cat.getLibBes());
 
                     }
                 }
