@@ -10,7 +10,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Authentification"
-            android:label="RecapApp">
+            android:label="RecapApp"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,6 +21,7 @@
         <activity
             android:name=".Acceuil"
             android:label="Accueil"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

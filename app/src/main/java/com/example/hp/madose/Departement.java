@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.hp.madose.Listes.DepartementListe;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -47,7 +48,7 @@ public class Departement extends AppCompatActivity {
                     writeNewDepartment(edite.getText().toString());
 
                     Toast.makeText(getApplicationContext(), "Departement enregistré avec succès", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(Departement.this, Affichage.class);
+                    Intent intent = new Intent(Departement.this, DepartementListe.class);
                     intent.putExtra("passage", "departement");
                     edite.setText("");
                     startActivity(intent);

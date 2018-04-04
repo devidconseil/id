@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.hp.madose.Listes.FournisseurListe;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -49,13 +50,13 @@ DatabaseReference mDatabase;
                 }
                 else {
                     if (! bd.checkIfFournisseurExist(fnom.getText().toString())){
-                    int x = Integer.parseInt(fcont.getText().toString());
+//                    int x = Integer.parseInt(fcont.getText().toString());
                     bd.insertFour(fnom.getText().toString(), fadr.getText().toString(), fcont.getText().toString());
                     bd.close();
                     writeNewFournisseur(fnom.getText().toString(), fadr.getText().toString(), fcont.getText().toString());
                     Toast.makeText(getApplicationContext(), "Fournisseur enregistré avec succès", Toast.LENGTH_LONG).show();
 
-                    Intent intent = new Intent(Fournisseur.this, Affichage.class);
+                    Intent intent = new Intent(Fournisseur.this, FournisseurListe.class);
                     intent.putExtra("passage", "fournisseur");
                     fnom.setText("");
                     fadr.setText("");

@@ -46,6 +46,7 @@ public class CategorieListe extends AppCompatActivity {
 
                 Intent intent = new Intent(CategorieListe.this, Categorie.class);
                 startActivity(intent);
+                finish();
 
             }
         });

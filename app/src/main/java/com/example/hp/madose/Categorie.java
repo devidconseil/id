@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.hp.madose.Listes.CategorieListe;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -49,7 +50,7 @@ public class Categorie extends AppCompatActivity {
                 writeNewCategory(codeT.getText().toString());
                 bd.close();
                 Toast.makeText(getApplicationContext(), "Catégorie enregistrée avec succès", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(Categorie.this, Affichage.class);
+                Intent intent = new Intent(Categorie.this, CategorieListe.class);
                 intent.putExtra("passage", "categorie");
                 codeT.setText("");
                 startActivity(intent);
