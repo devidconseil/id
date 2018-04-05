@@ -87,7 +87,8 @@
 
         <activity
             android:name=".Affichage"
-            android:label="Affichage" />
+            android:label="Affichage"
+            android:parentActivityName=".Acceuil"/>
         <activity
             android:name=".Add"
             android:label="Approvisionnement"
