@@ -8,10 +8,10 @@
     tools:context="com.example.hp.madose.Listes.BesoinListe">
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingAjout"
+        android:id="@+id/floatingAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/floatingRetour"
+        android:layout_above="@+id/floatingBack"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="17dp"
@@ -32,13 +32,13 @@
 
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingRetour"
+        android:id="@+id/floatingBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/floatingAjout"
+        android:layout_alignLeft="@+id/floatingAdd"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/floatingAjout"
-        android:layout_marginBottom="23dp"
+        android:layout_alignStart="@+id/floatingAdd"
+        android:layout_marginBottom="17dp"
         android:adjustViewBounds="false"
         android:autofillHints="@color/cardview_shadow_end_color"
         android:background="#fff"

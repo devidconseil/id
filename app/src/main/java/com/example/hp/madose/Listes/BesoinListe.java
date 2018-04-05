@@ -1,12 +1,16 @@
 package com.example.hp.madose.Listes;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
+import com.example.hp.madose.Acceuil;
 import com.example.hp.madose.BaseDeDonne;
+import com.example.hp.madose.Besoin;
 import com.example.hp.madose.BesoinC;
 import com.example.hp.madose.MyAdapter.MyAdapter;
 import com.example.hp.madose.R;
@@ -34,8 +38,24 @@ public class BesoinListe extends AppCompatActivity {
 
 
         setData();
-    }
+        findViewById(R.id.floatingAdd).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(BesoinListe.this, Besoin .class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        findViewById(R.id.floatingBack).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Intent intent = new Intent(BesoinListe.this, Acceuil.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
 
 
     private void setData()

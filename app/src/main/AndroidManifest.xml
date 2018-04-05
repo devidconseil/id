@@ -29,28 +29,32 @@
         </activity>
         <activity
             android:name=".Fournisseur"
-            android:label="Fournisseur">
+            android:label="Fournisseur"
+            android:parentActivityName=".Listes.FournisseurListe">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Besoin"
-            android:label="Besoins">
+            android:label="Besoins"
+            android:parentActivityName=".Listes.BesoinListe">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Categorie"
-            android:label="Catégories">
+            android:label="Catégories"
+            android:parentActivityName=".Listes.CategorieListe">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Listecategorie"
-            android:label="Liste de Catégories">
+            android:label="Liste de Catégories"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -64,7 +68,8 @@
         </activity>
         <activity
             android:name=".Departement"
-            android:label="Departement">
+            android:label="Departement"
+            android:parentActivityName=".Listes.DepartementListe">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -85,20 +90,26 @@
             android:label="Affichage" />
         <activity
             android:name=".Add"
-            android:label="Approvisionnement" />
+            android:label="Approvisionnement"
+            android:parentActivityName=".Acceuil"/>
         <activity
             android:name=".Demande"
-            android:label="Demande" />
+            android:label="Demande"
+            android:parentActivityName=".Acceuil"/>
         <activity
             android:name=".BringOut"
-            android:label="Sortie" />
-        <activity android:name=".Variation" />
-        <activity android:name=".CoutTotalBesoin" />
+            android:label="Sortie"
+            android:parentActivityName=".Acceuil"/>
+        <activity android:name=".Variation"
+            android:parentActivityName=".Acceuil"/>
+        <activity android:name=".CoutTotalBesoin"
+            android:parentActivityName=".Acceuil"/>
         <activity android:name=".Listedepartement" />
         <activity
             android:name=".Affich"
             android:label="Affich" />
-        <activity android:name=".Listes.BesoinListe" />
+        <activity android:name=".Listes.BesoinListe"
+            android:parentActivityName=".Acceuil"/>
         <activity android:name=".ListeUtilisateur" />
         <activity
             android:name=".ListeFournisseur"
@@ -106,15 +117,21 @@
         <activity android:name=".ListeBesoin" />
         <activity android:name=".ListeDate" />
         <activity android:name=".MyApplication" />
-        <activity android:name=".Listes.ListeRupture" />
-        <activity android:name=".Listes.StockSup" />
-        <activity android:name=".Listes.StockEgale" />
+        <activity android:name=".Listes.ListeRupture"
+            android:parentActivityName=".Acceuil"/>
+        <activity android:name=".Listes.StockSup"
+            android:parentActivityName=".Acceuil"/>
+        <activity android:name=".Listes.StockEgale"
+            android:parentActivityName=".Acceuil"/>
         <activity android:name=".PageDeChargement" />
         <activity
             android:name=".Listes.FournisseurListe"
-            android:label="Liste des fournisseurs" />
-        <activity android:name=".Listes.CategorieListe" />
-        <activity android:name=".Listes.DepartementListe"></activity>
+            android:label="Liste des fournisseurs"
+            android:parentActivityName=".Acceuil"/>
+        <activity android:name=".Listes.CategorieListe"
+            android:parentActivityName=".Acceuil"/>
+        <activity android:name=".Listes.DepartementListe"
+            android:parentActivityName=".Acceuil"></activity>
     </application>
 
 </manifest>
