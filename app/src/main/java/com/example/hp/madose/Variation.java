@@ -5,7 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.Button;
-import android.widget.TextView;
+
+import com.example.hp.madose.Listes.BesoinListe;
 
 public class Variation extends AppCompatActivity {
 
@@ -88,7 +89,7 @@ public class Variation extends AppCompatActivity {
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(Variation.this, Display.class);
+                Intent intent=new Intent(Variation.this, BesoinListe.class);
                 startActivity(intent);
             }
         });

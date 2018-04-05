@@ -1,14 +1,8 @@
 package com.example.hp.madose;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,42 +11,21 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.format.Time;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v4.app.Fragment;
 
+import com.example.hp.madose.Listes.BesoinListe;
 import com.example.hp.madose.Listes.CategorieListe;
 import com.example.hp.madose.Listes.DepartementListe;
 import com.example.hp.madose.Listes.FournisseurListe;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import org.json.JSONArray;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class Acceuil extends AppCompatActivity
@@ -277,7 +250,7 @@ public class Acceuil extends AppCompatActivity
                 startActivity(k);
                 break;
             case R.id.besoin:
-                Intent b = new Intent(Acceuil.this, Display.class);
+                Intent b = new Intent(Acceuil.this, BesoinListe.class);
                 b.putExtra("passage", "besoin");
                 startActivity(b);
                 break;

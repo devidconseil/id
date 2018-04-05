@@ -95,7 +95,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         Log.i("DATABSE", "insert invoked");
     }
 
-    //Display
+    //BesoinListe
     public List<DepartementC> afficheDepart() {
         List<DepartementC> aff = new ArrayList<>();
         String req = "select * from Departement;";
@@ -120,7 +120,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         this.getWritableDatabase().execSQL(entre);
     }
 
-    //Display
+    //BesoinListe
     public List<CategorieC> afficheCat() {
         List<CategorieC> affC = new ArrayList<>();
         String req = "select * from Categorie;";
@@ -162,7 +162,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         Log.i("DATABASE", "insert employe");
     }
 
-    //Display
+    //BesoinListe
     public List<UtilisateurC> afficheE() {
 
         List<UtilisateurC> affE = new ArrayList<>();
@@ -376,7 +376,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
             return false;
         }
     }
-    //Display
+    //BesoinListe
     public List<FournisseurC> afficheF()
     {
         List<FournisseurC>affF=new ArrayList<>();
@@ -674,7 +674,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
             if (cursor != null) cursor.close();
         }
     }
-    //------Display
+    //------BesoinListe
     public List<AddEC> afficheEntre()
     {
         List<AddEC>affE=new ArrayList<>();
@@ -1277,7 +1277,7 @@ public ArrayList<String> affiNumDem(int idemp)
     }
     //-----------------------------les requetes-------------------------------------------//
 
-    //Display
+    //BesoinListe
     public List<Stock1> afficheStock1() {
 
         List<Stock1> affStok1 = new ArrayList<>();

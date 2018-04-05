@@ -19,16 +19,24 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <RelativeLayout
-        android:id="@+id/buttonr"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_alignParentRight="true">
-        <View
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/ic_keyboard_arrow_down_black_24dp"/>
-    </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/buttonr"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="65dp"
+            android:layout_marginRight="65dp">
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_keyboard_arrow_down_black_24dp" />
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/ima"
@@ -127,6 +135,7 @@
                     android:textSize="16sp" />
             </LinearLayout>
         </com.github.aakira.expandablelayout.ExpandableLinearLayout>
+
     </RelativeLayout>
 </android.support.v7.widget.CardView>
 </RelativeLayout>

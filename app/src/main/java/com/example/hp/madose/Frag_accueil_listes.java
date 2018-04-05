@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.hp.madose.Listes.BesoinListe;
 import com.example.hp.madose.Listes.FournisseurListe;
 
 /**
@@ -99,7 +100,7 @@ public class Frag_accueil_listes extends Fragment {
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getActivity(), Display.class);
+                Intent intent=new Intent(getActivity(), BesoinListe.class);
                 startActivity(intent);
             }
         });

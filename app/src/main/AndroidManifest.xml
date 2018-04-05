@@ -98,7 +98,7 @@
         <activity
             android:name=".Affich"
             android:label="Affich" />
-        <activity android:name=".Display" />
+        <activity android:name=".Listes.BesoinListe" />
         <activity android:name=".ListeUtilisateur" />
         <activity
             android:name=".ListeFournisseur"
