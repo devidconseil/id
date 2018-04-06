@@ -167,18 +167,28 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
                     Toast.makeText(getBaseContext(),"Veuillez saisir le département de l'utilisateur SVP!",Toast.LENGTH_LONG).show();
                 }
                 else {
-                    if (codeT.getText().toString().contains("'")){
-                        codeT.getText().toString().replace("'","''");
-                    }
-                    if (prenE.getText().toString().contains("'")){
-                        prenE.getText().toString().replace("'","''");
-                    }
+
                     int x = Integer.parseInt(bd.selectDep(codeD.getText().toString()));
                     if (!bd.checkMailExist(mailE.getText().toString())) {
+                       String name1=prenE.getText().toString().substring(0,1).toUpperCase();
+                       prenE.setText(prenE.getText().toString().substring(1,prenE.getText().toString().length()).toLowerCase());
+                       prenE.setText(name1+prenE.getText().toString());
+                       codeT.setText(codeT.getText().toString().toUpperCase());
+                        if (codeT.getText().toString().contains("'")){
+                            codeT.setText(codeT.getText().toString().replace("'","''"));
+                        }
+                        if (prenE.getText().toString().contains("'")){
+                            prenE.setText(prenE.getText().toString().replace("'","''"));
+                        }
                        bd.insertEmp(codeT.getText().toString(), prenE.getText().toString(), mailE.getText().toString(), telE.getText().toString(), x, spinner.getSelectedItem().toString());
                         bd.close();
                         String username=mailE.getText().toString().split("@")[0];
-
+                        if (codeT.getText().toString().contains("''")){
+                            codeT.setText(codeT.getText().toString().replace("''","'"));
+                        }
+                        if (prenE.getText().toString().contains("''")){
+                            prenE.setText(prenE.getText().toString().replace("''","'"));
+                        }
                         writeNewUser(username+"-"+codeT.getText().toString(),codeT.getText().toString(),prenE.getText().toString(),mailE.getText().toString(),telE.getText().toString(),codeD.getText().toString(),spinner.getSelectedItem().toString());
 
                         Toast.makeText(getApplicationContext(), "Utilisateur enregistré avec succès", Toast.LENGTH_LONG).show();

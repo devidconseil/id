@@ -343,10 +343,18 @@ public class Besoin extends AppCompatActivity {
                         int varo = Integer.parseInt(edi3.getText().toString());
 
 
+
                         if (radio.getText().toString().equals("AMORTISSABLE")) {
                             var1 = edi2.getText().toString();
                             int resId = getResources().getIdentifier(MyApplication.verif1, "drawable", getPackageName());
+                            editLib.setText(editLib.getText().toString().toUpperCase());
+                            if (editLib.getText().toString().contains("'")){
+                                editLib.setText(editLib.getText().toString().replace("'","''"));
+                            }
                             bd.insertBesoin(editLib.getText().toString(), rb.getText().toString(), var3, 0, var1, varo, resId);
+                            if (editLib.getText().toString().contains("''")){
+                                editLib.setText(editLib.getText().toString().replace("''","'"));
+                            }
                             writeNewBesoin(editLib.getText().toString(), rb.getText().toString(), auto.getText().toString(), 0, var1, varo, resId);
                             Toast.makeText(Besoin.this, "Besoin enregistré avec succès", Toast.LENGTH_LONG).show();
                         } else if (radio.getText().toString().equals("NON AMORTISSABLE")) {
