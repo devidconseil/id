@@ -631,7 +631,23 @@ public class BringOut extends AppCompatActivity {
                         //NumSor` INTEGER, `NumBes` INTEGER, `qte` INTEGER NOT NULL, `marqueBes` TEXT, `Autre précision`
                         int var = Integer.parseInt(bd.selectIdBes(besoin.getText().toString()));
                         int var1 = Integer.parseInt(qut.getText().toString());
+                        if (marq.getText().toString().contains("'")){
+                            marq.setText(marq.getText().toString().replace("'","''"));
+                        }
+                        if (autr.getText().toString().contains("'")){
+                            autr.setText(autr.getText().toString().replace("'","''"));
+                        }
+                        String name1=marq.getText().toString().substring(0,1).toUpperCase();
+                        marq.setText(name1+marq.getText().toString().substring(1,marq.getText().toString().length()).toLowerCase());
+                        name1=autr.getText().toString().substring(0,1).toUpperCase();
+                        autr.setText(name1+autr.getText().toString().substring(1,autr.getText().toString().length()).toLowerCase());
                         bd.insertSortieBesoin(dernierEnr, var, var1, marq.getText().toString(), autr.getText().toString());
+                        if (marq.getText().toString().contains("''")){
+                            marq.setText(marq.getText().toString().replace("''","'"));
+                        }
+                        if (autr.getText().toString().contains("''")){
+                            autr.setText(autr.getText().toString().replace("''","'"));
+                        }
                         writeNewSortie(besoin.getText().toString(), marq.getText().toString(), autr.getText().toString(), demande.getText().toString(), employe.getText().toString(), date.getText().toString(), departement.getText().toString(), bd.selectHeureSor(), MyApplication.getmAuth().getCurrentUser().getEmail(), var1);
                         //update debut
                         int var2 = Integer.parseInt(bd.selectStockBes(besoin.getText().toString()));
@@ -739,7 +755,23 @@ public class BringOut extends AppCompatActivity {
                             c = date.getText().toString().substring(6, 10);
                             date.setText(c + "-" + b + "-" + a);  */
                         }
+                        if (marq.getText().toString().contains("'")){
+                            marq.setText(marq.getText().toString().replace("'","''"));
+                        }
+                        if (autr.getText().toString().contains("'")){
+                            autr.setText(autr.getText().toString().replace("'","''"));
+                        }
+                        String name1=marq.getText().toString().substring(0,1).toUpperCase();
+                        marq.setText(name1+marq.getText().toString().substring(1,marq.getText().toString().length()).toLowerCase());
+                        name1=autr.getText().toString().substring(0,1).toUpperCase();
+                        autr.setText(name1+autr.getText().toString().substring(1,autr.getText().toString().length()).toLowerCase());
                         bd.insertSortieBesoin(dernierEnr, var, var1, marq.getText().toString(), autr.getText().toString());
+                        if (marq.getText().toString().contains("''")){
+                            marq.setText(marq.getText().toString().replace("''","'"));
+                        }
+                        if (autr.getText().toString().contains("''")){
+                            autr.setText(autr.getText().toString().replace("''","'"));
+                        }
                         writeNewSortie(besoin.getText().toString(), marq.getText().toString(), autr.getText().toString(), demande.getText().toString(), employe.getText().toString(), date.getText().toString(), departement.getText().toString(), bd.selectHeureSor(), MyApplication.getmAuth().getCurrentUser().getEmail(), var1);
 
                         //update debut

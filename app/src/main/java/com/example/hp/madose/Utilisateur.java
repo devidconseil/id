@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -42,7 +43,7 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
 
 
         final EditText codeT=(EditText) findViewById(R.id.nomEmp);
-        final EditText codeD=(EditText) findViewById(R.id.autoCompDep);
+        final AutoCompleteTextView codeD= findViewById(R.id.autoCompDep);
         final Button codeB=(Button) findViewById(R.id.valEmp);
         final EditText prenE= findViewById(R.id.prenEmp);
         final EditText mailE= findViewById(R.id.email);
@@ -60,6 +61,9 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
        ArrayAdapter arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_spinner_item,utilisateur);
        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
        spinner.setAdapter(arrayAdapter);
+        ArrayList<String> nb=bd.affiNDE();
+        ArrayAdapter<String>nombes=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,nb);
+        codeD.setAdapter(nombes);
 
         mDatabase.child("Departement").addValueEventListener(new ValueEventListener() {
             @Override
