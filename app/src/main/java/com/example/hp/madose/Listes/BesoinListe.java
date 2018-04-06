@@ -1,22 +1,25 @@
-package com.example.hp.madose;
+package com.example.hp.madose.Listes;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.hp.madose.Acceuil;
+import com.example.hp.madose.BaseDeDonne;
+import com.example.hp.madose.Besoin;
+import com.example.hp.madose.BesoinC;
 import com.example.hp.madose.MyAdapter.MyAdapter;
+import com.example.hp.madose.R;
 import com.example.hp.madose.model.Item;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Display extends AppCompatActivity {
+public class BesoinListe extends AppCompatActivity {
 
    RecyclerView list;
    TextView textView;
@@ -27,7 +30,7 @@ public class Display extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display);
+        setContentView(R.layout.activity_besoin_liste);
         RecyclerView list=(RecyclerView)findViewById(R.id.recycler);
         list.setHasFixedSize(true);
         layoutManager=new LinearLayoutManager(this);
@@ -35,8 +38,24 @@ public class Display extends AppCompatActivity {
 
 
         setData();
-    }
+        findViewById(R.id.floatingAdd).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(BesoinListe.this, Besoin .class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        findViewById(R.id.floatingBack).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Intent intent = new Intent(BesoinListe.this, Acceuil.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
 
 
     private void setData()
