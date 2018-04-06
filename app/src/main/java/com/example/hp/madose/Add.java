@@ -2,6 +2,7 @@ package com.example.hp.madose;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -42,6 +43,7 @@ public class Add extends AppCompatActivity {
     int jour,mois,annee;
     boolean aBoolean=false;
     DatabaseReference mDatabase;
+    ProgressDialog mProgressDialog;
 
 
     @Override
@@ -340,7 +342,7 @@ public class Add extends AppCompatActivity {
                         autre.setText("");
                         mark.setText("");
                         besoin.setText("");
-                        dd.close();
+                        //dd.close();
                         if (date.getText().toString().matches("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]")) {
                             a = date.getText().toString().substring(0, 4);
                             b = date.getText().toString().substring(5, 7);
@@ -573,5 +575,20 @@ public class Add extends AppCompatActivity {
 
         AddEC cat=new AddEC(libFour,datEnt,heureEnt,user);
         mDatabase.child("Entree").child(code).setValue(cat);
+    }
+    public void showProgressDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.setMessage("Mise à jour...");
+        }
+
+        mProgressDialog.show();
+    }
+
+    public void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
     }
 }
