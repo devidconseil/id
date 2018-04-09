@@ -53,8 +53,7 @@
         </activity>
         <activity
             android:name=".Listecategorie"
-            android:label="Liste de Catégories"
-            >
+            android:label="Liste de Catégories">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -88,29 +87,32 @@
         <activity
             android:name=".Affichage"
             android:label="Affichage"
-            android:parentActivityName=".Acceuil"/>
+            android:parentActivityName=".Acceuil" />
         <activity
             android:name=".Add"
             android:label="Approvisionnement"
-            android:parentActivityName=".Acceuil"/>
+            android:parentActivityName=".Acceuil" />
         <activity
             android:name=".Demande"
             android:label="Demande"
-            android:parentActivityName=".Acceuil"/>
+            android:parentActivityName=".Acceuil" />
         <activity
             android:name=".BringOut"
             android:label="Sortie"
-            android:parentActivityName=".Acceuil"/>
-        <activity android:name=".Variation"
-            android:parentActivityName=".Acceuil"/>
-        <activity android:name=".CoutTotalBesoin"
-            android:parentActivityName=".Acceuil"/>
+            android:parentActivityName=".Acceuil" />
+        <activity
+            android:name=".Variation"
+            android:parentActivityName=".Acceuil" />
+        <activity
+            android:name=".CoutTotalBesoin"
+            android:parentActivityName=".Acceuil" />
         <activity android:name=".Listedepartement" />
         <activity
             android:name=".Affich"
             android:label="Affich" />
-        <activity android:name=".Listes.BesoinListe"
-            android:parentActivityName=".Acceuil"/>
+        <activity
+            android:name=".Listes.BesoinListe"
+            android:parentActivityName=".Acceuil" />
         <activity android:name=".ListeUtilisateur" />
         <activity
             android:name=".ListeFournisseur"
@@ -118,21 +120,27 @@
         <activity android:name=".ListeBesoin" />
         <activity android:name=".ListeDate" />
         <activity android:name=".MyApplication" />
-        <activity android:name=".Listes.ListeRupture"
-            android:parentActivityName=".Acceuil"/>
-        <activity android:name=".Listes.StockSup"
-            android:parentActivityName=".Acceuil"/>
-        <activity android:name=".Listes.StockEgale"
-            android:parentActivityName=".Acceuil"/>
+        <activity
+            android:name=".Listes.ListeRupture"
+            android:parentActivityName=".Acceuil" />
+        <activity
+            android:name=".Listes.StockSup"
+            android:parentActivityName=".Acceuil" />
+        <activity
+            android:name=".Listes.StockEgale"
+            android:parentActivityName=".Acceuil" />
         <activity android:name=".PageDeChargement" />
         <activity
             android:name=".Listes.FournisseurListe"
             android:label="Liste des fournisseurs"
-            android:parentActivityName=".Acceuil"/>
-        <activity android:name=".Listes.CategorieListe"
-            android:parentActivityName=".Acceuil"/>
-        <activity android:name=".Listes.DepartementListe"
-            android:parentActivityName=".Acceuil"></activity>
+            android:parentActivityName=".Acceuil" />
+        <activity
+            android:name=".Listes.CategorieListe"
+            android:parentActivityName=".Acceuil" />
+        <activity
+            android:name=".Listes.DepartementListe"
+            android:parentActivityName=".Acceuil" />
+        <activity android:name=".Listes.UtilisateurListe"></activity>
     </application>
 
 </manifest>

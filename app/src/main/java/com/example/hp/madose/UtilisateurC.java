@@ -104,5 +104,6 @@ public class UtilisateurC {
     public String toStringPren(){return prenEmp;}
     public String toStringMail(){return mailEmp;}
     public String toStringTel(){return telEmp;}
+    public String toStringNomPre(){return  prenEmp+" "+nomEmp;}
 
 }

@@ -101,25 +101,7 @@
                 android:textColor="#2b5a83"
                 android:textStyle="normal|bold" />
 
-            <Button
-                android:id="@+id/button4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="28dp"
-                android:layout_marginStart="28dp"
-                android:text="Test" />
 
-            <Button
-                android:id="@+id/boutontest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_toEndOf="@+id/button4"
-                android:layout_toRightOf="@+id/button4"
-                android:text="Test1" />
         </RelativeLayout>
 
 

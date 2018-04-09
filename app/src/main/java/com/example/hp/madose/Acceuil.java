@@ -23,6 +23,7 @@ import com.example.hp.madose.Listes.BesoinListe;
 import com.example.hp.madose.Listes.CategorieListe;
 import com.example.hp.madose.Listes.DepartementListe;
 import com.example.hp.madose.Listes.FournisseurListe;
+import com.example.hp.madose.Listes.UtilisateurListe;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -230,7 +231,7 @@ public class Acceuil extends AppCompatActivity
 
         switch (id) {
             case R.id.employé:
-                Intent c = new Intent(Acceuil.this, Affichage.class);
+                Intent c = new Intent(Acceuil.this, UtilisateurListe.class);
                 c.putExtra("passage", "employe");
                 startActivity(c);
                 break;
@@ -258,8 +259,6 @@ public class Acceuil extends AppCompatActivity
                 FirebaseAuth.getInstance().signOut();
                 finish();
                 startActivity(new Intent(this, Authentification.class));
-
-
                 break;
 
 

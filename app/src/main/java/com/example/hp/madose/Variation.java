@@ -14,13 +14,13 @@ public class Variation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_variation);
+
         Button entrees= findViewById(R.id.listeE);
         Button demande= findViewById(R.id.listeD);
         Button sortie= findViewById(R.id.listeS);
         Button demand= findViewById(R.id.listDe);
         Button liste_achats= findViewById(R.id.textView10);
-        Button test=(Button)findViewById(R.id.boutontest);
-        Button test2=(Button)findViewById(R.id.button4);
+
 
         entrees.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +86,7 @@ public class Variation extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        test.setOnClickListener(new View.OnClickListener() {
+       /* test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(Variation.this, BesoinListe.class);
