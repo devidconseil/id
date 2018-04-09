@@ -1,6 +1,7 @@
 package com.example.hp.madose;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -54,10 +55,17 @@ public class Affichage extends AppCompatActivity {
     private String b="";
     private Boolean count=false;
     private Boolean count1=false;
+    private Boolean count2=false;
+    private Boolean count3=false;
+    private Boolean count4=false;
+    private Boolean count5=false;
+    private Boolean count6=false;
+    private Boolean count7=false;
+    ProgressDialog mProgressDialog;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_affichage);
 
@@ -101,6 +109,7 @@ public class Affichage extends AppCompatActivity {
         {
 
             fournisseur = (TextView) findViewById(R.id.textView4);
+            showProgressDialog();
             mDatabase.child("Fournisseur").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -108,7 +117,19 @@ public class Affichage extends AppCompatActivity {
                         FournisseurC four=dataSnapshotFour.getValue(FournisseurC.class);
                         if (!bd.checkIfFournisseurExist(four.getNomFour())){
                             bd.insertFour(four.getNomFour(),four.getAdrFour(),four.getTelFour());
+                            count2=true;
                         }
+                    }
+                    if (count2){
+                        finish();
+                        showProgressDialog();
+                        Intent intent=new Intent(Affichage.this,Affichage.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        //intent.putExtra("passage","affichage2");
+                        intent.putExtra("passage","fournisseur");
+                        startActivity(intent);
+                        hideProgressDialog();
+                        count2=false;
                     }
                 }
 
@@ -117,6 +138,7 @@ public class Affichage extends AppCompatActivity {
 
                 }
             });
+            hideProgressDialog();
             List<FournisseurC> affF = bd.afficheF();
             for (FournisseurC emp : affF) {
                 fournisseur.append(emp.toString() + "\n\n");
@@ -228,6 +250,7 @@ public class Affichage extends AppCompatActivity {
         else if (getIntent().getStringExtra("passage").equals("departement"))
         {
             departement = (TextView) findViewById(R.id.textView4);
+            showProgressDialog();
             mDatabase.child("Departement").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -235,7 +258,19 @@ public class Affichage extends AppCompatActivity {
                         DepartementC depart=dataSnapshotDepart.getValue(DepartementC.class);
                         if (!bd.checkIfDepartmentExist(depart.getLibDep())){
                             bd.insert(depart.getLibDep());
+                            count3=true;
                         }
+                    }
+                    if (count3){
+                        finish();
+                        showProgressDialog();
+                        Intent intent=new Intent(Affichage.this,Affichage.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        //intent.putExtra("passage","affichage2");
+                        intent.putExtra("passage","departement");
+                        startActivity(intent);
+                        hideProgressDialog();
+                        count3=false;
                     }
                 }
 
@@ -244,6 +279,7 @@ public class Affichage extends AppCompatActivity {
 
                 }
             });
+            hideProgressDialog();
 
             List<DepartementC> affF = bd.afficheDepart();
             for (DepartementC emp : affF) {
@@ -255,7 +291,7 @@ public class Affichage extends AppCompatActivity {
         if (getIntent().getStringExtra("passage").equals("employe"))
         {
             employe = (TextView) findViewById(R.id.textView4);
-
+            showProgressDialog();
             mDatabase.child("users").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -265,8 +301,19 @@ public class Affichage extends AppCompatActivity {
                         if (!bd.checkIfUserExist(user)){
                             int s=Integer.parseInt(bd.selectDep(user.getLibDep()));
                             bd.insertEmp(user.getNomEmp(),user.getPrenEmp(),user.getMailEmp(),user.getTelEmp(),s,user.getProEmp());
-
+                            count4=true;
                         }
+                    }
+                    if (count4){
+                        finish();
+                        showProgressDialog();
+                        Intent intent=new Intent(Affichage.this,Affichage.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        //intent.putExtra("passage","affichage2");
+                        intent.putExtra("passage","employe");
+                        startActivity(intent);
+                        hideProgressDialog();
+                        count4=false;
                     }
                 }
 
@@ -275,8 +322,7 @@ public class Affichage extends AppCompatActivity {
 
                 }
             });
-
-
+            hideProgressDialog();
             List<UtilisateurC> affE = bd.afficheE();
             for (UtilisateurC emp : affE) {
                 employe.append(emp.toString() + "\n\n");
@@ -301,6 +347,7 @@ public class Affichage extends AppCompatActivity {
 
         {
             categorie = (TextView) findViewById(R.id.textView2);
+            showProgressDialog();
             mDatabase.child("Categorie").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -308,7 +355,19 @@ public class Affichage extends AppCompatActivity {
                         CategorieC cat= dataSnapshotCat.getValue(CategorieC.class);
                         if (!bd.checkIfCategorieExist(cat.getLibCat())){
                             bd.insertCat(cat.getLibCat());
+                            count5=true;
                         }
+                    }
+                    if (count5){
+                        finish();
+                        showProgressDialog();
+                        Intent intent=new Intent(Affichage.this,Affichage.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        //intent.putExtra("passage","affichage2");
+                        intent.putExtra("passage","categorie");
+                        startActivity(intent);
+                        hideProgressDialog();
+                        count5=false;
                     }
                 }
 
@@ -317,6 +376,7 @@ public class Affichage extends AppCompatActivity {
 
                 }
             });
+            hideProgressDialog();
 
             List<CategorieC> affC = bd.afficheCat();
             for (CategorieC emp : affC) {
@@ -326,7 +386,7 @@ public class Affichage extends AppCompatActivity {
 
         if (getIntent().getStringExtra("passage").equals("besoin")) {
              employe = (TextView) findViewById(R.id.textView4);
-
+             showProgressDialog();
             mDatabase.child("Besoin").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -335,7 +395,19 @@ public class Affichage extends AppCompatActivity {
                         if (!bd.checkIfBesoinExist(cat.getLibBes())){
                             int ss=Integer.parseInt(bd.selectCat(cat.getLibCat()));
                             bd.insertBesoin(cat.getLibBes(),cat.getTypeBes(),ss,cat.getSeuilBes(),cat.getAmorBes(),cat.getStockBes(),cat.getImageBes());
+                            count6=true;
                         }
+                    }
+                    if (count6){
+                        finish();
+                        showProgressDialog();
+                        Intent intent=new Intent(Affichage.this,Affichage.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        //intent.putExtra("passage","affichage2");
+                        intent.putExtra("passage","besoin");
+                        startActivity(intent);
+                        hideProgressDialog();
+                        count6=false;
                     }
                 }
 
@@ -344,7 +416,7 @@ public class Affichage extends AppCompatActivity {
 
                 }
             });
-
+            hideProgressDialog();
              List<BesoinC> affC = bd.afficheB();
              for (BesoinC emp : affC) {
                  employe.append(emp.toString1() + "\n\n");
@@ -390,6 +462,7 @@ public class Affichage extends AppCompatActivity {
         }
           if (getIntent().getStringExtra("passage").equals("demande")) {
             demande = (TextView) findViewById(R.id.textView2);
+            showProgressDialog();
             mDatabase.child("Demande").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -415,8 +488,20 @@ public class Affichage extends AppCompatActivity {
                                 bd.insertDemande1(cat.getDateDem(),sss,cat.getHeureDem(),false);
                                 bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
                             }
+                            count7=true;
 
                         }
+                    }
+                    if (count7){
+                        finish();
+                        showProgressDialog();
+                        Intent intent=new Intent(Affichage.this,Affichage.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        //intent.putExtra("passage","affichage2");
+                        intent.putExtra("passage","demande");
+                        startActivity(intent);
+                        hideProgressDialog();
+                        count7=false;
                     }
                 }
 
@@ -425,6 +510,7 @@ public class Affichage extends AppCompatActivity {
 
                 }
             });
+            hideProgressDialog();
             String profile=bd.retrieveUserProfile(mAuth.getCurrentUser().getEmail());
             if (profile.equals("SUPER ADMIN")) {
                 demande.setText("LISTE DES DEMANDES DE BESOINS PAR PERSONNE \n\n\n");
@@ -448,6 +534,7 @@ public class Affichage extends AppCompatActivity {
         }
         if (getIntent().getStringExtra("passage").equals("sortie")) {
             stock1 = (TextView) findViewById(R.id.textView2);
+            showProgressDialog();
             mDatabase.child("Demande").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -478,7 +565,19 @@ public class Affichage extends AppCompatActivity {
                                 Log.i("ON DOIT VOIR",bd.selectIdDem(cat.getHeureDem())+" "+ssss);
                                 bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
                             }
+                            count7=true;
 
+                        }
+                        if (count7){
+                            finish();
+                            showProgressDialog();
+                            Intent intent=new Intent(Affichage.this,Affichage.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            //intent.putExtra("passage","affichage2");
+                            intent.putExtra("passage","sortie");
+                            startActivity(intent);
+                            hideProgressDialog();
+                            count7=false;
                         }
                     }
                 }
@@ -528,6 +627,7 @@ public class Affichage extends AppCompatActivity {
 
                 }
             });
+            hideProgressDialog();
 
             stock1.setText("LISTE DES BESOINS (MATERIELS) LIVRES AUX EMPLOYES \n\n\n");
         List<Stock2> affF = bd.afficheStock2();
@@ -543,7 +643,7 @@ public class Affichage extends AppCompatActivity {
 
         if (getIntent().getStringExtra("passage").equals("entree")) {
             stocke = (TextView) findViewById(R.id.textView2);
-
+            showProgressDialog();
             mDatabase.child("Entree").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -589,11 +689,14 @@ public class Affichage extends AppCompatActivity {
                     }
                     if (count){
                         finish();
+                        showProgressDialog();
                         Intent intent=new Intent(Affichage.this,Affichage.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         //intent.putExtra("passage","affichage2");
                         intent.putExtra("passage","entree");
                         startActivity(intent);
+                        hideProgressDialog();
+                        count=false;
                     }
 
                 }
@@ -603,6 +706,7 @@ public class Affichage extends AppCompatActivity {
 
                 }
             });
+            hideProgressDialog();
             stocke.setText("LISTE DES BESOINS (MATERIELS) ENTRES \n\n\n");
             List<Stock1> affF = bd.afficheStock1();
             for (Stock1 emp : affF) {
@@ -807,6 +911,21 @@ public class Affichage extends AppCompatActivity {
 
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+    public void showProgressDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.setMessage("Mise à jour...");
+        }
+
+        mProgressDialog.show();
+    }
+
+    public void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
         }
     }
 }

@@ -51,8 +51,16 @@ DatabaseReference mDatabase;
                 else {
                     if (! bd.checkIfFournisseurExist(fnom.getText().toString())){
 //                    int x = Integer.parseInt(fcont.getText().toString());
+                        fnom.setText(fnom.getText().toString().toUpperCase());
+                        fadr.setText(fadr.getText().toString().toUpperCase());
+                        if (fnom.getText().toString().contains("'")){
+                            fnom.setText(fnom.getText().toString().replace("'","''"));
+                        }
                     bd.insertFour(fnom.getText().toString(), fadr.getText().toString(), fcont.getText().toString());
                     bd.close();
+                        if (fnom.getText().toString().contains("''")){
+                            fnom.setText(fnom.getText().toString().replace("''","'"));
+                        }
                     writeNewFournisseur(fnom.getText().toString(), fadr.getText().toString(), fcont.getText().toString());
                     Toast.makeText(getApplicationContext(), "Fournisseur enregistré avec succès", Toast.LENGTH_LONG).show();
 

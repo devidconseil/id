@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -42,7 +43,7 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
 
 
         final EditText codeT=(EditText) findViewById(R.id.nomEmp);
-        final EditText codeD=(EditText) findViewById(R.id.autoCompDep);
+        final AutoCompleteTextView codeD= findViewById(R.id.autoCompDep);
         final Button codeB=(Button) findViewById(R.id.valEmp);
         final EditText prenE= findViewById(R.id.prenEmp);
         final EditText mailE= findViewById(R.id.email);
@@ -60,6 +61,9 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
        ArrayAdapter arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_spinner_item,utilisateur);
        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
        spinner.setAdapter(arrayAdapter);
+        ArrayList<String> nb=bd.affiNDE();
+        ArrayAdapter<String>nombes=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,nb);
+        codeD.setAdapter(nombes);
 
         mDatabase.child("Departement").addValueEventListener(new ValueEventListener() {
             @Override
@@ -167,18 +171,28 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
                     Toast.makeText(getBaseContext(),"Veuillez saisir le département de l'utilisateur SVP!",Toast.LENGTH_LONG).show();
                 }
                 else {
-                    if (codeT.getText().toString().contains("'")){
-                        codeT.getText().toString().replace("'","''");
-                    }
-                    if (prenE.getText().toString().contains("'")){
-                        prenE.getText().toString().replace("'","''");
-                    }
+
                     int x = Integer.parseInt(bd.selectDep(codeD.getText().toString()));
                     if (!bd.checkMailExist(mailE.getText().toString())) {
+                       String name1=prenE.getText().toString().substring(0,1).toUpperCase();
+                       prenE.setText(prenE.getText().toString().substring(1,prenE.getText().toString().length()).toLowerCase());
+                       prenE.setText(name1+prenE.getText().toString());
+                       codeT.setText(codeT.getText().toString().toUpperCase());
+                        if (codeT.getText().toString().contains("'")){
+                            codeT.setText(codeT.getText().toString().replace("'","''"));
+                        }
+                        if (prenE.getText().toString().contains("'")){
+                            prenE.setText(prenE.getText().toString().replace("'","''"));
+                        }
                        bd.insertEmp(codeT.getText().toString(), prenE.getText().toString(), mailE.getText().toString(), telE.getText().toString(), x, spinner.getSelectedItem().toString());
                         bd.close();
                         String username=mailE.getText().toString().split("@")[0];
-
+                        if (codeT.getText().toString().contains("''")){
+                            codeT.setText(codeT.getText().toString().replace("''","'"));
+                        }
+                        if (prenE.getText().toString().contains("''")){
+                            prenE.setText(prenE.getText().toString().replace("''","'"));
+                        }
                         writeNewUser(username+"-"+codeT.getText().toString(),codeT.getText().toString(),prenE.getText().toString(),mailE.getText().toString(),telE.getText().toString(),codeD.getText().toString(),spinner.getSelectedItem().toString());
 
                         Toast.makeText(getApplicationContext(), "Utilisateur enregistré avec succès", Toast.LENGTH_LONG).show();

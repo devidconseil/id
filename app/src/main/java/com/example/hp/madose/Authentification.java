@@ -254,6 +254,7 @@ public class Authentification extends AppCompatActivity {
 
                             }
                         });
+
                     } else {
                         Log.w(TAG, "signInWithEmail:failure", task.getException());
                     }

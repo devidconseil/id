@@ -43,11 +43,15 @@ public class Categorie extends AppCompatActivity {
         else {
             if (! bd.checkIfCategorieExist(codeT.getText().toString())) {
                 String label = codeT.getText().toString();
+                label=codeT.getText().toString().toUpperCase();
                 if (codeT.getText().toString().contains("'")) {
                     label = codeT.getText().toString().replace("'", "''");
                 }
                 bd.insertCat(label);
-                writeNewCategory(codeT.getText().toString());
+                if (codeT.getText().toString().contains("''")) {
+                    label = codeT.getText().toString().replace("''", "'");
+                }
+                writeNewCategory(label);
                 bd.close();
                 Toast.makeText(getApplicationContext(), "Catégorie enregistrée avec succès", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(Categorie.this, CategorieListe.class);

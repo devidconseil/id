@@ -43,8 +43,15 @@ public class Departement extends AppCompatActivity {
                 }
                 else {
                     if (! gest.checkIfDepartmentExist(edite.getText().toString())){
+                        if (edite.getText().toString().contains("'")){
+                            edite.setText(edite.getText().toString().replace("'","''"));
+                        }
+                        edite.setText(edite.getText().toString().toUpperCase());
                     gest.insert(edite.getText().toString());
                     gest.close();
+                        if (edite.getText().toString().contains("''")){
+                            edite.setText(edite.getText().toString().replace("''","'"));
+                        }
                     writeNewDepartment(edite.getText().toString());
 
                     Toast.makeText(getApplicationContext(), "Departement enregistré avec succès", Toast.LENGTH_LONG).show();

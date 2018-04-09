@@ -1,5 +1,8 @@
 package com.example.hp.madose;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -13,6 +16,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.app.AppCompatActivity;
@@ -25,8 +29,11 @@ import com.example.hp.madose.Listes.DepartementListe;
 import com.example.hp.madose.Listes.FournisseurListe;
 import com.example.hp.madose.Listes.UtilisateurListe;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class Acceuil extends AppCompatActivity
@@ -48,6 +55,7 @@ public class Acceuil extends AppCompatActivity
     private BaseDeDonne bd;
     DatabaseReference mDatabase;
     FirebaseAuth mAuth;
+    ProgressDialog mProgressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +80,214 @@ public class Acceuil extends AppCompatActivity
         today.setToNow();
         Toast.makeText(getApplicationContext(),today.toString(),Toast.LENGTH_LONG);
         String profile=bd.retrieveUserProfile(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
+        showProgressDialog();
+        MyApplication.getmDatabase().child("Categorie").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotCat:dataSnapshot.getChildren()){
+                    CategorieC cat= dataSnapshotCat.getValue(CategorieC.class);
+                    if (! bd.checkIfCategorieExist(cat.getLibCat())){
+                        bd.insertCat(cat.getLibCat());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        MyApplication.getmDatabase().child("Fournisseur").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotFour:dataSnapshot.getChildren()){
+                    FournisseurC four=dataSnapshotFour.getValue(FournisseurC.class);
+                    if (!bd.checkIfFournisseurExist(four.getNomFour())){
+                        bd.insertFour(four.getNomFour(),four.getAdrFour(),four.getTelFour());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        MyApplication.getmDatabase().child("Departement").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotDepart:dataSnapshot.getChildren()){
+                    DepartementC depart=dataSnapshotDepart.getValue(DepartementC.class);
+                    if (!bd.checkIfDepartmentExist(depart.getLibDep())){
+                        bd.insert(depart.getLibDep());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        MyApplication.getmDatabase().child("Besoin").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotBes:dataSnapshot.getChildren()){
+                    BesoinC cat= dataSnapshotBes.getValue(BesoinC.class);
+                    if (!bd.checkIfBesoinExist(cat.getLibBes())){
+                        Log.i("TESTONS",cat.getLibCat());
+                        int ss=Integer.parseInt(bd.selectCat(cat.getLibCat()));
+                        bd.insertBesoin(cat.getLibBes(),cat.getTypeBes(),ss,cat.getSeuilBes(),cat.getAmorBes(),cat.getStockBes(),cat.getImageBes());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        MyApplication.getmDatabase().child("users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotUser:dataSnapshot.getChildren()){
+                    UtilisateurC user=dataSnapshotUser.getValue(UtilisateurC.class);
+                    //  Toast.makeText(getApplicationContext(),user.getMailEmp(),Toast.LENGTH_SHORT);
+                    if (!bd.checkIfUserExist(user)){
+                        Log.i("MONTRE-MOI",user.getLibDep());
+                        int s=Integer.parseInt(bd.selectDep(user.getLibDep()));
+                        bd.insertEmp(user.getNomEmp(),user.getPrenEmp(),user.getMailEmp(),user.getTelEmp(),s,user.getProEmp());
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        mDatabase.child("Entree").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotEnt:dataSnapshot.getChildren()){
+                    AddEC cat= dataSnapshotEnt.getValue(AddEC.class);
+
+
+                    if (!bd.checkIfEntreeExist(cat.getLibFour(),cat.getHeureEnt(),cat.user)){
+                        Log.i("SHOW-ME",cat.getLibFour()+" "+cat.getHeureEnt());
+                        int ss=Integer.parseInt(bd.selectFour(cat.getLibFour()));
+                        bd.insertEntr(cat.getDatEnt(),ss,cat.getHeureEnt(),cat.getUser(),false);
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        mDatabase.child("Besoins-Entree").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotBesEnt:dataSnapshot.getChildren()){
+                    AddBEC cat= dataSnapshotBesEnt.getValue(AddBEC.class);
+
+                    if (!bd.checkIfBesoinEntreeExist(cat.getLibBes(),cat.getDatEnt(),cat.getHeureEnt(),bd.selectUserEnt(cat.getHeureEnt()))){
+                        Log.i("MONTRE-MOI",cat.getLibBes()+" "+cat.getDatEnt()+" "+cat.getHeureEnt()+" "+bd.selectUserEnt(cat.getHeureEnt()));
+                        int ss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
+                        Log.i("REAL",""+cat.getHeureEnt());
+                        int sss=Integer.parseInt(bd.selectIdEnt(Integer.parseInt(cat.getHeureEnt())));
+
+                        bd.insertEntrBes(ss,sss,cat.getPU(),cat.getQte(),cat.getMarqueBes(),cat.getAutrePrécision());
+
+                        int var2 = Integer.parseInt(bd.selectStockBes(cat.getLibBes()));
+                        int var3 = var2 + cat.getQte();
+                        bd.upDate(var3, cat.getLibBes());
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        mDatabase.child("Demande").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotDem:dataSnapshot.getChildren()){
+                    DemandeC cat= dataSnapshotDem.getValue(DemandeC.class);
+                    Log.i("I MISS YOU",cat.getDateDem()+" "+cat.getNomEmp());
+
+                    if (! bd.checkIfDemandeBesoinExist(cat.getHeureDem(),cat.getLibBes())){
+
+                        int ssss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
+                        if (cat.getLibDpe().equals("")){
+                            int ss=Integer.parseInt(bd.selectEmpId(cat.getNomEmp()));
+                            int sss=Integer.parseInt(bd.selectDep(bd.DepartEmp(ss)));
+                            if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())) {
+                                bd.insertDemande(cat.getDateDem(), ss, sss, cat.getHeureDem(), false);
+                            }
+                            bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
+                            //   Toast.makeText(getApplicationContext(),cat.toString(),Toast.LENGTH_LONG).show();
+                        }
+                        if (cat.getNomEmp().equals("")) {
+                            int ss=0;
+                            int sss=Integer.parseInt(bd.selectDep(cat.getLibDpe()));
+                            bd.insertDemande1(cat.getDateDem(),sss,cat.getHeureDem(),false);
+                            bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
+                        }
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        mDatabase.child("Sorties").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotSor:dataSnapshot.getChildren()){
+                    Stock2 cat=dataSnapshotSor.getValue(Stock2.class);
+                    Log.i("VOILA SORTIE",cat.getNomEmp()+" "+cat.getDateDem()+" "+cat.getLibDep());
+                    if (! bd.checkIfSortieEntreeExist(cat.getHeureSor(),cat.getLibBes())){
+                        Log.i("VOILAHEIN",cat.getNomEmp()+" "+cat.getHeureSor()+" "+cat.getLibBes()+" "+cat.getDate());
+                        if (! bd.checkIfSortieExist(cat.getNomEmp(),cat.getHeureSor(),cat.getLibDep())){
+                            Log.i("VOILATOUT",cat.getNomEmp()+" "+cat.getHeureSor());
+                            String numDem=bd.selectNumeDem(cat.getDateDem(),cat.getNomEmp(),cat.getLibDep());
+                            Log.i("TOUTDEH",""+numDem);
+                            bd.insertSortie(cat.getDate(),numDem,cat.getHeureSor(),cat.getNomEmp(),false);
+                        }
+                        int var1=Integer.parseInt(bd.selectIdSortie());
+                        int var2=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
+                        bd.insertSortieBesoin(var1,var2,cat.getQte(),cat.getMarqBes(),cat.getAutreP());
+
+                        int varP = Integer.parseInt(bd.selectStockBes(cat.getLibBes()));
+                        int var3 = varP - cat.getQte();
+                        bd.upDate(var3, cat.getLibBes());
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        hideProgressDialog();
+
+
         if (profile.equals("USER")){
             Intent intent=new Intent(Acceuil.this,Affichage.class);
             intent.putExtra("passage","demande");
@@ -378,6 +594,21 @@ public class Acceuil extends AppCompatActivity
                     return "SECTION 3";
             }
             return null;
+        }
+    }
+    public void showProgressDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.setMessage("Mise à jour...");
+        }
+
+        mProgressDialog.show();
+    }
+
+    public void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
         }
     }
 
