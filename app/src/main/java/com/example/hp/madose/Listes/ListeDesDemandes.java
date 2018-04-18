@@ -139,10 +139,6 @@ public class ListeDesDemandes extends AppCompatActivity {
         //fin 000000000000000000000000000000000000000000000000000000000000000000000000000
 
 
-
-
-
-
         tableLayout=(TableLayout)findViewById(R.id.tableauLD);
         tableLayout.setPadding(12,16,12,16);
         TableRow tl=new TableRow(this);
