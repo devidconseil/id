@@ -94,8 +94,6 @@ public class Acceuil extends AppCompatActivity
         }
         bd = new BaseDeDonne(this);
 
-
-
         mDatabase= FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
@@ -560,7 +558,7 @@ public class Acceuil extends AppCompatActivity
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
                 finish();
-                startActivity(new Intent(this, Authentification.class));
+                startActivity(new Intent(this, Welcome.class));
                 break;
 
 

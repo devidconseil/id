@@ -207,6 +207,10 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
                         startActivity(intent);
                         finish();
                         Toast.makeText(getApplicationContext(), spinner.getOnItemSelectedListener().toString(), Toast.LENGTH_LONG).show();
+                        if (MyApplication.isNewAccount()){
+                          startActivity(new Intent(Utilisateur.this,Authentification.class));
+                          MyApplication.setNewAccount(false);
+                        }
                     }
                     else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(Utilisateur.this,0x00000005 );
@@ -232,31 +236,41 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
             public void onClick(View v) {
                 Intent intent=new Intent(Utilisateur.this,Acceuil.class);
                 startActivity(intent);
+                if (MyApplication.isNewAccount()){
+                    startActivity(new Intent(Utilisateur.this,Welcome.class));
+                    MyApplication.setNewAccount(false);
+                }
             }
         });
     }
     @Override
     public void onBackPressed(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(Utilisateur.this,0x00000005 );
-        builder.setMessage("Voulez-vous abandonner l'enregistrement?");
-        builder.setTitle("Attention!");
-        builder.setPositiveButton("OUI", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent=new Intent(Utilisateur.this,Acceuil.class);
-                startActivity(intent);
-                finish();
-                MyApplication.setFait(false);
-            }
-        });
-        builder.setNegativeButton("NON", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        if (MyApplication.isNewAccount()){
+            startActivity(new Intent(Utilisateur.this,Welcome.class));
+            MyApplication.setNewAccount(false);
+        }
+        else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Utilisateur.this, 0x00000005);
+            builder.setMessage("Voulez-vous abandonner l'enregistrement?");
+            builder.setTitle("Attention!");
+            builder.setPositiveButton("OUI", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(Utilisateur.this, Acceuil.class);
+                    startActivity(intent);
+                    finish();
+                    MyApplication.setFait(false);
+                }
+            });
+            builder.setNegativeButton("NON", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
-            }
-        });
-        builder.create();
-        builder.show();
+                }
+            });
+            builder.create();
+            builder.show();
+        }
     }
     private void writeNewUser(String userId, String name, String surname, String email, String tel, String department, String profile) {
         UtilisateurC user = new UtilisateurC(name, surname, email, tel, department, profile);

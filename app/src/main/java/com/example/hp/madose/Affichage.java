@@ -906,7 +906,7 @@ public class Affichage extends AppCompatActivity {
             case R.id.deconnexion:
                mAuth.signOut();
                 finish();
-                startActivity(new Intent(this, Authentification.class));
+                startActivity(new Intent(this, Welcome.class));
 
                 return true;
 
