@@ -206,7 +206,6 @@ public class Acceuil extends AppCompatActivity
                         int var2 = Integer.parseInt(bd.selectStockBes(cat.getLibBes()));
                         int var3 = var2 + cat.getQte();
                         bd.upDate(var3, cat.getLibBes());
-
                     }
                 }
             }
@@ -474,7 +473,7 @@ public class Acceuil extends AppCompatActivity
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
                 finish();
-                startActivity(new Intent(this, Authentification.class));
+                startActivity(new Intent(this, Welcome.class));
                 break;
 
 

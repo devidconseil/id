@@ -30,6 +30,7 @@ public class MyApplication extends Application {
     public static boolean fetch=true;
     public static boolean verif=false;
     public static boolean fait=false;
+    public static boolean newAccount=false;
     public static String verif1;
     public static String categorie;
     public static int id;
@@ -40,6 +41,14 @@ public class MyApplication extends Application {
 
     public static String getCategorie() {
         return categorie;
+    }
+
+    public static boolean isNewAccount() {
+        return newAccount;
+    }
+
+    public static void setNewAccount(boolean newAccount) {
+        MyApplication.newAccount = newAccount;
     }
 
     public static void setCategorie(String categorie) {

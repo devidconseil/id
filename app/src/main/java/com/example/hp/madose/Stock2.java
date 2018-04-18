@@ -47,7 +47,6 @@ public class Stock2 {
     }
 
 
-
     public int getNumSor() {
         return numSor;
     }
