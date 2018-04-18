@@ -10,6 +10,7 @@ public class Stock2 {
         int qte,numSor;
 
 
+
     public String getLibBes() {
         return libBes;
     }
@@ -110,9 +111,7 @@ public class Stock2 {
         return date;
     }
 
-    public Stock2() {
-    }
-
+public Stock2(){}
     public Stock2(String libBes, String typeBes, int qte, String nomEmp, String date) {
         this.libBes = libBes;
         this.typeBes = typeBes;
@@ -137,6 +136,9 @@ public class Stock2 {
         this.date =date;
         this.heureSor=heureSor;
     }
+
+
+    
     public Stock2(String libBes, String typeBes, int qte, String nomEmp,String date,String heureSor, String validationUser) {
         this.libBes = libBes;
         this.typeBes = typeBes;
@@ -177,6 +179,18 @@ public class Stock2 {
         this.qte = qte;
 
     }
+    public Stock2( int numSor,String date,String libBes, String typeBes,String marqBes,String autreP,int qte ,String nomEmp) {
+        this.libBes = libBes;
+        this.typeBes = typeBes;
+        this.nomEmp = nomEmp;
+        this.date = date;
+        //this.libDep = libDep;
+        this.marqBes = marqBes;
+        this.autreP = autreP;
+        this.qte = qte;
+        this.numSor = numSor;
+    }
+
 
     @Override
     public String toString() {
@@ -212,6 +226,15 @@ public class Stock2 {
                 "\nEt delivré par:  "+validationUser+
                 "\nPour la demande du:  "+dateDem+"\n";
     }
+    public String toStringBesoin(){return libBes;}
+    public String toStringDate(){return date;}
+    public int toStringQt(){return qte;}
+    public String toStringDep(){return libDep;}
+    public String toStringNomEm(){return nomEmp;}
+    public String toStringDem(){return dateDem;}
+    public String toStringAutreP(){return autreP;}
+    public String toStringType(){return typeBes;}
+    public int toStringNumSortie(){return numSor;}
     /* public Stock2(String libBes, String typeBes, int qte) {
             this.libBes = libBes;
             this.typeBes = typeBes;

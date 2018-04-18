@@ -43,7 +43,6 @@ public class BesoinListe extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(BesoinListe.this, Besoin .class);
                 startActivity(intent);
-                finish();
             }
         });
         findViewById(R.id.floatingBack).setOnClickListener(new View.OnClickListener() {

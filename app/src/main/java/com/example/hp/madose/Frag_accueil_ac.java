@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hp.madose.Acceuil;
 
@@ -34,7 +35,7 @@ public class Frag_accueil_ac extends Fragment {
 
 
 
-
+ConnexionDetector connexionDetector;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,6 +43,17 @@ public class Frag_accueil_ac extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_accueil, container, false);
 
         BaseDeDonne baseDeDonne=new BaseDeDonne(getContext());
+
+       /* connexionDetector=new ConnexionDetector(getContext());
+        int eric=0;
+        if (connexionDetector.isConnected())
+        {
+            for (eric=0;eric<=9;eric++)
+            {
+                Toast.makeText(getContext(),String.valueOf(eric),Toast.LENGTH_SHORT).show();
+            }
+        }*/
+
         TextView tsup=(TextView)rootView.findViewById(R.id.sup);
         TextView tegale=(TextView)rootView.findViewById(R.id.egale);
         TextView tinf=(TextView)rootView.findViewById(R.id.inferieur);
@@ -76,6 +88,7 @@ public class Frag_accueil_ac extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),StockSup.class);
                 startActivity(intent);
+
             }
         });
         tsup.setOnClickListener(new View.OnClickListener() {

@@ -63,7 +63,6 @@ public class FournisseurListe extends AppCompatActivity {
 
                     Intent intent = new Intent(FournisseurListe.this, Fournisseur.class);
                     startActivity(intent);
-                    finish();
 
             }
             });

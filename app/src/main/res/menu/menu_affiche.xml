@@ -2,6 +2,19 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+   <!-- <item
+        android:id="@+id/retour"
+        android:enabled="true"
+        android:icon="@drawable/ic_retour_24dp"
+        android:orderInCategory="100"
+        android:title="retour"
+        app:showAsAction="always" />-->
+    <item android:id="@+id/rechercher"
+        android:title="Rechercher"
+        android:enabled="true"
+        android:orderInCategory="101"
+        android:icon="@drawable/ic_search_dp"
+        app:showAsAction="always"/>
     <item
         android:id="@+id/deconnexion"
         android:enabled="true"
@@ -9,4 +22,5 @@
         android:menuCategory="secondary"
         android:title="Se déconnecter"
         android:visible="true" />
+
 </menu>

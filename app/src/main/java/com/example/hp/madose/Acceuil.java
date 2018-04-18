@@ -1,15 +1,27 @@
 package com.example.hp.madose;
 
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.app.TaskStackBuilder;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -27,6 +39,9 @@ import com.example.hp.madose.Listes.BesoinListe;
 import com.example.hp.madose.Listes.CategorieListe;
 import com.example.hp.madose.Listes.DepartementListe;
 import com.example.hp.madose.Listes.FournisseurListe;
+import com.example.hp.madose.Listes.ListeDesDemandes;
+import com.example.hp.madose.Listes.ListeDesEntrees;
+import com.example.hp.madose.Listes.ListeDesSorties;
 import com.example.hp.madose.Listes.UtilisateurListe;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +49,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Random;
 
 
 public class Acceuil extends AppCompatActivity
@@ -54,8 +71,12 @@ public class Acceuil extends AppCompatActivity
     private GoogleApiClient client;
     private BaseDeDonne bd;
     DatabaseReference mDatabase;
+    DatabaseReference nDatabase;
+    DatabaseReference vDatabase;
     FirebaseAuth mAuth;
     ProgressDialog mProgressDialog;
+    ConnexionDetector connexionDetector;
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +93,8 @@ public class Acceuil extends AppCompatActivity
             //toolbar.setVisibility(View.INVISIBLE);
         }
         bd = new BaseDeDonne(this);
+
+
 
         mDatabase= FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -207,6 +230,27 @@ public class Acceuil extends AppCompatActivity
                         int var3 = var2 + cat.getQte();
                         bd.upDate(var3, cat.getLibBes());
 
+                        //Notification debut
+                        NotificationCompat.Builder notification=new NotificationCompat.Builder(Acceuil.this);
+                        notification.setSmallIcon(R.drawable.recap);
+                        notification.setContentText("Nouvel approvisionnement");
+                        notification.setContentTitle("RecapApp");
+
+                        Intent entree=new Intent(getBaseContext(),ListeDesEntrees.class);
+                        TaskStackBuilder stackBuilder=TaskStackBuilder.create(getBaseContext());
+                        stackBuilder.addParentStack(Acceuil.class);
+                        stackBuilder.addNextIntent(entree);
+
+                        notification.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+
+                        PendingIntent resultIntent= stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
+                        notification.setContentIntent(resultIntent);
+                        notification.setAutoCancel(true);
+                        NotificationManager notificationManager =(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+                        Random random=new Random();
+                        notificationManager.notify(random.nextInt(130000),notification.build());
+                        //Notification fin
+
                     }
                 }
             }
@@ -242,6 +286,27 @@ public class Acceuil extends AppCompatActivity
                             bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
                         }
 
+                        //Notification debut
+                        NotificationCompat.Builder notification=new NotificationCompat.Builder(getBaseContext());
+                        notification.setSmallIcon(R.drawable.recap);
+                        notification.setContentText("Nouvelle demande");
+                        notification.setContentTitle("RecapApp");
+
+                        Intent listedemande=new Intent(getBaseContext(),ListeDesDemandes.class);
+                        TaskStackBuilder stackBuilder=TaskStackBuilder.create(getBaseContext());
+                        stackBuilder.addParentStack(Acceuil.class);
+                        stackBuilder.addNextIntent(listedemande);
+
+                        notification.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+
+                        PendingIntent resultIntent= stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
+                        notification.setContentIntent(resultIntent);
+                        notification.setAutoCancel(true);
+                        NotificationManager notificationManager =(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+                        Random random=new Random();
+                        notificationManager.notify(random.nextInt(130000),notification.build());
+                        //Notification fin
+
                     }
                 }
 
@@ -256,7 +321,7 @@ public class Acceuil extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshotSor:dataSnapshot.getChildren()){
-                    Stock2 cat=dataSnapshotSor.getValue(Stock2.class);
+                    Stock2 cat= dataSnapshotSor.getValue(Stock2.class);
                     Log.i("VOILA SORTIE",cat.getNomEmp()+" "+cat.getDateDem()+" "+cat.getLibDep());
                     if (! bd.checkIfSortieEntreeExist(cat.getHeureSor(),cat.getLibBes())){
                         Log.i("VOILAHEIN",cat.getNomEmp()+" "+cat.getHeureSor()+" "+cat.getLibBes()+" "+cat.getDate());
@@ -274,6 +339,27 @@ public class Acceuil extends AppCompatActivity
                         int var3 = varP - cat.getQte();
                         bd.upDate(var3, cat.getLibBes());
 
+                        //Notification debut
+                        NotificationCompat.Builder notification=new NotificationCompat.Builder(getBaseContext());
+                        notification.setSmallIcon(R.drawable.recap);
+                        notification.setContentText("Nouvelle Sortie");
+                        notification.setContentTitle("RecapApp");
+
+                        Intent sortie=new Intent(getBaseContext(),ListeDesSorties.class);
+                        TaskStackBuilder stackBuilder=TaskStackBuilder.create(getBaseContext());
+                        stackBuilder.addParentStack(Acceuil.class);
+                        stackBuilder.addNextIntent(sortie);
+
+                        notification.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+
+
+                        PendingIntent resultIntent= stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
+                        notification.setContentIntent(resultIntent);
+                        notification.setAutoCancel(true);
+                        NotificationManager notificationManager =(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+                        Random random=new Random();
+                        notificationManager.notify(random.nextInt(130000),notification.build());
+                        //Notification fin
                     }
                 }
 

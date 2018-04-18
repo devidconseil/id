@@ -5,15 +5,26 @@ package com.example.hp.madose;
  */
 
 public class Stock1 {
-    String LibBes,TypeBes,date;
+    String LibBes,TypeBes,date,Marque,Autre;
     int PU , Qte;
 
+    public Stock1(String libBes, String typeBes, int PU, int qte,String date,String Marque,String Autre) {
+        this.LibBes = libBes;
+        this.TypeBes = typeBes;
+        this.PU = PU;
+        this.Qte = qte;
+        this.date=date;
+        this.Marque=Marque;
+        this.Autre=Autre;
+    }
     public Stock1(String libBes, String typeBes, int PU, int qte,String date) {
         this.LibBes = libBes;
         this.TypeBes = typeBes;
         this.PU = PU;
         this.Qte = qte;
         this.date=date;
+        this.Marque=Marque;
+        this.Autre=Autre;
     }
 
     public String getLibBes() {
@@ -36,6 +47,14 @@ public class Stock1 {
         return date;
     }
 
+    public String getMarque() {
+        return Marque;
+    }
+
+    public String getAutre() {
+        return Autre;
+    }
+
     @Override
     public String toString() {
         return  "Besoin=" + LibBes +
@@ -43,4 +62,12 @@ public class Stock1 {
                 "\nP.U=" + PU +
                 "\nQuantité=" + Qte +"\nDate=" +date+"\n";
     }
+    public String toStringDate(){ return date;}
+    public String toStringNom(){ return LibBes;}
+    public String toStringType(){ return TypeBes;}
+    public int toStringPU(){ return PU;}
+    public int toStringQuantite(){ return Qte;}
+    public String toStringMarque(){ return Marque;}
+    public String toStringAutre(){ return Autre;}
+
 }

@@ -43,7 +43,6 @@ public class UtilisateurListe extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(UtilisateurListe.this, Utilisateur.class);
                 startActivity(intent);
-                finish();
             }
         });
         findViewById(R.id.float2).setOnClickListener(new View.OnClickListener() {

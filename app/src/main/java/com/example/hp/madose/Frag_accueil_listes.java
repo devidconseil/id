@@ -10,6 +10,10 @@ import android.widget.Button;
 
 import com.example.hp.madose.Listes.BesoinListe;
 import com.example.hp.madose.Listes.FournisseurListe;
+import com.example.hp.madose.Listes.ListeAchat;
+import com.example.hp.madose.Listes.ListeDesDemandes;
+import com.example.hp.madose.Listes.ListeDesEntrees;
+import com.example.hp.madose.Listes.ListeDesSorties;
 
 /**
  * Created by erick on 20/03/2018.
@@ -29,15 +33,15 @@ public class Frag_accueil_listes extends Fragment {
        // Button stock= rootView.findViewById(R.id.stock);
         Button demand= rootView.findViewById(R.id.listDe);
         Button liste_achats= rootView.findViewById(R.id.textView10);
-        Button rupture= rootView.findViewById(R.id.rupture);
+        //Button rupture= rootView.findViewById(R.id.rupture);
 
 
 
         entrees.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),Affichage.class);
-                intent.putExtra("passage","entree");
+                Intent intent=new Intent(getActivity(),ListeDesEntrees.class);
+                intent.putExtra("sortie","listeE");
                 startActivity(intent);
             }
         });
@@ -45,8 +49,8 @@ public class Frag_accueil_listes extends Fragment {
         demande.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),CoutTotalBesoin.class);
-                intent.putExtra("passage","demande");
+                Intent intent=new Intent(getActivity(),ListeDesDemandes.class);
+                intent.putExtra("sortie","listeD");
                 startActivity(intent);
             }
         });
@@ -54,8 +58,8 @@ public class Frag_accueil_listes extends Fragment {
         sortie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),Affichage.class);
-                intent.putExtra("passage","sortie");
+                Intent intent=new Intent(getActivity(),ListeDesSorties.class);
+              intent.putExtra("sortie","listeS");
                 startActivity(intent);
             }
         });
@@ -72,25 +76,25 @@ public class Frag_accueil_listes extends Fragment {
         demand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),Affichage.class);
+                Intent intent=new Intent(getActivity(),ListeDesDemandes.class);
                 intent.putExtra("passage","demande");
                 startActivity(intent);
             }
         });
 
-        rupture.setOnClickListener(new View.OnClickListener() {
+       /* rupture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getActivity(),Affichage.class);
                 intent.putExtra("passage","Rupture");
                 startActivity(intent);
             }
-        });
+        });*/
 
         liste_achats.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getActivity(),Affichage.class);
+                Intent intent=new Intent(getActivity(),ListeAchat.class);
                 intent.putExtra("passage","Liste_achats");
                 startActivity(intent);
             }

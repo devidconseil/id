@@ -55,7 +55,6 @@ public class Add extends AppCompatActivity {
 
 
 
-
         final AutoCompleteTextView four=(AutoCompleteTextView)findViewById(R.id.autoCompleteFour);
         final AutoCompleteTextView besoin=(AutoCompleteTextView)findViewById(R.id.autoCompleteBesoin);
         final EditText date=(EditText)findViewById(R.id.datepik);
@@ -454,9 +453,17 @@ public class Add extends AppCompatActivity {
                             autre.setText(autre.getText().toString().replace("'","''"));
                         }
                         String name1=mark.getText().toString().substring(0,1).toUpperCase();
-                        mark.setText(name1+mark.getText().toString().substring(1,mark.getText().toString().length()).toLowerCase());
-                        name1=autre.getText().toString().substring(0,1).toUpperCase();
-                        autre.setText(name1+autre.getText().toString().substring(1,autre.getText().toString().length()).toLowerCase());
+                        if (!mark.getText().toString().equals(""))
+                        {
+                            mark.setText(name1+mark.getText().toString().substring(1,mark.getText().toString().length()).toLowerCase());
+                        }
+
+                        if (!autre.getText().toString().equals(""))
+                        {
+                            name1=autre.getText().toString().substring(0,1).toUpperCase();
+                            autre.setText(name1+autre.getText().toString().substring(1,autre.getText().toString().length()).toLowerCase());
+                        }
+
                         int var1 = Integer.parseInt(dd.selectIdBes(besoin.getText().toString()));
 
                         int quantite = Integer.parseInt(qte.getText().toString());

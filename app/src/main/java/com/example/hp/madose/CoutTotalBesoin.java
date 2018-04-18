@@ -11,6 +11,10 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
+import com.example.hp.madose.Listes.ListeDesDemandes;
+import com.example.hp.madose.Listes.ListeDesEntrees;
+import com.example.hp.madose.Listes.ListeDesSorties;
+
 import java.util.ArrayList;
 
 public class CoutTotalBesoin extends AppCompatActivity {
@@ -34,10 +38,28 @@ public class CoutTotalBesoin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 MyApplication.setGlobalVarValue(autoCompleteTextView.getText().toString());
-                Intent intent=new Intent(CoutTotalBesoin.this,Affichage.class);
-                intent.putExtra("passage","Cout");
+                if (getIntent().getStringExtra("recherche").equals("Rsortie"))
+                {
+                    Intent intent=new Intent(CoutTotalBesoin.this,ListeDesSorties.class);
+                    intent.putExtra("sortie","libelle");
+                    intent.putExtra("libelle",autoCompleteTextView.getText().toString());
+                    startActivity(intent);
 
-                startActivity(intent);
+                }
+                else if (getIntent().getStringExtra("recherche").equals("Rentree"))
+                {
+                    Intent intent=new Intent(CoutTotalBesoin.this,ListeDesEntrees.class);
+                    intent.putExtra("sortie","libelle");
+                    intent.putExtra("libelle",autoCompleteTextView.getText().toString());
+                    startActivity(intent);
+                }
+                else if (getIntent().getStringExtra("recherche").equals("Rdemande"))
+                {
+                    Intent intent=new Intent(CoutTotalBesoin.this,ListeDesDemandes.class);
+                    intent.putExtra("sortie","libelle");
+                    intent.putExtra("libelle",autoCompleteTextView.getText().toString());
+                    startActivity(intent);
+                }
 
             }
         });

@@ -2,13 +2,20 @@ package com.example.hp.madose;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Parcelable;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +30,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.hp.madose.Listes.ListeDesDemandes;
 import com.example.hp.madose.model.Item;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -37,6 +45,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 public class Besoin extends AppCompatActivity {
     RadioButton radio;
@@ -253,19 +262,35 @@ public class Besoin extends AppCompatActivity {
 
 
 
-        quitte=(Button)findViewById(R.id.quitterB);
+      /*  quitte=(Button)findViewById(R.id.quitterB);
         quitte.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Besoin.this,Acceuil.class);
+               // Intent intent=new Intent(Besoin.this,Acceuil.class);
                 edi1.setText("");
                 edi2.setText("");
                 editLib.setText("");
                 auto.setText("");
-                startActivity(intent);
-                finish();
+                //startActivity(intent);
+               // finish();
+                NotificationCompat.Builder notification=new NotificationCompat.Builder(getBaseContext());
+                notification.setSmallIcon(R.drawable.ic_accueil_24dp);
+                notification.setContentText("Demande(s) ajoutées");
+                notification.setContentTitle("Demande");
+
+                Intent listedemande=new Intent(getBaseContext(),ListeDesDemandes.class);
+                TaskStackBuilder stackBuilder=TaskStackBuilder.create(getBaseContext());
+                stackBuilder.addParentStack(ListeDesDemandes.class);
+                stackBuilder.addNextIntent(listedemande);
+                PendingIntent resultIntent= stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
+                notification.setContentIntent(resultIntent);
+                notification.setAutoCancel(true);
+                NotificationManager notificationManager =(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+                Random random=new Random();
+                notificationManager.notify(random.nextInt(130000),notification.build());
             }
-        });
+        });*/
 
    if (MyApplication.isVerif()){
 
@@ -390,15 +415,31 @@ public class Besoin extends AppCompatActivity {
         });
         quitte=(Button)findViewById(R.id.quitterB);
         quitte.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Besoin.this,Acceuil.class);
+               // Intent intent=new Intent(Besoin.this,Acceuil.class);
                 edi1.setText("");
                 edi2.setText("");
                 editLib.setText("");
                 auto.setText("");
-                startActivity(intent);
-                finish();
+                //startActivity(intent);
+                //finish();
+                NotificationCompat.Builder notification=new NotificationCompat.Builder(getBaseContext());
+                notification.setSmallIcon(R.drawable.notif);
+                notification.setContentText("Demande(s) ajoutées");
+                notification.setContentTitle("Demande");
+
+                Intent listedemande=new Intent(getBaseContext(),ListeDesDemandes.class);
+                TaskStackBuilder stackBuilder=TaskStackBuilder.create(getBaseContext());
+                stackBuilder.addParentStack(ListeDesDemandes.class);
+                stackBuilder.addNextIntent(listedemande);
+                PendingIntent resultIntent= stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
+                notification.setContentIntent(resultIntent);
+                notification.setAutoCancel(true);
+                NotificationManager notificationManager =(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+                Random random=new Random();
+                notificationManager.notify(random.nextInt(130000),notification.build());
             }
         });
 

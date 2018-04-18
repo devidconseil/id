@@ -105,7 +105,7 @@ public class Affichage extends AppCompatActivity {
 **/
 //debut ooooooooooooooooooiiiiiiiiiiiiiiiiiiiiiiiiiooooooooooooooooooooooooooooooooo
 
-       if (getIntent().getStringExtra("passage").equals("fournisseur"))
+     /*  if (getIntent().getStringExtra("passage").equals("fournisseur"))
         {
 
             fournisseur = (TextView) findViewById(R.id.textView4);
@@ -245,9 +245,10 @@ public class Affichage extends AppCompatActivity {
                 count++;
             }*/
 
-        }
+       //r }
 
-        else if (getIntent().getStringExtra("passage").equals("departement"))
+      //r  else
+         /*   if (getIntent().getStringExtra("passage").equals("departement"))
         {
             departement = (TextView) findViewById(R.id.textView4);
             showProgressDialog();
@@ -343,7 +344,7 @@ public class Affichage extends AppCompatActivity {
 
 
 
-        if (getIntent().getStringExtra("passage").equals("categorie"))
+    /*r    if (getIntent().getStringExtra("passage").equals("categorie"))
 
         {
             categorie = (TextView) findViewById(R.id.textView2);
@@ -459,7 +460,7 @@ public class Affichage extends AppCompatActivity {
           stock.setVisibility(View.VISIBLE);
 
 
-        }
+        }*/
           if (getIntent().getStringExtra("passage").equals("demande")) {
             demande = (TextView) findViewById(R.id.textView2);
             showProgressDialog();

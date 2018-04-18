@@ -130,5 +130,11 @@ public class DemandeC {
                 "\nDate: " + dateDem +
                 "\n\n";
     }
+    public int toStringNum() {return numDem;}
+    public String toStringNomEmp() {return nomEmp;}
+    public String toStringLib() {return libBes;}
+    public String toStringDepa() {return libDpe;}
+    public int toStringQt() {return qte;}
+    public String toStringDate() {return dateDem;}
     public String dateo() {return dateDem;}
 }

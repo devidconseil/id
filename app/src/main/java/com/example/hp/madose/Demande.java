@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
@@ -19,6 +22,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,7 +33,7 @@ import java.util.Calendar;
 
 public class Demande extends AppCompatActivity {
 
-
+    private FirebaseAuth mAuth;
 
     DatabaseReference mDatabase;
 
@@ -557,5 +561,24 @@ public class Demande extends AppCompatActivity {
 
         DemandeC cat=new DemandeC(nomEmp,libDpe,libBes,dateDem,qte,heureDem);
         mDatabase.child("Demande").child(code).setValue(cat);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_affiche, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.deconnexion:
+                mAuth.signOut();
+                finish();
+                startActivity(new Intent(this, Authentification.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

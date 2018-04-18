@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ public class Authentification extends AppCompatActivity {
     ProgressDialog mProgressDialog;
     BaseDeDonne bd;
     String test="";
+    ConnexionDetector connexionDetector;
 
 // ...
 
@@ -51,6 +53,7 @@ public class Authentification extends AppCompatActivity {
             getSupportActionBar().setTitle("Authentification");
         }
 
+        connexionDetector=new ConnexionDetector(this);
         Button connect= findViewById(R.id.connexion);
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,8 +70,33 @@ public class Authentification extends AppCompatActivity {
                     identifiant.requestFocus();
                 }*/
 
-            updateUI(null);
-           signIn(identifiant.getText().toString(),motpass.getText().toString());
+             if(!connexionDetector.isConnected())
+             {
+                 Snackbar.make(v, "Connexion internet requise!!", Snackbar.LENGTH_LONG)
+                         .setAction("Action", null).show();
+
+             }
+             else if (connexionDetector.isConnected())
+             {
+                 if (identifiant.getText().toString().equals("") && motpass.getText().toString().equals(""))
+                 {
+                     Snackbar.make(v, "Veuillez saisir votre identifiant et votre mot de passe SVP!!", Snackbar.LENGTH_LONG)
+                             .setAction("Action", null).show();
+                 }
+                 else if(identifiant.getText().toString().equals(""))
+                 {
+                     identifiant.setError("Veuillez saisir votre identifiant SVP!!");
+                 }
+                 else if (motpass.getText().toString().equals(""))
+                 {
+                     motpass.setError("Veuillez saisir votre mot de passe SVP!!");
+                 }
+                 else
+                 {
+                     updateUI(null);
+                     signIn(identifiant.getText().toString(), motpass.getText().toString());
+                 }
+             }
 
 
 
@@ -144,7 +172,7 @@ public class Authentification extends AppCompatActivity {
             var3 = var2 + 3;
             bd.upDate(var3, "IMPRIMANTE");
 
-            bd.insertSortie("2018-10-10","1",bd.selectCurrentDate(),"adepatrickade@idconsulting.ie",true);
+            bd.insertSortie("2018-01-10","1",bd.selectCurrentDate(),"adepatrickade@idconsulting.ie",true);
 
             bd.insertSortieBesoin(1,1,1, "bic","bleu");
             var2 = Integer.parseInt(bd.selectStockBes("STYLO"));

@@ -47,7 +47,6 @@ public class DepartementListe extends AppCompatActivity {
 
                 Intent intent = new Intent(DepartementListe.this, Departement.class);
                 startActivity(intent);
-                finish();
             }
         });
     }

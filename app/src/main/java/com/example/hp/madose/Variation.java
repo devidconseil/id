@@ -7,6 +7,7 @@ import android.view.*;
 import android.widget.Button;
 
 import com.example.hp.madose.Listes.BesoinListe;
+import com.example.hp.madose.Listes.ListeDesEntrees;
 
 public class Variation extends AppCompatActivity {
 
@@ -25,7 +26,7 @@ public class Variation extends AppCompatActivity {
         entrees.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Variation.this,Affichage.class);
+                Intent intent=new Intent(Variation.this,ListeDesEntrees.class);
                 intent.putExtra("passage","entree");
                 startActivity(intent);
             }

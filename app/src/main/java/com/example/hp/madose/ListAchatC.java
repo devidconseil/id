@@ -34,4 +34,6 @@ public class ListAchatC {
         return  LibBes + "\n"+
                 "qte=" + Qte;
     }
+    public String toStringMat() {return  LibBes ;}
+    public int toStringQt() {return  Qte ;}
 }

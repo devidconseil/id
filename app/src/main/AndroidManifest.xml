@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.hp.madose">
-
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/logorecap"
@@ -60,7 +61,8 @@
         </activity>
         <activity
             android:name=".Utilisateur"
-            android:label="Employé">
+            android:label="Utilisateurs"
+            android:parentActivityName=".Listes.UtilisateurListe">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -105,14 +107,15 @@
             android:parentActivityName=".Acceuil" />
         <activity
             android:name=".CoutTotalBesoin"
-            android:parentActivityName=".Acceuil" />
+            />
         <activity android:name=".Listedepartement" />
         <activity
             android:name=".Affich"
             android:label="Affich" />
         <activity
             android:name=".Listes.BesoinListe"
-            android:parentActivityName=".Acceuil" />
+            android:parentActivityName=".Acceuil"
+            android:label="Liste des besoins"/>
         <activity android:name=".ListeUtilisateur" />
         <activity
             android:name=".ListeFournisseur"
@@ -122,13 +125,16 @@
         <activity android:name=".MyApplication" />
         <activity
             android:name=".Listes.ListeRupture"
-            android:parentActivityName=".Acceuil" />
+            android:parentActivityName=".Acceuil"
+            android:label="Matériel inférieur au seuil"/>
         <activity
             android:name=".Listes.StockSup"
-            android:parentActivityName=".Acceuil" />
+            android:parentActivityName=".Acceuil"
+            android:label="Matériel supérieur au seuil"/>
         <activity
             android:name=".Listes.StockEgale"
-            android:parentActivityName=".Acceuil" />
+            android:parentActivityName=".Acceuil"
+            android:label="Matériel égale au seuil"/>
         <activity android:name=".PageDeChargement" />
         <activity
             android:name=".Listes.FournisseurListe"
@@ -136,11 +142,27 @@
             android:parentActivityName=".Acceuil" />
         <activity
             android:name=".Listes.CategorieListe"
-            android:parentActivityName=".Acceuil" />
+            android:parentActivityName=".Acceuil"
+            android:label="Liste des catégories"/>
         <activity
             android:name=".Listes.DepartementListe"
-            android:parentActivityName=".Acceuil" />
-        <activity android:name=".Listes.UtilisateurListe"></activity>
+            android:parentActivityName=".Acceuil"
+            android:label="Liste des departements"/>
+        <activity android:name=".Listes.UtilisateurListe"
+            android:parentActivityName=".Acceuil"
+            android:label="Liste des utilisateurs"/>
+        <activity android:name=".Listes.ListeDesEntrees"
+            android:parentActivityName=".Acceuil"
+            android:label="Liste des approvisionnements"/>
+        <activity android:name=".Listes.ListeDesSorties"
+            android:parentActivityName=".Acceuil"
+            android:label="Liste des sorties"/>
+        <activity android:name=".Listes.ListeDesDemandes"
+            android:parentActivityName=".Acceuil"
+            android:label="Liste des demandes"/>
+        <activity android:name=".Listes.ListeAchat"
+            android:parentActivityName=".Acceuil"
+            android:label="Liste d'achat à faire"></activity>
     </application>
 
 </manifest>
