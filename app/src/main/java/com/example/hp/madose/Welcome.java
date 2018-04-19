@@ -25,6 +25,7 @@ public class Welcome extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Welcome.this,Authentification.class));
+                finish();
             }
         });
 
@@ -33,6 +34,7 @@ public class Welcome extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(Welcome.this,Utilisateur.class));
                 MyApplication.setNewAccount(true);
+                finish();
             }
         });
     }

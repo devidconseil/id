@@ -235,6 +235,7 @@ public class Acceuil extends AppCompatActivity
                         notification.setContentTitle("RecapApp");
 
                         Intent entree=new Intent(getBaseContext(),ListeDesEntrees.class);
+                        entree.putExtra("sortie","listeE");
                         TaskStackBuilder stackBuilder=TaskStackBuilder.create(getBaseContext());
                         stackBuilder.addParentStack(Acceuil.class);
                         stackBuilder.addNextIntent(entree);
@@ -291,6 +292,7 @@ public class Acceuil extends AppCompatActivity
                         notification.setContentTitle("RecapApp");
 
                         Intent listedemande=new Intent(getBaseContext(),ListeDesDemandes.class);
+                        listedemande.putExtra("sortie","listeD");
                         TaskStackBuilder stackBuilder=TaskStackBuilder.create(getBaseContext());
                         stackBuilder.addParentStack(Acceuil.class);
                         stackBuilder.addNextIntent(listedemande);
@@ -344,6 +346,7 @@ public class Acceuil extends AppCompatActivity
                         notification.setContentTitle("RecapApp");
 
                         Intent sortie=new Intent(getBaseContext(),ListeDesSorties.class);
+                        sortie.putExtra("sortie","listeS");
                         TaskStackBuilder stackBuilder=TaskStackBuilder.create(getBaseContext());
                         stackBuilder.addParentStack(Acceuil.class);
                         stackBuilder.addNextIntent(sortie);

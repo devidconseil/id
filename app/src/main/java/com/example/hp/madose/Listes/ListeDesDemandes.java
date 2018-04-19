@@ -194,6 +194,7 @@ public class ListeDesDemandes extends AppCompatActivity {
 
 
         String profile=bd.retrieveUserProfile(mAuth.getCurrentUser().getEmail());
+
         if (profile.equals("SUPER ADMIN")) {
 
             List<DemandeC> affF =null;
