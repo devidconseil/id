@@ -123,7 +123,7 @@ public class ListeDesDemandes extends AppCompatActivity {
                     Intent intent=new Intent(ListeDesDemandes.this,ListeDesDemandes.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     //intent.putExtra("passage","affichage2");
-                    intent.putExtra("passage","demande");
+                    intent.putExtra("sortie","listeD");
                     startActivity(intent);
                     hideProgressDialog();
                     count7=false;
@@ -198,11 +198,11 @@ public class ListeDesDemandes extends AppCompatActivity {
         if (profile.equals("SUPER ADMIN")) {
 
             List<DemandeC> affF =null;
-            if(getIntent().getStringExtra("passage").equals("libelle"))
+            if(getIntent().getStringExtra("sortie").equals("libelle"))
             {
                 affF = bd.afficheDemandeR(getIntent().getStringExtra("libelle"));
             }
-            else if (getIntent().getStringExtra("passage").equals("demande"))
+            else if (getIntent().getStringExtra("sortie").equals("listeD"))
             {
                 affF =bd.afficheDemande();
             }

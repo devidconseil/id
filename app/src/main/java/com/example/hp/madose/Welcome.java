@@ -35,7 +35,9 @@ public class Welcome extends AppCompatActivity {
         account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Welcome.this,Utilisateur.class));
+                Intent intent=new Intent(Welcome.this,Utilisateur.class);
+                intent.putExtra("status","new user request");
+                startActivity(intent);
                 MyApplication.setNewAccount(true);
                 finish();
             }

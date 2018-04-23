@@ -233,6 +233,7 @@ public class Acceuil extends AppCompatActivity
                         notification.setSmallIcon(R.drawable.recap);
                         notification.setContentText("Nouvel approvisionnement");
                         notification.setContentTitle("RecapApp");
+                      //  MyApplication.notifications.add("Nouvel approvisionnement.\nEffectué le " + cat.getDatEnt() + " à" + cat.getHeureEnt());
 
                         Intent entree=new Intent(getBaseContext(),ListeDesEntrees.class);
                         entree.putExtra("sortie","listeE");
@@ -289,6 +290,7 @@ public class Acceuil extends AppCompatActivity
                         notification.setSmallIcon(R.drawable.recap);
                         notification.setContentText("Nouvelle demande");
                         notification.setContentTitle("RecapApp");
+                      //  MyApplication.notifications.add("Nouvelle demande.\nEffectuée le " + cat.getDateDem() + " à" + cat.getHeureDem());
 
                         Intent listedemande=new Intent(getBaseContext(),ListeDesDemandes.class);
                         listedemande.putExtra("sortie","listeD");
@@ -345,6 +347,7 @@ public class Acceuil extends AppCompatActivity
                         notification.setSmallIcon(R.drawable.recap);
                         notification.setContentText("Nouvelle Sortie");
                         notification.setContentTitle("RecapApp");
+                       // MyApplication.notifications.add("Nouvelle sortie.\nEnregistrée le " + cat.getDate() + " à" + cat.getHeureSor());
 
                         Intent sortie=new Intent(getBaseContext(),ListeDesSorties.class);
                         sortie.putExtra("sortie","listeS");

@@ -1,7 +1,10 @@
 package com.example.hp.madose;
 
 import android.app.Application;
+import android.app.Notification;
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -14,6 +17,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 /**
  * Created by HP on 28/12/2017.
@@ -38,6 +47,7 @@ public class MyApplication extends Application {
     public static String employe;
     public static FirebaseAuth mAuth=FirebaseAuth.getInstance();
     public static DatabaseReference mDatabase=FirebaseDatabase.getInstance().getReference();
+    public static List<String> notifications=new ArrayList<>();
 
     public static String getCategorie() {
         return categorie;
@@ -61,6 +71,14 @@ public class MyApplication extends Application {
 
     public static boolean isFait() {
         return fait;
+    }
+
+    public static List<String> getNotifications() {
+        return notifications;
+    }
+
+    public static void setNotifications(List<String> notifications) {
+        MyApplication.notifications = notifications;
     }
 
     public static void setFait(boolean fait) {

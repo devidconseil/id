@@ -113,6 +113,7 @@ public class Listedepartement extends AppCompatActivity {
             final String var3 = intent.getStringExtra("employerrr");
             final String var4 = intent.getStringExtra("employerrrr");
             final String var5 = intent.getStringExtra("employerrrrr");
+            final String var6= intent.getStringExtra("status");
 
 
             affiche.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -130,6 +131,7 @@ public class Listedepartement extends AppCompatActivity {
                     intent.putExtra("employerrr", var3);
                     intent.putExtra("employerrrr", var4);
                     intent.putExtra("employerrrrr", var5);
+                    intent.putExtra("status",var6);
                     startActivity(intent);
                     finish();
                 }

@@ -1,5 +1,6 @@
 package com.example.hp.madose.Listes;
 
+import android.app.Notification;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,6 +43,7 @@ public class UtilisateurListe extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(UtilisateurListe.this, Utilisateur.class);
+                intent.putExtra("status","new user creating");
                 startActivity(intent);
             }
         });

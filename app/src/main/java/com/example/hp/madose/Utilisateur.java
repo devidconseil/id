@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.hp.madose.Listes.UtilisateurListe;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -64,6 +65,12 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
         ArrayList<String> nb=bd.affiNDE();
         ArrayAdapter<String>nombes=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,nb);
         codeD.setAdapter(nombes);
+        if (getIntent().getStringExtra("status").equals("new user request")){
+            spinner.setVisibility(View.INVISIBLE);
+        }
+        else {
+            spinner.setVisibility(View.VISIBLE);
+        }
 
         mDatabase.child("Departement").addValueEventListener(new ValueEventListener() {
             @Override
@@ -115,6 +122,12 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
                 intent.putExtra("employerrr",prenE.getText().toString());
                 intent.putExtra("employerrrr",mailE.getText().toString());
                 intent.putExtra("employerrrrr",telE.getText().toString());
+                if (spinner.getVisibility()==View.INVISIBLE){
+                    intent.putExtra("status","new user request");
+                }
+                if (spinner.getVisibility()==View.VISIBLE){
+                    intent.putExtra("status","new user creating");
+                }
                 startActivity(intent);
             }
         });
@@ -160,7 +173,7 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
                     telE.requestFocus();
                     telE.setError("Veuillez saisir le numéro de téléphone de l'utilisateur SVP!");
                 }
-                else if (spinner.getSelectedItem().toString().equals("Choisir le profil"))
+                else if (spinner.getSelectedItem().toString().equals("Choisir le profil") && getIntent().getStringExtra("status").equals("new user creating"))
                 {
                     spinner.requestFocus();
                     Toast.makeText(getBaseContext(),"Veuillez saisir le profil de l'utilisateur SVP!",Toast.LENGTH_LONG).show();
@@ -184,7 +197,12 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
                         if (prenE.getText().toString().contains("'")){
                             prenE.setText(prenE.getText().toString().replace("'","''"));
                         }
-                       bd.insertEmp(codeT.getText().toString(), prenE.getText().toString(), mailE.getText().toString(), telE.getText().toString(), x, spinner.getSelectedItem().toString());
+                        if (spinner.getSelectedItem().toString().equals("Choisir le profil")){
+                            bd.insertEmp(codeT.getText().toString(), prenE.getText().toString(), mailE.getText().toString(), telE.getText().toString(), x, "");
+                        }
+                        else {
+                            bd.insertEmp(codeT.getText().toString(), prenE.getText().toString(), mailE.getText().toString(), telE.getText().toString(), x, spinner.getSelectedItem().toString());
+                        }
                         bd.close();
                         String username=mailE.getText().toString().split("@")[0];
                         if (codeT.getText().toString().contains("''")){
@@ -195,8 +213,11 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
                         }
                         writeNewUser(username+"-"+codeT.getText().toString(),codeT.getText().toString(),prenE.getText().toString(),mailE.getText().toString(),telE.getText().toString(),codeD.getText().toString(),spinner.getSelectedItem().toString());
 
+                        if (MyApplication.isNewAccount()){
+                            MyApplication.notifications.add("Un nouvel utilisateur identifié "+mailE.getText().toString()+" est en attente de validation.");
+                        }
                         Toast.makeText(getApplicationContext(), "Utilisateur enregistré avec succès", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(Utilisateur.this, Affichage.class);
+                        Intent intent = new Intent(Utilisateur.this, ListeUtilisateur.class);
                         intent.putExtra("passage", "employe");
                         codeT.setText("");
                        // codeP.setText("");

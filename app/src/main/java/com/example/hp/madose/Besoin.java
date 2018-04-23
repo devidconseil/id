@@ -30,6 +30,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.hp.madose.Listes.BesoinListe;
 import com.example.hp.madose.Listes.ListeDesDemandes;
 import com.example.hp.madose.model.Item;
 import com.google.android.gms.appindexing.Action;
@@ -391,7 +392,7 @@ public class Besoin extends AppCompatActivity {
                         }
 
 
-                        Intent intent = new Intent(Besoin.this, Affichage.class);
+                        Intent intent = new Intent(Besoin.this, BesoinListe.class);
                         intent.putExtra("passage", "besoin");
                         startActivity(intent);
                         finish();
