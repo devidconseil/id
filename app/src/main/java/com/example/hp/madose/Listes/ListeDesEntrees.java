@@ -181,7 +181,7 @@ public class ListeDesEntrees extends AppCompatActivity {
         TextView autre=new TextView(this);
         autre.setTypeface(null, Typeface.BOLD);
         autre.setTextColor(Color.parseColor("#FFFFFF"));
-        autre.setText("AUTRES PRECISIONS");
+        autre.setText("PRECISIONS");
         autre.setPadding(15,15,15,15);
         tl.addView(autre);
         tableLayout.addView(tl,new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));

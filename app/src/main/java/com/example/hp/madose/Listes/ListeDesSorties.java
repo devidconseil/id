@@ -169,7 +169,7 @@ public class ListeDesSorties extends AppCompatActivity {
         TextView num=new TextView(this);
         num.setTypeface(null, Typeface.BOLD);
         num.setTextColor(Color.parseColor("#FFFFFF"));
-        num.setText("Num.Sort.");
+        num.setText("Num.");
         num.setPadding(15,15,15,15);
         tl.addView(num);
 
@@ -197,14 +197,14 @@ public class ListeDesSorties extends AppCompatActivity {
         TextView autre=new TextView(this);
         autre.setTypeface(null, Typeface.BOLD);
         autre.setTextColor(Color.parseColor("#FFFFFF"));
-        autre.setText("AUTRES PRECISIONS");
+        autre.setText("PRECISIONS");
         autre.setPadding(15,15,15,15);
         tl.addView(autre);
 
         TextView qt=new TextView(this);
         qt.setTypeface(null, Typeface.BOLD);
         qt.setTextColor(Color.parseColor("#FFFFFF"));
-        qt.setText("QUANTITE");
+        qt.setText("QT");
         qt.setPadding(15,15,15,15);
         tl.addView(qt);
 

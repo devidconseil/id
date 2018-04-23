@@ -420,4 +420,7 @@ FirebaseAuth.getInstance().signOut();
         MyApplication.getmDatabase().child("Fournisseur").child(code).setValue(cat);
     }
 
+
+
+
 }

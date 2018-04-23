@@ -1245,7 +1245,7 @@ public ArrayList<String> affiNumDem(int idemp)
     public String selectNumeDem(String demande,String employe)
     {
 
-        String paco="select Demande.numDem from Demande,Utilisateur where Demande.IdEmp=Utilisateur.IdEmp and Demande.DateDem=strftime('%s','"+demande+"') and Utilisateur.nomEmp||' '||Utilisateur.prenEmp='"+employe+"'ORDER BY Demande.numDem DESC;";
+        String paco="select Demande.numDem from Demande,Utilisateur where Demande.IdEmp=Utilisateur.IdEmp and Demande.DateDem=strftime('%s','"+demande+"') and Utilisateur.nomEmp||' '||Utilisateur.prenEmp='"+employe+"';";
         Cursor cursor = null;
         try {
 
@@ -1258,7 +1258,7 @@ public ArrayList<String> affiNumDem(int idemp)
     public String selectNumeDem(String demande,String employe,String depart)
     {
 
-        String paco="select Demande.numDem from Demande,Utilisateur,Departement where Demande.HeureDem=strftime('%s','"+demande+"') and ((Demande.IdEmp=Utilisateur.IdEmp and Utilisateur.nomEmp||' '||Utilisateur.prenEmp='"+employe+"') or ( Demande.IdDep=Departement.IdDep and libDep='"+depart+"' and Demande.IdEmp is null ORDER BY Demande.numDem DESC));";
+        String paco="select Demande.numDem from Demande,Utilisateur,Departement where Demande.HeureDem=strftime('%s','"+demande+"') and ((Demande.IdEmp=Utilisateur.IdEmp and Utilisateur.nomEmp||' '||Utilisateur.prenEmp='"+employe+"') or ( Demande.IdDep=Departement.IdDep and libDep='"+depart+"' and Demande.IdEmp is null ));";
         Cursor cursor = null;
         try {
 
@@ -1359,7 +1359,7 @@ public ArrayList<String> affiNumDem(int idemp)
     public List<Stock2> afficheStock2() {
 
         List<Stock2> affStok2 = new ArrayList<>();
-        String req = "select Sortie.NumSor,Besoin.libBes,Besoin.typeBes,qte,nomEmp || ' ' || PrenEmp,date(DateSor,'unixepoch'),Sortie.HeureSor FROM Besoin,Besoins_Sortie, Demande,Utilisateur,Sortie WHERE Besoin.NumBes=Besoins_Sortie.NumBes and Sortie.numDem=Demande.numDem and Utilisateur.IdEmp=Demande.IdEmp and Besoins_Sortie.NumSor=Sortie.NumSor ORDER BY DateSor DESC;";
+        String req = "select Sortie.NumSor,Besoin.libBes,Besoin.typeBes,qte,nomEmp || ' ' || PrenEmp,date(DateSor,'unixepoch'),Sortie.HeureSor FROM Besoin,Besoins_Sortie, Demande,Utilisateur,Sortie WHERE Besoin.NumBes=Besoins_Sortie.NumBes and Sortie.numDem=Demande.numDem and Utilisateur.IdEmp=Demande.IdEmp and Besoins_Sortie.NumSor=Sortie.NumSor ORDER BY Sortie.NumSor DESC;";
         Cursor cursor = this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -1391,7 +1391,7 @@ public ArrayList<String> affiNumDem(int idemp)
     public List<Stock2> afficheStock22() {
 
         List<Stock2> affStok2 = new ArrayList<>();
-        String req = "select Sortie.NumSor,date(DateSor,'unixepoch'),Besoin.libBes,Besoin.typeBes,marqueBes, `Autre précision`,qte, PrenEmp|| ' ' || nomEmp FROM Besoin,Besoins_Sortie, Demande,Utilisateur,Sortie WHERE Besoin.NumBes=Besoins_Sortie.NumBes and Sortie.numDem=Demande.numDem and Utilisateur.IdEmp=Demande.IdEmp and Besoins_Sortie.NumSor=Sortie.NumSor ORDER BY DateSor DESC;";
+        String req = "select Sortie.NumSor,date(DateSor,'unixepoch'),Besoin.libBes,Besoin.typeBes,marqueBes, `Autre précision`,qte, PrenEmp|| ' ' || nomEmp FROM Besoin,Besoins_Sortie, Demande,Utilisateur,Sortie WHERE Besoin.NumBes=Besoins_Sortie.NumBes and Sortie.numDem=Demande.numDem and Utilisateur.IdEmp=Demande.IdEmp and Besoins_Sortie.NumSor=Sortie.NumSor ORDER BY Sortie.NumSor DESC;";
         Cursor cursor = this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -1543,7 +1543,8 @@ public ArrayList<String> affiNumDem(int idemp)
         List<ListAchatC>affS=new ArrayList<>();
 
 
-        String req="select Besoin.libBes,sum(qte) as qte from Besoin,Demande_Besoins,Demande where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem  group by libBes;";
+        //String req="select Besoin.libBes,sum(qte) as qte from Besoin,Demande_Besoins,Demande where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem  group by libBes;";
+        String req="select Besoin.libBes, (Besoin.StockBes-(Demande_Besoins.qte - Besoins_Sortie.qte)) as qte from Besoins_Sortie,Besoin,Demande_Besoins where Besoin.NumBes=Besoins_Sortie.Numbes and Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.qte > Besoins_Sortie.qte group by libBes;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
