@@ -110,7 +110,7 @@ public class ListeDesEntrees extends AppCompatActivity {
                     Intent intent=new Intent(ListeDesEntrees.this,ListeDesEntrees.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     //intent.putExtra("passage","affichage2");
-                    intent.putExtra("passage","entree");
+                    intent.putExtra("sortie","listeE");
                     startActivity(intent);
                     hideProgressDialog();
                     count=false;

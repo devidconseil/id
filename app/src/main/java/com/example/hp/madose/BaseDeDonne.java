@@ -1014,7 +1014,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     public ArrayList<String> affiNE()
     {
         ArrayList<String>nd=new ArrayList<>();
-        String req="select nomEmp from Utilisateur;";
+        String req="select nomEmp || ' ' || prenEmp from Utilisateur;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
