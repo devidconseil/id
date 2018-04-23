@@ -230,7 +230,7 @@ public class Acceuil extends AppCompatActivity
 
                         //Notification debut
                         NotificationCompat.Builder notification=new NotificationCompat.Builder(Acceuil.this);
-                        notification.setSmallIcon(R.drawable.recap);
+                        notification.setSmallIcon(R.drawable.ic_logde);
                         notification.setContentText("Nouvel approvisionnement");
                         notification.setContentTitle("RecapApp");
 
@@ -286,8 +286,8 @@ public class Acceuil extends AppCompatActivity
 
                         //Notification debut
                        NotificationCompat.Builder notification=new NotificationCompat.Builder(getBaseContext());
-                        notification.setSmallIcon(R.drawable.recap);
-                        notification.setContentText("Nouvelle demande");
+                        notification.setSmallIcon(R.drawable.ic_logde);
+                        notification.setContentText("Une demande faite par "+cat.getNomEmp());
                         notification.setContentTitle("RecapApp");
 
                         Intent listedemande=new Intent(getBaseContext(),ListeDesDemandes.class);
@@ -342,7 +342,7 @@ public class Acceuil extends AppCompatActivity
 
                         //Notification debut
                         NotificationCompat.Builder notification=new NotificationCompat.Builder(getBaseContext());
-                        notification.setSmallIcon(R.drawable.recap);
+                        notification.setSmallIcon(R.drawable.ic_logde);
                         notification.setContentText("Nouvelle Sortie");
                         notification.setContentTitle("RecapApp");
 
