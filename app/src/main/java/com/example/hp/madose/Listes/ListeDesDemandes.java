@@ -200,6 +200,7 @@ public class ListeDesDemandes extends AppCompatActivity {
             List<DemandeC> affF =null;
             if(getIntent().getStringExtra("sortie").equals("libelle"))
             {
+                //pour recherche
                 affF = bd.afficheDemandeR(getIntent().getStringExtra("libelle"));
             }
             else if (getIntent().getStringExtra("sortie").equals("listeD"))
