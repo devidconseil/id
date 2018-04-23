@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -29,6 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Demande extends AppCompatActivity {
@@ -221,7 +223,7 @@ public class Demande extends AppCompatActivity {
         });
 
         //AutoTextComplete
-        /*ArrayList<String> nd=bd.affiNE();
+        ArrayList<String> nd=bd.affiNE();
         ArrayAdapter<String> dep=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,nd);
         employe.setAdapter(dep);
 
@@ -231,7 +233,7 @@ public class Demande extends AppCompatActivity {
 
         ArrayList<String> nb=bd.affiNB();
         ArrayAdapter<String>nombes=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,nb);
-        bes.setAdapter(nombes);*/
+        bes.setAdapter(nombes);
         //FIN
 
 
