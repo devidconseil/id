@@ -151,30 +151,30 @@ public class Authentification extends AppCompatActivity {
             bd.insertEntr("2018-01-02", 4,"","padejinle@idconsulting.ie",true);
 
 
-            bd.insertEntrBes(1, 1, 150, 5, "Bic", "bleu");
+            bd.insertEntrBes(1, 1, 150, 5, "Bic", "Bleu");
             int var2 = Integer.parseInt(bd.selectStockBes("STYLO"));
             int var3 = var2 + 5;
             bd.upDate(var3, "STYLO");
-            bd.insertEntrBes(2, 1, 250, 5, "Bic", "noir, permanent");
+            bd.insertEntrBes(2, 1, 250, 5, "Bic", "Noir, permanent");
             var2 = Integer.parseInt(bd.selectStockBes("MARKER"));
             var3 = var2 + 5;
             bd.upDate(var3, "MARKER");
-            bd.insertEntrBes(6, 2, 450000, 5, "HP", "noir, core i5, portable");
+            bd.insertEntrBes(6, 2, 450000, 5, "HP", "Noir, core i5, portable");
             var2 = Integer.parseInt(bd.selectStockBes("ORDINATEUR"));
             var3 = var2 + 5;
             bd.upDate(var3, "ORDINATEUR");
-            bd.insertEntrBes(4, 2, 500, 5, "PRIVILEGE", "200 sticks");
+            bd.insertEntrBes(4, 2, 500, 5, "PRIVILEGE", "200 Sticks");
             var2 = Integer.parseInt(bd.selectStockBes("STICKY NOTES"));
             var3 = var2 + 5;
             bd.upDate(var3, "ORDINATEUR");
-            bd.insertEntrBes(5, 1, 250000, 3, "SAMSUNG", "blanc");
+            bd.insertEntrBes(5, 1, 250000, 3, "SAMSUNG", "Blanc");
             var2 = Integer.parseInt(bd.selectStockBes("IMPRIMANTE"));
             var3 = var2 + 3;
             bd.upDate(var3, "IMPRIMANTE");
 
             bd.insertSortie("2018-01-10","1",bd.selectCurrentDate(),"adepatrickade@idconsulting.ie",true);
 
-            bd.insertSortieBesoin(1,1,1, "bic","bleu");
+            bd.insertSortieBesoin(1,1,1, "Bic","Bleu");
             var2 = Integer.parseInt(bd.selectStockBes("STYLO"));
             var3 = var2 - 1;
             bd.upDate(var3, "STYLO");
