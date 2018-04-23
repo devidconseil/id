@@ -150,7 +150,7 @@ public class ListeDesDemandes extends AppCompatActivity {
         TextView num=new TextView(this);
         num.setTypeface(null, Typeface.BOLD);
         num.setTextColor(Color.parseColor("#FFFFFF"));
-        num.setText("Num.Dem.");
+        num.setText("Num.");
         num.setPadding(15,15,15,15);
         tl.addView(num);
 
@@ -171,7 +171,7 @@ public class ListeDesDemandes extends AppCompatActivity {
         TextView prent=new TextView(this);
         prent.setTypeface(null, Typeface.BOLD);
         prent.setTextColor(Color.parseColor("#FFFFFF"));
-        prent.setText("Quantité");
+        prent.setText("Qt");
         prent.setPadding(15,15,15,15);
         tl.addView(prent);
 
@@ -182,18 +182,19 @@ public class ListeDesDemandes extends AppCompatActivity {
         autre.setPadding(15,15,15,15);
         tl.addView(autre);
 
-        TextView qt=new TextView(this);
+       /* TextView qt=new TextView(this);
         qt.setTypeface(null, Typeface.BOLD);
         qt.setTextColor(Color.parseColor("#FFFFFF"));
         qt.setText("DEPARTEMENT");
         qt.setPadding(15,15,15,15);
-        tl.addView(qt);
+        tl.addView(qt);*/
 
         tableLayout.addView(tl,new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
 
 
         String profile=bd.retrieveUserProfile(mAuth.getCurrentUser().getEmail());
+
         if (profile.equals("SUPER ADMIN")) {
 
             List<DemandeC> affF =null;
@@ -248,11 +249,11 @@ public class ListeDesDemandes extends AppCompatActivity {
                 item5.setText(emp.toStringNomEmp());
                 tr.addView(item5);
 
-                TextView item6 = new TextView(this);
+               /* TextView item6 = new TextView(this);
                 item6.setPadding(15, 15, 15, 15);
                 item6.setTextColor(Color.parseColor("#000000"));
                 item6.setText(emp.toStringDepa());
-                tr.addView(item6);
+                tr.addView(item6);*/
 
 
                 tableLayout.addView(tr, new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));

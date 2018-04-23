@@ -235,6 +235,7 @@ public class Acceuil extends AppCompatActivity
                         notification.setContentTitle("RecapApp");
 
                         Intent entree=new Intent(getBaseContext(),ListeDesEntrees.class);
+                        entree.putExtra("sortie","listeE");
                         TaskStackBuilder stackBuilder=TaskStackBuilder.create(getBaseContext());
                         stackBuilder.addParentStack(Acceuil.class);
                         stackBuilder.addNextIntent(entree);
@@ -266,7 +267,6 @@ public class Acceuil extends AppCompatActivity
                     Log.i("I MISS YOU",cat.getDateDem()+" "+cat.getNomEmp());
 
                     if (! bd.checkIfDemandeBesoinExist(cat.getHeureDem(),cat.getLibBes())){
-
                         int ssss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
                         if (cat.getLibDpe().equals("")){
                             int ss=Integer.parseInt(bd.selectEmpId(cat.getNomEmp()));
@@ -285,12 +285,13 @@ public class Acceuil extends AppCompatActivity
                         }
 
                         //Notification debut
-                        NotificationCompat.Builder notification=new NotificationCompat.Builder(getBaseContext());
+                       NotificationCompat.Builder notification=new NotificationCompat.Builder(getBaseContext());
                         notification.setSmallIcon(R.drawable.recap);
                         notification.setContentText("Nouvelle demande");
                         notification.setContentTitle("RecapApp");
 
                         Intent listedemande=new Intent(getBaseContext(),ListeDesDemandes.class);
+                        listedemande.putExtra("sortie","listeD");
                         TaskStackBuilder stackBuilder=TaskStackBuilder.create(getBaseContext());
                         stackBuilder.addParentStack(Acceuil.class);
                         stackBuilder.addNextIntent(listedemande);
@@ -318,6 +319,7 @@ public class Acceuil extends AppCompatActivity
         mDatabase.child("Sorties").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                int compter=0;
                 for (DataSnapshot dataSnapshotSor:dataSnapshot.getChildren()){
                     Stock2 cat= dataSnapshotSor.getValue(Stock2.class);
                     Log.i("VOILA SORTIE",cat.getNomEmp()+" "+cat.getDateDem()+" "+cat.getLibDep());
@@ -328,6 +330,7 @@ public class Acceuil extends AppCompatActivity
                             String numDem=bd.selectNumeDem(cat.getDateDem(),cat.getNomEmp(),cat.getLibDep());
                             Log.i("TOUTDEH",""+numDem);
                             bd.insertSortie(cat.getDate(),numDem,cat.getHeureSor(),cat.getNomEmp(),false);
+                            compter++;
                         }
                         int var1=Integer.parseInt(bd.selectIdSortie());
                         int var2=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
@@ -344,6 +347,7 @@ public class Acceuil extends AppCompatActivity
                         notification.setContentTitle("RecapApp");
 
                         Intent sortie=new Intent(getBaseContext(),ListeDesSorties.class);
+                        sortie.putExtra("sortie","listeS");
                         TaskStackBuilder stackBuilder=TaskStackBuilder.create(getBaseContext());
                         stackBuilder.addParentStack(Acceuil.class);
                         stackBuilder.addNextIntent(sortie);
@@ -359,6 +363,7 @@ public class Acceuil extends AppCompatActivity
                         notificationManager.notify(random.nextInt(130000),notification.build());
                         //Notification fin
                     }
+
                 }
 
             }

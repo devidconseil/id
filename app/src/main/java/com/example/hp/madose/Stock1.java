@@ -6,9 +6,10 @@ package com.example.hp.madose;
 
 public class Stock1 {
     String LibBes,TypeBes,date,Marque,Autre;
-    int PU , Qte;
+    int PU , Qte,numEnt;
 
-    public Stock1(String libBes, String typeBes, int PU, int qte,String date,String Marque,String Autre) {
+    public Stock1(int numEnt,String libBes, String typeBes, int PU, int qte,String date,String Marque,String Autre) {
+        this.numEnt=numEnt;
         this.LibBes = libBes;
         this.TypeBes = typeBes;
         this.PU = PU;
@@ -41,6 +42,10 @@ public class Stock1 {
 
     public int getQte() {
         return Qte;
+    }
+
+    public int getNumEnt() {
+        return numEnt;
     }
 
     public String getDate() {

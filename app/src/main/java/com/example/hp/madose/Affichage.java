@@ -823,17 +823,17 @@ public class Affichage extends AppCompatActivity {
 
         }
 
-     findViewById(R.id.floatingRetour).setOnClickListener(new View.OnClickListener() {
+    /* findViewById(R.id.floatingRetour).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(Affichage.this,Acceuil.class);
                 startActivity(intent);
             }
-        });
+        });*/
      findViewById(R.id.floatingAjout).setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-             if (getIntent().getStringExtra("passage").equals("fournisseur"))
+            /* if (getIntent().getStringExtra("passage").equals("fournisseur"))
              {
                  Intent intent=new Intent(Affichage.this,Fournisseur.class);
                  startActivity(intent);
@@ -871,7 +871,7 @@ public class Affichage extends AppCompatActivity {
                  intent.putExtra("code","affichage");
                  startActivity(intent);
              }
-             else if (getIntent().getStringExtra("passage").equals("demande"))
+             else */if (getIntent().getStringExtra("passage").equals("demande"))
              {
                  Intent intent=new Intent(Affichage.this,Demande.class);
                  intent.putExtra("code","affichage");

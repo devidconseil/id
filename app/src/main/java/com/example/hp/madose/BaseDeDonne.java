@@ -728,7 +728,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         List<DemandeC> affD=new ArrayList<>();
 
 
-        String req="select Demande.numDem,prenEmp||' '||nomEmp,libBes,qte,date(dateDem,'unixepoch'),libDep from Demande,Demande_Besoins,Utilisateur,Besoin,Departement where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem and Utilisateur.IdDep=Departement.IdDep and Utilisateur.IdEmp=Demande.IdEmp;";
+        String req="select Demande.numDem,prenEmp||' '||nomEmp,libBes,qte,date(dateDem,'unixepoch'),libDep from Demande,Demande_Besoins,Utilisateur,Besoin,Departement where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem and Utilisateur.IdDep=Departement.IdDep and Utilisateur.IdEmp=Demande.IdEmp ORDER BY Demande.numDem DESC;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -751,7 +751,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         List<DemandeC> affD=new ArrayList<>();
 
 
-        String req="select Demande.numDem,prenEmp||' '||nomEmp,libBes,qte,date(dateDem,'unixepoch'),libDep from Demande,Demande_Besoins,Utilisateur,Besoin,Departement where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem and Utilisateur.IdDep=Departement.IdDep and Utilisateur.IdEmp=Demande.IdEmp and libBes='"+var+"';";
+        String req="select Demande.numDem,prenEmp||' '||nomEmp,libBes,qte,date(dateDem,'unixepoch'),libDep from Demande,Demande_Besoins,Utilisateur,Besoin,Departement where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem and Utilisateur.IdDep=Departement.IdDep and Utilisateur.IdEmp=Demande.IdEmp and libBes='"+var+"' ORDER BY Demande.numDem DESC;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -774,7 +774,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         List<DemandeC> affD=new ArrayList<>();
 
 
-        String req="select Demande.numDem,nomEmp,libBes,qte,date(dateDem,'unixepoch'),libDep from Demande,Demande_Besoins,Utilisateur,Besoin,Departement where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem and Demande.IdDep=Departement.IdDep and Utilisateur.IdEmp=Demande.IdEmp and Utilisateur.MailEmp='"+mail+"';";
+        String req="select Demande.numDem,nomEmp,libBes,qte,date(dateDem,'unixepoch'),libDep from Demande,Demande_Besoins,Utilisateur,Besoin,Departement where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem and Demande.IdDep=Departement.IdDep and Utilisateur.IdEmp=Demande.IdEmp and Utilisateur.MailEmp='"+mail+"'ORDER BY Demande.numDem DESC;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -797,7 +797,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         List<DemandeC> affD=new ArrayList<>();
 
 
-        String req="select Demande.numDem,nomEmp,libBes,qte,date(dateDem,'unixepoch'),libDep from Demande,Demande_Besoins,Utilisateur,Besoin,Departement where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem and Demande.IdDep=Departement.IdDep and Utilisateur.IdEmp=Demande.IdEmp and Utilisateur.MailEmp='"+mail+"' and libBes='"+var+"';";
+        String req="select Demande.numDem,nomEmp,libBes,qte,date(dateDem,'unixepoch'),libDep from Demande,Demande_Besoins,Utilisateur,Besoin,Departement where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem and Demande.IdDep=Departement.IdDep and Utilisateur.IdEmp=Demande.IdEmp and Utilisateur.MailEmp='"+mail+"' and libBes='"+var+"'ORDER BY Demande.numDem DESC;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -821,7 +821,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         List<DemandeC> affD=new ArrayList<>();
 
 
-        String req="select Demande.numDem,Departement.libDep,Besoin.libBes,Demande_Besoins.qte,date(Demande.dateDem,'unixepoch') from Demande,Demande_Besoins,Departement,Besoin where Demande.numDem=Demande_Besoins.numDem and Demande_Besoins.NumBes=Besoin.NumBes and Demande.IdDep=Departement.IdDep and Demande.IdEmp is null ;";
+        String req="select Demande.numDem,Departement.libDep,Besoin.libBes,Demande_Besoins.qte,date(Demande.dateDem,'unixepoch') from Demande,Demande_Besoins,Departement,Besoin where Demande.numDem=Demande_Besoins.numDem and Demande_Besoins.NumBes=Besoin.NumBes and Demande.IdDep=Departement.IdDep and Demande.IdEmp is null ORDER BY Demande.numDem DESC;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -1258,7 +1258,7 @@ public ArrayList<String> affiNumDem(int idemp)
     public String selectNumeDem(String demande,String employe,String depart)
     {
 
-        String paco="select Demande.numDem from Demande,Utilisateur,Departement where Demande.HeureDem=strftime('%s','"+demande+"') and ((Demande.IdEmp=Utilisateur.IdEmp and Utilisateur.nomEmp||' '||Utilisateur.prenEmp='"+employe+"') or ( Demande.IdDep=Departement.IdDep and libDep='"+depart+"' and Demande.IdEmp is null));";
+        String paco="select Demande.numDem from Demande,Utilisateur,Departement where Demande.HeureDem=strftime('%s','"+demande+"') and ((Demande.IdEmp=Utilisateur.IdEmp and Utilisateur.nomEmp||' '||Utilisateur.prenEmp='"+employe+"') or ( Demande.IdDep=Departement.IdDep and libDep='"+depart+"' and Demande.IdEmp is null ));";
         Cursor cursor = null;
         try {
 
@@ -1327,12 +1327,12 @@ public ArrayList<String> affiNumDem(int idemp)
     public List<Stock1> afficheStock1() {
 
         List<Stock1> affStok1 = new ArrayList<>();
-        String req = "select libBes,typeBes,PU,qte,date(Entree.DateEnt,'unixepoch'), marqueBes, autrePrecision FROM Besoin,Besoins_Entree,Entree WHERE Besoin.NumBes=Besoins_Entree.NumBes and Entree.numEnt=Besoins_Entree.numEnt ORDER BY DateEnt DESC;";
+        String req = "select Besoins_Entree.numEnt,libBes,typeBes,PU,qte,date(Entree.DateEnt,'unixepoch'), marqueBes, autrePrecision FROM Besoin,Besoins_Entree,Entree WHERE Besoin.NumBes=Besoins_Entree.NumBes and Entree.numEnt=Besoins_Entree.numEnt ORDER BY Besoins_Entree.numEnt DESC;";
         Cursor cursor = this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
-            Stock1 disp = new Stock1(cursor.getString(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3),cursor.getString(4),cursor.getString(5),cursor.getString(6));
+            Stock1 disp = new Stock1(cursor.getInt(0),cursor.getString(1), cursor.getString(2), cursor.getInt(3), cursor.getInt(4),cursor.getString(5),cursor.getString(6),cursor.getString(7));
             affStok1.add(disp);
             cursor.moveToNext();
         }
@@ -1343,12 +1343,12 @@ public ArrayList<String> affiNumDem(int idemp)
     public List<Stock1> afficheLibEntree(String var) {
 
         List<Stock1> affStok1 = new ArrayList<>();
-        String req = "select libBes,typeBes,PU,qte,date(Entree.DateEnt,'unixepoch'), marqueBes, autrePrecision FROM Besoin,Besoins_Entree,Entree WHERE Besoin.NumBes=Besoins_Entree.NumBes and Entree.numEnt=Besoins_Entree.numEnt and libBes='"+var+"' ORDER BY DateEnt DESC;";
+        String req = "select Besoins_Entree.numEnt,libBes,typeBes,PU,qte,date(Entree.DateEnt,'unixepoch'), marqueBes, autrePrecision FROM Besoin,Besoins_Entree,Entree WHERE Besoin.NumBes=Besoins_Entree.NumBes and Entree.numEnt=Besoins_Entree.numEnt and libBes='"+var+"' ORDER BY Besoins_Entree.numEnt DESC;";
         Cursor cursor = this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
-            Stock1 disp = new Stock1(cursor.getString(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3),cursor.getString(4),cursor.getString(5),cursor.getString(6));
+            Stock1 disp = new Stock1(cursor.getInt(0),cursor.getString(1), cursor.getString(2), cursor.getInt(3), cursor.getInt(4),cursor.getString(5),cursor.getString(6),cursor.getString(7));
             affStok1.add(disp);
             cursor.moveToNext();
         }
@@ -1359,7 +1359,7 @@ public ArrayList<String> affiNumDem(int idemp)
     public List<Stock2> afficheStock2() {
 
         List<Stock2> affStok2 = new ArrayList<>();
-        String req = "select Sortie.NumSor,Besoin.libBes,Besoin.typeBes,qte,nomEmp || ' ' || PrenEmp,date(DateSor,'unixepoch'),Sortie.HeureSor FROM Besoin,Besoins_Sortie, Demande,Utilisateur,Sortie WHERE Besoin.NumBes=Besoins_Sortie.NumBes and Sortie.numDem=Demande.numDem and Utilisateur.IdEmp=Demande.IdEmp and Besoins_Sortie.NumSor=Sortie.NumSor ORDER BY DateSor DESC;";
+        String req = "select Sortie.NumSor,Besoin.libBes,Besoin.typeBes,qte,nomEmp || ' ' || PrenEmp,date(DateSor,'unixepoch'),Sortie.HeureSor FROM Besoin,Besoins_Sortie, Demande,Utilisateur,Sortie WHERE Besoin.NumBes=Besoins_Sortie.NumBes and Sortie.numDem=Demande.numDem and Utilisateur.IdEmp=Demande.IdEmp and Besoins_Sortie.NumSor=Sortie.NumSor ORDER BY Sortie.NumSor DESC;";
         Cursor cursor = this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -1391,7 +1391,7 @@ public ArrayList<String> affiNumDem(int idemp)
     public List<Stock2> afficheStock22() {
 
         List<Stock2> affStok2 = new ArrayList<>();
-        String req = "select Sortie.NumSor,date(DateSor,'unixepoch'),Besoin.libBes,Besoin.typeBes,marqueBes, `Autre précision`,qte, PrenEmp|| ' ' || nomEmp FROM Besoin,Besoins_Sortie, Demande,Utilisateur,Sortie WHERE Besoin.NumBes=Besoins_Sortie.NumBes and Sortie.numDem=Demande.numDem and Utilisateur.IdEmp=Demande.IdEmp and Besoins_Sortie.NumSor=Sortie.NumSor ORDER BY DateSor DESC;";
+        String req = "select Sortie.NumSor,date(DateSor,'unixepoch'),Besoin.libBes,Besoin.typeBes,marqueBes, `Autre précision`,qte, PrenEmp|| ' ' || nomEmp FROM Besoin,Besoins_Sortie, Demande,Utilisateur,Sortie WHERE Besoin.NumBes=Besoins_Sortie.NumBes and Sortie.numDem=Demande.numDem and Utilisateur.IdEmp=Demande.IdEmp and Besoins_Sortie.NumSor=Sortie.NumSor ORDER BY Sortie.NumSor DESC;";
         Cursor cursor = this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -1543,7 +1543,8 @@ public ArrayList<String> affiNumDem(int idemp)
         List<ListAchatC>affS=new ArrayList<>();
 
 
-        String req="select Besoin.libBes,sum(qte) as qte from Besoin,Demande_Besoins,Demande where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem  group by libBes;";
+        //String req="select Besoin.libBes,sum(qte) as qte from Besoin,Demande_Besoins,Demande where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem  group by libBes;";
+        String req="select Besoin.libBes, (Besoin.StockBes-(Demande_Besoins.qte - Besoins_Sortie.qte)) as qte from Besoins_Sortie,Besoin,Demande_Besoins where Besoin.NumBes=Besoins_Sortie.Numbes and Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.qte > Besoins_Sortie.qte group by libBes;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 

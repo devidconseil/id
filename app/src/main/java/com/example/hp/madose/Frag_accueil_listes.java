@@ -49,8 +49,8 @@ public class Frag_accueil_listes extends Fragment {
         demande.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),ListeDesDemandes.class);
-                intent.putExtra("sortie","listeD");
+                Intent intent=new Intent(getActivity(),CoutTotalBesoin.class);
+                intent.putExtra("recherche","cout");
                 startActivity(intent);
             }
         });
@@ -64,7 +64,24 @@ public class Frag_accueil_listes extends Fragment {
             }
         });
 
-       /* stock.setOnClickListener(new View.OnClickListener() {
+
+        demand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(),ListeDesDemandes.class);
+                intent.putExtra("sortie","listeD");
+                startActivity(intent);
+            }
+        });
+        liste_achats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(),ListeAchat.class);
+                intent.putExtra("passage","Liste_achats");
+                startActivity(intent);
+            }
+        });
+          /* stock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getActivity(),Affichage.class);
@@ -72,15 +89,6 @@ public class Frag_accueil_listes extends Fragment {
                 startActivity(intent);
             }
         });*/
-
-        demand.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),ListeDesDemandes.class);
-                intent.putExtra("passage","demande");
-                startActivity(intent);
-            }
-        });
 
        /* rupture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,14 +99,7 @@ public class Frag_accueil_listes extends Fragment {
             }
         });*/
 
-        liste_achats.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(getActivity(),ListeAchat.class);
-                intent.putExtra("passage","Liste_achats");
-                startActivity(intent);
-            }
-        });
+
 
 
         return rootView;

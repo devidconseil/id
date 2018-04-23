@@ -61,6 +61,13 @@ public class CoutTotalBesoin extends AppCompatActivity {
                     startActivity(intent);
                 }
 
+                else if (getIntent().getStringExtra("recherche").equals("cout"))
+                {
+                    Intent intent=new Intent(CoutTotalBesoin.this,Affichage.class);
+                    intent.putExtra("passage","Cout");
+
+                    startActivity(intent);
+                }
             }
         });
     }
