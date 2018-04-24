@@ -141,6 +141,7 @@ public class ListeDesDemandes extends AppCompatActivity {
 
         tableLayout=(TableLayout)findViewById(R.id.tableauLD);
         tableLayout.setPadding(12,16,12,16);
+
         TableRow tl=new TableRow(this);
         tl.setBackgroundColor(Color.parseColor("#17631E"));
         tl.setPadding(12,16,12,16);
@@ -181,6 +182,7 @@ public class ListeDesDemandes extends AppCompatActivity {
         autre.setText("DEMANDE PAR");
         autre.setPadding(15,15,15,15);
         tl.addView(autre);
+
 
        /* TextView qt=new TextView(this);
         qt.setTypeface(null, Typeface.BOLD);
@@ -321,7 +323,6 @@ public class ListeDesDemandes extends AppCompatActivity {
                     item6.setText(emp.toStringDepa());
                     tr.addView(item6);
 
-
                     tableLayout.addView(tr, new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
                     count++;
                 }
@@ -368,4 +369,5 @@ public class ListeDesDemandes extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }

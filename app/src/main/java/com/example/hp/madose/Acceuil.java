@@ -288,7 +288,7 @@ public class Acceuil extends AppCompatActivity
                         //Notification debut
                        NotificationCompat.Builder notification=new NotificationCompat.Builder(getBaseContext());
                         notification.setSmallIcon(R.drawable.ic_logde);
-                        notification.setContentText("Une demande faite par "+cat.getNomEmp());
+                        notification.setContentText("Demande faite par "+cat.getNomEmp());
                         notification.setContentTitle("RecapApp");
                       //  MyApplication.notifications.add("Nouvelle demande.\nEffectuée le " + cat.getDateDem() + " à" + cat.getHeureDem());
 
