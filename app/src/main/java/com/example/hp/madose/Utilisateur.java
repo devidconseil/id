@@ -29,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Utilisateur extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -43,7 +44,7 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
         setContentView(R.layout.activity_employe);
 
 
-        final EditText codeT=(EditText) findViewById(R.id.nomEmp);
+         final EditText codeT=(EditText) findViewById(R.id.nomEmp);
         final AutoCompleteTextView codeD= findViewById(R.id.autoCompDep);
         final Button codeB=(Button) findViewById(R.id.valEmp);
         final EditText prenE= findViewById(R.id.prenEmp);
@@ -72,6 +73,7 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
             spinner.setVisibility(View.VISIBLE);
         }
 
+
         mDatabase.child("Departement").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -96,7 +98,7 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
                     Log.i("CHAQUE USER",user.getMailEmp());
                     if (!bd.checkIfUserExist(user)){
                         int s=Integer.parseInt(bd.selectDep(user.getLibDep()));
-                        bd.insertEmp(user.getNomEmp(),user.getPrenEmp(),user.getMailEmp(),user.getTelEmp(),s,user.getProEmp());
+                        bd.insertEmp(user.getNomEmp(),user.getPrenEmp(),user.getMailEmp(),user.getTelEmp(),s,user.getProEmp(),user.getValEmp());
 
                     }
                 }
@@ -149,6 +151,24 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
             mailE.setText(intent.getStringExtra("employerrrr"));
             telE.setText(intent.getStringExtra("employerrrrr"));
         }
+        if (getIntent().getStringExtra("status").equals("new user validating")){
+            List<String> notification=new ArrayList<>();
+            for (String item: bd.validatingAccount(MyApplication.mail)){
+                notification.add(item);
+            }
+            Toast.makeText(getApplicationContext(), notification.get(1), Toast.LENGTH_SHORT).show();
+            codeT.setText(notification.get(0));
+            codeT.setEnabled(false);
+            prenE.setText(notification.get(1));
+            prenE.setEnabled(false);
+            mailE.setText(notification.get(2));
+            mailE.setEnabled(false);
+            telE.setText(notification.get(3));
+            telE.setEnabled(false);
+            codeD.setText(notification.get(4));
+            codeD.setEnabled(false);
+            spinner.requestFocus();
+        }
 
 
         codeB.setOnClickListener(new View.OnClickListener() {
@@ -198,11 +218,13 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
                             prenE.setText(prenE.getText().toString().replace("'","''"));
                         }
                         if (spinner.getSelectedItem().toString().equals("Choisir le profil")){
-                            bd.insertEmp(codeT.getText().toString(), prenE.getText().toString(), mailE.getText().toString(), telE.getText().toString(), x, "");
+                            bd.insertEmp(codeT.getText().toString(), prenE.getText().toString(), mailE.getText().toString(), telE.getText().toString(), x, "","NO");
                         }
                         else {
-                            bd.insertEmp(codeT.getText().toString(), prenE.getText().toString(), mailE.getText().toString(), telE.getText().toString(), x, spinner.getSelectedItem().toString());
-                        }
+
+                                bd.insertEmp(codeT.getText().toString(), prenE.getText().toString(), mailE.getText().toString(), telE.getText().toString(), x, spinner.getSelectedItem().toString(), "YES");
+                            }
+
                         bd.close();
                         String username=mailE.getText().toString().split("@")[0];
                         if (codeT.getText().toString().contains("''")){
@@ -211,13 +233,13 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
                         if (prenE.getText().toString().contains("''")){
                             prenE.setText(prenE.getText().toString().replace("''","'"));
                         }
-                        writeNewUser(username+"-"+codeT.getText().toString(),codeT.getText().toString(),prenE.getText().toString(),mailE.getText().toString(),telE.getText().toString(),codeD.getText().toString(),spinner.getSelectedItem().toString());
+                        writeNewUser(username+"-"+codeT.getText().toString(),codeT.getText().toString(),prenE.getText().toString(),mailE.getText().toString(),telE.getText().toString(),codeD.getText().toString(),spinner.getSelectedItem().toString(),"YES");
 
-                        if (MyApplication.isNewAccount()){
-                            MyApplication.notifications.add("Un nouvel utilisateur identifié "+mailE.getText().toString()+" est en attente de validation.");
-                        }
+                     /*   if (MyApplication.isNewAccount()){
+                            MyApplication.notifications.add("Un nouvel utilisateur enregistré est en attente de validation:"+mailE.getText().toString());
+                        }  */
                         Toast.makeText(getApplicationContext(), "Utilisateur enregistré avec succès", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(Utilisateur.this, ListeUtilisateur.class);
+                        Intent intent = new Intent(Utilisateur.this, UtilisateurListe.class);
                         intent.putExtra("passage", "employe");
                         codeT.setText("");
                        // codeP.setText("");
@@ -231,6 +253,24 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
                         if (MyApplication.isNewAccount()){
                           startActivity(new Intent(Utilisateur.this,Authentification.class));
                           MyApplication.setNewAccount(false);
+                        }
+                    }
+                    else if (bd.checkMailExist(mailE.getText().toString()) && bd.checkAccountValidate(mailE.getText().toString()).equals("NO")){
+                        if (getIntent().getStringExtra("status").equals("new user validating")){
+                            Toast.makeText(getApplicationContext(),spinner.getSelectedItem().toString(),Toast.LENGTH_SHORT);
+                            bd.upDateUserDetails(spinner.getSelectedItem().toString(),MyApplication.mail);
+                            String username=mailE.getText().toString().split("@")[0];
+                            writeNewUser(username+"-"+codeT.getText().toString(),codeT.getText().toString(),prenE.getText().toString(),mailE.getText().toString(),telE.getText().toString(),codeD.getText().toString(),spinner.getSelectedItem().toString(),"YES");
+                            Toast.makeText(getApplicationContext(), "Utilisateur validé avec succès", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(Utilisateur.this, UtilisateurListe.class);
+                            codeT.setText("");
+                            // codeP.setText("");
+                            codeD.setText("");
+                            mailE.setText("");
+                            prenE.setText("");
+                            telE.setText("");
+                            startActivity(intent);
+                            finish();
                         }
                     }
                     else {
@@ -293,8 +333,8 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
             builder.show();
         }
     }
-    private void writeNewUser(String userId, String name, String surname, String email, String tel, String department, String profile) {
-        UtilisateurC user = new UtilisateurC(name, surname, email, tel, department, profile);
+    private void writeNewUser(String userId, String name, String surname, String email, String tel, String department, String profile, String validate) {
+        UtilisateurC user = new UtilisateurC(name, surname, email, tel, department, profile,validate);
         mDatabase.child("users").child(userId).setValue(user);
 
     }

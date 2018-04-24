@@ -12,6 +12,7 @@ public class UtilisateurC {
     String prenEmp;
     String mailEmp;
     String telEmp;
+    String valEmp;
 
 
     public UtilisateurC(){}
@@ -57,6 +58,14 @@ public class UtilisateurC {
         return libDep;
     }
 
+    public String getValEmp() {
+        return valEmp;
+    }
+
+    public void setValEmp(String valEmp) {
+        this.valEmp = valEmp;
+    }
+
     public String getProEmp() {
         return proEmp;
     }
@@ -71,6 +80,15 @@ public class UtilisateurC {
         TelEmp=telEmp;
     } */
 
+    public UtilisateurC(String nomEmp, String prenEmp, String mailEmp, String telEmp, String libDep, String proEmp, String valEmp) {
+        this.nomEmp = nomEmp;
+        this.libDep = libDep;
+        this.proEmp = proEmp;
+        this.prenEmp=prenEmp;
+        this.mailEmp=mailEmp;
+        this.telEmp=telEmp;
+        this.valEmp=valEmp;
+    }
     public UtilisateurC(String nomEmp, String prenEmp, String mailEmp, String telEmp, String libDep, String proEmp) {
         this.nomEmp = nomEmp;
         this.libDep = libDep;
@@ -78,6 +96,7 @@ public class UtilisateurC {
         this.prenEmp=prenEmp;
         this.mailEmp=mailEmp;
         this.telEmp=telEmp;
+
     }
 
 
