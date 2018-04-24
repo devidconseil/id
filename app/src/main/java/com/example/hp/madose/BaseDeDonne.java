@@ -28,7 +28,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
             "`HeureDem` TEXT, FOREIGN KEY(`IdEmp`) REFERENCES `Utilisateur`(`IdEmp`), FOREIGN KEY(`IdDep`) REFERENCES `Departement`(`IdDep`) );";
     private static final String TABLE_DEMANDE_BESOIN = "CREATE TABLE Demande_Besoins ( `numDem` INTEGER, `NumBes` INTEGER, `qte` INTEGER NOT NULL, FOREIGN KEY(`NumBes`) REFERENCES `Besoin`(`NumBes`), PRIMARY KEY(`numDem`,`NumBes`), FOREIGN KEY(`numDem`) REFERENCES `Demande`(`numDem`) );";
     private static final String TABLE_DEPARTEMENT = "CREATE TABLE Departement ( `IdDep` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `libDep` TEXT NOT NULL );";
-    private static final String TABLE_USER = "CREATE TABLE Utilisateur ( `IdEmp` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `nomEmp` TEXT NOT NULL,`PrenEmp` TEXT,`MailEmp` TEXT NOT NULL,`TelEmp` TEXT NOT NULL,`IdDep` INTEGER, `ProEmp` TEXT, FOREIGN KEY(`IdDep`) REFERENCES `Departement`(`IdDep`) );";
+    private static final String TABLE_USER = "CREATE TABLE Utilisateur ( `IdEmp` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `nomEmp` TEXT NOT NULL,`PrenEmp` TEXT,`MailEmp` TEXT NOT NULL,`TelEmp` TEXT NOT NULL,`IdDep` INTEGER, `ProEmp` TEXT, `ValEmp` TEXT, FOREIGN KEY(`IdDep`) REFERENCES `Departement`(`IdDep`) );";
     private static final String TABLE_BESOIN = "CREATE TABLE Besoin ( NumBes INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, libBes TEXT NOT NULL, typeBes TEXT NOT NULL, IdCat INTEGER," +
             " SeuilBes INTEGER, AmorBes INTEGER,`StockBes` INTEGER, `Image` INTEGER, FOREIGN KEY(IdCat) REFERENCES Categorie(IdCat) );";
     private static final String TABLE_BESOIN_ENTREE = "CREATE TABLE Besoins_Entree ( NumBes INTEGER, numEnt INTEGER, PU INTEGER, qte INTEGER NOT NULL, marqueBes TEXT, autrePrecision TEXT," +
@@ -155,9 +155,9 @@ public class BaseDeDonne extends SQLiteOpenHelper {
 
     //<<----------------------------********Employé********--------------------------------------->>
     //Insert
-    public void insertEmp(String nom, String prenom, String mail, String tel, int dep, String profil)
+    public void insertEmp(String nom, String prenom, String mail, String tel, int dep, String profil, String val)
     {
-        String entre = "insert into Utilisateur ( nomEmp, PrenEmp, MailEmp, TelEmp, IdDep, ProEmp )values('" + nom + "','" + prenom + "','" + mail + "','" + tel + "',"+ dep +",'" +profil + "');";
+        String entre = "insert into Utilisateur ( nomEmp, PrenEmp, MailEmp, TelEmp, IdDep, ProEmp, ValEmp )values('" + nom + "','" + prenom + "','" + mail + "','" + tel + "',"+ dep +",'" +profil + "','"+val+"');";
         this.getWritableDatabase().execSQL(entre);
         Log.i("DATABASE", "insert employe");
     }
@@ -376,6 +376,16 @@ public class BaseDeDonne extends SQLiteOpenHelper {
             return false;
         }
     }
+    public String checkAccountValidate(String mail){
+        String req="select ValEmp from Utilisateur where MailEmp='"+mail  +"';";
+        Cursor cursor = null;
+        try {
+            cursor = this.getReadableDatabase().rawQuery(req,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
     //BesoinListe
     public List<FournisseurC> afficheF()
     {
@@ -536,7 +546,51 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         cursor.close();
         return affB;
     }
+    public List<String> accountNotValidate()
+    {
+        List<String>ade=new ArrayList<>();
+        //String req="select NumBes,libBes,typeBes,Idcat,SeuilBes,date(AmorBes,'unixepoch') from Besoin where Amorbes BETWEEN strftime('%s','2010-05-04') AND strftime('%s','2060-12-31') ;";
 
+        String req="select MailEmp from Utilisateur where ValEmp='NO';";
+        Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast())
+        {
+
+            ade.add(cursor.getString(0));
+            cursor.moveToNext();
+
+        }
+
+        cursor.close();
+        return ade;
+    }
+    public List<String> validatingAccount(String mail)
+    {
+        List<String>ade=new ArrayList<>();
+        //String req="select NumBes,libBes,typeBes,Idcat,SeuilBes,date(AmorBes,'unixepoch') from Besoin where Amorbes BETWEEN strftime('%s','2010-05-04') AND strftime('%s','2060-12-31') ;";
+
+        String req="select nomEmp,PrenEmp,MailEmp,TelEmp,libDep,ProEmp from Utilisateur,Departement where Utilisateur.IdDep=Departement.IdDep and MailEmp='"+mail+"';";
+        Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast())
+        {
+
+            ade.add(cursor.getString(0));
+            ade.add(cursor.getString(1));
+            ade.add(cursor.getString(2));
+            ade.add(cursor.getString(3));
+            ade.add(cursor.getString(4));
+            ade.add(cursor.getString(5));
+            cursor.moveToNext();
+
+        }
+
+        cursor.close();
+        return ade;
+    }
 
     public List<BesoinC> afficheLB()
     {
@@ -1308,6 +1362,19 @@ public ArrayList<String> affiNumDem(int idemp)
             if (cursor != null) cursor.close();
         }
     }
+    public String selectUserForUpdate(String mail)
+    {
+
+        String paco="select nomEmp,PrenEmp,MailEmp,TelEmp,libDep,ProEmp from Utilisateur,Departement where Utilisateur.IdDep=Departement.IdDep and MailEmp='"+mail+"';" ;
+        Cursor cursor = null;
+        try {
+
+            cursor = this.getReadableDatabase().rawQuery(paco,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
 
     public String selectIdSortie()
     {
@@ -1450,6 +1517,12 @@ public ArrayList<String> affiNumDem(int idemp)
     public void upDate(int quant, String nomB)
     {
         String req="update Besoin set StockBes="+quant+" where libBes='"+nomB+"';";
+        this.getWritableDatabase().execSQL(req);
+        Log.i("DATABASE","mise a jour de la table stock");
+    }
+    public void upDateUserDetails(String profile,String mail)
+    {
+        String req="update Utilisateur set ProEmp='"+profile+"',ValEmp='YES' where MailEmp='"+mail+"';";
         this.getWritableDatabase().execSQL(req);
         Log.i("DATABASE","mise a jour de la table stock");
     }

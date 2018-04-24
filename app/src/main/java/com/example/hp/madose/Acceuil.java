@@ -178,7 +178,7 @@ public class Acceuil extends AppCompatActivity
                     if (!bd.checkIfUserExist(user)){
                         Log.i("MONTRE-MOI",user.getLibDep());
                         int s=Integer.parseInt(bd.selectDep(user.getLibDep()));
-                        bd.insertEmp(user.getNomEmp(),user.getPrenEmp(),user.getMailEmp(),user.getTelEmp(),s,user.getProEmp());
+                        bd.insertEmp(user.getNomEmp(),user.getPrenEmp(),user.getMailEmp(),user.getTelEmp(),s,user.getProEmp(),user.getValEmp());
 
                     }
                 }
@@ -581,8 +581,8 @@ public class Acceuil extends AppCompatActivity
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-    private void writeNewUser(String userId, String name, String surname, String email, String tel, String department, String profile) {
-        UtilisateurC user = new UtilisateurC(name, surname, email, tel, department, profile);
+    private void writeNewUser(String userId, String name, String surname, String email, String tel, String department, String profile, String validate) {
+        UtilisateurC user = new UtilisateurC(name, surname, email, tel, department, profile,validate);
         mDatabase.child("users").child(userId).setValue(user);
     }
 

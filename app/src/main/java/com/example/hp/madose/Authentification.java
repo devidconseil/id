@@ -137,13 +137,13 @@ public class Authentification extends AppCompatActivity {
             bd.insertFour("CDCI", "01 bp 1250 Abidjan 10", "22441182");
             bd.insertFour("SOCOCE", "01 bp 4036 Abidjan 28", "22441683");
 
-            bd.insertEmp("KOUADJO","Eric","ekouadjio@idconsulting.ie","01020304", 1, "SUPER ADMIN");
-            bd.insertEmp("ADEJINLE","Patrick","padejinle@idconsulting.ie","01020304", 1, "SUPER ADMIN");
-            bd.insertEmp("KONE","Myriame","mnayele@idconsulting.ie","01020304",  2, "USER");
-            bd.insertEmp("KONE","Seydou","kseydou@idconsulting.ie","01020304", 2, "USER");
-            bd.insertEmp("LAGO","Yvon","ylago@idconsulting.ie","01020304", 2, "USER");
-            bd.insertEmp("ASSOH EPSE YAPI","Bénédicte","bassoh@idconsulting.ie","01020304", 3, "ADMIN");
-            bd.insertEmp("DROH","Agostino","adroh@idconsulting.ie","01020304", 4, "SUPER ADMIN");
+            bd.insertEmp("KOUADJO","Eric","ekouadjio@idconsulting.ie","01020304", 1, "SUPER ADMIN","YES");
+            bd.insertEmp("ADEJINLE","Patrick","padejinle@idconsulting.ie","01020304", 1, "SUPER ADMIN","YES");
+            bd.insertEmp("KONE","Myriame","mnayele@idconsulting.ie","01020304",  2, "USER","YES");
+            bd.insertEmp("KONE","Seydou","kseydou@idconsulting.ie","01020304", 2, "USER","YES");
+            bd.insertEmp("LAGO","Yvon","ylago@idconsulting.ie","01020304", 2, "USER","YES");
+            bd.insertEmp("ASSOH EPSE YAPI","Bénédicte","bassoh@idconsulting.ie","01020304", 3, "ADMIN","YES");
+            bd.insertEmp("DROH","Agostino","adroh@idconsulting.ie","01020304", 4, "SUPER ADMIN","YES");
 
 
 
@@ -271,7 +271,7 @@ public class Authentification extends AppCompatActivity {
                                     if (!bd.checkIfUserExist(user)){
                                         Log.i("MONTRE-MOI",user.getLibDep());
                                         int s=Integer.parseInt(bd.selectDep(user.getLibDep()));
-                                        bd.insertEmp(user.getNomEmp(),user.getPrenEmp(),user.getMailEmp(),user.getTelEmp(),s,user.getProEmp());
+                                        bd.insertEmp(user.getNomEmp(),user.getPrenEmp(),user.getMailEmp(),user.getTelEmp(),s,user.getProEmp(),user.getValEmp());
 
                                     }
                                 }
@@ -342,7 +342,7 @@ FirebaseAuth.getInstance().signOut();
                     finish();
                   hideProgressDialog();
                 } else {
-                    if (bd.checkMailExist(identifiant.getText().toString())) {
+                    if (bd.checkMailExist(identifiant.getText().toString()) && bd.checkAccountValidate(identifiant.getText().toString()).equals("YES")) {
 
                         MyApplication.getmAuth().createUserWithEmailAndPassword(identifiant.getText().toString(), motpass.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -364,7 +364,7 @@ FirebaseAuth.getInstance().signOut();
                     {
                         hideProgressDialog();
                         Log.w(TAG, "signInWithEmail:failure", task.getException());
-                        Toast.makeText(getApplicationContext(), "Authentication failed.",
+                        Toast.makeText(getApplicationContext(), "Authentication failed.\n"+bd.checkAccountValidate(identifiant.getText().toString()),
                                 Toast.LENGTH_SHORT).show();
                         identifiant.setError("Identifiant ou mot de passe incorrect");
                         identifiant.requestFocus();

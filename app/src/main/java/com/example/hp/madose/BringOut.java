@@ -95,7 +95,7 @@ public class BringOut extends AppCompatActivity {
                     Log.i("CHAQUE USER",user.getMailEmp());
                     if (!bd.checkIfUserExist(user)){
                         int s=Integer.parseInt(bd.selectDep(user.getLibDep()));
-                        bd.insertEmp(user.getNomEmp(),user.getPrenEmp(),user.getMailEmp(),user.getTelEmp(),s,user.getProEmp());
+                        bd.insertEmp(user.getNomEmp(),user.getPrenEmp(),user.getMailEmp(),user.getTelEmp(),s,user.getProEmp(),user.getValEmp());
 
                     }
                 }

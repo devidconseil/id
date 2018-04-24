@@ -42,6 +42,7 @@ public class MyApplication extends Application {
     public static boolean newAccount=false;
     public static String verif1;
     public static String categorie;
+    public static String mail;
     public static int id;
     public static boolean textView;
     public static String employe;
@@ -79,6 +80,14 @@ public class MyApplication extends Application {
 
     public static void setNotifications(List<String> notifications) {
         MyApplication.notifications = notifications;
+    }
+
+    public static String getMail() {
+        return mail;
+    }
+
+    public static void setMail(String mail) {
+        MyApplication.mail = mail;
     }
 
     public static void setFait(boolean fait) {
@@ -238,7 +247,7 @@ public class MyApplication extends Application {
                     Log.i("CHAQUE USER",user.getMailEmp());
                     if (!bd.checkIfUserExist(user)){
                         int s=Integer.parseInt(bd.selectDep(user.getLibDep()));
-                        bd.insertEmp(user.getNomEmp(),user.getPrenEmp(),user.getMailEmp(),user.getTelEmp(),s,user.getProEmp());
+                        bd.insertEmp(user.getNomEmp(),user.getPrenEmp(),user.getMailEmp(),user.getTelEmp(),s,user.getProEmp(),user.getValEmp());
 
                     }
                 }
