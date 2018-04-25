@@ -50,4 +50,9 @@ public class NotificationArea extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
     }
+
+    @Override
+    public void onBackPressed(){
+        startActivity(new Intent(NotificationArea.this,Acceuil.class));
+    }
 }

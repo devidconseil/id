@@ -223,10 +223,7 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
                         else {
 
                                 bd.insertEmp(codeT.getText().toString(), prenE.getText().toString(), mailE.getText().toString(), telE.getText().toString(), x, spinner.getSelectedItem().toString(), "YES");
-                            }
-
-                        bd.close();
-                        String username=mailE.getText().toString().split("@")[0];
+                            String username=mailE.getText().toString().split("@")[0];
                         if (codeT.getText().toString().contains("''")){
                             codeT.setText(codeT.getText().toString().replace("''","'"));
                         }
@@ -234,7 +231,9 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
                             prenE.setText(prenE.getText().toString().replace("''","'"));
                         }
                         writeNewUser(username+"-"+codeT.getText().toString(),codeT.getText().toString(),prenE.getText().toString(),mailE.getText().toString(),telE.getText().toString(),codeD.getText().toString(),spinner.getSelectedItem().toString(),"YES");
+                        }
 
+                        bd.close();
                      /*   if (MyApplication.isNewAccount()){
                             MyApplication.notifications.add("Un nouvel utilisateur enregistré est en attente de validation:"+mailE.getText().toString());
                         }  */
@@ -260,6 +259,12 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
                             Toast.makeText(getApplicationContext(),spinner.getSelectedItem().toString(),Toast.LENGTH_SHORT);
                             bd.upDateUserDetails(spinner.getSelectedItem().toString(),MyApplication.mail);
                             String username=mailE.getText().toString().split("@")[0];
+                            if (codeT.getText().toString().contains("''")){
+                                codeT.setText(codeT.getText().toString().replace("''","'"));
+                            }
+                            if (prenE.getText().toString().contains("''")){
+                                prenE.setText(prenE.getText().toString().replace("''","'"));
+                            }
                             writeNewUser(username+"-"+codeT.getText().toString(),codeT.getText().toString(),prenE.getText().toString(),mailE.getText().toString(),telE.getText().toString(),codeD.getText().toString(),spinner.getSelectedItem().toString(),"YES");
                             Toast.makeText(getApplicationContext(), "Utilisateur validé avec succès", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(Utilisateur.this, UtilisateurListe.class);

@@ -49,6 +49,7 @@ public class MyApplication extends Application {
     public static FirebaseAuth mAuth=FirebaseAuth.getInstance();
     public static DatabaseReference mDatabase=FirebaseDatabase.getInstance().getReference();
     public static List<String> notifications=new ArrayList<>();
+    public static int old,nouv=0;
 
     public static String getCategorie() {
         return categorie;

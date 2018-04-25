@@ -103,7 +103,10 @@ public class Authentification extends AppCompatActivity {
             }
         });
     }
-
+    @Override
+    public void onBackPressed(){
+        startActivity(new Intent(Authentification.this,Welcome.class));
+    }
     @Override
     public void onStart(){
         super.onStart();
@@ -111,7 +114,7 @@ public class Authentification extends AppCompatActivity {
         FirebaseUser currentUser = MyApplication.mAuth.getCurrentUser();
 
 
-        if(!bd.checkIfTableHasData("Besoins_Sortie") && !bd.checkIfTableHasData("Categorie") && !bd.checkIfTableHasData("Demande") && !bd.checkIfTableHasData("Demande_Besoins") && !bd.checkIfTableHasData("Departement") && !bd.checkIfTableHasData("Utilisateur") && !bd.checkIfTableHasData("Besoin") && !bd.checkIfTableHasData("Besoins_Entree") && !bd.checkIfTableHasData("Entree") && !bd.checkIfTableHasData("Fournisseur") && !bd.checkIfTableHasData("Sortie"))
+   /*     if(!bd.checkIfTableHasData("Besoins_Sortie") && !bd.checkIfTableHasData("Categorie") && !bd.checkIfTableHasData("Demande") && !bd.checkIfTableHasData("Demande_Besoins") && !bd.checkIfTableHasData("Departement") && !bd.checkIfTableHasData("Utilisateur") && !bd.checkIfTableHasData("Besoin") && !bd.checkIfTableHasData("Besoins_Entree") && !bd.checkIfTableHasData("Entree") && !bd.checkIfTableHasData("Fournisseur") && !bd.checkIfTableHasData("Sortie"))
         {
             bd.insertCat("MATERIEL DE BUREAU");
             bd.insertCat("OUTIL INFORMATIQUE");
@@ -183,7 +186,7 @@ public class Authentification extends AppCompatActivity {
             bd.insertDemandeBesoin(1, 1, 1);
             bd.insertDemandeBesoin(1, 6, 1);
             MyApplication.setFetch(false);
-        }
+        }  */
         if (MyApplication.getmAuth().getCurrentUser() !=null && ! MyApplication.getmAuth().getCurrentUser().getEmail().toString().equals("test@idconsulting.ie")){
             onAuthSuccess(MyApplication.getmAuth().getCurrentUser());
             Log.i("UNO",MyApplication.getmAuth().getCurrentUser().getEmail());

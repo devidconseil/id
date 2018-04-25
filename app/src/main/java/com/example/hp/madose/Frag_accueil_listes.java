@@ -40,7 +40,7 @@ public class Frag_accueil_listes extends Fragment {
         entrees.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),NotificationArea.class);
+                Intent intent=new Intent(getActivity(),ListeDesEntrees.class);
                 intent.putExtra("sortie","listeE");
                 startActivity(intent);
             }

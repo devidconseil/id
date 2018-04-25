@@ -76,6 +76,7 @@ public class Acceuil extends AppCompatActivity
     FirebaseAuth mAuth;
     ProgressDialog mProgressDialog;
     ConnexionDetector connexionDetector;
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +102,35 @@ public class Acceuil extends AppCompatActivity
         today.setToNow();
         Toast.makeText(getApplicationContext(),today.toString(),Toast.LENGTH_LONG);
         String profile=bd.retrieveUserProfile(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
+        MyApplication.nouv=bd.countAccountNotValidate();
+
+        if (MyApplication.old!=MyApplication.nouv){
+            //Notification debut
+            NotificationCompat.Builder notification=new NotificationCompat.Builder(Acceuil.this);
+            notification.setSmallIcon(R.drawable.ic_logde);
+            notification.setContentText(MyApplication.nouv+" compte(s) en attente de validation.");
+            notification.setContentTitle("RecapApp");
+            //  MyApplication.notifications.add("Nouvel approvisionnement.\nEffectué le " + cat.getDatEnt() + " à" + cat.getHeureEnt());
+
+            Intent entree=new Intent(getBaseContext(),NotificationArea.class);
+            //entree.putExtra("sortie","listeE");
+            TaskStackBuilder stackBuilder=TaskStackBuilder.create(getBaseContext());
+            stackBuilder.addParentStack(Acceuil.class);
+            stackBuilder.addNextIntent(entree);
+
+            notification.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+
+            PendingIntent resultIntent= stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
+            notification.setContentIntent(resultIntent);
+            notification.setAutoCancel(true);
+            NotificationManager notificationManager =(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+            Random random=new Random();
+            notificationManager.notify(random.nextInt(130000),notification.build());
+            //Notification fin
+            MyApplication.old=MyApplication.nouv;
+
+        }
 
         showProgressDialog();
         MyApplication.getmDatabase().child("Categorie").addValueEventListener(new ValueEventListener() {
@@ -172,6 +202,7 @@ public class Acceuil extends AppCompatActivity
         MyApplication.getmDatabase().child("users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 for (DataSnapshot dataSnapshotUser:dataSnapshot.getChildren()){
                     UtilisateurC user=dataSnapshotUser.getValue(UtilisateurC.class);
                     //  Toast.makeText(getApplicationContext(),user.getMailEmp(),Toast.LENGTH_SHORT);
@@ -179,6 +210,7 @@ public class Acceuil extends AppCompatActivity
                         Log.i("MONTRE-MOI",user.getLibDep());
                         int s=Integer.parseInt(bd.selectDep(user.getLibDep()));
                         bd.insertEmp(user.getNomEmp(),user.getPrenEmp(),user.getMailEmp(),user.getTelEmp(),s,user.getProEmp(),user.getValEmp());
+
 
                     }
                 }
@@ -562,6 +594,11 @@ public class Acceuil extends AppCompatActivity
                 Intent b = new Intent(Acceuil.this, BesoinListe.class);
                 b.putExtra("passage", "besoin");
                 startActivity(b);
+                break;
+            case R.id.notif_area:
+                Intent adej=new Intent(Acceuil.this,NotificationArea.class);
+                adej.putExtra("passage","notif");
+                startActivity(adej);
                 break;
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
