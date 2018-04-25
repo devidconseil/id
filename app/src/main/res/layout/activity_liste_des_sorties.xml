@@ -70,4 +70,14 @@
         android:text="N.A.=NON AMORTISSABLE"
         android:textSize="15dp"
      />
+
+    <ImageButton
+        android:id="@+id/imageBut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:backgroundTint="@color/cardview_light_background"
+        app:srcCompat="@drawable/ic_settings_24dp" />
 </RelativeLayout>

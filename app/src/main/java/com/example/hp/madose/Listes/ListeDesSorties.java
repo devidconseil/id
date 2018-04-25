@@ -1,17 +1,24 @@
 package com.example.hp.madose.Listes;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.ActionMenuView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.CheckBox;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -153,10 +160,14 @@ public class ListeDesSorties extends AppCompatActivity {
             }
         });
         hideProgressDialog();
-
-
-
-
+        ImageButton set=(ImageButton) findViewById(R.id.imageBut);
+        set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogueBe();
+                tableLayout.removeAllViews();
+            }
+        });
 
         tableLayout=(TableLayout)findViewById(R.id.tableauLS);
         tableLayout.setPadding(12,16,12,16);
@@ -341,4 +352,266 @@ public class ListeDesSorties extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    public void dialogueBe()
+    {
+        final BaseDeDonne bd=new BaseDeDonne(this);
+        final LayoutInflater maboite=this.getLayoutInflater();
+        final View boitededialogue=maboite.inflate(R.layout.boites,null);
+        final AlertDialog.Builder bdd=new AlertDialog.Builder(this);
+        bdd.setView(boitededialogue);
+        bdd.setTitle("Cochez les colonnes à afficher SVP!!");
+    bdd.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+
+
+            public void onClick(DialogInterface dialog, int which) {
+                CheckBox nume=(CheckBox)boitededialogue.findViewById(R.id.checkBo);
+                CheckBox datee=(CheckBox)boitededialogue.findViewById(R.id.checkBo2);
+                CheckBox mater=(CheckBox)boitededialogue.findViewById(R.id.checkBo3);
+                CheckBox type=(CheckBox)boitededialogue.findViewById(R.id.checkBo4);
+                CheckBox preci=(CheckBox)boitededialogue.findViewById(R.id.checkBo5);
+                CheckBox qte=(CheckBox)boitededialogue.findViewById(R.id.checkBo6);
+                CheckBox recu=(CheckBox)boitededialogue.findViewById(R.id.checkBo7);
+
+                tableLayout=(TableLayout)findViewById(R.id.tableauLS);
+                tableLayout.setPadding(12,16,12,16);
+                TableRow tl=new TableRow(getBaseContext());
+                tl.setBackgroundColor(Color.parseColor("#17631E"));
+                tl.setPadding(12,16,12,16);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    tl.setLayoutParams(new ActionMenuView.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+                }
+                TextView num=new TextView(getBaseContext());
+                num.setTypeface(null, Typeface.BOLD);
+                num.setTextColor(Color.parseColor("#FFFFFF"));
+                num.setText("Num.");
+                num.setPadding(15,15,15,15);
+                if (nume.isChecked())
+                {
+                    tl.addView(num);
+                }
+                else
+                {
+
+                }
+
+                TextView date=new TextView(getBaseContext());
+                date.setTypeface(null, Typeface.BOLD);
+                date.setTextColor(Color.parseColor("#FFFFFF"));
+                date.setText("DATE");
+                date.setPadding(15,15,15,15);
+                if (datee.isChecked())
+                {
+                    tl.addView(date);
+                }
+                else
+                {
+
+                }
+
+                TextView mat=new TextView(getBaseContext());
+                mat.setText("MATERIELS");
+                mat.setTextColor(Color.parseColor("#FFFFFF"));
+                mat.setTypeface(null, Typeface.BOLD);
+                mat.setPadding(15,15,15,15);
+                if (mater.isChecked())
+                {
+                    tl.addView(mat);
+                }
+                else
+                {
+
+                }
+                TextView prent=new TextView(getBaseContext());
+                prent.setTypeface(null, Typeface.BOLD);
+                prent.setTextColor(Color.parseColor("#FFFFFF"));
+                prent.setText("TYPES");
+                prent.setPadding(15,15,15,15);
+                if (type.isChecked())
+                {
+                    tl.addView(prent);
+                }
+                else
+                {
+
+                }
+
+                TextView autre=new TextView(getBaseContext());
+                autre.setTypeface(null, Typeface.BOLD);
+                autre.setTextColor(Color.parseColor("#FFFFFF"));
+                autre.setText("PRECISIONS");
+                autre.setPadding(15,15,15,15);
+                if (preci.isChecked())
+                {
+                    tl.addView(autre);
+                }
+                else
+                {
+
+                }
+                TextView qt=new TextView(getBaseContext());
+                qt.setTypeface(null, Typeface.BOLD);
+                qt.setTextColor(Color.parseColor("#FFFFFF"));
+                qt.setText("QT");
+                qt.setPadding(15,15,15,15);
+                if (qte.isChecked())
+                {
+                    tl.addView(qt);
+                }
+                else
+                {
+
+                }
+
+                TextView marq=new TextView(getBaseContext());
+                marq.setTypeface(null, Typeface.BOLD);
+                marq.setTextColor(Color.parseColor("#FFFFFF"));
+                marq.setText("RECU PAR");
+                marq.setPadding(15,15,15,15);
+                if (recu.isChecked())
+                {
+                    tl.addView(marq);
+                }
+                else
+                {
+
+                }
+
+
+                tableLayout.addView(tl,new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+
+                //  List<Stock2> affF = bd.afficheStock22();
+                //  List<Stock2> affF = bd.afficheStockLib("MARKER");
+
+                List<Stock2> affF =null;
+                if(getIntent().getStringExtra("sortie").equals("libelle"))
+                {
+                    affF = bd.afficheStockLib(getIntent().getStringExtra("libelle"));
+                }
+                else if (getIntent().getStringExtra("sortie").equals("listeS"))
+                {
+                    affF =bd.afficheStock22();
+                }
+
+                int count=0;
+                for (Stock2 emp : affF) {
+
+                    TableRow tr=new TableRow(getBaseContext());
+                    tr.setPadding(12,16,12,16);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        tr.setLayoutParams(new ActionMenuView.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+                    }
+                    if (count %2!=0) tr.setBackgroundColor(Color.parseColor("#d1d2d2"));
+                    TextView item8=new TextView(getBaseContext());
+                    item8.setPadding(15,15,15,15);
+                    item8.setTextColor(Color.parseColor("#000000"));
+                    item8.setText(String.valueOf(emp.toStringNumSortie()));
+                    if (nume.isChecked())
+                    {
+                        tr.addView(item8);
+                    }
+                    else
+                    {
+
+                    }
+
+                    TextView item7=new TextView(getBaseContext());
+                    item7.setPadding(15,15,15,15);
+                    item7.setTextColor(Color.parseColor("#000000"));
+                    item7.setText(emp.toStringDate());
+                    if (datee.isChecked())
+                    {
+                        tr.addView(item7);
+                    }
+                    else
+                    {
+
+                    }
+
+                    TextView item1=new TextView(getBaseContext());
+                    item1.setPadding(15,15,15,15);
+                    item1.setTextColor(Color.parseColor("#000000"));
+                    item1.setText(emp.toStringBesoin());
+                    if (mater.isChecked())
+                    {
+                        tr.addView(item1);
+                    }
+                    else
+                    {
+
+                    }
+
+                    TextView item2=new TextView(getBaseContext());
+                    item2.setPadding(15,15,15,15);
+                    item2.setTextColor(Color.parseColor("#000000"));
+                    if (emp.toStringType().equals("AMORTISSABLE"))
+                    {
+                        item2.setText("A.");
+                    }
+                    else if (emp.toStringType().equals("NON AMORTISSABLE"))
+                    {
+                        item2.setText("N.A.");
+                    }
+
+                    if (type.isChecked())
+                    {
+                        tr.addView(item2);
+                    }
+                    else
+                    {
+
+                    }
+
+
+                    TextView item3=new TextView(getBaseContext());
+                    item3.setPadding(15,15,15,15);
+                    item3.setTextColor(Color.parseColor("#000000"));
+                    item3.setText(String.valueOf(emp.toStringAutreP()));
+                    if (preci.isChecked())
+                    {
+                        tr.addView(item3);
+                    }
+                    else
+                    {
+
+                    }
+
+                    TextView item4=new TextView(getBaseContext());
+                    item4.setPadding(15,15,15,15);
+                    item4.setTextColor(Color.parseColor("#000000"));
+                    item4.setText(String.valueOf(emp.toStringQt()));
+                    if (qte.isChecked())
+                    {
+                        tr.addView(item4);
+                    }
+                    else
+                    {
+
+                    }
+
+                    TextView item5=new TextView(getBaseContext());
+                    item5.setPadding(15,15,15,15);
+                    item5.setTextColor(Color.parseColor("#000000"));
+                    item5.setText(emp.toStringNomEm());
+                    if (recu.isChecked())
+                    {
+                        tr.addView(item5);
+                    }
+                    else
+                    {
+
+                    }
+
+
+                    tableLayout.addView(tr,new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+                    count++;
+                }
+                TextView nbligne=(TextView)findViewById(R.id.ligneSor);
+                nbligne.setText(""+count+" ligne(s)");
+
+            } });
+        bdd.show();
+
+    }
+
 }

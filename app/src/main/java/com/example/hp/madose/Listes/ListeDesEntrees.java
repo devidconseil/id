@@ -599,10 +599,10 @@ public class ListeDesEntrees extends AppCompatActivity {
 
             } });
 
-        bdd.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+      /*  bdd.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
-            } });
+            } });*/
         bdd.show();
     }
 

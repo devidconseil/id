@@ -76,11 +76,12 @@
         android:id="@+id/colonne"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_toEndOf="@+id/lg"
-        android:layout_toRightOf="@+id/lg"
-        app:srcCompat="@drawable/cast_ic_mini_controller_pause" />
+        android:layout_above="@+id/scrollView4"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="19dp"
+        android:layout_marginRight="19dp"
+        app:srcCompat="@drawable/ic_settings_24dp"
+        tools:ignore="VectorDrawableCompat" />
 
 </RelativeLayout>
