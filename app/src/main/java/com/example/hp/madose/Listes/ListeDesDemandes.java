@@ -25,6 +25,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -496,7 +497,7 @@ public class ListeDesDemandes extends AppCompatActivity {
                         TableRow tr = new TableRow(getBaseContext());
                         tr.setPadding(12, 16, 12, 16);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            tr.setLayoutParams(new ActionMenuView.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+                            tr.setLayoutParams(new ActionMenuView.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
                         }
                         if (count % 2 != 0) tr.setBackgroundColor(Color.parseColor("#d1d2d2"));
 
