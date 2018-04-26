@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -38,6 +39,7 @@ public class Authentification extends AppCompatActivity {
     String test="";
     ConnexionDetector connexionDetector;
 
+
 // ...
 
 
@@ -52,6 +54,7 @@ public class Authentification extends AppCompatActivity {
         if (getSupportActionBar() != null){
             getSupportActionBar().setTitle("Authentification");
         }
+
 
         connexionDetector=new ConnexionDetector(this);
         Button connect= findViewById(R.id.connexion);
@@ -351,6 +354,7 @@ FirebaseAuth.getInstance().signOut();
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    writeNewConnectivity(identifiant.getText().toString());
                                     startActivity(new Intent(Authentification.this, Acceuil.class));
                                     finish();
                                 } else {
@@ -422,7 +426,17 @@ FirebaseAuth.getInstance().signOut();
         FournisseurC cat=new FournisseurC(nomFour,adrFour,telFour);
         MyApplication.getmDatabase().child("Fournisseur").child(code).setValue(cat);
     }
+    public void writeNewConnectivity(String mail){
+        String username=usernameFromEmail(mail);
+        String reste=mail.substring(username.length()+1,mail.length()-3);
+        String rest=mail.substring(mail.length()-2,mail.length());
+        String code=username+"-"+reste+"-"+rest;
+        Time time=new Time("GMT");
+        time.setToNow();
+        Log.i("connect",code);
+        MyApplication.getmDatabase().child("Connectivité").child(code).setValue(time.toString());
 
+    }
 
 
 

@@ -82,10 +82,8 @@
         </activity>
         <activity
             android:name=".NotificationArea"
-            android:label="Notification Area">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
+            android:label="Notification Area"
+            android:parentActivityName=".Acceuil">
         </activity>
         <activity
             android:name=".Utilisateur"

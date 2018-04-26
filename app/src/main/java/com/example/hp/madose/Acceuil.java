@@ -633,7 +633,7 @@ public class Acceuil extends AppCompatActivity
 
         String profile=bd.retrieveUserProfile(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         if (profile.equals("USER")){
-            Intent intent=new Intent(Acceuil.this,Affichage.class);
+            Intent intent=new Intent(Acceuil.this,ListeDesDemandes.class);
             intent.putExtra("passage","demande");
             startActivity(intent);
             finish();
