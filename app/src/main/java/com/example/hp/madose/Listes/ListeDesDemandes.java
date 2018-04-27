@@ -168,7 +168,7 @@ public class ListeDesDemandes extends AppCompatActivity {
         num.setTextColor(Color.parseColor("#FFFFFF"));
         num.setText("Num.");
         num.setPadding(15,15,15,15);
-        tl.addView(num);
+        //tl.addView(num);
 
         TextView date=new TextView(this);
         date.setTypeface(null, Typeface.BOLD);
@@ -198,6 +198,13 @@ public class ListeDesDemandes extends AppCompatActivity {
         autre.setPadding(15,15,15,15);
         tl.addView(autre);
 
+        TextView depart=new TextView(getBaseContext());
+        depart.setTypeface(null, Typeface.BOLD);
+        depart.setTextColor(Color.parseColor("#FFFFFF"));
+        depart.setText("DEPARTEMENT");
+        depart.setPadding(15,15,15,15);
+       //tl.addView(depart);
+
         tableLayout.addView(tl,new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
         String profile=bd.retrieveUserProfile(mAuth.getCurrentUser().getEmail());
@@ -205,6 +212,7 @@ public class ListeDesDemandes extends AppCompatActivity {
         if (profile.equals("SUPER ADMIN")) {
 
             List<DemandeC> affF =null;
+            List<DemandeC> affF1 =null;
             if(getIntent().getStringExtra("sortie").equals("libelle"))
             {
                 //pour recherche
@@ -213,11 +221,12 @@ public class ListeDesDemandes extends AppCompatActivity {
             else if (getIntent().getStringExtra("sortie").equals("listeD"))
             {
                 affF =bd.afficheDemande();
+                affF1 =bd.afficheDemande1();
             }
 
             //List<DemandeC> affF = bd.afficheDemande();
             int count = 0;
-            for (DemandeC emp : affF) {
+            for (DemandeC emp : affF1 ) {
 
                 TableRow tr = new TableRow(this);
                 tr.setPadding(12, 16, 12, 16);
@@ -230,7 +239,55 @@ public class ListeDesDemandes extends AppCompatActivity {
                 item1.setPadding(15, 15, 15, 15);
                 item1.setTextColor(Color.parseColor("#000000"));
                 item1.setText(String.valueOf(emp.toStringNum()));
-                tr.addView(item1);
+                //tr.addView(item1);
+
+                TextView item2 = new TextView(this);
+                item2.setPadding(15, 15, 15, 15);
+                item2.setTextColor(Color.parseColor("#000000"));
+                item2.setText(String.valueOf(emp.toStringDate()));
+                tr.addView(item2);
+
+                TextView item3 = new TextView(this);
+                item3.setPadding(15, 15, 15, 15);
+                item3.setTextColor(Color.parseColor("#000000"));
+                item3.setText(emp.toStringLib());
+                tr.addView(item3);
+
+                TextView item4 = new TextView(this);
+                item4.setPadding(15, 15, 15, 15);
+                item4.setTextColor(Color.parseColor("#000000"));
+                item4.setText(String.valueOf(emp.toStringQt()));
+                tr.addView(item4);
+
+                TextView item5 = new TextView(this);
+                item5.setPadding(15, 15, 15, 15);
+                item5.setTextColor(Color.parseColor("#000000"));
+                item5.setText("Dep. "+emp.toStringDepa());
+                tr.addView(item5);
+
+                TextView item6 = new TextView(this);
+                item6.setPadding(15, 15, 15, 15);
+                item6.setTextColor(Color.parseColor("#000000"));
+                item6.setText(emp.toStringDepa());
+                // tr.addView(item6);
+
+                tableLayout.addView(tr, new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+                count++;
+            }
+            for (DemandeC emp : affF ) {
+
+                TableRow tr = new TableRow(this);
+                tr.setPadding(12, 16, 12, 16);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    tr.setLayoutParams(new ActionMenuView.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+                }
+                if (count % 2 != 0) tr.setBackgroundColor(Color.parseColor("#d1d2d2"));
+
+                TextView item1 = new TextView(this);
+                item1.setPadding(15, 15, 15, 15);
+                item1.setTextColor(Color.parseColor("#000000"));
+                item1.setText(String.valueOf(emp.toStringNum()));
+                //tr.addView(item1);
 
                 TextView item2 = new TextView(this);
                 item2.setPadding(15, 15, 15, 15);
@@ -260,11 +317,12 @@ public class ListeDesDemandes extends AppCompatActivity {
                 item6.setPadding(15, 15, 15, 15);
                 item6.setTextColor(Color.parseColor("#000000"));
                 item6.setText(emp.toStringDepa());
-                tr.addView(item6);
+               // tr.addView(item6);
 
          tableLayout.addView(tr, new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
                 count++;
             }
+
             TextView nbligne=(TextView)findViewById(R.id.ligneEn);
             nbligne.setText(""+count+" ligne(s)");
         }
@@ -294,7 +352,7 @@ public class ListeDesDemandes extends AppCompatActivity {
                     item1.setPadding(15, 15, 15, 15);
                     item1.setTextColor(Color.parseColor("#000000"));
                     item1.setText(String.valueOf(emp.toStringNum()));
-                    tr.addView(item1);
+                    //tr.addView(item1);
 
                     TextView item2 = new TextView(this);
                     item2.setPadding(15, 15, 15, 15);
@@ -317,14 +375,14 @@ public class ListeDesDemandes extends AppCompatActivity {
                     TextView item5 = new TextView(this);
                     item5.setPadding(15, 15, 15, 15);
                     item5.setTextColor(Color.parseColor("#000000"));
-                    item5.setText(emp.toStringNomEmp());
+                    item5.setText(emp.toStringDepa());
                     tr.addView(item5);
 
                     TextView item6 = new TextView(this);
                     item6.setPadding(15, 15, 15, 15);
                     item6.setTextColor(Color.parseColor("#000000"));
                     item6.setText(emp.toStringDepa());
-                    tr.addView(item6);
+                    //tr.addView(item6);
 
                     tableLayout.addView(tr, new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
                     count++;
@@ -471,6 +529,19 @@ public class ListeDesDemandes extends AppCompatActivity {
                 {
 
                 }
+                TextView depart=new TextView(getBaseContext());
+                depart.setTypeface(null, Typeface.BOLD);
+                depart.setTextColor(Color.parseColor("#FFFFFF"));
+                depart.setText("DEPARTEMENT");
+                depart.setPadding(15,15,15,15);
+                if (autr.isChecked())
+                {
+                    tl.addView(depart);
+                }
+                else
+                {
+
+                }
 
                 tableLayout.addView(tl,new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
@@ -479,6 +550,7 @@ public class ListeDesDemandes extends AppCompatActivity {
                 if (profile.equals("SUPER ADMIN")) {
 
                     List<DemandeC> affF =null;
+                    List<DemandeC> affF1 =null;
                     if(getIntent().getStringExtra("sortie").equals("libelle"))
                     {
                         //pour recherche
@@ -487,11 +559,101 @@ public class ListeDesDemandes extends AppCompatActivity {
                     else if (getIntent().getStringExtra("sortie").equals("listeD"))
                     {
                         affF =bd.afficheDemande();
+                        affF1=bd.afficheDemande1();
                     }
 
 
                     //List<DemandeC> affF = bd.afficheDemande();
                     int count = 0;
+                    for (DemandeC emp : affF1) {
+
+                        TableRow tr = new TableRow(getBaseContext());
+                        tr.setPadding(12, 16, 12, 16);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            tr.setLayoutParams(new ActionMenuView.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
+                        }
+                        if (count % 2 != 0) tr.setBackgroundColor(Color.parseColor("#d1d2d2"));
+
+                        TextView item1 = new TextView(getBaseContext());
+                        item1.setPadding(15, 15, 15, 15);
+                        item1.setTextColor(Color.parseColor("#000000"));
+                        item1.setText(String.valueOf(emp.toStringNum()));
+                        if (nume.isChecked())
+                        {
+                            tr.addView(item1);
+                        }
+                        else
+                        {
+
+                        }
+
+                        TextView item2 = new TextView(getBaseContext());
+                        item2.setPadding(15, 15, 15, 15);
+                        item2.setTextColor(Color.parseColor("#000000"));
+                        item2.setText(String.valueOf(emp.toStringDate()));
+                        if (datee.isChecked())
+                        {
+                            tr.addView(item2);
+                        }
+                        else
+                        {
+
+                        }
+
+                        TextView item3 = new TextView(getBaseContext());
+                        item3.setPadding(15, 15, 15, 15);
+                        item3.setTextColor(Color.parseColor("#000000"));
+                        item3.setText(emp.toStringLib());
+                        if (mater.isChecked())
+                        {
+                            tr.addView(item3);
+                        }
+                        else
+                        {
+
+                        }
+                        TextView item4 = new TextView(getBaseContext());
+                        item4.setPadding(15, 15, 15, 15);
+                        item4.setTextColor(Color.parseColor("#000000"));
+                        item4.setText(String.valueOf(emp.toStringQt()));
+                        if (qte.isChecked())
+                        {
+                            tr.addView(item4);
+                        }
+                        else
+                        {
+
+                        }
+
+                        TextView item5 = new TextView(getBaseContext());
+                        item5.setPadding(15, 15, 15, 15);
+                        item5.setTextColor(Color.parseColor("#000000"));
+                        item5.setText("Dep. "+emp.toStringDepa());
+                        if (dem.isChecked())
+                        {
+                            tr.addView(item5);
+                        }
+                        else
+                        {
+
+                        }
+
+                        TextView item6 = new TextView(getBaseContext());
+                        item6.setPadding(15, 15, 15, 15);
+                        item6.setTextColor(Color.parseColor("#000000"));
+                        item6.setText(emp.toStringDepa());
+                        if (autr.isChecked())
+                        {
+                            tr.addView(item6);
+                        }
+                        else
+                        {
+
+                        }
+
+                        tableLayout.addView(tr, new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+                        count++;
+                    }
                     for (DemandeC emp : affF) {
 
                         TableRow tr = new TableRow(getBaseContext());
@@ -565,12 +727,27 @@ public class ListeDesDemandes extends AppCompatActivity {
 
                         }
 
+                        TextView item6 = new TextView(getBaseContext());
+                        item6.setPadding(15, 15, 15, 15);
+                        item6.setTextColor(Color.parseColor("#000000"));
+                        item6.setText(emp.toStringDepa());
+                        if (autr.isChecked())
+                        {
+                            tr.addView(item6);
+                        }
+                        else
+                        {
+
+                        }
+
                         tableLayout.addView(tr, new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
                         count++;
                     }
-                    }
+
                     TextView nbligne=(TextView)findViewById(R.id.ligneEn);
                     nbligne.setText(""+count+" ligne(s)");
+                    }
+
 
 
 

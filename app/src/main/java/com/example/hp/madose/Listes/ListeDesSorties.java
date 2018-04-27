@@ -182,7 +182,7 @@ public class ListeDesSorties extends AppCompatActivity {
         num.setTextColor(Color.parseColor("#FFFFFF"));
         num.setText("Num.");
         num.setPadding(15,15,15,15);
-        tl.addView(num);
+       // tl.addView(num);
 
         TextView date=new TextView(this);
         date.setTypeface(null, Typeface.BOLD);
@@ -203,19 +203,19 @@ public class ListeDesSorties extends AppCompatActivity {
         prent.setTextColor(Color.parseColor("#FFFFFF"));
         prent.setText("TYPES");
         prent.setPadding(15,15,15,15);
-        tl.addView(prent);
+        //tl.addView(prent);
 
         TextView autre=new TextView(this);
         autre.setTypeface(null, Typeface.BOLD);
         autre.setTextColor(Color.parseColor("#FFFFFF"));
         autre.setText("PRECISIONS");
         autre.setPadding(15,15,15,15);
-        tl.addView(autre);
+        //tl.addView(autre);
 
         TextView qt=new TextView(this);
         qt.setTypeface(null, Typeface.BOLD);
         qt.setTextColor(Color.parseColor("#FFFFFF"));
-        qt.setText("QT");
+        qt.setText("QUANTITE");
         qt.setPadding(15,15,15,15);
         tl.addView(qt);
 
@@ -255,7 +255,7 @@ public class ListeDesSorties extends AppCompatActivity {
             item8.setPadding(15,15,15,15);
             item8.setTextColor(Color.parseColor("#000000"));
             item8.setText(String.valueOf(emp.toStringNumSortie()));
-            tr.addView(item8);
+          //  tr.addView(item8);
 
             TextView item7=new TextView(this);
             item7.setPadding(15,15,15,15);
@@ -281,13 +281,13 @@ public class ListeDesSorties extends AppCompatActivity {
                 item2.setText("N.A.");
             }
 
-            tr.addView(item2);
+           // tr.addView(item2);
 
             TextView item3=new TextView(this);
             item3.setPadding(15,15,15,15);
             item3.setTextColor(Color.parseColor("#000000"));
             item3.setText(String.valueOf(emp.toStringAutreP()));
-            tr.addView(item3);
+           // tr.addView(item3);
 
             TextView item4=new TextView(this);
             item4.setPadding(15,15,15,15);

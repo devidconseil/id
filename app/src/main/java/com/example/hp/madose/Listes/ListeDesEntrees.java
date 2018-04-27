@@ -179,7 +179,7 @@ public class ListeDesEntrees extends AppCompatActivity {
         prent.setTextColor(Color.parseColor("#FFFFFF"));
         prent.setText("TYPES");
         prent.setPadding(15,15,15,15);
-        tl.addView(prent);
+      //  tl.addView(prent);
 
 
         TextView PU=new TextView(this);
@@ -209,7 +209,7 @@ public class ListeDesEntrees extends AppCompatActivity {
         autre.setTextColor(Color.parseColor("#FFFFFF"));
         autre.setText("PRECISIONS");
         autre.setPadding(15,15,15,15);
-        tl.addView(autre);
+       // tl.addView(autre);
         tableLayout.addView(tl,new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
          List<Stock1> affF =null;
@@ -256,7 +256,7 @@ public class ListeDesEntrees extends AppCompatActivity {
                 item2.setText("N.A.");
             }
 
-            tr.addView(item2);
+            //tr.addView(item2);
 
             TextView item3=new TextView(this);
             item3.setPadding(15,15,15,15);
@@ -280,7 +280,7 @@ public class ListeDesEntrees extends AppCompatActivity {
             item6.setPadding(15,15,15,15);
             item6.setTextColor(Color.parseColor("#000000"));
             item6.setText(emp.toStringAutre());
-            tr.addView(item6);
+           // tr.addView(item6);
 
 
 

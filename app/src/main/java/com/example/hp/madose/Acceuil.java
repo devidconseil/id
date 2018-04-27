@@ -230,7 +230,7 @@ public class Acceuil extends AppCompatActivity
 
                         //Notification debut
                         NotificationCompat.Builder notification=new NotificationCompat.Builder(Acceuil.this);
-                        notification.setSmallIcon(R.drawable.ic_logde);
+                        notification.setSmallIcon(R.drawable.ic_monlogo);
                         notification.setContentText("Nouvel approvisionnement");
                         notification.setContentTitle("RecapApp");
                       //  MyApplication.notifications.add("Nouvel approvisionnement.\nEffectué le " + cat.getDatEnt() + " à" + cat.getHeureEnt());
@@ -287,7 +287,7 @@ public class Acceuil extends AppCompatActivity
 
                         //Notification debut
                        NotificationCompat.Builder notification=new NotificationCompat.Builder(getBaseContext());
-                        notification.setSmallIcon(R.drawable.ic_logde);
+                        notification.setSmallIcon(R.drawable.ic_monlogo);
                         notification.setContentText("Demande faite par "+cat.getNomEmp());
                         notification.setContentTitle("RecapApp");
                       //  MyApplication.notifications.add("Nouvelle demande.\nEffectuée le " + cat.getDateDem() + " à" + cat.getHeureDem());
@@ -344,7 +344,7 @@ public class Acceuil extends AppCompatActivity
 
                         //Notification debut
                         NotificationCompat.Builder notification=new NotificationCompat.Builder(getBaseContext());
-                        notification.setSmallIcon(R.drawable.ic_logde);
+                        notification.setSmallIcon(R.drawable.ic_monlogo);
                         notification.setContentText("Nouvelle Sortie");
                         notification.setContentTitle("RecapApp");
                        // MyApplication.notifications.add("Nouvelle sortie.\nEnregistrée le " + cat.getDate() + " à" + cat.getHeureSor());

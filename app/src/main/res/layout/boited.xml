@@ -12,43 +12,47 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="Numéro de sortie" />
+        android:text="Numéro de la demande" />
 
     <CheckBox
         android:id="@+id/checkB2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:checked="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/checkB"
-        android:text="Date de sortie" />
+        android:text="Date de la demande" />
 
     <CheckBox
         android:id="@+id/checkB3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:checked="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/checkB2"
         android:text="Matériel" />
 
-    <CheckBox
+    <!--<CheckBox
         android:id="@+id/checkB4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:checked="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/checkB3"
-        android:text="Types" />
+        android:text="" />-->
 
     <CheckBox
         android:id="@+id/checkB5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:checked="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/checkB4"
-        android:text="Autres précisions" />
+        android:layout_below="@+id/checkB3"
+        android:text="Quantité" />
 
     <CheckBox
         android:id="@+id/checkB6"
@@ -57,14 +61,14 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/checkB5"
-        android:text="Quantité" />
-
-    <CheckBox
+        android:text="Auteur de la demande" />
+   <CheckBox
         android:id="@+id/checkB7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/checkB6"
-        android:text="Réçu par" />
+        android:text="Departement de l'auteur" />
+
 </RelativeLayout>
