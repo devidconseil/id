@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,6 +33,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Demande extends AppCompatActivity {
 
@@ -364,6 +367,7 @@ public class Demande extends AppCompatActivity {
                         bd.insertDemandeBesoin(dernierEnr, var3, var4);
 
                         writeNewDemande(employe.getText().toString(), depart.getText().toString(), bes.getText().toString(), date.getText().toString(), Integer.parseInt(quant.getText().toString()), bd.selectHeureDem());
+                        updateConnectivity(MyApplication.getmAuth().getCurrentUser().getEmail());
                         bes.setText("");
                         quant.setText("");
                         if (date.getText().toString().matches("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]")) {
@@ -470,6 +474,7 @@ public class Demande extends AppCompatActivity {
                     }
                     bd.insertDemandeBesoin(dernierEnr, var3, var4);
                     writeNewDemande(employe.getText().toString(), depart.getText().toString(), bes.getText().toString(), date.getText().toString(), Integer.parseInt(quant.getText().toString()), bd.selectHeureDem());
+                    updateConnectivity(MyApplication.getmAuth().getCurrentUser().getEmail());
                     bd.close();
                     Toast.makeText(getBaseContext(), "Sortie enregistrée avec succès !!", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(Demande.this, Acceuil.class);
@@ -581,6 +586,27 @@ public class Demande extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+    public void updateConnectivity(String mail){
+        String username=usernameFromEmail(mail);
+        String reste=mail.substring(username.length()+1,mail.length()-3);
+        String rest=mail.substring(mail.length()-2,mail.length());
+        String code=username+"-"+reste+"-"+rest;
+        Time time=new Time("GMT");
+        time.setToNow();
+        time.format("DD-MM-YYYY HH:MM:SS");
+        Log.i("connect",code);
+        Map<String,Object> childUpdates=new HashMap<>();
+        childUpdates.put("/Connectivité/"+code,time.toString());
+        MyApplication.getmDatabase().updateChildren(childUpdates);
+
+    }
+    private String usernameFromEmail(String email) {
+        if (email.contains("@")) {
+            return email.split("@")[0];
+        } else {
+            return email;
         }
     }
 }

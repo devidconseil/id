@@ -18,6 +18,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -45,7 +46,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class Besoin extends AppCompatActivity {
@@ -382,12 +385,14 @@ public class Besoin extends AppCompatActivity {
                                 editLib.setText(editLib.getText().toString().replace("''","'"));
                             }
                             writeNewBesoin(editLib.getText().toString(), rb.getText().toString(), auto.getText().toString(), 0, var1, varo, resId);
+                            updateConnectivity(MyApplication.getmAuth().getCurrentUser().getEmail());
                             Toast.makeText(Besoin.this, "Besoin enregistré avec succès", Toast.LENGTH_LONG).show();
                         } else if (radio.getText().toString().equals("NON AMORTISSABLE")) {
                             var = Integer.parseInt(edi1.getText().toString());
                             int resId = getResources().getIdentifier(MyApplication.verif1, "drawable", getPackageName());
                             bd.insertBesoin(editLib.getText().toString(), rb.getText().toString(), var3, var, "0", varo, resId);
                             writeNewBesoin(editLib.getText().toString(), rb.getText().toString(), auto.getText().toString(), var, "0", varo, resId);
+                            updateConnectivity(MyApplication.getmAuth().getCurrentUser().getEmail());
                             Toast.makeText(Besoin.this, "Besoin enregistré avec succès", Toast.LENGTH_LONG).show();
                         }
 
@@ -509,5 +514,26 @@ public class Besoin extends AppCompatActivity {
 
         BesoinC cat=new BesoinC(libBes,typBes,libCat,seuilBes,amorBes,stockBes,imageBes);
         mDatabase.child("Besoin").child(code).setValue(cat);
+    }
+    public void updateConnectivity(String mail){
+        String username=usernameFromEmail(mail);
+        String reste=mail.substring(username.length()+1,mail.length()-3);
+        String rest=mail.substring(mail.length()-2,mail.length());
+        String code=username+"-"+reste+"-"+rest;
+        Time time=new Time("GMT");
+        time.setToNow();
+        time.format("DD-MM-YYYY HH:MM:SS");
+        Log.i("connect",code);
+        Map<String,Object> childUpdates=new HashMap<>();
+        childUpdates.put("/Connectivité/"+code,time.toString());
+        MyApplication.getmDatabase().updateChildren(childUpdates);
+
+    }
+    private String usernameFromEmail(String email) {
+        if (email.contains("@")) {
+            return email.split("@")[0];
+        } else {
+            return email;
+        }
     }
 }

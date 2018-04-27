@@ -51,6 +51,7 @@ public class MyApplication extends Application {
     public static List<String> notifications=new ArrayList<>();
     public static int old,nouv=0;
 
+
     public static String getCategorie() {
         return categorie;
     }

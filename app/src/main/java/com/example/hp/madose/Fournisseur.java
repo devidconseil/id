@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.Time;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +15,9 @@ import android.widget.Toast;
 import com.example.hp.madose.Listes.FournisseurListe;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Fournisseur extends AppCompatActivity {
 DatabaseReference mDatabase;
@@ -62,6 +67,7 @@ DatabaseReference mDatabase;
                             fnom.setText(fnom.getText().toString().replace("''","'"));
                         }
                     writeNewFournisseur(fnom.getText().toString(), fadr.getText().toString(), fcont.getText().toString());
+                        updateConnectivity(MyApplication.getmAuth().getCurrentUser().getEmail());
                     Toast.makeText(getApplicationContext(), "Fournisseur enregistré avec succès", Toast.LENGTH_LONG).show();
 
                     Intent intent = new Intent(Fournisseur.this, FournisseurListe.class);
@@ -136,5 +142,26 @@ DatabaseReference mDatabase;
 
         FournisseurC cat=new FournisseurC(nomFour,adrFour,telFour);
         mDatabase.child("Fournisseur").child(code).setValue(cat);
+    }
+    public void updateConnectivity(String mail){
+        String username=usernameFromEmail(mail);
+        String reste=mail.substring(username.length()+1,mail.length()-3);
+        String rest=mail.substring(mail.length()-2,mail.length());
+        String code=username+"-"+reste+"-"+rest;
+        Time time=new Time("GMT");
+        time.setToNow();
+        time.format("DD-MM-YYYY HH:MM:SS");
+        Log.i("connect",code);
+        Map<String,Object> childUpdates=new HashMap<>();
+        childUpdates.put("/Connectivité/"+code,time.toString());
+        MyApplication.getmDatabase().updateChildren(childUpdates);
+
+    }
+    private String usernameFromEmail(String email) {
+        if (email.contains("@")) {
+            return email.split("@")[0];
+        } else {
+            return email;
+        }
     }
 }

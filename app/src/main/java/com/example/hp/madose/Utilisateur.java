@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,7 +30,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Utilisateur extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -231,6 +234,8 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
                             prenE.setText(prenE.getText().toString().replace("''","'"));
                         }
                         writeNewUser(username+"-"+codeT.getText().toString(),codeT.getText().toString(),prenE.getText().toString(),mailE.getText().toString(),telE.getText().toString(),codeD.getText().toString(),spinner.getSelectedItem().toString(),"YES");
+
+                        updateConnectivity(MyApplication.getmAuth().getCurrentUser().getEmail());
                         }
 
                         bd.close();
@@ -266,6 +271,7 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
                                 prenE.setText(prenE.getText().toString().replace("''","'"));
                             }
                             writeNewUser(username+"-"+codeT.getText().toString(),codeT.getText().toString(),prenE.getText().toString(),mailE.getText().toString(),telE.getText().toString(),codeD.getText().toString(),spinner.getSelectedItem().toString(),"YES");
+                            updateConnectivity(MyApplication.getmAuth().getCurrentUser().getEmail());
                             Toast.makeText(getApplicationContext(), "Utilisateur validé avec succès", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(Utilisateur.this, UtilisateurListe.class);
                             codeT.setText("");
@@ -353,5 +359,26 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+    public void updateConnectivity(String mail){
+        String username=usernameFromEmail(mail);
+        String reste=mail.substring(username.length()+1,mail.length()-3);
+        String rest=mail.substring(mail.length()-2,mail.length());
+        String code=username+"-"+reste+"-"+rest;
+        Time time=new Time("GMT");
+        time.setToNow();
+        time.format("DD-MM-YYYY HH:MM:SS");
+        Log.i("connect",code);
+        Map<String,Object> childUpdates=new HashMap<>();
+        childUpdates.put("/Connectivité/"+code,time.toString());
+        MyApplication.getmDatabase().updateChildren(childUpdates);
+
+    }
+    private String usernameFromEmail(String email) {
+        if (email.contains("@")) {
+            return email.split("@")[0];
+        } else {
+            return email;
+        }
     }
 }

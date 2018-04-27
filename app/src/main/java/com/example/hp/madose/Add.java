@@ -35,8 +35,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 
 public class Add extends AppCompatActivity {
@@ -312,6 +313,7 @@ public class Add extends AppCompatActivity {
                         int var = Integer.parseInt(dd.selectFour(four.getText().toString()));
                         dd.insertEntr(date.getText().toString(), var, "", MyApplication.getmAuth().getCurrentUser().getEmail(), true);
                         writeNewEntree(four.getText().toString(), date.getText().toString(), bd.selectHeureEnt(), MyApplication.getmAuth().getCurrentUser().getEmail());
+                        updateConnectivity(MyApplication.getmAuth().getCurrentUser().getEmail());
                     }
 
                     if (!bd.checkIfBesoinEntreeExist(besoin.getText().toString(), date.getText().toString(),bd.selectHeureEnt(),bd.selectUserEnt(bd.selectHeureEnt()))) {
@@ -336,6 +338,7 @@ public class Add extends AppCompatActivity {
                         int dernierEnregistrem = Integer.parseInt(dd.selectIdEnt());
                         dd.insertEntrBes(var1, dernierEnregistrem, prix, quantite, mark.getText().toString(), autre.getText().toString());
                         writeNewAdd(bd.selectHeureEnt(),besoin.getText().toString(), date.getText().toString(), prix, quantite, mark.getText().toString(), autre.getText().toString());
+                        updateConnectivity(MyApplication.getmAuth().getCurrentUser().getEmail());
 
                         //update debut
                         int var2 = Integer.parseInt(dd.selectStockBes(besoin.getText().toString()));
@@ -442,6 +445,7 @@ public class Add extends AppCompatActivity {
                         int var = Integer.parseInt(dd.selectFour(four.getText().toString()));
                         dd.insertEntr(date.getText().toString(), var, "", MyApplication.getmAuth().getCurrentUser().getEmail(), true);
                         writeNewEntree(four.getText().toString(), date.getText().toString(), bd.selectHeureEnt(), MyApplication.getmAuth().getCurrentUser().getEmail());
+                        updateConnectivity(MyApplication.getmAuth().getCurrentUser().getEmail());
                     }
 
                     if (! bd.checkIfBesoinEntreeExist(besoin.getText().toString(),date.getText().toString(),bd.selectHeureEnt(),bd.selectUserEnt(bd.selectHeureEnt()))) {
@@ -481,6 +485,7 @@ public class Add extends AppCompatActivity {
 
                         dd.insertEntrBes(var1, dernierEnregistrem, prix, quantite, mark.getText().toString(), autre.getText().toString());
                         writeNewAdd(bd.selectHeureEnt(),besoin.getText().toString(), date.getText().toString(), prix, quantite, mark.getText().toString(), autre.getText().toString());
+                        updateConnectivity(MyApplication.getmAuth().getCurrentUser().getEmail());
 
                         //update debut
                         int var2 = Integer.parseInt(dd.selectStockBes(besoin.getText().toString()));
@@ -614,6 +619,27 @@ public class Add extends AppCompatActivity {
     public void hideProgressDialog() {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
+        }
+    }
+    public void updateConnectivity(String mail){
+        String username=usernameFromEmail(mail);
+        String reste=mail.substring(username.length()+1,mail.length()-3);
+        String rest=mail.substring(mail.length()-2,mail.length());
+        String code=username+"-"+reste+"-"+rest;
+        Time time=new Time("GMT");
+        time.setToNow();
+        time.format("DD-MM-YYYY HH:MM:SS");
+        Log.i("connect",code);
+        Map<String,Object> childUpdates=new HashMap<>();
+        childUpdates.put("/Connectivité/"+code,time.toString());
+        MyApplication.getmDatabase().updateChildren(childUpdates);
+
+    }
+    private String usernameFromEmail(String email) {
+        if (email.contains("@")) {
+            return email.split("@")[0];
+        } else {
+            return email;
         }
     }
 }
