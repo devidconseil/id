@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -43,6 +44,10 @@ import com.example.hp.madose.Listes.ListeDesDemandes;
 import com.example.hp.madose.Listes.ListeDesEntrees;
 import com.example.hp.madose.Listes.ListeDesSorties;
 import com.example.hp.madose.Listes.UtilisateurListe;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -76,6 +81,8 @@ public class Acceuil extends AppCompatActivity
     FirebaseAuth mAuth;
     ProgressDialog mProgressDialog;
     ConnexionDetector connexionDetector;
+    String temps;
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +108,37 @@ public class Acceuil extends AppCompatActivity
         today.setToNow();
         Toast.makeText(getApplicationContext(),today.toString(),Toast.LENGTH_LONG);
         String profile=bd.retrieveUserProfile(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
+        MyApplication.nouv=bd.countAccountNotValidate();
+
+        if (MyApplication.old!=MyApplication.nouv){
+            if (MyApplication.nouv!=0) {
+                //Notification debut
+                NotificationCompat.Builder notification = new NotificationCompat.Builder(Acceuil.this);
+                notification.setSmallIcon(R.drawable.ic_logde);
+                notification.setContentText(MyApplication.nouv + " compte(s) en attente de validation.");
+                notification.setContentTitle("RecapApp");
+                //  MyApplication.notifications.add("Nouvel approvisionnement.\nEffectué le " + cat.getDatEnt() + " à" + cat.getHeureEnt());
+
+                Intent entree = new Intent(getBaseContext(), NotificationArea.class);
+                //entree.putExtra("sortie","listeE");
+                TaskStackBuilder stackBuilder = TaskStackBuilder.create(getBaseContext());
+                stackBuilder.addParentStack(Acceuil.class);
+                stackBuilder.addNextIntent(entree);
+
+                notification.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+
+                PendingIntent resultIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+                notification.setContentIntent(resultIntent);
+                notification.setAutoCancel(true);
+                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                Random random = new Random();
+                notificationManager.notify(random.nextInt(130000), notification.build());
+                //Notification fin
+            }
+            MyApplication.old=MyApplication.nouv;
+
+        }
 
         showProgressDialog();
         MyApplication.getmDatabase().child("Categorie").addValueEventListener(new ValueEventListener() {
@@ -172,6 +210,7 @@ public class Acceuil extends AppCompatActivity
         MyApplication.getmDatabase().child("users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 for (DataSnapshot dataSnapshotUser:dataSnapshot.getChildren()){
                     UtilisateurC user=dataSnapshotUser.getValue(UtilisateurC.class);
                     //  Toast.makeText(getApplicationContext(),user.getMailEmp(),Toast.LENGTH_SHORT);
@@ -179,6 +218,7 @@ public class Acceuil extends AppCompatActivity
                         Log.i("MONTRE-MOI",user.getLibDep());
                         int s=Integer.parseInt(bd.selectDep(user.getLibDep()));
                         bd.insertEmp(user.getNomEmp(),user.getPrenEmp(),user.getMailEmp(),user.getTelEmp(),s,user.getProEmp(),user.getValEmp());
+
 
                     }
                 }
@@ -376,9 +416,58 @@ public class Acceuil extends AppCompatActivity
 
             }
         });
+        String username=usernameFromEmail(MyApplication.getmAuth().getCurrentUser().getEmail());
+        String reste=MyApplication.getmAuth().getCurrentUser().getEmail().substring(username.length()+1,MyApplication.getmAuth().getCurrentUser().getEmail().length()-3);
+        String rest=MyApplication.getmAuth().getCurrentUser().getEmail().substring(MyApplication.getmAuth().getCurrentUser().getEmail().length()-2,MyApplication.getmAuth().getCurrentUser().getEmail().length());
+        String code=username+"-"+reste+"-"+rest;
+        mDatabase.child("Connectivité").child(code).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String time=dataSnapshot.getValue(String.class);
+                String a,b,c,d,e,f;
+                a=time.substring(0,4);
+                b=time.substring(4,6);
+                c=time.substring(6,8);
+                d=time.substring(9,11);
+                e=time.substring(11,13);
+                f=time.substring(13,15);
+                temps=c+"-"+b+"-"+a+" "+d+":"+e+":"+f;
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+
 
         hideProgressDialog();
+      /*  AuthCredential credential= EmailAuthProvider.getCredential(MyApplication.getmAuth().getCurrentUser().getEmail(),"goodtop11");
+        MyApplication.getmAuth().getCurrentUser().reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    MyApplication.getmAuth().getCurrentUser().updatePassword("adejinle114").addOnCompleteListener( new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()){
+                                Log.i("Résultat","success");
+                            }
+                            else {
+                                Log.i("Résultat","failed");
+                            }
 
+                        }
+                    });
+                }
+                else{
+                    Log.i("résultat","not good");
+                }
+            }
+        });  */
 
         if (profile.equals("USER")){
             Intent intent=new Intent(Acceuil.this,Affichage.class);
@@ -513,7 +602,9 @@ public class Acceuil extends AppCompatActivity
         getMenuInflater().inflate(R.menu.acceuil, menu);
         if (! bd.retrieveUserProfile(MyApplication.getmAuth().getCurrentUser().getEmail()).equals("USER")) {
             TextView status = findViewById(R.id.textView13);
+            TextView connect= findViewById(R.id.textView15);
             status.setText("\nConnecté en tant que: " + MyApplication.getmAuth().getCurrentUser().getEmail());
+            connect.setText("Dernière action sur le serveur: "+ temps);
         }
         return true;
     }
@@ -563,6 +654,11 @@ public class Acceuil extends AppCompatActivity
                 b.putExtra("passage", "besoin");
                 startActivity(b);
                 break;
+            case R.id.notif_area:
+                Intent adej=new Intent(Acceuil.this,NotificationArea.class);
+                adej.putExtra("passage","notif");
+                startActivity(adej);
+                break;
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();
                 finish();
@@ -585,6 +681,14 @@ public class Acceuil extends AppCompatActivity
         UtilisateurC user = new UtilisateurC(name, surname, email, tel, department, profile,validate);
         mDatabase.child("users").child(userId).setValue(user);
     }
+    private String usernameFromEmail(String email) {
+        if (email.contains("@")) {
+            return email.split("@")[0];
+        } else {
+            return email;
+        }
+    }
+
 
 @Override
     public void onStart(){
@@ -596,7 +700,7 @@ public class Acceuil extends AppCompatActivity
 
         String profile=bd.retrieveUserProfile(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         if (profile.equals("USER")){
-            Intent intent=new Intent(Acceuil.this,Affichage.class);
+            Intent intent=new Intent(Acceuil.this,ListeDesDemandes.class);
             intent.putExtra("passage","demande");
             startActivity(intent);
             finish();

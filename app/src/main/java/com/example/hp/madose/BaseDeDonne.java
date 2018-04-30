@@ -352,6 +352,18 @@ public class BaseDeDonne extends SQLiteOpenHelper {
             return false;
         }
     }
+    public int countAccountNotValidate(){
+        String req="select MailEmp from Utilisateur where ValEmp='NO';";
+        Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
+        if(cursor.getCount()>0){
+            cursor.close();
+            return cursor.getCount();
+        }
+        else {
+            cursor.close();
+            return 0;
+        }
+    }
     public Boolean checkIfFournisseurExist(String name){
         String req="select * from Fournisseur where NomFour='"+name+"';";
         Cursor cursor=this.getReadableDatabase().rawQuery(req,null);

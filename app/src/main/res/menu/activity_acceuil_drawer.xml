@@ -34,6 +34,12 @@
             android:title="Departement"
             android:visible="true" />
         <item
+            android:id="@+id/notif_area"
+            android:enabled="true"
+            android:icon="@drawable/ic_sms_black_24dp"
+            android:title="Notification Area"
+            android:visible="true" />
+        <item
             android:id="@+id/logout"
             android:enabled="true"
             android:icon="@drawable/ic_deco"

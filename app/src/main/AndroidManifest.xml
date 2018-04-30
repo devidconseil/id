@@ -26,8 +26,18 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".PageDeChargement"
+            android:label="RecapApp"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+
             </intent-filter>
         </activity>
         <activity
@@ -72,10 +82,8 @@
         </activity>
         <activity
             android:name=".NotificationArea"
-            android:label="Notification Area">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
+            android:label="Notification Area"
+            android:parentActivityName=".Acceuil">
         </activity>
         <activity
             android:name=".Utilisateur"
@@ -153,7 +161,7 @@
             android:name=".Listes.StockEgale"
             android:parentActivityName=".Acceuil"
             android:label="Matériel égale au seuil"/>
-        <activity android:name=".PageDeChargement" />
+
         <activity
             android:name=".Listes.FournisseurListe"
             android:label="Liste des fournisseurs"

@@ -86,6 +86,23 @@
                 android:maxLines="1"
                 android:password="true"
                 android:singleLine="true" />
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/connexion"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/andada"
+                android:gravity="center"
+                android:linksClickable="true"
+                android:text="Mot de passe oublié?"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textColorLink="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
+                android:textSize="20dp"
+                android:textStyle="normal" />
         </RelativeLayout>
     </ScrollView>
 

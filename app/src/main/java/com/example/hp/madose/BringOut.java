@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -28,6 +29,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BringOut extends AppCompatActivity {
 
@@ -649,6 +652,7 @@ public class BringOut extends AppCompatActivity {
                             autr.setText(autr.getText().toString().replace("''","'"));
                         }
                         writeNewSortie(besoin.getText().toString(), marq.getText().toString(), autr.getText().toString(), demande.getText().toString(), employe.getText().toString(), date.getText().toString(), departement.getText().toString(), bd.selectHeureSor(), MyApplication.getmAuth().getCurrentUser().getEmail(), var1);
+                        updateConnectivity(MyApplication.getmAuth().getCurrentUser().getEmail());
                         //update debut
                         int var2 = Integer.parseInt(bd.selectStockBes(besoin.getText().toString()));
                         int var3 = var2 - var1;
@@ -774,6 +778,7 @@ public class BringOut extends AppCompatActivity {
                         }
                         writeNewSortie(besoin.getText().toString(), marq.getText().toString(), autr.getText().toString(), demande.getText().toString(), employe.getText().toString(), date.getText().toString(), departement.getText().toString(), bd.selectHeureSor(), MyApplication.getmAuth().getCurrentUser().getEmail(), var1);
 
+                        updateConnectivity(MyApplication.getmAuth().getCurrentUser().getEmail());
                         //update debut
                         int var2 = Integer.parseInt(bd.selectStockBes(besoin.getText().toString()));
                         int var3 = var2 - var1;
@@ -874,5 +879,26 @@ public class BringOut extends AppCompatActivity {
 
         Stock2 cat=new Stock2(libBes,marqBes,autreP,dateDem,nomEmp,date,libDep,heureSor,validationUser,qte);
         MyApplication.getmDatabase().child("Sorties").child(code).setValue(cat);
+    }
+    public void updateConnectivity(String mail){
+        String username=usernameFromEmail(mail);
+        String reste=mail.substring(username.length()+1,mail.length()-3);
+        String rest=mail.substring(mail.length()-2,mail.length());
+        String code=username+"-"+reste+"-"+rest;
+        Time time=new Time("GMT");
+        time.setToNow();
+        time.format("DD-MM-YYYY HH:MM:SS");
+        Log.i("connect",code);
+        Map<String,Object> childUpdates=new HashMap<>();
+        childUpdates.put("/Connectivité/"+code,time.toString());
+        MyApplication.getmDatabase().updateChildren(childUpdates);
+
+    }
+    private String usernameFromEmail(String email) {
+        if (email.contains("@")) {
+            return email.split("@")[0];
+        } else {
+            return email;
+        }
     }
 }
