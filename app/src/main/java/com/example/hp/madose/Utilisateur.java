@@ -71,6 +71,17 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
         codeD.setAdapter(nombes);
         if (getIntent().getStringExtra("status").equals("new user request")){
             spinner.setVisibility(View.INVISIBLE);
+            MyApplication.getmAuth().signInWithEmailAndPassword("test@idconsulting.ie","password").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()){
+                        Log.i("ETAT","bon");
+                    }
+                    else {
+                        Log.i("ETAT","mauvais");
+                    }
+                }
+            });
         }
         else {
             spinner.setVisibility(View.VISIBLE);
@@ -222,6 +233,14 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
                         }
                         if (spinner.getSelectedItem().toString().equals("Choisir le profil")){
                             bd.insertEmp(codeT.getText().toString(), prenE.getText().toString(), mailE.getText().toString(), telE.getText().toString(), x, "","NO");
+
+                            String username=mailE.getText().toString().split("@")[0];
+                            writeNewUser(username+"-"+codeT.getText().toString(),codeT.getText().toString(),prenE.getText().toString(),mailE.getText().toString(),telE.getText().toString(),codeD.getText().toString(),"","NO");
+
+
+                            MyApplication.getmAuth().signOut();
+
+
                         }
                         else {
 
@@ -256,6 +275,7 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
                         Toast.makeText(getApplicationContext(), spinner.getOnItemSelectedListener().toString(), Toast.LENGTH_LONG).show();
                         if (MyApplication.isNewAccount()){
                           startActivity(new Intent(Utilisateur.this,Authentification.class));
+                          MyApplication.getmAuth().signOut();
                           MyApplication.setNewAccount(false);
                         }
                     }
@@ -270,7 +290,7 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
                             if (prenE.getText().toString().contains("''")){
                                 prenE.setText(prenE.getText().toString().replace("''","'"));
                             }
-                            writeNewUser(username+"-"+codeT.getText().toString(),codeT.getText().toString(),prenE.getText().toString(),mailE.getText().toString(),telE.getText().toString(),codeD.getText().toString(),spinner.getSelectedItem().toString(),"YES");
+                            updateNewUser(codeT.getText().toString(),mailE.getText().toString(),spinner.getSelectedItem().toString(),"YES");
                             updateConnectivity(MyApplication.getmAuth().getCurrentUser().getEmail());
                             Toast.makeText(getApplicationContext(), "Utilisateur validé avec succès", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(Utilisateur.this, UtilisateurListe.class);
@@ -349,6 +369,18 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
         mDatabase.child("users").child(userId).setValue(user);
 
     }
+    private void updateNewUser( String name, String email,  String profile, String validate) {
+
+        String username,code;
+        username=email.split("@")[0];
+        code=username+"-"+name;
+        Map<String,Object> childUpdates=new HashMap<>();
+        childUpdates.put("/users/"+code+"/proEmp",profile);
+        childUpdates.put("/users/"+code+"/valEmp",validate);
+        MyApplication.getmDatabase().updateChildren(childUpdates);
+
+
+    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -361,6 +393,7 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
 
     }
     public void updateConnectivity(String mail){
+
         String username=usernameFromEmail(mail);
         String reste=mail.substring(username.length()+1,mail.length()-3);
         String rest=mail.substring(mail.length()-2,mail.length());
@@ -372,6 +405,18 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
         Map<String,Object> childUpdates=new HashMap<>();
         childUpdates.put("/Connectivité/"+code,time.toString());
         MyApplication.getmDatabase().updateChildren(childUpdates);
+        String a,b,c,d,e,f,tiime,temps;
+        BaseDeDonne bd=new BaseDeDonne(getApplicationContext());
+        tiime=time.toString();
+        a=tiime.substring(0,4);
+        b=tiime.substring(4,6);
+        c=tiime.substring(6,8);
+        d=tiime.substring(9,11);
+        e=tiime.substring(11,13);
+        f=tiime.substring(13,15);
+        temps=c+"-"+b+"-"+a+" "+d+":"+e+":"+f;
+        bd.updateConnect(temps,mail);
+
 
     }
     private String usernameFromEmail(String email) {

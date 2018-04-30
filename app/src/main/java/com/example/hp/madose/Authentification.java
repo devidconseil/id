@@ -6,15 +6,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.format.Time;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,16 +23,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.EmailAuthCredential;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
@@ -51,6 +45,7 @@ public class Authentification extends AppCompatActivity {
     BaseDeDonne bd;
     String test="";
     ConnexionDetector connexionDetector;
+    String maill;
 
 
 // ...
@@ -75,21 +70,27 @@ public class Authentification extends AppCompatActivity {
         txtView.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(Authentification.this, 0x00000005);
-                builder.setView(R.id.iden);
+                View view=LayoutInflater.from(getApplicationContext()).inflate(R.layout.activity_input,null);
+                final EditText input = (EditText) view.findViewById(R.id.input);
+                builder.setView(view);
                 builder.setTitle("Veuillez entrer le mail!");
                 builder.setPositiveButton("VALIDER", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Snackbar.make((View) dialog, "Email de réinitialisation envoyé!!", Snackbar.LENGTH_LONG)
+                        Snackbar.make(v, "Email de réinitialisation envoyé!!", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
+                        dialog.dismiss();
+                        maill=input.getText().toString();
+                        MyApplication.getmAuth().sendPasswordResetEmail(maill);
+
                     }
                 });
                 builder.setNegativeButton("ANNULER", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        dialog.cancel();
                     }
                 });
                 builder.create();
@@ -471,6 +472,7 @@ FirebaseAuth.getInstance().signOut();
         MyApplication.getmDatabase().child("Fournisseur").child(code).setValue(cat);
     }
     public void writeNewConnectivity(String mail){
+        BaseDeDonne bd=new BaseDeDonne(getApplicationContext());
         String username=usernameFromEmail(mail);
         String reste=mail.substring(username.length()+1,mail.length()-3);
         String rest=mail.substring(mail.length()-2,mail.length());
@@ -480,6 +482,17 @@ FirebaseAuth.getInstance().signOut();
         time.format("DD-MM-YYYY HH:MM:SS");
         Log.i("connect",code);
         MyApplication.getmDatabase().child("Connectivité").child(code).setValue(time.toString());
+        String a,b,c,d,e,f,tiime,temps;
+        tiime=time.toString();
+        a=tiime.substring(0,4);
+        b=tiime.substring(4,6);
+        c=tiime.substring(6,8);
+        d=tiime.substring(9,11);
+        e=tiime.substring(11,13);
+        f=tiime.substring(13,15);
+        temps=c+"-"+b+"-"+a+" "+d+":"+e+":"+f;
+        Log.i("dede",temps);
+        bd.insertConnect(temps,mail);
 
     }
     public void updateConnectivity(String mail){
@@ -494,6 +507,25 @@ FirebaseAuth.getInstance().signOut();
         Map<String,Object> childUpdates=new HashMap<>();
         childUpdates.put("/Connectivité/"+code,time.toString());
         MyApplication.getmDatabase().updateChildren(childUpdates);
+        String a,b,c,d,e,f,tiime,temps;
+        BaseDeDonne bd=new BaseDeDonne(getApplicationContext());
+        tiime=time.toString();
+        a=tiime.substring(0,4);
+        b=tiime.substring(4,6);
+        c=tiime.substring(6,8);
+        d=tiime.substring(9,11);
+        e=tiime.substring(11,13);
+        f=tiime.substring(13,15);
+        temps=c+"-"+b+"-"+a+" "+d+":"+e+":"+f;
+        if (bd.checkIfConnectExist(mail)){
+            bd.updateConnect(temps,mail);
+        }
+        else {
+            bd.insertConnect(temps,mail);
+        }
+
+
+        Log.i("dede",temps);
 
     }
 
