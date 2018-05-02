@@ -65,16 +65,34 @@ public class ListeAchat extends AppCompatActivity {
             item8.setPadding(15, 15, 15, 15);
             item8.setTextColor(Color.parseColor("#000000"));
             item8.setText(String.valueOf(emp.toStringMat()));
-            tr.addView(item8);
+            //tr.addView(item8);
 
             TextView item7 = new TextView(this);
             item7.setPadding(15, 15, 15, 15);
             item7.setTextColor(Color.parseColor("#000000"));
-            item7.setText(String.valueOf(emp.toStringQt()));
-            tr.addView(item7);
+            String a,b,c;
+            a=bd.selectStockBes(String.valueOf(emp.toStringMat()));
+            b=bd.selectStockBesDemande(String.valueOf(emp.toStringMat()));
+            c=bd.selectStockBesSortie(String.valueOf(emp.toStringMat()));
+            if (b==null){
+                b="0";
+            }
+            if (c==null){
+                c="0";
+            }
+            int d=Integer.parseInt(b)-Integer.parseInt(a)-Integer.parseInt(c);
+
+            item7.setText(String.valueOf(d));
+           // item7.setText(String.valueOf(emp.toStringQt()));
+            if (d>0){
+                tr.addView(item8);
+                tr.addView(item7);
+                count++;
+            }
+
 
             tableLayout.addView(tr,new TableLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
-            count++;
+           // count++;
         }
     }
 }

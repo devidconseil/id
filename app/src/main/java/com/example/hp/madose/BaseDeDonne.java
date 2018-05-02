@@ -1640,7 +1640,29 @@ public ArrayList<String> affiNumDem(int idemp)
             if (cursor != null) cursor.close();
         }
     }
+    public String selectStockBesDemande(String LibBes){
+        String requete="select sum(qte) as qte from Besoin,Demande_Besoins where Demande_Besoins.numBes=Besoin.numBes and libBes='"+LibBes+"' group by libBes;";
+        Cursor cursor = null;
+        try {
 
+            cursor = this.getReadableDatabase().rawQuery(requete,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
+
+    public String selectStockBesSortie(String LibBes){
+        String requete="select sum(qte) as qte from Besoin,Besoins_Sortie where Besoins_Sortie.numBes=Besoin.numBes and libBes='"+LibBes+"' group by libBes;";
+        Cursor cursor = null;
+        try {
+
+            cursor = this.getReadableDatabase().rawQuery(requete,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
     public List<StockC> afficheSt()
     {
         List<StockC>affS=new ArrayList<>();
@@ -1718,7 +1740,7 @@ public ArrayList<String> affiNumDem(int idemp)
 
 
        // String req="select Besoin.libBes,sum(qte) as qte from Besoin,Demande_Besoins,Demande where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem  group by libBes;";
-        String req="select Besoin.libBes, StockBes-Demande_Besoins.qte as qte from Besoin,Besoins_Sortie,Demande_Besoins where Besoin.NumBes=Besoins_Sortie.Numbes and Besoin.NumBes=Demande_Besoins.NumBes group by libBes;";
+        String req="select Besoin.libBes, StockBes-(Demande_Besoins.qte - Besoins_Sortie.qte) as qte from Besoin,Besoins_Sortie,Demande_Besoins where Besoin.NumBes=Besoins_Sortie.Numbes or Besoin.NumBes=Demande_Besoins.NumBes group by libBes;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
