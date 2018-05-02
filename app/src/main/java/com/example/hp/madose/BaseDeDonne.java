@@ -1718,7 +1718,7 @@ public ArrayList<String> affiNumDem(int idemp)
 
 
        // String req="select Besoin.libBes,sum(qte) as qte from Besoin,Demande_Besoins,Demande where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem  group by libBes;";
-        String req="select Besoin.libBes, StockBes-(Demande_Besoins.qte - Besoins_Sortie.qte) as qte from Besoin,Besoins_Sortie,Demande_Besoins where Besoin.NumBes=Besoins_Sortie.Numbes and Besoin.NumBes=Demande_Besoins.NumBes group by libBes;";
+        String req="select Besoin.libBes, StockBes-Demande_Besoins.qte as qte from Besoin,Besoins_Sortie,Demande_Besoins where Besoin.NumBes=Besoins_Sortie.Numbes and Besoin.NumBes=Demande_Besoins.NumBes group by libBes;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
