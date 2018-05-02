@@ -603,9 +603,19 @@ public class BringOut extends AppCompatActivity {
                     qut.setError("Veuillez saisir le prix unitaire SVP!!");
                     qut.requestFocus();
                 }
+               else if (Integer.parseInt(bd.selectStock(besoin.getText().toString()))<1)
+                {
+                    Toast.makeText(getBaseContext(),"La quantité de "+besoin.getText().toString()+" dans le stock est supérieure à 0. Veuillez faire un approvisionnement en "+besoin.getText().toString(),Toast.LENGTH_LONG).show();
+                }
+                else if (Integer.parseInt(bd.selectStock(besoin.getText().toString()))<Integer.parseInt(qut.getText().toString()))
+                {
+                    int x=Integer.parseInt(bd.selectStock(besoin.getText().toString()))-Integer.parseInt(qut.getText().toString());
+                    Toast.makeText(getBaseContext(),"Vous ne pouvez faire sortir que "+x+" "+besoin.getText().toString(),Toast.LENGTH_LONG).show();
+                }
                else {
+                    Toast.makeText(getBaseContext(),"Vous ne pouvez "+Integer.parseInt(bd.selectStock(besoin.getText().toString())),Toast.LENGTH_LONG).show();
 
-
+/*
                     String num = new String();
                     if (radioButton_emp.isChecked()) {
                         num = bd.selectNumDem2(demande.getText().toString(), employe.getText().toString());
@@ -690,7 +700,7 @@ public class BringOut extends AppCompatActivity {
                         });
                         builder.create();
                         builder.show();
-                    }
+                    }*/
                 }
             }
         });
@@ -717,6 +727,15 @@ public class BringOut extends AppCompatActivity {
                 {
                     qut.setError("Veuillez saisir le prix unitaire SVP!!");
                     qut.requestFocus();
+                }
+                else if (Integer.parseInt(bd.selectStock(besoin.getText().toString()))<1)
+                {
+                    Toast.makeText(getBaseContext(),"La quantité de "+besoin.getText().toString()+" dans le stock est supérieure à 0. Veuillez faire un approvisionnement en "+besoin.getText().toString(),Toast.LENGTH_LONG).show();
+                }
+                else if (Integer.parseInt(bd.selectStock(besoin.getText().toString()))<Integer.parseInt(qut.getText().toString()))
+                {
+                    int x=Integer.parseInt(bd.selectStock(besoin.getText().toString()));
+                    Toast.makeText(getBaseContext(),"Vous ne pouvez faire sortir que "+x+" "+besoin.getText().toString(),Toast.LENGTH_LONG).show();
                 }
                 else {
                     String num = new String();

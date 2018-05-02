@@ -187,7 +187,7 @@ public class ListeDesDemandes extends AppCompatActivity {
         TextView prent=new TextView(this);
         prent.setTypeface(null, Typeface.BOLD);
         prent.setTextColor(Color.parseColor("#FFFFFF"));
-        prent.setText("Qt");
+        prent.setText("QUANTITE");
         prent.setPadding(15,15,15,15);
         tl.addView(prent);
 
@@ -217,6 +217,7 @@ public class ListeDesDemandes extends AppCompatActivity {
             {
                 //pour recherche
                 affF = bd.afficheDemandeR(getIntent().getStringExtra("libelle"));
+                affF1 = bd.afficheDemandeR1(getIntent().getStringExtra("libelle"));
             }
             else if (getIntent().getStringExtra("sortie").equals("listeD"))
             {
@@ -505,7 +506,7 @@ public class ListeDesDemandes extends AppCompatActivity {
                 TextView prent=new TextView(getBaseContext());
                 prent.setTypeface(null, Typeface.BOLD);
                 prent.setTextColor(Color.parseColor("#FFFFFF"));
-                prent.setText("Qt");
+                prent.setText("QUANTITE");
                 prent.setPadding(15,15,15,15);
                 if (qte.isChecked())
                 {
@@ -555,13 +556,13 @@ public class ListeDesDemandes extends AppCompatActivity {
                     {
                         //pour recherche
                         affF = bd.afficheDemandeR(getIntent().getStringExtra("libelle"));
+                        affF1 = bd.afficheDemandeR1(getIntent().getStringExtra("libelle"));
                     }
                     else if (getIntent().getStringExtra("sortie").equals("listeD"))
                     {
                         affF =bd.afficheDemande();
                         affF1=bd.afficheDemande1();
                     }
-
 
                     //List<DemandeC> affF = bd.afficheDemande();
                     int count = 0;
