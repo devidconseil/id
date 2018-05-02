@@ -16,6 +16,9 @@
         android:icon="@drawable/ic_search_dp"
         app:showAsAction="always"/>
     <item
+        android:id="@+id/password"
+        android:title="Changer son mot de passe" />
+    <item
         android:id="@+id/deconnexion"
         android:enabled="true"
         android:icon="@drawable/logout"
