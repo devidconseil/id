@@ -45,6 +45,7 @@ import com.example.hp.madose.Listes.BesoinListe;
 import com.example.hp.madose.Listes.CategorieListe;
 import com.example.hp.madose.Listes.DepartementListe;
 import com.example.hp.madose.Listes.FournisseurListe;
+import com.example.hp.madose.Listes.ListeDemandeUtilisateur;
 import com.example.hp.madose.Listes.ListeDesDemandes;
 import com.example.hp.madose.Listes.ListeDesEntrees;
 import com.example.hp.madose.Listes.ListeDesSorties;
@@ -477,8 +478,8 @@ public class Acceuil extends AppCompatActivity
         });  */
 
         if (profile.equals("USER")){
-            Intent intent=new Intent(Acceuil.this,Affichage.class);
-            intent.putExtra("passage","demande");
+            Intent intent=new Intent(Acceuil.this,ListeDemandeUtilisateur.class);
+            //intent.putExtra("passage","demande");
             startActivity(intent);
             finish();
         }
