@@ -35,6 +35,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
             " PRIMARY KEY(NumBes,numEnt), FOREIGN KEY(numEnt) REFERENCES Entree(numEnt), FOREIGN KEY(NumBes) REFERENCES Besoin(NumBes) );";
     private static final String TABLE_ENTREE = "CREATE TABLE Entree ( `numEnt` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `DateEnt` INTEGER NOT NULL, `IdFour` INTEGER,`HeureEnt` INTEGER NOT NULL,`User` TEXT NOT NULL, FOREIGN KEY(`IdFour`) REFERENCES `Fournisseur`(`IdFour`));";
     private static final String TABLE_FOURNISSEUR = "CREATE TABLE Fournisseur ( `IdFour` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `NomFour` TEXT NOT NULL, `AdrFour` TEXT, `TelFour` TEXT);";
+    private static final String TABLE_CONNECTIVITE="CREATE TABLE Connectivite (`Temps` TEXT,`Mail` TEXT);";
     private static final String TABLE_SORTIE = "CREATE TABLE Sortie ( `NumSor` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `DateSor` INTEGER NOT NULL, `numDem` INTEGER,`HeureSor` TEXT,`User` TEXT, FOREIGN KEY(`numDem`) REFERENCES `Demande`(`numDem`));";
     //   nomEmp,libDep,ProEmp,IdDep
     //DateSor numDem** NumSor NumBes qte marqueBes Autre précision
@@ -55,6 +56,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         db.execSQL("drop table if exists Besoins_Sortie");
         db.execSQL("drop table if exists Besoins_Entree");
         db.execSQL("drop table if exists Besoin");
+        db.execSQL("drop table if exists Connectivite");
 
         onCreate(db);
         Log.i("DATABASE", "onUpgrade invoked");
@@ -74,6 +76,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         db.execSQL(TABLE_BESOIN);
         db.execSQL(TABLE_BESOIN_ENTREE);
         db.execSQL(TABLE_BESOIN_SORTIE);
+        db.execSQL(TABLE_CONNECTIVITE);
 
         Log.i("DATABASE", "onCreate invoked");
 
@@ -91,6 +94,11 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     //Insert
     public void insert(String libelle) {
         String entre = "insert into Departement ( libDep )values('" + libelle + "');";
+        this.getWritableDatabase().execSQL(entre);
+        Log.i("DATABSE", "insert invoked");
+    }
+    public void insertConnect(String libelle,String libelle1) {
+        String entre = "insert into Connectivite ( Temps,Mail )values('" + libelle + "','" + libelle1 + "');";
         this.getWritableDatabase().execSQL(entre);
         Log.i("DATABSE", "insert invoked");
     }
@@ -328,6 +336,18 @@ public class BaseDeDonne extends SQLiteOpenHelper {
             return false;
         }
     }
+    public Boolean checkIfConnectExist(String name){
+        String req="select Temps from Connectivite where Mail='"+name+"' ';";
+        Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
+        if(cursor.getCount()>0){
+            cursor.close();
+            return true;
+        }
+        else {
+            cursor.close();
+            return false;
+        }
+    }
     public Boolean checkIfCategorieExist(String name){
         String req="select * from Categorie where LibCat='"+name+"';";
         Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
@@ -418,6 +438,16 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     }
     public String retrieveUserProfile(String mail){
         String req="select ProEmp from Utilisateur where MailEmp='"+mail+"';";
+        Cursor cursor = null;
+        try {
+            cursor = this.getReadableDatabase().rawQuery(req,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
+    public String retrieveUserConnect(String mail){
+        String req="select Temps from Connectivite where Mail='"+mail+"';";
         Cursor cursor = null;
         try {
             cursor = this.getReadableDatabase().rawQuery(req,null );
@@ -1531,6 +1561,12 @@ public ArrayList<String> affiNumDem(int idemp)
         String req="update Besoin set StockBes="+quant+" where libBes='"+nomB+"';";
         this.getWritableDatabase().execSQL(req);
         Log.i("DATABASE","mise a jour de la table stock");
+    }
+    public void updateConnect(String time,String mail)
+    {
+        String req="update Connectivite set Temps='"+time+"' where Mail='"+mail+"';";
+        this.getWritableDatabase().execSQL(req);
+        Log.i("DATABASE","mise a jour de la table Connectivite");
     }
     public void upDateUserDetails(String profile,String mail)
     {

@@ -18,6 +18,8 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -30,9 +32,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.text.format.Time;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -82,6 +87,8 @@ public class Acceuil extends AppCompatActivity
     ProgressDialog mProgressDialog;
     ConnexionDetector connexionDetector;
     String temps;
+    String ancien,nouveau,confirmation;
+    int statut;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -604,7 +611,8 @@ public class Acceuil extends AppCompatActivity
             TextView status = findViewById(R.id.textView13);
             TextView connect= findViewById(R.id.textView15);
             status.setText("\nConnecté en tant que: " + MyApplication.getmAuth().getCurrentUser().getEmail());
-            connect.setText("Dernière action sur le serveur: "+ temps);
+            connect.setText("Dernière action sur le serveur: "+ bd.retrieveUserConnect(MyApplication.getmAuth().getCurrentUser().getEmail()));
+            Log.i("ade","fait bien"+bd.retrieveUserConnect(MyApplication.getmAuth().getCurrentUser().getEmail()));
         }
         return true;
     }
@@ -658,6 +666,73 @@ public class Acceuil extends AppCompatActivity
                 Intent adej=new Intent(Acceuil.this,NotificationArea.class);
                 adej.putExtra("passage","notif");
                 startActivity(adej);
+                break;
+            case R.id.password_change:
+
+                final AlertDialog.Builder builder = new AlertDialog.Builder(Acceuil.this, 0x00000005);
+                final View view= LayoutInflater.from(getApplicationContext()).inflate(R.layout.activity_input1,null);
+                final EditText input1 = (EditText) view.findViewById(R.id.input1);
+                final EditText input2 = (EditText) view.findViewById(R.id.input2);
+                final EditText input3 = (EditText) view.findViewById(R.id.input3);
+
+
+                builder.setView(view);
+                builder.setTitle("Changer de mot de passe");
+                builder.setPositiveButton("VALIDER", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ancien=input1.getText().toString();
+                        nouveau=input2.getText().toString();
+                        confirmation=input3.getText().toString();
+                        dialog.dismiss();
+                        if (nouveau.equals(confirmation)){
+                            AuthCredential credential= EmailAuthProvider.getCredential(MyApplication.getmAuth().getCurrentUser().getEmail(),ancien);
+                            MyApplication.getmAuth().getCurrentUser().reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+                                        MyApplication.getmAuth().getCurrentUser().updatePassword(nouveau).addOnCompleteListener( new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()){
+                                                    Log.i("Résultat","success");
+                                                    Snackbar.make(getCurrentFocus(), "Mot de passe changé avec succès!!", Snackbar.LENGTH_LONG)
+                                                            .setAction("Action", null).show();
+                                                }
+                                                else {
+                                                    Log.i("Résultat","failed");
+                                                }
+
+                                            }
+                                        });
+                                    }
+                                    else{
+                                        Log.i("résultat","not good");
+                                    }
+                                }
+                            });
+                        }
+                        else {
+                            Snackbar.make(view, "Changement de mot passe a échoué.\nVeuillez recommencer!!!", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        }
+
+
+                    }
+                });
+                builder.setNegativeButton("ANNULER", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+
+
+
+                builder.create();
+                builder.show();
+
                 break;
             case R.id.logout:
                 FirebaseAuth.getInstance().signOut();

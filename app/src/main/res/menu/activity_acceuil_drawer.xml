@@ -37,8 +37,13 @@
             android:id="@+id/notif_area"
             android:enabled="true"
             android:icon="@drawable/ic_sms_black_24dp"
-            android:title="Notification Area"
+            android:title="Zone de notification"
             android:visible="true" />
+        <item
+            android:id="@+id/password_change"
+            android:enabled="true"
+            android:icon="@drawable/ic_vpn_key_black_24dp"
+            android:title="Changer de mot de passe" />
         <item
             android:id="@+id/logout"
             android:enabled="true"

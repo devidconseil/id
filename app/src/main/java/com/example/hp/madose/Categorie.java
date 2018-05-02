@@ -142,6 +142,18 @@ public class Categorie extends AppCompatActivity {
         Map<String,Object> childUpdates=new HashMap<>();
         childUpdates.put("/Connectivité/"+code,time.toString());
         MyApplication.getmDatabase().updateChildren(childUpdates);
+        String a,b,c,d,e,f,tiime,temps;
+        BaseDeDonne bd=new BaseDeDonne(getApplicationContext());
+        tiime=time.toString();
+        a=tiime.substring(0,4);
+        b=tiime.substring(4,6);
+        c=tiime.substring(6,8);
+        d=tiime.substring(9,11);
+        e=tiime.substring(11,13);
+        f=tiime.substring(13,15);
+        temps=c+"-"+b+"-"+a+" "+d+":"+e+":"+f;
+        bd.updateConnect(temps,mail);
+
 
     }
     private String usernameFromEmail(String email) {
