@@ -119,10 +119,10 @@ public class Acceuil extends AppCompatActivity
         MyApplication.nouv=bd.countAccountNotValidate();
 
         if (MyApplication.old!=MyApplication.nouv){
-            if (MyApplication.nouv!=0) {
+            if (MyApplication.nouv!=0 && !profile.equals("USER")) {
                 //Notification debut
                 NotificationCompat.Builder notification = new NotificationCompat.Builder(Acceuil.this);
-                notification.setSmallIcon(R.drawable.ic_logde);
+                notification.setSmallIcon(R.drawable.ic_monlogo);
                 notification.setContentText(MyApplication.nouv + " compte(s) en attente de validation.");
                 notification.setContentTitle("RecapApp");
                 //  MyApplication.notifications.add("Nouvel approvisionnement.\nEffectué le " + cat.getDatEnt() + " à" + cat.getHeureEnt());
