@@ -233,16 +233,83 @@ public class ListeDesSorties extends AppCompatActivity {
       //  List<Stock2> affF = bd.afficheStockLib("MARKER");
 
         List<Stock2> affF =null;
+        List<Stock2> affF1 =null;
         if(getIntent().getStringExtra("sortie").equals("libelle"))
         {
             affF = bd.afficheStockLib(getIntent().getStringExtra("libelle"));
+            affF1 = bd.afficheStockLib1(getIntent().getStringExtra("libelle"));
         }
         else if (getIntent().getStringExtra("sortie").equals("listeS"))
         {
             affF =bd.afficheStock22();
+            affF1 =bd.afficheStock33();
         }
 
         int count=0;
+        for (Stock2 emp : affF1) {
+
+            TableRow tr=new TableRow(this);
+            tr.setPadding(12,16,12,16);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                tr.setLayoutParams(new ActionMenuView.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+            }
+            if (count %2!=0) tr.setBackgroundColor(Color.parseColor("#d1d2d2"));
+            TextView item8=new TextView(this);
+            item8.setPadding(15,15,15,15);
+            item8.setTextColor(Color.parseColor("#000000"));
+            item8.setText(String.valueOf(emp.toStringNumSortie()));
+            //  tr.addView(item8);
+
+            TextView item7=new TextView(this);
+            item7.setPadding(15,15,15,15);
+            item7.setTextColor(Color.parseColor("#000000"));
+            item7.setText(emp.toStringDate());
+            tr.addView(item7);
+
+            TextView item1=new TextView(this);
+            item1.setPadding(15,15,15,15);
+            item1.setTextColor(Color.parseColor("#000000"));
+            item1.setText(emp.toStringBesoin());
+            tr.addView(item1);
+
+            TextView item2=new TextView(this);
+            item2.setPadding(15,15,15,15);
+            item2.setTextColor(Color.parseColor("#000000"));
+            if (emp.toStringType().equals("AMORTISSABLE"))
+            {
+                item2.setText("A.");
+            }
+            else if (emp.toStringType().equals("NON AMORTISSABLE"))
+            {
+                item2.setText("N.A.");
+            }
+
+            // tr.addView(item2);
+
+            TextView item3=new TextView(this);
+            item3.setPadding(15,15,15,15);
+            item3.setTextColor(Color.parseColor("#000000"));
+            item3.setText(String.valueOf(emp.toStringAutreP()));
+            // tr.addView(item3);
+
+            TextView item4=new TextView(this);
+            item4.setPadding(15,15,15,15);
+            item4.setTextColor(Color.parseColor("#000000"));
+            item4.setText(String.valueOf(emp.toStringQt()));
+            tr.addView(item4);
+
+            TextView item5=new TextView(this);
+            item5.setPadding(15,15,15,15);
+            item5.setTextColor(Color.parseColor("#000000"));
+            item5.setText("Dep. "+emp.toStringNomEm());
+            tr.addView(item5);
+
+
+
+
+            tableLayout.addView(tr,new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+            count++;
+        }
         for (Stock2 emp : affF) {
 
             TableRow tr=new TableRow(this);
@@ -452,7 +519,7 @@ public class ListeDesSorties extends AppCompatActivity {
                 TextView qt=new TextView(getBaseContext());
                 qt.setTypeface(null, Typeface.BOLD);
                 qt.setTextColor(Color.parseColor("#FFFFFF"));
-                qt.setText("QT");
+                qt.setText("QUANTITE");
                 qt.setPadding(15,15,15,15);
                 if (qte.isChecked())
                 {
@@ -484,16 +551,131 @@ public class ListeDesSorties extends AppCompatActivity {
                 //  List<Stock2> affF = bd.afficheStockLib("MARKER");
 
                 List<Stock2> affF =null;
+                List<Stock2> affF1 =null;
                 if(getIntent().getStringExtra("sortie").equals("libelle"))
                 {
                     affF = bd.afficheStockLib(getIntent().getStringExtra("libelle"));
+                    affF1 = bd.afficheStockLib1(getIntent().getStringExtra("libelle"));
                 }
                 else if (getIntent().getStringExtra("sortie").equals("listeS"))
                 {
                     affF =bd.afficheStock22();
+                    affF1 =bd.afficheStock33();
                 }
 
                 int count=0;
+                for (Stock2 emp : affF1) {
+
+                    TableRow tr=new TableRow(getBaseContext());
+                    tr.setPadding(12,16,12,16);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        tr.setLayoutParams(new ActionMenuView.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+                    }
+                    if (count %2!=0) tr.setBackgroundColor(Color.parseColor("#d1d2d2"));
+                    TextView item8=new TextView(getBaseContext());
+                    item8.setPadding(15,15,15,15);
+                    item8.setTextColor(Color.parseColor("#000000"));
+                    item8.setText(String.valueOf(emp.toStringNumSortie()));
+                    if (nume.isChecked())
+                    {
+                        tr.addView(item8);
+                    }
+                    else
+                    {
+
+                    }
+
+                    TextView item7=new TextView(getBaseContext());
+                    item7.setPadding(15,15,15,15);
+                    item7.setTextColor(Color.parseColor("#000000"));
+                    item7.setText(emp.toStringDate());
+                    if (datee.isChecked())
+                    {
+                        tr.addView(item7);
+                    }
+                    else
+                    {
+
+                    }
+
+                    TextView item1=new TextView(getBaseContext());
+                    item1.setPadding(15,15,15,15);
+                    item1.setTextColor(Color.parseColor("#000000"));
+                    item1.setText(emp.toStringBesoin());
+                    if (mater.isChecked())
+                    {
+                        tr.addView(item1);
+                    }
+                    else
+                    {
+
+                    }
+
+                    TextView item2=new TextView(getBaseContext());
+                    item2.setPadding(15,15,15,15);
+                    item2.setTextColor(Color.parseColor("#000000"));
+                    if (emp.toStringType().equals("AMORTISSABLE"))
+                    {
+                        item2.setText("A.");
+                    }
+                    else if (emp.toStringType().equals("NON AMORTISSABLE"))
+                    {
+                        item2.setText("N.A.");
+                    }
+
+                    if (type.isChecked())
+                    {
+                        tr.addView(item2);
+                    }
+                    else
+                    {
+
+                    }
+
+
+                    TextView item3=new TextView(getBaseContext());
+                    item3.setPadding(15,15,15,15);
+                    item3.setTextColor(Color.parseColor("#000000"));
+                    item3.setText(String.valueOf(emp.toStringAutreP()));
+                    if (preci.isChecked())
+                    {
+                        tr.addView(item3);
+                    }
+                    else
+                    {
+
+                    }
+
+                    TextView item4=new TextView(getBaseContext());
+                    item4.setPadding(15,15,15,15);
+                    item4.setTextColor(Color.parseColor("#000000"));
+                    item4.setText(String.valueOf(emp.toStringQt()));
+                    if (qte.isChecked())
+                    {
+                        tr.addView(item4);
+                    }
+                    else
+                    {
+
+                    }
+
+                    TextView item5=new TextView(getBaseContext());
+                    item5.setPadding(15,15,15,15);
+                    item5.setTextColor(Color.parseColor("#000000"));
+                    item5.setText("Dep. "+emp.toStringNomEm());
+                    if (recu.isChecked())
+                    {
+                        tr.addView(item5);
+                    }
+                    else
+                    {
+
+                    }
+
+
+                    tableLayout.addView(tr,new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+                    count++;
+                }
                 for (Stock2 emp : affF) {
 
                     TableRow tr=new TableRow(getBaseContext());

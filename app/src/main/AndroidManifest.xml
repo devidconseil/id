@@ -82,7 +82,7 @@
         </activity>
         <activity
             android:name=".NotificationArea"
-            android:label="Notification Area"
+            android:label="Notifications"
             android:parentActivityName=".Acceuil">
         </activity>
         <activity

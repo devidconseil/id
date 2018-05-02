@@ -44,6 +44,6 @@ Connecté en tant que "
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Dernière connexion au serveur:"
-        android:textColor="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color" />
+        android:textColor="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"/>
 
 </LinearLayout>
