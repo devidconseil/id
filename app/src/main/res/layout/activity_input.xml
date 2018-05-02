@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:backgroundTint="#ffcc0000"
         android:ems="10"
         android:inputType="textEmailAddress"
         android:textColor="#000" />

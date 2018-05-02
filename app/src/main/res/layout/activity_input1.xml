@@ -10,10 +10,12 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="5dp"
+        android:backgroundTint="@android:color/holo_red_dark"
         android:ems="10"
         android:hint="Mot de passe actuel"
         android:inputType="textEmailAddress"
-        android:textColor="#000" />
+        android:textColor="#000"
+        android:textColorHint="#000" />
 
     <EditText
         android:id="@+id/input2"
@@ -23,10 +25,12 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="false"
         android:layout_below="@+id/input1"
+        android:backgroundTint="@android:color/holo_red_dark"
         android:ems="10"
         android:hint="Nouveau mot de passe"
         android:inputType="textEmailAddress"
-        android:textColor="#000" />
+        android:textColor="#000"
+        android:textColorHint="#000" />
 
     <EditText
         android:id="@+id/input3"
@@ -35,9 +39,11 @@
         android:layout_below="@+id/input2"
         android:layout_centerHorizontal="false"
         android:layout_centerVertical="false"
+        android:backgroundTint="#ffcc0000"
         android:ems="10"
         android:hint="Confirmer nouveau mot de passe"
         android:inputType="textEmailAddress"
-        android:textColor="#000" />
+        android:textColor="#000"
+        android:textColorHint="#000" />
 
 </RelativeLayout>
