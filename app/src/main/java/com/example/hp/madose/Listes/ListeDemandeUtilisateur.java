@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.hp.madose.BaseDeDonne;
 import com.example.hp.madose.DemandeC;
+import com.example.hp.madose.MyApplication;
 import com.example.hp.madose.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -88,7 +89,7 @@ public class ListeDemandeUtilisateur extends AppCompatActivity {
 
         tableLayout.addView(tl,new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
-        List<DemandeC> affF = bd.afficheDemandeUser(mAuth.getCurrentUser().getEmail());
+        List<DemandeC> affF = bd.afficheDemandeUser(MyApplication.getmAuth().getCurrentUser().getEmail());
         int count = 0;
         for (DemandeC emp : affF) {
 
@@ -126,7 +127,7 @@ public class ListeDemandeUtilisateur extends AppCompatActivity {
             TextView item5 = new TextView(this);
             item5.setPadding(15, 15, 15, 15);
             item5.setTextColor(Color.parseColor("#000000"));
-            item5.setText(emp.toStringDepa());
+            item5.setText(emp.toStringNomEmp());
             tr.addView(item5);
 
             TextView item6 = new TextView(this);
