@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.hp.madose.Acceuil;
 
+import com.example.hp.madose.Listes.ListeDemandeUtilisateur;
 import com.example.hp.madose.Listes.ListeRupture;
 import com.example.hp.madose.Listes.StockEgale;
 import com.example.hp.madose.Listes.StockSup;
@@ -115,7 +116,7 @@ ConnexionDetector connexionDetector;
         inf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),ListeRupture.class);
+                Intent intent = new Intent(getActivity(),ListeDemandeUtilisateur.class);
                 startActivity(intent);
             }
         });

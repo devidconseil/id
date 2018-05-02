@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.hp.madose">
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/logorecap"
@@ -17,7 +19,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-             <!--   <category android:name="android.intent.category.LAUNCHER" />  -->
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
         <activity
@@ -26,8 +28,8 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
@@ -36,8 +38,6 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
-
             </intent-filter>
         </activity>
         <activity
@@ -83,8 +83,7 @@
         <activity
             android:name=".NotificationArea"
             android:label="Notifications"
-            android:parentActivityName=".Acceuil">
-        </activity>
+            android:parentActivityName=".Acceuil"></activity>
         <activity
             android:name=".Utilisateur"
             android:label="Utilisateurs"
@@ -131,17 +130,15 @@
         <activity
             android:name=".Variation"
             android:parentActivityName=".Acceuil" />
-        <activity
-            android:name=".CoutTotalBesoin"
-            />
+        <activity android:name=".CoutTotalBesoin" />
         <activity android:name=".Listedepartement" />
         <activity
             android:name=".Affich"
             android:label="Affich" />
         <activity
             android:name=".Listes.BesoinListe"
-            android:parentActivityName=".Acceuil"
-            android:label="Liste des besoins"/>
+            android:label="Liste des besoins"
+            android:parentActivityName=".Acceuil" />
         <activity android:name=".ListeUtilisateur" />
         <activity
             android:name=".ListeFournisseur"
@@ -151,44 +148,49 @@
         <activity android:name=".MyApplication" />
         <activity
             android:name=".Listes.ListeRupture"
-            android:parentActivityName=".Acceuil"
-            android:label="Matériel inférieur au seuil"/>
+            android:label="Matériel inférieur au seuil"
+            android:parentActivityName=".Acceuil" />
         <activity
             android:name=".Listes.StockSup"
-            android:parentActivityName=".Acceuil"
-            android:label="Matériel supérieur au seuil"/>
+            android:label="Matériel supérieur au seuil"
+            android:parentActivityName=".Acceuil" />
         <activity
             android:name=".Listes.StockEgale"
-            android:parentActivityName=".Acceuil"
-            android:label="Matériel égale au seuil"/>
-
+            android:label="Matériel égale au seuil"
+            android:parentActivityName=".Acceuil" />
         <activity
             android:name=".Listes.FournisseurListe"
             android:label="Liste des fournisseurs"
             android:parentActivityName=".Acceuil" />
         <activity
             android:name=".Listes.CategorieListe"
-            android:parentActivityName=".Acceuil"
-            android:label="Liste des catégories"/>
+            android:label="Liste des catégories"
+            android:parentActivityName=".Acceuil" />
         <activity
             android:name=".Listes.DepartementListe"
-            android:parentActivityName=".Acceuil"
-            android:label="Liste des departements"/>
-        <activity android:name=".Listes.UtilisateurListe"
-            android:parentActivityName=".Acceuil"
-            android:label="Liste des utilisateurs"/>
-        <activity android:name=".Listes.ListeDesEntrees"
-            android:parentActivityName=".Acceuil"
-            android:label="Liste des approvisionnements"/>
-        <activity android:name=".Listes.ListeDesSorties"
-            android:parentActivityName=".Acceuil"
-            android:label="Liste des sorties"/>
-        <activity android:name=".Listes.ListeDesDemandes"
-            android:parentActivityName=".Acceuil"
-            android:label="Liste des demandes"/>
-        <activity android:name=".Listes.ListeAchat"
-            android:parentActivityName=".Acceuil"
-            android:label="Liste d'achat à faire"></activity>
+            android:label="Liste des departements"
+            android:parentActivityName=".Acceuil" />
+        <activity
+            android:name=".Listes.UtilisateurListe"
+            android:label="Liste des utilisateurs"
+            android:parentActivityName=".Acceuil" />
+        <activity
+            android:name=".Listes.ListeDesEntrees"
+            android:label="Liste des approvisionnements"
+            android:parentActivityName=".Acceuil" />
+        <activity
+            android:name=".Listes.ListeDesSorties"
+            android:label="Liste des sorties"
+            android:parentActivityName=".Acceuil" />
+        <activity
+            android:name=".Listes.ListeDesDemandes"
+            android:label="Liste des demandes"
+            android:parentActivityName=".Acceuil" />
+        <activity
+            android:name=".Listes.ListeAchat"
+            android:label="Liste d&apos;achat à faire"
+            android:parentActivityName=".Acceuil" />
+        <activity android:name=".Listes.ListeDemandeUtilisateur"></activity>
     </application>
 
 </manifest>
