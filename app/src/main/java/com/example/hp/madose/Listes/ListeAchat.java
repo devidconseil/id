@@ -70,7 +70,13 @@ public class ListeAchat extends AppCompatActivity {
             TextView item7 = new TextView(this);
             item7.setPadding(15, 15, 15, 15);
             item7.setTextColor(Color.parseColor("#000000"));
-            item7.setText(String.valueOf(emp.toStringQt()));
+            String a,b,c;
+            a=bd.selectStockBes(item8.getText().toString());
+            b=bd.selectStockBesDemande(item8.getText().toString());
+            c=bd.selectStockBesSortie(item8.getText().toString());
+            int d=Integer.parseInt(b)-Integer.parseInt(a)-Integer.parseInt(c);
+            item7.setText(String.valueOf(d));
+           // item7.setText(String.valueOf(emp.toStringQt()));
             tr.addView(item7);
 
             tableLayout.addView(tr,new TableLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));

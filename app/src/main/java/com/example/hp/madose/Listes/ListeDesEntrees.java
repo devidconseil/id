@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +38,7 @@ import com.example.hp.madose.AddEC;
 import com.example.hp.madose.Authentification;
 import com.example.hp.madose.BaseDeDonne;
 import com.example.hp.madose.CoutTotalBesoin;
+import com.example.hp.madose.Frag_accueil_listes;
 import com.example.hp.madose.R;
 import com.example.hp.madose.Stock1;
 import com.google.firebase.auth.FirebaseAuth;
@@ -310,6 +312,15 @@ public class ListeDesEntrees extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_affiche, menu);
         return true;
+    }
+    @Override
+    public void onBackPressed(){
+super.onBackPressed();
+       Frag_accueil_listes fragment = new Frag_accueil_listes();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_acceuil, fragment);
+        transaction.commit();
+
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

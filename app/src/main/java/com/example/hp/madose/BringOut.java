@@ -640,10 +640,14 @@ public class BringOut extends AppCompatActivity {
                         if (autr.getText().toString().contains("'")){
                             autr.setText(autr.getText().toString().replace("'","''"));
                         }
-                        String name1=marq.getText().toString().substring(0,1).toUpperCase();
-                        marq.setText(name1+marq.getText().toString().substring(1,marq.getText().toString().length()).toLowerCase());
-                        name1=autr.getText().toString().substring(0,1).toUpperCase();
-                        autr.setText(name1+autr.getText().toString().substring(1,autr.getText().toString().length()).toLowerCase());
+                        if (!(marq.getText().toString().equals("") || marq.getText().toString().equals(" "))) {
+                            String name1 = marq.getText().toString().substring(0, 1).toUpperCase();
+                            marq.setText(name1 + marq.getText().toString().substring(1, marq.getText().toString().length()).toLowerCase());
+                        }
+                        if (!(autr.getText().toString().equals("") || autr.getText().toString().equals(" "))) {
+                            String name1 = autr.getText().toString().substring(0, 1).toUpperCase();
+                            autr.setText(name1 + autr.getText().toString().substring(1, autr.getText().toString().length()).toLowerCase());
+                        }
                         bd.insertSortieBesoin(dernierEnr, var, var1, marq.getText().toString(), autr.getText().toString());
                         if (marq.getText().toString().contains("''")){
                             marq.setText(marq.getText().toString().replace("''","'"));
@@ -765,10 +769,14 @@ public class BringOut extends AppCompatActivity {
                         if (autr.getText().toString().contains("'")){
                             autr.setText(autr.getText().toString().replace("'","''"));
                         }
-                        String name1=marq.getText().toString().substring(0,1).toUpperCase();
-                        marq.setText(name1+marq.getText().toString().substring(1,marq.getText().toString().length()).toLowerCase());
-                        name1=autr.getText().toString().substring(0,1).toUpperCase();
-                        autr.setText(name1+autr.getText().toString().substring(1,autr.getText().toString().length()).toLowerCase());
+                        if (!(marq.getText().toString().equals("") || marq.getText().toString().equals(" "))) {
+                            String name1 = marq.getText().toString().substring(0, 1).toUpperCase();
+                            marq.setText(name1 + marq.getText().toString().substring(1, marq.getText().toString().length()).toLowerCase());
+                        }
+                        if (!(autr.getText().toString().equals("") || autr.getText().toString().equals(" "))) {
+                            String name1 = autr.getText().toString().substring(0, 1).toUpperCase();
+                            autr.setText(name1 + autr.getText().toString().substring(1, autr.getText().toString().length()).toLowerCase());
+                        }
                         bd.insertSortieBesoin(dernierEnr, var, var1, marq.getText().toString(), autr.getText().toString());
                         if (marq.getText().toString().contains("''")){
                             marq.setText(marq.getText().toString().replace("''","'"));
