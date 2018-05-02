@@ -337,7 +337,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         }
     }
     public Boolean checkIfConnectExist(String name){
-        String req="select Temps from Connectivite where Mail='"+name+"' ';";
+        String req="select Temps from Connectivite where Mail='"+name+"';";
         Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
         if(cursor.getCount()>0){
             cursor.close();
