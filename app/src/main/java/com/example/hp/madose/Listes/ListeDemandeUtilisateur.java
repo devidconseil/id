@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 
 import com.example.hp.madose.Acceuil;
 import com.example.hp.madose.BaseDeDonne;
+import com.example.hp.madose.Demande;
 import com.example.hp.madose.DemandeC;
 import com.example.hp.madose.MyApplication;
 import com.example.hp.madose.R;
@@ -158,6 +160,16 @@ public class ListeDemandeUtilisateur extends AppCompatActivity {
             tableLayout.addView(tr, new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
             count++;
         }
+
+        FloatingActionButton ajout=(FloatingActionButton)findViewById(R.id.floatAjout);
+        ajout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(ListeDemandeUtilisateur.this,Demande.class);
+                intent.putExtra("code","affichage");
+                startActivity(intent);
+            }
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -170,7 +182,7 @@ public class ListeDemandeUtilisateur extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.deconnexion:
-                mAuth.signOut();
+                MyApplication.getmAuth().signOut();
                 finish();
                 startActivity(new Intent(this, Welcome.class));
                 break;

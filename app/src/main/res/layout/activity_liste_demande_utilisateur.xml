@@ -12,12 +12,26 @@
     android:id="@+id/useraffiche">
 
 </TableLayout>
-    <Toolbar
-        android:layout_width="match_parent"
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatAjout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#E1E1E1"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        tools:ignore="NewApi"></Toolbar>
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="45dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:adjustViewBounds="false"
+        android:background="#fff"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="visible"
+        app:backgroundTint="@color/cardview_light_background"
+        app:elevation="5dp"
+        app:fabSize="normal"
+        app:rippleColor="@color/cardview_light_background"
+        app:srcCompat="@android:drawable/ic_input_add"
+        tools:targetApi="o" />
 </RelativeLayout>

@@ -101,7 +101,6 @@ public class Frag_accueil_listes extends Fragment {
 
 
 
-
         return rootView;
     }
 }

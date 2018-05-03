@@ -580,7 +580,7 @@ public class Demande extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.deconnexion:
-                mAuth.signOut();
+                MyApplication.getmAuth().signOut();
                 finish();
                 startActivity(new Intent(this, Authentification.class));
                 return true;

@@ -276,7 +276,7 @@ public class ListeDesEntrees extends AppCompatActivity {
             item5.setPadding(15,15,15,15);
             item5.setTextColor(Color.parseColor("#000000"));
             item5.setText(emp.toStringMarque());
-           // tr.addView(item5);
+            tr.addView(item5);
 
             TextView item6=new TextView(this);
             item6.setPadding(15,15,15,15);
@@ -313,7 +313,7 @@ public class ListeDesEntrees extends AppCompatActivity {
         inflater.inflate(R.menu.menu_affiche, menu);
         return true;
     }
-    @Override
+  /*  @Override
     public void onBackPressed(){
 super.onBackPressed();
        Frag_accueil_listes fragment = new Frag_accueil_listes();
@@ -321,7 +321,7 @@ super.onBackPressed();
         transaction.replace(R.id.content_acceuil, fragment);
         transaction.commit();
 
-    }
+    }*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection

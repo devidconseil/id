@@ -190,7 +190,9 @@
             android:name=".Listes.ListeAchat"
             android:label="Liste d&apos;achat à faire"
             android:parentActivityName=".Acceuil" />
-        <activity android:name=".Listes.ListeDemandeUtilisateur"></activity>
+        <activity android:name=".Listes.ListeDemandeUtilisateur"
+            android:label="Liste des demandes"
+            ></activity>
     </application>
 
 </manifest>
