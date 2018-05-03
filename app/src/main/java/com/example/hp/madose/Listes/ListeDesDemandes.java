@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +35,7 @@ import com.example.hp.madose.Authentification;
 import com.example.hp.madose.BaseDeDonne;
 import com.example.hp.madose.CoutTotalBesoin;
 import com.example.hp.madose.DemandeC;
+import com.example.hp.madose.Frag_accueil_listes;
 import com.example.hp.madose.R;
 import com.example.hp.madose.Stock2;
 import com.google.firebase.auth.FirebaseAuth;
@@ -427,6 +429,9 @@ public class ListeDesDemandes extends AppCompatActivity {
                 intent.putExtra("recherche","Rdemande");
                 startActivity(intent);
                 return true;
+            case android.R.id.home:
+                onBackPressed();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -755,4 +760,13 @@ public class ListeDesDemandes extends AppCompatActivity {
             } });
         bdd.show();
             }
-        }
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Frag_accueil_listes fragment = new Frag_accueil_listes();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(fragment,"fragment");
+        transaction.commit();
+
+    }
+}

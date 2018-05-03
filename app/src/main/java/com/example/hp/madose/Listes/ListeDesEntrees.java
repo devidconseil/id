@@ -1,6 +1,7 @@
 package com.example.hp.madose.Listes;
 
 import android.Manifest;
+import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -318,7 +319,7 @@ public class ListeDesEntrees extends AppCompatActivity {
 super.onBackPressed();
        Frag_accueil_listes fragment = new Frag_accueil_listes();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content_acceuil, fragment);
+        transaction.add(fragment,"fragment");
         transaction.commit();
 
     }*/
@@ -338,6 +339,9 @@ super.onBackPressed();
                 Intent intent=new Intent(ListeDesEntrees.this,CoutTotalBesoin.class);
                 intent.putExtra("recherche","Rentree");
                 startActivity(intent);
+                return true;
+            case android.R.id.home:
+                onBackPressed();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

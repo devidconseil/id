@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import com.example.hp.madose.Authentification;
 import com.example.hp.madose.BaseDeDonne;
 import com.example.hp.madose.CoutTotalBesoin;
 import com.example.hp.madose.DemandeC;
+import com.example.hp.madose.Frag_accueil_listes;
 import com.example.hp.madose.R;
 import com.example.hp.madose.Stock2;
 import com.google.firebase.auth.FirebaseAuth;
@@ -400,6 +402,15 @@ public class ListeDesSorties extends AppCompatActivity {
         return true;
     }
     @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Frag_accueil_listes fragment = new Frag_accueil_listes();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(fragment,"fragment");
+        transaction.commit();
+
+    }
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
@@ -414,6 +425,9 @@ public class ListeDesSorties extends AppCompatActivity {
                intent.putExtra("recherche","Rsortie");
                startActivity(intent);
 
+                return true;
+            case android.R.id.home:
+                onBackPressed();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

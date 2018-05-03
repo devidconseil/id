@@ -4,8 +4,10 @@ package com.example.hp.madose;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -70,6 +72,25 @@ public class CoutTotalBesoin extends AppCompatActivity {
                 }
             }
         });
+    }
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Frag_accueil_listes fragment = new Frag_accueil_listes();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(fragment,"fragment");
+        transaction.commit();
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }
