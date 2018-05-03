@@ -170,7 +170,7 @@ public class ListeDemandeUtilisateur extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.deconnexion:
-                mAuth.signOut();
+                MyApplication.getmAuth().signOut();
                 finish();
                 startActivity(new Intent(this, Welcome.class));
                 break;

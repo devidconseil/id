@@ -3,15 +3,18 @@ package com.example.hp.madose.Listes;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.ActionMenuView;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.hp.madose.BaseDeDonne;
+import com.example.hp.madose.Frag_accueil_listes;
 import com.example.hp.madose.ListAchatC;
 import com.example.hp.madose.R;
 
@@ -93,6 +96,25 @@ public class ListeAchat extends AppCompatActivity {
 
             tableLayout.addView(tr,new TableLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
            // count++;
+        }
+    }
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Frag_accueil_listes fragment = new Frag_accueil_listes();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(fragment,"fragment");
+        transaction.commit();
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }
