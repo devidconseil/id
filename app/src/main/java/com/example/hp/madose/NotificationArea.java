@@ -1,6 +1,7 @@
 package com.example.hp.madose;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +33,8 @@ public class NotificationArea extends AppCompatActivity {
         ListAdapter arrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,notification);
         final ListView listView= findViewById(R.id.listview_area);
         listView.setAdapter(arrayAdapter);
+
+        listView.setBackgroundColor(Color.parseColor("#17631E"));
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

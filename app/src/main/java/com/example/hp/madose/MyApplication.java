@@ -11,6 +11,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -186,6 +188,8 @@ public class MyApplication extends Application {
         super.onCreate();
         final BaseDeDonne bd=new BaseDeDonne(this);
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
        DatabaseReference userRef= FirebaseDatabase.getInstance().getReference("users");
        userRef.keepSynced(true);
 

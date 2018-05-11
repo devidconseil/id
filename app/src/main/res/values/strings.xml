@@ -61,5 +61,8 @@
         <item>ADMIN</item>
         <item>SUPER ADMIN</item>
     </string-array>
+    <string name="facebook_app_id">2181654328517867</string>
+    <string name="fb_login_protocol_scheme">fb2181654328517867</string>
+
 
 </resources>

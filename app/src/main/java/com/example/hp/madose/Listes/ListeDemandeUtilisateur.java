@@ -24,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hp.madose.Acceuil;
 import com.example.hp.madose.BaseDeDonne;
@@ -49,7 +50,8 @@ public class ListeDemandeUtilisateur extends AppCompatActivity {
     private FirebaseAuth mAuth;
     ProgressDialog mProgressDialog;
     TableLayout tableLayout;
-    String ancien,nouveau,confirmation;
+    String ancien,nouveau,confirmation,profile;
+    View vieww;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +59,8 @@ public class ListeDemandeUtilisateur extends AppCompatActivity {
         bd=new BaseDeDonne(this);
         tableLayout=(TableLayout)findViewById(R.id.useraffiche);
         tableLayout.setPadding(12,16,12,16);
+         profile=bd.retrieveUserProfile(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+         vieww = LayoutInflater.from(getApplicationContext()).inflate(R.layout.activity_liste_demande_utilisateur, null);
 
         TableRow tl=new TableRow(this);
         tl.setBackgroundColor(Color.parseColor("#17631E"));
@@ -190,7 +194,7 @@ public class ListeDemandeUtilisateur extends AppCompatActivity {
                         ancien = input1.getText().toString();
                         nouveau = input2.getText().toString();
                         confirmation = input3.getText().toString();
-                        dialog.dismiss();
+
                         if (nouveau.equals(confirmation)) {
                             AuthCredential credential = EmailAuthProvider.getCredential(MyApplication.getmAuth().getCurrentUser().getEmail(), ancien);
                             MyApplication.getmAuth().getCurrentUser().reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -202,8 +206,13 @@ public class ListeDemandeUtilisateur extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
                                                     Log.i("Résultat", "success");
+                                                   if(!profile.equals("USER")){
                                                     Snackbar.make(getCurrentFocus(), "Mot de passe changé avec succès!!", Snackbar.LENGTH_LONG)
                                                             .setAction("Action", null).show();
+                                                   }
+                                                   else {
+                                                       Toast.makeText(getApplicationContext(),"Mot de passe changé avec succès!!",Toast.LENGTH_LONG).show();
+                                                   }
                                                 } else {
                                                     Log.i("Résultat", "failed");
                                                 }
@@ -216,9 +225,15 @@ public class ListeDemandeUtilisateur extends AppCompatActivity {
                                 }
                             });
                         } else {
-                            Snackbar.make(view, "Changement de mot passe a échoué.\nVeuillez recommencer!!!", Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
+                            if (profile.equals("USER")) {
+                                Snackbar.make(view, "Changement de mot passe a échoué.\nVeuillez recommencer!!!", Snackbar.LENGTH_LONG)
+                                        .setAction("Action", null).show();
+                            }
+                            else {
+                                Toast.makeText(getApplicationContext(),"Changement de mot passe a échoué.\nVeuillez recommencer!!!",Toast.LENGTH_LONG).show();
+                            }
                         }
+                        dialog.dismiss();
 
 
                     }

@@ -21,9 +21,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +43,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.example.hp.madose.MyApplication.mAuth;
 
 public class Authentification extends AppCompatActivity {
 
@@ -65,6 +78,34 @@ public class Authentification extends AppCompatActivity {
         if (getSupportActionBar() != null){
             getSupportActionBar().setTitle("Authentification");
         }
+
+        // Initialize Facebook Login button
+        CallbackManager mCallbackManager = CallbackManager.Factory.create();
+
+        LoginButton loginButton = findViewById(R.id.login_button);
+        loginButton.setReadPermissions("email", "public_profile");
+        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.i(TAG, "facebook:onSuccess:" + loginResult);
+
+                handleFacebookAccessToken(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d(TAG, "facebook:onCancel");
+                // ...
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d(TAG, "facebook:onError", error);
+                // ...
+            }
+        });
+
+
 
 
         txtView.setOnClickListener(new View.OnClickListener() {
@@ -135,6 +176,10 @@ public class Authentification extends AppCompatActivity {
                  {
                      motpass.setError("Veuillez saisir votre mot de passe SVP!!");
                  }
+                 else if (motpass.getText().toString().length()<6)
+                 {
+                     motpass.setError("Veuillez saisir un mot de passe d'au moins 6 caractères SVP!!");
+                 }
                  else
                  {
                      updateUI(null);
@@ -147,6 +192,43 @@ public class Authentification extends AppCompatActivity {
             }
         });
     }
+    private void handleFacebookAccessToken(AccessToken token) {
+        Log.d(TAG, "handleFacebookAccessToken:" + token);
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+
+        MyApplication.getmAuth().signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithCredential:success");
+                            FirebaseUser user = MyApplication.getmAuth().getCurrentUser();
+                            updateUI(user);
+                            Log.i("regardez",Profile.getCurrentProfile().getName());
+                            Intent intent=new Intent(Authentification.this,Acceuil.class);
+                            startActivity(intent);
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(Authentification.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+
+                        // ...
+                    }
+                });
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        CallbackManager mCallbackManager = CallbackManager.Factory.create();
+        // Pass the activity result back to the Facebook SDK
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+    }
     @Override
     public void onBackPressed(){
         startActivity(new Intent(Authentification.this,Welcome.class));
@@ -155,7 +237,7 @@ public class Authentification extends AppCompatActivity {
     public void onStart(){
         super.onStart();
 
-        FirebaseUser currentUser = MyApplication.mAuth.getCurrentUser();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
 
 
    /*     if(!bd.checkIfTableHasData("Besoins_Sortie") && !bd.checkIfTableHasData("Categorie") && !bd.checkIfTableHasData("Demande") && !bd.checkIfTableHasData("Demande_Besoins") && !bd.checkIfTableHasData("Departement") && !bd.checkIfTableHasData("Utilisateur") && !bd.checkIfTableHasData("Besoin") && !bd.checkIfTableHasData("Besoins_Entree") && !bd.checkIfTableHasData("Entree") && !bd.checkIfTableHasData("Fournisseur") && !bd.checkIfTableHasData("Sortie"))

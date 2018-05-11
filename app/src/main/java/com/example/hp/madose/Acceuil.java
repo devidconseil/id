@@ -50,6 +50,9 @@ import com.example.hp.madose.Listes.ListeDesDemandes;
 import com.example.hp.madose.Listes.ListeDesEntrees;
 import com.example.hp.madose.Listes.ListeDesSorties;
 import com.example.hp.madose.Listes.UtilisateurListe;
+import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+import com.facebook.appevents.AppEventsLogger;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -96,6 +99,8 @@ public class Acceuil extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_acceuil);
+       // Log.i("regardez", Profile.getCurrentProfile().getName());
+        //Log.i("regardez", MyApplication.getmAuth().getCurrentUser().getPhoneNumber());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -222,12 +227,16 @@ public class Acceuil extends AppCompatActivity
                 for (DataSnapshot dataSnapshotUser:dataSnapshot.getChildren()){
                     UtilisateurC user=dataSnapshotUser.getValue(UtilisateurC.class);
                     //  Toast.makeText(getApplicationContext(),user.getMailEmp(),Toast.LENGTH_SHORT);
+                    Log.i("KIISS",user.getMailEmp());
                     if (!bd.checkIfUserExist(user)){
                         Log.i("MONTRE-MOI",user.getLibDep());
                         int s=Integer.parseInt(bd.selectDep(user.getLibDep()));
                         bd.insertEmp(user.getNomEmp(),user.getPrenEmp(),user.getMailEmp(),user.getTelEmp(),s,user.getProEmp(),user.getValEmp());
 
 
+                    }
+                    if (bd.checkIfUserExist(user) && bd.checkIfValueSame(user.getMailEmp(),"NO") && user.getValEmp().equals("YES")){
+                        bd.upDateUserDetails(user.getProEmp(),user.getMailEmp());
                     }
                 }
             }
@@ -275,29 +284,33 @@ public class Acceuil extends AppCompatActivity
                         int var2 = Integer.parseInt(bd.selectStockBes(cat.getLibBes()));
                         int var3 = var2 + cat.getQte();
                         bd.upDate(var3, cat.getLibBes());
+                        String profile=bd.retrieveUserProfile(FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
-                        //Notification debut
-                        NotificationCompat.Builder notification=new NotificationCompat.Builder(Acceuil.this);
-                        notification.setSmallIcon(R.drawable.ic_monlogo);
-                        notification.setContentText("Nouvel approvisionnement");
-                        notification.setContentTitle("RecapApp");
-                      //  MyApplication.notifications.add("Nouvel approvisionnement.\nEffectué le " + cat.getDatEnt() + " à" + cat.getHeureEnt());
+                        if (!profile.equals("USER")) {
 
-                        Intent entree=new Intent(getBaseContext(),ListeDesEntrees.class);
-                        entree.putExtra("sortie","listeE");
-                        TaskStackBuilder stackBuilder=TaskStackBuilder.create(getBaseContext());
-                        stackBuilder.addParentStack(Acceuil.class);
-                        stackBuilder.addNextIntent(entree);
+                            //Notification debut
+                            NotificationCompat.Builder notification = new NotificationCompat.Builder(Acceuil.this);
+                            notification.setSmallIcon(R.drawable.ic_monlogo);
+                            notification.setContentText("Nouvel approvisionnement");
+                            notification.setContentTitle("RecapApp");
+                            //  MyApplication.notifications.add("Nouvel approvisionnement.\nEffectué le " + cat.getDatEnt() + " à" + cat.getHeureEnt());
 
-                        notification.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+                            Intent entree = new Intent(getBaseContext(), ListeDesEntrees.class);
+                            entree.putExtra("sortie", "listeE");
+                            TaskStackBuilder stackBuilder = TaskStackBuilder.create(getBaseContext());
+                            stackBuilder.addParentStack(Acceuil.class);
+                            stackBuilder.addNextIntent(entree);
 
-                        PendingIntent resultIntent= stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
-                        notification.setContentIntent(resultIntent);
-                        notification.setAutoCancel(true);
-                        NotificationManager notificationManager =(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-                        Random random=new Random();
-                        notificationManager.notify(random.nextInt(130000),notification.build());
-                        //Notification fin
+                            notification.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+
+                            PendingIntent resultIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+                            notification.setContentIntent(resultIntent);
+                            notification.setAutoCancel(true);
+                            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                            Random random = new Random();
+                            notificationManager.notify(random.nextInt(130000), notification.build());
+                            //Notification fin
+                        }
 
                     }
                 }
@@ -333,28 +346,33 @@ public class Acceuil extends AppCompatActivity
                             bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
                         }
 
-                        //Notification debut
-                       NotificationCompat.Builder notification=new NotificationCompat.Builder(getBaseContext());
-                        notification.setSmallIcon(R.drawable.ic_monlogo);
-                        notification.setContentText("Demande faite par "+cat.getNomEmp());
-                        notification.setContentTitle("RecapApp");
-                      //  MyApplication.notifications.add("Nouvelle demande.\nEffectuée le " + cat.getDateDem() + " à" + cat.getHeureDem());
+                        String profile=bd.retrieveUserProfile(FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
-                        Intent listedemande=new Intent(getBaseContext(),ListeDesDemandes.class);
-                        listedemande.putExtra("sortie","listeD");
-                        TaskStackBuilder stackBuilder=TaskStackBuilder.create(getBaseContext());
-                        stackBuilder.addParentStack(Acceuil.class);
-                        stackBuilder.addNextIntent(listedemande);
+                        if (!profile.equals("USER")) {
 
-                        notification.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+                            //Notification debut
+                            NotificationCompat.Builder notification = new NotificationCompat.Builder(getBaseContext());
+                            notification.setSmallIcon(R.drawable.ic_monlogo);
+                            notification.setContentText("Demande faite par " + cat.getNomEmp());
+                            notification.setContentTitle("RecapApp");
+                            //  MyApplication.notifications.add("Nouvelle demande.\nEffectuée le " + cat.getDateDem() + " à" + cat.getHeureDem());
 
-                        PendingIntent resultIntent= stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
-                        notification.setContentIntent(resultIntent);
-                        notification.setAutoCancel(true);
-                        NotificationManager notificationManager =(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-                        Random random=new Random();
-                        notificationManager.notify(random.nextInt(130000),notification.build());
-                        //Notification fin
+                            Intent listedemande = new Intent(getBaseContext(), ListeDesDemandes.class);
+                            listedemande.putExtra("sortie", "listeD");
+                            TaskStackBuilder stackBuilder = TaskStackBuilder.create(getBaseContext());
+                            stackBuilder.addParentStack(Acceuil.class);
+                            stackBuilder.addNextIntent(listedemande);
+
+                            notification.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+
+                            PendingIntent resultIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+                            notification.setContentIntent(resultIntent);
+                            notification.setAutoCancel(true);
+                            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                            Random random = new Random();
+                            notificationManager.notify(random.nextInt(130000), notification.build());
+                            //Notification fin
+                        }
 
                     }
                 }
@@ -390,29 +408,34 @@ public class Acceuil extends AppCompatActivity
                         int var3 = varP - cat.getQte();
                         bd.upDate(var3, cat.getLibBes());
 
-                        //Notification debut
-                        NotificationCompat.Builder notification=new NotificationCompat.Builder(getBaseContext());
-                        notification.setSmallIcon(R.drawable.ic_monlogo);
-                        notification.setContentText("Nouvelle Sortie");
-                        notification.setContentTitle("RecapApp");
-                       // MyApplication.notifications.add("Nouvelle sortie.\nEnregistrée le " + cat.getDate() + " à" + cat.getHeureSor());
+                        String profile=bd.retrieveUserProfile(FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
-                        Intent sortie=new Intent(getBaseContext(),ListeDesSorties.class);
-                        sortie.putExtra("sortie","listeS");
-                        TaskStackBuilder stackBuilder=TaskStackBuilder.create(getBaseContext());
-                        stackBuilder.addParentStack(Acceuil.class);
-                        stackBuilder.addNextIntent(sortie);
+                        if (!profile.equals("USER")) {
 
-                        notification.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+                            //Notification debut
+                            NotificationCompat.Builder notification = new NotificationCompat.Builder(getBaseContext());
+                            notification.setSmallIcon(R.drawable.ic_monlogo);
+                            notification.setContentText("Nouvelle Sortie");
+                            notification.setContentTitle("RecapApp");
+                            // MyApplication.notifications.add("Nouvelle sortie.\nEnregistrée le " + cat.getDate() + " à" + cat.getHeureSor());
+
+                            Intent sortie = new Intent(getBaseContext(), ListeDesSorties.class);
+                            sortie.putExtra("sortie", "listeS");
+                            TaskStackBuilder stackBuilder = TaskStackBuilder.create(getBaseContext());
+                            stackBuilder.addParentStack(Acceuil.class);
+                            stackBuilder.addNextIntent(sortie);
+
+                            notification.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
 
 
-                        PendingIntent resultIntent= stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
-                        notification.setContentIntent(resultIntent);
-                        notification.setAutoCancel(true);
-                        NotificationManager notificationManager =(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-                        Random random=new Random();
-                        notificationManager.notify(random.nextInt(130000),notification.build());
-                        //Notification fin
+                            PendingIntent resultIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+                            notification.setContentIntent(resultIntent);
+                            notification.setAutoCancel(true);
+                            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                            Random random = new Random();
+                            notificationManager.notify(random.nextInt(130000), notification.build());
+                            //Notification fin
+                        }
                     }
 
                 }
@@ -714,7 +737,7 @@ public class Acceuil extends AppCompatActivity
                             });
                         }
                         else {
-                            Snackbar.make(view, "Changement de mot passe a échoué.\nVeuillez recommencer!!!", Snackbar.LENGTH_LONG)
+                            Snackbar.make(getCurrentFocus(), "Changement de mot passe a échoué.\nVeuillez recommencer!!!", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
                         }
 

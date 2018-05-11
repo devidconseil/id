@@ -5,10 +5,13 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.Time;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,6 +27,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.hp.madose.Listes.ListeDemandeUtilisateur;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,11 +50,14 @@ public class Demande extends AppCompatActivity {
 
     DatabaseReference mDatabase;
 
+    String ancien,nouveau,confirmation;
+    BaseDeDonne bd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demande);
-        final BaseDeDonne bd=new BaseDeDonne(this);
+       bd =new BaseDeDonne(this);
 
         final EditText date=(EditText)findViewById(R.id.dateDemande);
         final Button ajouter=(Button)findViewById(R.id.ajout);
@@ -57,6 +68,7 @@ public class Demande extends AppCompatActivity {
         final RadioButton radioButton_emp= findViewById(R.id.radioButton_emp);
         final RadioButton radioButton_dep= findViewById(R.id.radioButton_dep);
         final RadioGroup radioGroup= findViewById(R.id.radio_group);
+
         mDatabase= FirebaseDatabase.getInstance().getReference();
 
 
@@ -571,9 +583,16 @@ public class Demande extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
+        String profile=bd.retrieveUserProfile(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        if (profile.equals("USER")){
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_affiche, menu);
         return true;
+        }
+        else {
+            return false;
+        }
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -583,6 +602,67 @@ public class Demande extends AppCompatActivity {
                 mAuth.signOut();
                 finish();
                 startActivity(new Intent(this, Authentification.class));
+                return true;
+            case R.id.password:
+                final AlertDialog.Builder builder = new AlertDialog.Builder(Demande.this, 0x00000005);
+                final View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.activity_input1, null);
+                final EditText input1 = (EditText) view.findViewById(R.id.input1);
+                final EditText input2 = (EditText) view.findViewById(R.id.input2);
+                final EditText input3 = (EditText) view.findViewById(R.id.input3);
+
+
+                builder.setView(view);
+                builder.setTitle("Changer de mot de passe");
+                builder.setPositiveButton("VALIDER", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ancien = input1.getText().toString();
+                        nouveau = input2.getText().toString();
+                        confirmation = input3.getText().toString();
+                        dialog.dismiss();
+                        if (nouveau.equals(confirmation)) {
+                            AuthCredential credential = EmailAuthProvider.getCredential(MyApplication.getmAuth().getCurrentUser().getEmail(), ancien);
+                            MyApplication.getmAuth().getCurrentUser().reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        MyApplication.getmAuth().getCurrentUser().updatePassword(nouveau).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Log.i("Résultat", "success");
+                                                    Snackbar.make(getCurrentFocus(), "Mot de passe changé avec succès!!", Snackbar.LENGTH_LONG)
+                                                            .setAction("Action", null).show();
+                                                } else {
+                                                    Log.i("Résultat", "failed");
+                                                }
+
+                                            }
+                                        });
+                                    } else {
+                                        Log.i("résultat", "not good");
+                                    }
+                                }
+                            });
+                        } else {
+                            Snackbar.make(view, "Changement de mot passe a échoué.\nVeuillez recommencer!!!", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        }
+
+
+                    }
+                });
+                builder.setNegativeButton("ANNULER", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+
+                builder.create();
+                builder.show();
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

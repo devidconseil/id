@@ -206,6 +206,18 @@ public class BaseDeDonne extends SQLiteOpenHelper {
             return false;
         }
     }
+    public Boolean checkIfValueSame(String mail,String value){
+        String req="select nomEmp,PrenEmp,MailEmp,TelEmp,libDep,ProEmp from Utilisateur,Departement where Utilisateur.IdDep=Departement.IdDep and MailEmp='"+mail+"' and ValEmp='"+value+"';";
+        Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
+        if(cursor.getCount()>0){
+            cursor.close();
+            return true;
+        }
+        else {
+            cursor.close();
+            return false;
+        }
+    }
     public Boolean checkIfBesoinEntreeExist(String name,String name1,String name2,String name3){
         String req="select Besoin.NumBes,Entree.NumEnt from Besoins_Entree,Besoin,Entree where Besoins_Entree.NumBes=Besoin.NumBes and Besoins_Entree.NumEnt=Entree.NumEnt and libBes='"+name+"' and DateEnt=strftime('%s','"+name1+"') and HeureEnt='"+name2+"' and Entree.User='"+name3+"' ;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
