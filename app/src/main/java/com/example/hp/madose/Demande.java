@@ -50,7 +50,7 @@ public class Demande extends AppCompatActivity {
 
     DatabaseReference mDatabase;
 
-    String ancien,nouveau,confirmation;
+    String ancien,nouveau,confirmation,profile;
     BaseDeDonne bd;
 
     @Override
@@ -58,18 +58,20 @@ public class Demande extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demande);
        bd =new BaseDeDonne(this);
+        profile=bd.retrieveUserProfile(FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
         final EditText date=(EditText)findViewById(R.id.dateDemande);
         final Button ajouter=(Button)findViewById(R.id.ajout);
         final AutoCompleteTextView employe=(AutoCompleteTextView)findViewById(R.id.autoCompEmp);
-        final AutoCompleteTextView depart=(AutoCompleteTextView)findViewById(R.id.autoCompDep);
+  //      final AutoCompleteTextView depart=(AutoCompleteTextView)findViewById(R.id.autoCompDep);
         final AutoCompleteTextView bes=(AutoCompleteTextView)findViewById(R.id.autoCompBes);
         final EditText quant=(EditText)findViewById(R.id.editqt);
-        final RadioButton radioButton_emp= findViewById(R.id.radioButton_emp);
+       /* final RadioButton radioButton_emp= findViewById(R.id.radioButton_emp);
         final RadioButton radioButton_dep= findViewById(R.id.radioButton_dep);
-        final RadioGroup radioGroup= findViewById(R.id.radio_group);
+        final RadioGroup radioGroup= findViewById(R.id.radio_group);  */
 
         mDatabase= FirebaseDatabase.getInstance().getReference();
+
 
 
         mDatabase.child("Departement").addValueEventListener(new ValueEventListener() {
@@ -147,13 +149,13 @@ public class Demande extends AppCompatActivity {
 
             date.setText(intent.getStringExtra("demD"));
             employe.setText(intent.getStringExtra("demE"));
-            depart.setText(intent.getStringExtra("demDe"));
+//            depart.setText(intent.getStringExtra("demDe"));
             bes.setText(intent.getStringExtra("demB"));
             quant.setText(intent.getStringExtra("demQ"));
-            radioButton_dep.setChecked(intent.getBooleanExtra("etat1",radioButton_dep.isChecked()));
-            radioButton_emp.setChecked(intent.getBooleanExtra("etat2",radioButton_emp.isChecked()));
+          //  radioButton_dep.setChecked(intent.getBooleanExtra("etat1",radioButton_dep.isChecked()));
+          //  radioButton_emp.setChecked(intent.getBooleanExtra("etat2",radioButton_emp.isChecked()));
             employe.setVisibility(intent.getIntExtra("etat3",employe.getVisibility()));
-            depart.setVisibility(intent.getIntExtra("etat4",depart.getVisibility()));
+       //     depart.setVisibility(intent.getIntExtra("etat4",depart.getVisibility()));
             if (intent.getStringExtra("code").equals("listeD")) {
                 bes.requestFocus();
             }
@@ -187,7 +189,7 @@ public class Demande extends AppCompatActivity {
                 finish();
             }
         });
-        depart.setOnClickListener(new View.OnClickListener() {
+    /*    depart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(Demande.this,Listedepartement.class);
@@ -202,13 +204,13 @@ public class Demande extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        });
+        });  */
 
         bes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (radioButton_emp.isChecked()){
+          //      if (radioButton_emp.isChecked()){
                     Intent intent=new Intent(Demande.this,ListeBesoin.class);
                     intent.putExtra("demDate",date.getText().toString());
                     intent.putExtra("code","besoinEmployeD");
@@ -220,8 +222,8 @@ public class Demande extends AppCompatActivity {
                     intent.putExtra("etat4",View.VISIBLE);
                     startActivity(intent);
                     finish();
-                }
-                else if (radioButton_dep.isChecked()){
+            //    }
+          /*      else if (radioButton_dep.isChecked()){
                     Intent intent=new Intent(Demande.this,ListeBesoin.class);
                     intent.putExtra("demDate",date.getText().toString());
                     intent.putExtra("code","besoinDepartementD");
@@ -233,7 +235,7 @@ public class Demande extends AppCompatActivity {
                     intent.putExtra("etat4",View.INVISIBLE);
                     startActivity(intent);
                     finish();
-                }
+                }   */
             }
         });
 
@@ -244,7 +246,7 @@ public class Demande extends AppCompatActivity {
 
         ArrayList<String> em=bd.affiNDE();
         ArrayAdapter<String> emp=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,em);
-        depart.setAdapter(emp);
+    //    depart.setAdapter(emp);
 
         ArrayList<String> nb=bd.affiNB();
         ArrayAdapter<String>nombes=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,nb);
@@ -263,7 +265,7 @@ public class Demande extends AppCompatActivity {
 
 
 
-        radioButton_emp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+     /*   radioButton_emp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -287,7 +289,7 @@ public class Demande extends AppCompatActivity {
                 }
 
             }
-        });
+        });   */
 
 
          date.setOnClickListener(new View.OnClickListener() {
@@ -325,16 +327,16 @@ public class Demande extends AppCompatActivity {
                     date.requestFocus();
                     date.setError("Veuillez saisir la date SVP!");
                 }
-                else if (employe.getText().toString().equals("") && radioButton_emp.isChecked())
+                else if (employe.getText().toString().equals("") )
                 {
                     employe.requestFocus();
                     employe.setError("Veuillez saisir le nom de l'employé  SVP!");
                 }
-                else if (depart.getText().toString().equals("") && radioButton_dep.isChecked())
+             /*   else if (depart.getText().toString().equals("") && radioButton_dep.isChecked())
                 {
                     depart.requestFocus();
                     depart.setError("Veuillez saisir le nom du département SVP!");
-                }
+                }  */
                 else if (bes.getText().toString().equals(""))
                 {
                     bes.requestFocus();
@@ -356,17 +358,22 @@ public class Demande extends AppCompatActivity {
                         date.setText(c + "-" + b + "-" + a);
                     }
                     if (! MyApplication.isFait()) {
-                        if (radioButton_emp.isChecked()) {
+                   //     if (radioButton_emp.isChecked()) {
                             var1 = Integer.parseInt(bd.selectEmpId(employe.getText().toString()));
                             departe = bd.DepartEmp(var1);
                             var2 = Integer.parseInt(bd.selectDep(departe));
-                            bd.insertDemande(date.getText().toString(), var1, var2, "", true);
-                        }
+                            if (!profile.equals("USER")) {
+                                bd.insertDemande(date.getText().toString(), var1, var2, "", true, "VALIDE");
+                            }
+                            else {
+                                bd.insertDemande(date.getText().toString(), var1, var2, "", true, "EN ATTENTE");
+                            }
+                    //    }
 
-                        if (radioButton_dep.isChecked()) {
+                   /*     if (radioButton_dep.isChecked()) {
                             String recup = bd.selectDep(depart.getText().toString());
-                            bd.insertDemande1(date.getText().toString(), Integer.parseInt(recup), "", true);
-                        }
+                            bd.insertDemande1(date.getText().toString(), Integer.parseInt(recup), "", true,"en attente");
+                        }  */
                     }
                     if (! bd.checkIfDemandeBesoinExist(bd.selectHeureDem(),bes.getText().toString())) {
 
@@ -378,7 +385,13 @@ public class Demande extends AppCompatActivity {
                         int dernierEnr = Integer.parseInt(bd.selectIdDem());
                         bd.insertDemandeBesoin(dernierEnr, var3, var4);
 
-                        writeNewDemande(employe.getText().toString(), depart.getText().toString(), bes.getText().toString(), date.getText().toString(), Integer.parseInt(quant.getText().toString()), bd.selectHeureDem());
+                        if (!profile.equals("USER")) {
+                            writeNewDemande(employe.getText().toString(), bd.selectDepartFromUser(employe.getText().toString()), bes.getText().toString(), date.getText().toString(), Integer.parseInt(quant.getText().toString()), bd.selectHeureDem(), "VALIDE");
+                        }
+                        else {
+                            writeNewDemande(employe.getText().toString(), bd.selectDepartFromUser(employe.getText().toString()), bes.getText().toString(), date.getText().toString(), Integer.parseInt(quant.getText().toString()), bd.selectHeureDem(), "EN ATTENTE");
+
+                        }
                         updateConnectivity(MyApplication.getmAuth().getCurrentUser().getEmail());
                         bes.setText("");
                         quant.setText("");
@@ -420,16 +433,16 @@ public class Demande extends AppCompatActivity {
                     date.requestFocus();
                     date.setError("Veuillez saisir la date SVP!");
                 }
-                else if (employe.getText().toString().equals("") && radioButton_emp.isChecked())
+                else if (employe.getText().toString().equals("") )
                 {
                     employe.requestFocus();
                     employe.setError("Veuillez saisir le nom de l'employé SVP!");
                 }
-                else if (depart.getText().toString().equals("") && radioButton_dep.isChecked())
+            /*    else if (depart.getText().toString().equals("") && radioButton_dep.isChecked())
                 {
                     depart.requestFocus();
                     depart.setError("Veuillez saisir le nom du département SVP!");
-                }
+                }   */
                 else if (bes.getText().toString().equals(""))
                 {
                     bes.requestFocus();
@@ -463,18 +476,23 @@ public class Demande extends AppCompatActivity {
                     int var3 = Integer.parseInt(bd.selectIdBes(bes.getText().toString()));
                     int var4 = Integer.parseInt(quant.getText().toString());
                     if (!MyApplication.isFait()) {
-                        if (radioButton_emp.isChecked()) {
+                    //    if (radioButton_emp.isChecked()) {
                             //Toast.makeText(getBaseContext(),employe.getText().toString()+"coucou",Toast.LENGTH_LONG).show();
                             var1 = Integer.parseInt(bd.selectEmpId(employe.getText().toString()));
                             String departe = bd.DepartEmp(var1);
                             var2 = Integer.parseInt(bd.selectDep(departe));
-                            bd.insertDemande(date.getText().toString(), var1, var2, "", true);
+                        if (!profile.equals("USER")) {
+                            bd.insertDemande(date.getText().toString(), var1, var2, "", true, "VALIDE");
                         }
+                        else {
+                            bd.insertDemande(date.getText().toString(), var1, var2, "", true, "EN ATTENTE");
+                        }
+                     //   }
 
-                        if (radioButton_dep.isChecked()) {
+                 /*       if (radioButton_dep.isChecked()) {
                             String recup = bd.selectDep(depart.getText().toString());
-                            bd.insertDemande1(date.getText().toString(), Integer.parseInt(recup), "", true);
-                        }
+                            bd.insertDemande1(date.getText().toString(), Integer.parseInt(recup), "", true,"en attente");
+                        }  */
                     }
                     int dernierEnr = Integer.parseInt(bd.selectIdDem());
                     if (MyApplication.isFait()) {
@@ -485,7 +503,13 @@ public class Demande extends AppCompatActivity {
                         date.setText(c + "-" + b + "-" + a);  */
                     }
                     bd.insertDemandeBesoin(dernierEnr, var3, var4);
-                    writeNewDemande(employe.getText().toString(), depart.getText().toString(), bes.getText().toString(), date.getText().toString(), Integer.parseInt(quant.getText().toString()), bd.selectHeureDem());
+                    if (!profile.equals("USER")) {
+                        writeNewDemande(employe.getText().toString(), bd.selectDepartFromUser(employe.getText().toString()), bes.getText().toString(), date.getText().toString(), Integer.parseInt(quant.getText().toString()), bd.selectHeureDem(), "VALIDE");
+                    }
+                    else {
+                        writeNewDemande(employe.getText().toString(), bd.selectDepartFromUser(employe.getText().toString()), bes.getText().toString(), date.getText().toString(), Integer.parseInt(quant.getText().toString()), bd.selectHeureDem(), "EN ATTENTE");
+
+                    }
                     updateConnectivity(MyApplication.getmAuth().getCurrentUser().getEmail());
                     bd.close();
                     Toast.makeText(getBaseContext(), "Sortie enregistrée avec succès !!", Toast.LENGTH_LONG).show();
@@ -555,7 +579,7 @@ public class Demande extends AppCompatActivity {
         builder.create();
         builder.show();
     }
-    public void writeNewDemande(String nomEmp,String libDpe, String libBes,String dateDem, int qte, String heureDem){
+    public void writeNewDemande(String nomEmp,String libDpe, String libBes,String dateDem, int qte, String heureDem,String etat){
         BaseDeDonne bd=new BaseDeDonne(getApplicationContext());
         String now=bd.selectCurrentDate();
         String code=nomEmp+"-"+libDpe+"-"+libBes+"-"+now;
@@ -578,7 +602,7 @@ public class Demande extends AppCompatActivity {
             code=code.replace(" ","-");
         }
 
-        DemandeC cat=new DemandeC(nomEmp,libDpe,libBes,dateDem,qte,heureDem);
+        DemandeC cat=new DemandeC(nomEmp,libDpe,libBes,dateDem,qte,heureDem,etat);
         mDatabase.child("Demande").child(code).setValue(cat);
     }
     @Override

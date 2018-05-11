@@ -96,7 +96,7 @@ ProgressDialog mProgressDialog;
             var3 = var2 - 1;
             bd.upDate(var3, "STYLO");
 
-            bd.insertDemande("2018-01-02", 1, 1,bd.selectCurrentDate(),true);
+            bd.insertDemande("2018-01-02", 1, 1,bd.selectCurrentDate(),true,"VALIDE");
             bd.insertDemandeBesoin(1, 1, 1);
             bd.insertDemandeBesoin(1, 6, 1);
             MyApplication.setFetch(false);

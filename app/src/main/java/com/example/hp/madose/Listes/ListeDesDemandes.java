@@ -50,7 +50,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class ListeDesDemandes extends AppCompatActivity {
+public class ListeDesDemandes extends AppCompatActivity implements View.OnClickListener{
     List<String> liste=new ArrayList<>();
     TableLayout tableLayout;
     private String a="";
@@ -66,6 +66,8 @@ public class ListeDesDemandes extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     ProgressDialog mProgressDialog;
+    TableRow tr;
+    TextView item1;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -92,7 +94,7 @@ public class ListeDesDemandes extends AppCompatActivity {
                             int ss=Integer.parseInt(bd.selectEmpId(cat.getNomEmp()));
                             int sss=Integer.parseInt(bd.selectDep(bd.DepartEmp(ss)));
                             if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())) {
-                                bd.insertDemande(cat.getDateDem(), ss, sss, cat.getHeureDem(), false);
+                                bd.insertDemande(cat.getDateDem(), ss, sss, cat.getHeureDem(), false,cat.getEtat());
                             }
                             bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
                             //   Toast.makeText(getApplicationContext(),cat.toString(),Toast.LENGTH_LONG).show();
@@ -117,7 +119,7 @@ public class ListeDesDemandes extends AppCompatActivity {
                         if (cat.getNomEmp().equals("")) {
                             int ss=0;
                             int sss=Integer.parseInt(bd.selectDep(cat.getLibDpe()));
-                            bd.insertDemande1(cat.getDateDem(),sss,cat.getHeureDem(),false);
+                            bd.insertDemande1(cat.getDateDem(),sss,cat.getHeureDem(),false,cat.getEtat());
                             bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
 
 
@@ -207,6 +209,8 @@ public class ListeDesDemandes extends AppCompatActivity {
         depart.setPadding(15,15,15,15);
        //tl.addView(depart);
 
+
+
         tableLayout.addView(tl,new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
         String profile=bd.retrieveUserProfile(mAuth.getCurrentUser().getEmail());
@@ -238,7 +242,7 @@ public class ListeDesDemandes extends AppCompatActivity {
                 }
                 if (count % 2 != 0) tr.setBackgroundColor(Color.parseColor("#d1d2d2"));
 
-                TextView item1 = new TextView(this);
+                 item1 = new TextView(this);
                 item1.setPadding(15, 15, 15, 15);
                 item1.setTextColor(Color.parseColor("#000000"));
                 item1.setText(String.valueOf(emp.toStringNum()));
@@ -279,7 +283,7 @@ public class ListeDesDemandes extends AppCompatActivity {
             }
             for (DemandeC emp : affF ) {
 
-                TableRow tr = new TableRow(this);
+                 tr = new TableRow(this);
                 tr.setPadding(12, 16, 12, 16);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     tr.setLayoutParams(new ActionMenuView.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
@@ -390,6 +394,29 @@ public class ListeDesDemandes extends AppCompatActivity {
                     tableLayout.addView(tr, new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
                     count++;
                 }
+            }
+            if (!profile.equals("USER")){
+            tr.setClickable(true);
+
+            tr.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    for (int i = 1; i < tr.getChildCount(); i++) {
+                        View row = tr.getChildAt(i);
+                        if (row == v) {
+                            final AlertDialog.Builder builder = new AlertDialog.Builder(ListeDesDemandes.this);
+                            builder.setTitle("Voulez-vous valider cette demande?");
+                            builder.setPositiveButton("VALIDER", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    bd.updateDemande(Integer.parseInt(item1.getText().toString()), "VALIDE");
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+
             }
 
     }
@@ -767,6 +794,11 @@ public class ListeDesDemandes extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(fragment,"fragment");
         transaction.commit();
+
+    }
+
+    @Override
+    public void onClick(View v) {
 
     }
 }

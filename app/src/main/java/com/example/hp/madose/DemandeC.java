@@ -12,6 +12,7 @@ public class DemandeC {
     String  dateDem;
     String libDpe;
     String heureDem;
+    String etat;
 
     public DemandeC() {
     }
@@ -45,6 +46,13 @@ public class DemandeC {
     }
 
 
+    public String getEtat() {
+        return etat;
+    }
+
+    public void setEtat(String etat) {
+        this.etat = etat;
+    }
 
     public void setDateDem(String dateDem) {
         this.dateDem = dateDem;
@@ -97,13 +105,14 @@ public class DemandeC {
         this.dateDem = dateDem;
         this.libDpe = libDpe;
     }
-    public DemandeC(String nomEmp,String libDpe, String libBes,String dateDem, int qte, String heureDem) {
+    public DemandeC(String nomEmp,String libDpe, String libBes,String dateDem, int qte, String heureDem,String etat) {
         this.nomEmp = nomEmp;
         this.libBes = libBes;
         this.qte = qte;
         this.dateDem = dateDem;
         this.libDpe = libDpe;
         this.heureDem=heureDem;
+        this.etat=etat;
 
     }
     public DemandeC(String dateDem ) {

@@ -141,7 +141,7 @@ public class BringOut extends AppCompatActivity {
                             int ss=Integer.parseInt(bd.selectEmpId(cat.getNomEmp()));
                             int sss=Integer.parseInt(bd.selectDep(bd.DepartEmp(ss)));
                             if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())) {
-                                bd.insertDemande(cat.getDateDem(), ss, sss, cat.getHeureDem(), false);
+                                bd.insertDemande(cat.getDateDem(), ss, sss, cat.getHeureDem(), false,cat.getEtat());
                             }
                             bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
                             //   Toast.makeText(getApplicationContext(),cat.toString(),Toast.LENGTH_LONG).show();
@@ -150,7 +150,7 @@ public class BringOut extends AppCompatActivity {
                             int ss=0;
                             int sss=Integer.parseInt(bd.selectDep(cat.getLibDpe()));
                             if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())) {
-                                bd.insertDemande1(cat.getDateDem(), sss, cat.getHeureDem(), false);
+                                bd.insertDemande1(cat.getDateDem(), sss, cat.getHeureDem(), false,cat.getEtat());
                             }
                             bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
                         }
