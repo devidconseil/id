@@ -217,7 +217,7 @@ public class ListeDesSorties extends AppCompatActivity {
         TextView qt=new TextView(this);
         qt.setTypeface(null, Typeface.BOLD);
         qt.setTextColor(Color.parseColor("#FFFFFF"));
-        qt.setText("QUANTITE");
+        qt.setText("QTE");
         qt.setPadding(15,15,15,15);
         tl.addView(qt);
 
@@ -533,7 +533,7 @@ public class ListeDesSorties extends AppCompatActivity {
                 TextView qt=new TextView(getBaseContext());
                 qt.setTypeface(null, Typeface.BOLD);
                 qt.setTextColor(Color.parseColor("#FFFFFF"));
-                qt.setText("QUANTITE");
+                qt.setText("QTE");
                 qt.setPadding(15,15,15,15);
                 if (qte.isChecked())
                 {

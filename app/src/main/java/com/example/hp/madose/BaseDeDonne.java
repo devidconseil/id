@@ -1021,27 +1021,6 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public boolean checkIfTableHasData(String tableName){
     Cursor c = getReadableDatabase().rawQuery("SELECT * FROM " + tableName,null);
     return c.moveToFirst();
@@ -1108,7 +1087,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     }*/
     public String selectEmpId(String nomB)
     {
-        String req="select IdEmp from Utilisateur where nomEmp || ' ' || prenEmp ='"+nomB+"';";
+        String req="select IdEmp from Utilisateur where nomEmp || ' ' || prenEmp  ='"+nomB+"';";
         Cursor cursor = null;
         try {
 
@@ -1120,7 +1099,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     }
     public String selectIdEmp(String nomB)
     {
-        String req="select IdEmp from Utilisateur where nomEmp || ' ' || prenEmp='"+nomB+"';";
+        String req="select IdEmp from Utilisateur where nomEmp  || ' ' || prenEmp  ='"+nomB+"';";
         Cursor cursor = null;
         try {
 

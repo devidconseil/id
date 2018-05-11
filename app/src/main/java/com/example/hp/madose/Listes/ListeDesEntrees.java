@@ -195,7 +195,7 @@ public class ListeDesEntrees extends AppCompatActivity {
         TextView qt=new TextView(this);
         qt.setTypeface(null, Typeface.BOLD);
         qt.setTextColor(Color.parseColor("#FFFFFF"));
-        qt.setText("QUANTITE");
+        qt.setText("QTE");
         qt.setPadding(15,15,15,15);
         tl.addView(qt);
 
@@ -264,7 +264,7 @@ public class ListeDesEntrees extends AppCompatActivity {
             TextView item3=new TextView(this);
             item3.setPadding(15,15,15,15);
             item3.setTextColor(Color.parseColor("#000000"));
-            item3.setText(String.valueOf(emp.toStringPU()));
+            item3.setText(separateurDemollier( String.valueOf(emp.toStringPU())));
             tr.addView(item3);
 
             TextView item4=new TextView(this);
@@ -441,7 +441,7 @@ super.onBackPressed();
                 TextView qt=new TextView(getBaseContext());
                 qt.setTypeface(null, Typeface.BOLD);
                 qt.setTextColor(Color.parseColor("#FFFFFF"));
-                qt.setText("QUANTITE");
+                qt.setText("QTE");
                 qt.setPadding(15,15,15,15);
 
                 if (qte.isChecked())
@@ -555,7 +555,7 @@ super.onBackPressed();
                     TextView item3=new TextView(getBaseContext());
                     item3.setPadding(15,15,15,15);
                     item3.setTextColor(Color.parseColor("#000000"));
-                    item3.setText(String.valueOf(emp.toStringPU()));
+                    item3.setText(separateurDemollier( String.valueOf(emp.toStringPU())));
 
                     if (pu.isChecked())
                     {
@@ -620,6 +620,54 @@ super.onBackPressed();
 
             } });*/
         bdd.show();
+    }
+    public String separateurDemollier(String chiffre)
+    {
+        String a=null,b=null,x=null,y=null;
+        String z = null;
+
+        if (chiffre.toString().length()==4)
+        {
+            x=chiffre.substring(0,1);
+            y=chiffre.substring(1,4);
+            z=String.valueOf(x+" "+y);
+        }
+        else if (chiffre.length()==5)
+        {
+            x=chiffre.substring(0,2);
+            y=chiffre.substring(2,5);
+            z=String.valueOf(x+" "+y);
+
+        }
+        else if (chiffre.length()==6)
+        {
+            x=chiffre.substring(0,3);
+            y=chiffre.substring(3,6);
+            z=String.valueOf(x+" "+y);
+        }
+        else if (chiffre.length()==7)
+        {
+            a=chiffre.substring(0,1);
+            x=chiffre.substring(1,4);
+            y=chiffre.substring(4,7);
+            z=String.valueOf(a+" "+x+" "+y);
+
+        }
+        else if (chiffre.length()==8)
+        {
+
+            a=chiffre.substring(0,2);
+            x=chiffre.substring(2,5);
+            y=chiffre.substring(5,8);
+            z=String.valueOf(a+" "+x+" "+y);
+
+        }
+        else if (chiffre.length()>=3)
+        {
+            z=String.valueOf(chiffre);
+        }
+
+        return z;
     }
 
 }

@@ -153,6 +153,11 @@ public class Demande extends AppCompatActivity {
             {
                 quant.requestFocus();
             }
+            else if (intent.getStringExtra("code").equals("utilisateur"))
+            {
+                date.requestFocus();
+             employe.setText(MyApplication.getNomUser());
+            }
             else
             {
                 date.requestFocus();
@@ -572,7 +577,7 @@ public class Demande extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_affiche, menu);
+        inflater.inflate(R.menu.menu_affiche2, menu);
         return true;
     }
     @Override

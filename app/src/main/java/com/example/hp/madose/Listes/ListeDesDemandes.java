@@ -189,7 +189,7 @@ public class ListeDesDemandes extends AppCompatActivity {
         TextView prent=new TextView(this);
         prent.setTypeface(null, Typeface.BOLD);
         prent.setTextColor(Color.parseColor("#FFFFFF"));
-        prent.setText("QUANTITE");
+        prent.setText("QTE");
         prent.setPadding(15,15,15,15);
         tl.addView(prent);
 
@@ -511,7 +511,7 @@ public class ListeDesDemandes extends AppCompatActivity {
                 TextView prent=new TextView(getBaseContext());
                 prent.setTypeface(null, Typeface.BOLD);
                 prent.setTextColor(Color.parseColor("#FFFFFF"));
-                prent.setText("QUANTITE");
+                prent.setText("QTE");
                 prent.setPadding(15,15,15,15);
                 if (qte.isChecked())
                 {
@@ -760,13 +760,5 @@ public class ListeDesDemandes extends AppCompatActivity {
             } });
         bdd.show();
             }
-    @Override
-    public void onBackPressed(){
-        super.onBackPressed();
-        Frag_accueil_listes fragment = new Frag_accueil_listes();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(fragment,"fragment");
-        transaction.commit();
 
-    }
 }

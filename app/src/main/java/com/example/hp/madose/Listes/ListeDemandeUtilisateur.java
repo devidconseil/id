@@ -57,6 +57,7 @@ public class ListeDemandeUtilisateur extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste_demande_utilisateur);
         bd=new BaseDeDonne(this);
+        TextView nomUser=(TextView)findViewById(R.id.nomUtil);
         tableLayout=(TableLayout)findViewById(R.id.useraffiche);
         tableLayout.setPadding(12,16,12,16);
 
@@ -99,7 +100,7 @@ public class ListeDemandeUtilisateur extends AppCompatActivity {
         autre.setTextColor(Color.parseColor("#FFFFFF"));
         autre.setText("DEMANDE PAR");
         autre.setPadding(15,15,15,15);
-        tl.addView(autre);
+       // tl.addView(autre);
 
         TextView depart=new TextView(getBaseContext());
         depart.setTypeface(null, Typeface.BOLD);
@@ -112,6 +113,7 @@ public class ListeDemandeUtilisateur extends AppCompatActivity {
 
         List<DemandeC> affF = bd.afficheDemandeUser(MyApplication.getmAuth().getCurrentUser().getEmail());
         int count = 0;
+        String nom = null;
         for (DemandeC emp : affF) {
 
             TableRow tr = new TableRow(this);
@@ -149,7 +151,8 @@ public class ListeDemandeUtilisateur extends AppCompatActivity {
             item5.setPadding(15, 15, 15, 15);
             item5.setTextColor(Color.parseColor("#000000"));
             item5.setText(emp.toStringNomEmp());
-            tr.addView(item5);
+            nom=emp.toStringNomEmp();
+            //tr.addView(item5);
 
             TextView item6 = new TextView(this);
             item6.setPadding(15, 15, 15, 15);
@@ -160,13 +163,14 @@ public class ListeDemandeUtilisateur extends AppCompatActivity {
             tableLayout.addView(tr, new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
             count++;
         }
-
+        nomUser.setText(nom);
+        MyApplication.setNomUser(nom);
         FloatingActionButton ajout=(FloatingActionButton)findViewById(R.id.floatAjout);
         ajout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(ListeDemandeUtilisateur.this,Demande.class);
-                intent.putExtra("code","affichage");
+                intent.putExtra("code","utilisateur");
                 startActivity(intent);
             }
         });
@@ -174,7 +178,7 @@ public class ListeDemandeUtilisateur extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_affiche, menu);
+        inflater.inflate(R.menu.menu_affiche2, menu);
         return true;
     }
     @Override

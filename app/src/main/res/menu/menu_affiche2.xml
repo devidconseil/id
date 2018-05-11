@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/password"
+        android:title="Changer son mot de passe" />
+    <item
+        android:id="@+id/deconnexion"
+        android:enabled="true"
+        android:icon="@drawable/logout"
+        android:menuCategory="secondary"
+        android:title="Se déconnecter"
+        android:visible="true" />
+
+</menu>

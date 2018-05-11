@@ -46,6 +46,7 @@ public class MyApplication extends Application {
     public static int id;
     public static boolean textView;
     public static String employe;
+    public static String nomUser;
     public static FirebaseAuth mAuth=FirebaseAuth.getInstance();
     public static DatabaseReference mDatabase=FirebaseDatabase.getInstance().getReference();
     public static List<String> notifications=new ArrayList<>();
@@ -126,6 +127,14 @@ public class MyApplication extends Application {
 
     public static boolean isCheck() {
         return check;
+    }
+
+    public static String getNomUser() {
+        return nomUser;
+    }
+
+    public static void setNomUser(String nomUser) {
+        MyApplication.nomUser = nomUser;
     }
 
     public static void setCheck(boolean check) {

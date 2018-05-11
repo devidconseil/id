@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.hp.madose.Listes.CoutTotalB">
+<TableLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/total">
+</TableLayout>
+
+    <TextView
+        android:id="@+id/totall"
+        android:layout_below="@+id/total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/total"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:layout_marginRight="10dp"
+        android:text="1 000 000" />
+</RelativeLayout>

@@ -6,9 +6,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.hp.madose.Listes.ListeDemandeUtilisateur">
-<TableLayout
+
+    <TextView
+        android:id="@+id/nomUtil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Nom" />
+
+    <TableLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_below="@+id/nomUtil"
     android:id="@+id/useraffiche">
 
 </TableLayout>
@@ -29,7 +43,7 @@
         android:focusable="true"
         android:visibility="visible"
         app:backgroundTint="@color/cardview_light_background"
-        app:elevation="5dp"
+        app:elevation="10dp"
         app:fabSize="normal"
         app:rippleColor="@color/cardview_light_background"
         app:srcCompat="@android:drawable/ic_input_add"
