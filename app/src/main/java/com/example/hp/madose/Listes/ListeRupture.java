@@ -58,9 +58,6 @@ public class ListeRupture extends AppCompatActivity {
         int count=0;
         for (RuptureC emp : affF) {
 
-
-
-
             TableRow tr=new TableRow(this);
             tr.setPadding(12,16,12,16);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

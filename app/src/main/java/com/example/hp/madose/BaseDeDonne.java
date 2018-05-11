@@ -1128,7 +1128,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     }*/
     public String selectEmpId(String nomB)
     {
-        String req="select IdEmp from Utilisateur where nomEmp || ' ' || prenEmp ='"+nomB+"';";
+        String req="select IdEmp from Utilisateur where nomEmp || ' ' || prenEmp  ='"+nomB+"';";
         Cursor cursor = null;
         try {
 
@@ -1152,7 +1152,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     }
     public String selectIdEmp(String nomB)
     {
-        String req="select IdEmp from Utilisateur where nomEmp || ' ' || prenEmp='"+nomB+"';";
+        String req="select IdEmp from Utilisateur where nomEmp  || ' ' || prenEmp  ='"+nomB+"';";
         Cursor cursor = null;
         try {
 

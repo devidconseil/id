@@ -83,7 +83,7 @@
         <activity
             android:name=".NotificationArea"
             android:label="Notifications"
-            android:parentActivityName=".Acceuil"></activity>
+            android:parentActivityName=".Acceuil" />
         <activity
             android:name=".Utilisateur"
             android:label="Utilisateurs"
@@ -148,7 +148,8 @@
         <activity
             android:name=".Variation"
             android:parentActivityName=".Acceuil" />
-        <activity android:name=".CoutTotalBesoin" />
+        <activity android:name=".CoutTotalBesoin"
+            android:label="Recherche"/>
         <activity android:name=".Listedepartement" />
         <activity
             android:name=".Affich"
@@ -208,7 +209,13 @@
             android:name=".Listes.ListeAchat"
             android:label="Liste d&apos;achat à faire"
             android:parentActivityName=".Acceuil" />
-        <activity android:name=".Listes.ListeDemandeUtilisateur"></activity>
+        <activity
+            android:name=".Listes.ListeDemandeUtilisateur"
+            android:label="Liste des demandes" />
+        <activity android:name=".Listes.CoutTotalB"
+            android:label="Coût total"
+            android:parentActivityName=".Acceuil"
+            ></activity>
     </application>
 
 </manifest>

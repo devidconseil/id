@@ -191,7 +191,7 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
         TextView prent=new TextView(this);
         prent.setTypeface(null, Typeface.BOLD);
         prent.setTextColor(Color.parseColor("#FFFFFF"));
-        prent.setText("QUANTITE");
+        prent.setText("QTE");
         prent.setPadding(15,15,15,15);
         tl.addView(prent);
 
@@ -208,8 +208,6 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
         depart.setText("DEPARTEMENT");
         depart.setPadding(15,15,15,15);
        //tl.addView(depart);
-
-
 
         tableLayout.addView(tl,new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
@@ -538,7 +536,7 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
                 TextView prent=new TextView(getBaseContext());
                 prent.setTypeface(null, Typeface.BOLD);
                 prent.setTextColor(Color.parseColor("#FFFFFF"));
-                prent.setText("QUANTITE");
+                prent.setText("QTE");
                 prent.setPadding(15,15,15,15);
                 if (qte.isChecked())
                 {

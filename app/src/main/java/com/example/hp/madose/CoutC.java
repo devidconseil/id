@@ -40,4 +40,16 @@ public class CoutC {
                 "\nCoût du besoin: " + cout +
                 "\nQuantité: " + qut ;
     }
+    public int toStringNro() {
+        return   num ;
+    }
+    public String toStringBes() {
+        return   lib;
+    }
+    public int toStringCout() {
+        return  cout ;
+    }
+    public int toStringqt() {
+        return  qut ;
+    }
 }

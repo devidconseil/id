@@ -167,6 +167,11 @@ public class Demande extends AppCompatActivity {
             {
                 quant.requestFocus();
             }
+            else if (intent.getStringExtra("code").equals("utilisateur"))
+            {
+                date.requestFocus();
+             employe.setText(MyApplication.getNomUser());
+            }
             else
             {
                 date.requestFocus();
@@ -611,7 +616,7 @@ public class Demande extends AppCompatActivity {
         String profile=bd.retrieveUserProfile(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         if (profile.equals("USER")){
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_affiche, menu);
+        inflater.inflate(R.menu.menu_affiche2, menu);
         return true;
         }
         else {
@@ -623,7 +628,7 @@ public class Demande extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.deconnexion:
-                mAuth.signOut();
+                MyApplication.getmAuth().signOut();
                 finish();
                 startActivity(new Intent(this, Authentification.class));
                 return true;

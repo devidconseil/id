@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
+import com.example.hp.madose.Listes.CoutTotalB;
 import com.example.hp.madose.Listes.ListeDesDemandes;
 import com.example.hp.madose.Listes.ListeDesEntrees;
 import com.example.hp.madose.Listes.ListeDesSorties;
@@ -65,11 +66,12 @@ public class CoutTotalBesoin extends AppCompatActivity {
 
                 else if (getIntent().getStringExtra("recherche").equals("cout"))
                 {
-                    Intent intent=new Intent(CoutTotalBesoin.this,Affichage.class);
+                    Intent intent=new Intent(CoutTotalBesoin.this,CoutTotalB.class);
                     intent.putExtra("passage","Cout");
 
                     startActivity(intent);
                 }
+
             }
         });
     }
