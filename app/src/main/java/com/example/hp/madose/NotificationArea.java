@@ -16,9 +16,14 @@ import android.widget.Toast;
 
 import com.example.hp.madose.Listes.ListeDesDemandes;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by HP on 23/04/2018.
@@ -26,7 +31,7 @@ import java.util.List;
 
 public class NotificationArea extends AppCompatActivity {
     BaseDeDonne bd;
-    String profile,nume;
+    String profile,nume,heuree;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +46,7 @@ public class NotificationArea extends AppCompatActivity {
             }
             for (String num : bd.demandeNotValidate()) {
                 nume=num;
-                notification.add("Une nouvelle demande enregistré est en attente de validation: demande numéro " + num);
+                notification.add("Une nouvelle demande enregistrée est en attente de validation: demande numéro " + num);
             }
             ListAdapter arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, notification);
             final ListView listView = findViewById(R.id.listview_area);
@@ -67,8 +72,18 @@ public class NotificationArea extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 bd.updateDemande(Integer.parseInt(nume), "VALIDE");
+                                startActivity(new Intent(NotificationArea.this,ListeDesDemandes.class));
                             }
                         });
+                        builder.setNeutralButton("REFUSER", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                bd.updateDemande(Integer.parseInt(nume),"REFUSE");
+                                startActivity(new Intent(NotificationArea.this,ListeDesDemandes.class));
+                            }
+                        });
+                        builder.create();
+                        builder.show();
                     }
                 }
             });
@@ -87,5 +102,37 @@ public class NotificationArea extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         startActivity(new Intent(NotificationArea.this,Acceuil.class));
+    }
+    private void updateNewDemande(  String email,  String numero,String etat) {
+
+        String depart,code,heure,nom,pren;
+        nom=bd.selectEmpNomFromMail(email);
+        pren=bd.selectEmpPrenomFromMail(email);
+        depart=bd.selectDepartFromUser(email);
+       // heure=bd.selectHeureDemandeFromNumero(nume);
+        MyApplication.getmDatabase().child("HeureDemande").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotHDem:dataSnapshot.getChildren()){
+                    String chain=dataSnapshotHDem.getValue(String.class);
+                    if (chain.contains(MyApplication.getmAuth().getCurrentUser().getEmail())){
+                        heuree= String.valueOf(chain.split("-"+ MyApplication.getmAuth().getCurrentUser().getEmail(),0));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        code=nom+"-"+pren+"-"+depart+"-"+heuree;
+
+
+        Map<String,Object> childUpdates=new HashMap<>();
+        childUpdates.put("/Demande/"+code+"/etat",etat);
+        MyApplication.getmDatabase().updateChildren(childUpdates);
+
+
     }
 }

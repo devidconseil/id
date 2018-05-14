@@ -78,7 +78,7 @@ public class Authentification extends AppCompatActivity {
         if (getSupportActionBar() != null){
             getSupportActionBar().setTitle("Authentification");
         }
-
+/*
         // Initialize Facebook Login button
         CallbackManager mCallbackManager = CallbackManager.Factory.create();
 
@@ -105,7 +105,7 @@ public class Authentification extends AppCompatActivity {
             }
         });
 
-
+*/
 
 
         txtView.setOnClickListener(new View.OnClickListener() {
@@ -192,7 +192,7 @@ public class Authentification extends AppCompatActivity {
             }
         });
     }
-    private void handleFacebookAccessToken(AccessToken token) {
+ /*   private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
@@ -221,7 +221,7 @@ public class Authentification extends AppCompatActivity {
                         // ...
                     }
                 });
-    }
+    } */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

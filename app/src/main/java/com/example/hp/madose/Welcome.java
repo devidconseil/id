@@ -1,8 +1,10 @@
 package com.example.hp.madose;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -128,9 +130,10 @@ public class Welcome extends AppCompatActivity {
             Log.i("UNO",MyApplication.getmAuth().getCurrentUser().getEmail());
         }
     }
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBackPressed(){
-        startActivity(new Intent(Welcome.this,Welcome.class));
+        finishAndRemoveTask();
     }
 
     private void onAuthSuccess(FirebaseUser user){

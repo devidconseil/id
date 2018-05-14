@@ -113,6 +113,12 @@ public class ListeDemandeUtilisateur extends AppCompatActivity {
         depart.setPadding(15,15,15,15);
         //tl.addView(depart);
 
+        TextView etat=new TextView(getBaseContext());
+        etat.setTypeface(null, Typeface.BOLD);
+        etat.setTextColor(Color.parseColor("#FFFFFF"));
+        etat.setText("STATUT");
+        etat.setPadding(15,15,15,15);
+
         tableLayout.addView(tl,new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
         List<DemandeC> affF = bd.afficheDemandeUser(MyApplication.getmAuth().getCurrentUser().getEmail());
@@ -163,6 +169,12 @@ public class ListeDemandeUtilisateur extends AppCompatActivity {
             item6.setTextColor(Color.parseColor("#000000"));
             item6.setText(emp.toStringDepa());
             //tr.addView(item6);
+
+            TextView item7 = new TextView(this);
+            item6.setPadding(15, 15, 15, 15);
+            item6.setTextColor(Color.parseColor("#000000"));
+            item6.setText(emp.toStringEtat());
+            tr.addView(item7);
 
             tableLayout.addView(tr, new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
             count++;

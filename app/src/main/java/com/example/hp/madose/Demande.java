@@ -588,6 +588,7 @@ public class Demande extends AppCompatActivity {
         BaseDeDonne bd=new BaseDeDonne(getApplicationContext());
         String now=bd.selectCurrentDate();
         String code=nomEmp+"-"+libDpe+"-"+libBes+"-"+now;
+        writeNewHeureDemande(MyApplication.getmAuth().getCurrentUser().getEmail(),now,libBes);
         String cricri="";
         String cris="";
         String cristi="";
@@ -609,6 +610,20 @@ public class Demande extends AppCompatActivity {
 
         DemandeC cat=new DemandeC(nomEmp,libDpe,libBes,dateDem,qte,heureDem,etat);
         mDatabase.child("Demande").child(code).setValue(cat);
+    }
+    public void writeNewHeureDemande(String mail,String heure,String besoin){
+        if (profile.equals("USER")){
+        BaseDeDonne bd=new BaseDeDonne(getApplicationContext());
+        String nom,pren,code,hour;
+        nom=bd.selectEmpNomFromMail(mail);
+        pren=bd.selectEmpPrenomFromMail(mail);
+        hour=bd.selectHeureDem();
+        code=nom+"-"+pren+"-"+hour;
+
+            mDatabase.child("HeureDemande").child(code).setValue(besoin+"-"+heure+"-"+mail);
+        }
+
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

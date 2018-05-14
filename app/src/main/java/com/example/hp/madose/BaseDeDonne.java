@@ -857,7 +857,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         List<DemandeC> affD=new ArrayList<>();
 
 
-        String req="select Demande.numDem,prenEmp||' '||nomEmp,libBes,qte,date(dateDem,'unixepoch'),libDep from Demande,Demande_Besoins,Utilisateur,Besoin,Departement where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem and Utilisateur.IdDep=Departement.IdDep and Utilisateur.IdEmp=Demande.IdEmp ORDER BY Demande.numDem DESC;";
+        String req="select Demande.numDem,prenEmp||' '||nomEmp,libBes,qte,date(dateDem,'unixepoch'),libDep,EtatDem from Demande,Demande_Besoins,Utilisateur,Besoin,Departement where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem and Utilisateur.IdDep=Departement.IdDep and Utilisateur.IdEmp=Demande.IdEmp ORDER BY Demande.numDem DESC;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -866,7 +866,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         {
 
 
-            DemandeC disp=new DemandeC(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3),cursor.getString(4),cursor.getString(5));
+            DemandeC disp=new DemandeC(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3),cursor.getString(4),cursor.getString(5),cursor.getString(6));
             affD.add(disp);
             cursor.moveToNext();
 
@@ -904,7 +904,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         List<DemandeC> affD=new ArrayList<>();
 
 
-        String req="select Demande.numDem,prenEmp||' '||nomEmp,libBes,Demande_Besoins.qte,date(dateDem,'unixepoch'),libDep from Demande,Demande_Besoins,Utilisateur,Besoin,Departement where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem and Utilisateur.IdDep=Departement.IdDep and Utilisateur.IdEmp=Demande.IdEmp and libBes='"+var+"' ORDER BY Demande.numDem DESC;";
+        String req="select Demande.numDem,prenEmp||' '||nomEmp,libBes,Demande_Besoins.qte,date(dateDem,'unixepoch'),libDep,EtatDem from Demande,Demande_Besoins,Utilisateur,Besoin,Departement where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem and Utilisateur.IdDep=Departement.IdDep and Utilisateur.IdEmp=Demande.IdEmp and libBes='"+var+"' ORDER BY Demande.numDem DESC;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -913,7 +913,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         {
 
 
-            DemandeC disp=new DemandeC(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3),cursor.getString(4),cursor.getString(5));
+            DemandeC disp=new DemandeC(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3),cursor.getString(4),cursor.getString(5),cursor.getString(6));
             affD.add(disp);
             cursor.moveToNext();
 
@@ -926,7 +926,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     {
         List<DemandeC> affD=new ArrayList<>();
 
-        String req="select Demande.numDem,Departement.libDep,Besoin.libBes,Demande_Besoins.qte,date(Demande.dateDem,'unixepoch'),libDep from Demande,Demande_Besoins,Departement,Besoin where Demande.numDem=Demande_Besoins.numDem and Demande_Besoins.NumBes=Besoin.NumBes and Demande.IdDep=Departement.IdDep and Demande.IdEmp is null and libBes='"+var+"' ORDER BY Demande.numDem DESC;";
+        String req="select Demande.numDem,Departement.libDep,Besoin.libBes,Demande_Besoins.qte,date(Demande.dateDem,'unixepoch'),libDep,EtatDem from Demande,Demande_Besoins,Departement,Besoin where Demande.numDem=Demande_Besoins.numDem and Demande_Besoins.NumBes=Besoin.NumBes and Demande.IdDep=Departement.IdDep and Demande.IdEmp is null and libBes='"+var+"' ORDER BY Demande.numDem DESC;";
         //String req="select Demande.numDem,Departement.libDep,libBes,Demande_Besoins.qte,date(dateDem,'unixepoch'),libDep from Demande,Demande_Besoins,Utilisateur,Besoin,Departement where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem and Utilisateur.IdDep=Departement.IdDep and Utilisateur.IdEmp=Demande.IdEmp and libBes='"+var+"' ORDER BY Demande.numDem DESC;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
@@ -936,7 +936,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         {
 
 
-            DemandeC disp=new DemandeC(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3),cursor.getString(4),cursor.getString(5));
+            DemandeC disp=new DemandeC(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3),cursor.getString(4),cursor.getString(5),cursor.getString(6));
             affD.add(disp);
             cursor.moveToNext();
 
@@ -950,7 +950,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         List<DemandeC> affD=new ArrayList<>();
 
 
-        String req="select Demande.numDem,PrenEmp||' '||nomEmp,libBes,qte,date(dateDem,'unixepoch'),libDep from Demande,Demande_Besoins,Utilisateur,Besoin,Departement where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem and Demande.IdDep=Departement.IdDep and Utilisateur.IdEmp=Demande.IdEmp and Utilisateur.MailEmp='"+mail+"'ORDER BY Demande.numDem DESC;";
+        String req="select Demande.numDem,PrenEmp||' '||nomEmp,libBes,qte,date(dateDem,'unixepoch'),libDep,EtatDem from Demande,Demande_Besoins,Utilisateur,Besoin,Departement where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem and Demande.IdDep=Departement.IdDep and Utilisateur.IdEmp=Demande.IdEmp and Utilisateur.MailEmp='"+mail+"'ORDER BY Demande.numDem DESC;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -959,7 +959,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         {
 
 
-            DemandeC disp=new DemandeC(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3),cursor.getString(4),cursor.getString(5));
+            DemandeC disp=new DemandeC(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3),cursor.getString(4),cursor.getString(5),cursor.getString(6));
             affD.add(disp);
             cursor.moveToNext();
 
@@ -973,7 +973,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         List<DemandeC> affD=new ArrayList<>();
 
 
-        String req="select Demande.numDem,nomEmp,libBes,qte,date(dateDem,'unixepoch'),libDep from Demande,Demande_Besoins,Utilisateur,Besoin,Departement where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem and Demande.IdDep=Departement.IdDep and Utilisateur.IdEmp=Demande.IdEmp and Utilisateur.MailEmp='"+mail+"' and libBes='"+var+"'ORDER BY Demande.numDem DESC;";
+        String req="select Demande.numDem,nomEmp,libBes,qte,date(dateDem,'unixepoch'),libDep,EtatDem from Demande,Demande_Besoins,Utilisateur,Besoin,Departement where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.numDem=Demande.numDem and Demande.IdDep=Departement.IdDep and Utilisateur.IdEmp=Demande.IdEmp and Utilisateur.MailEmp='"+mail+"' and libBes='"+var+"'ORDER BY Demande.numDem DESC;";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -982,7 +982,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         {
 
 
-            DemandeC disp=new DemandeC(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3),cursor.getString(4),cursor.getString(5));
+            DemandeC disp=new DemandeC(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3),cursor.getString(4),cursor.getString(5),cursor.getString(6));
             affD.add(disp);
             cursor.moveToNext();
 
@@ -1129,6 +1129,55 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     public String selectEmpId(String nomB)
     {
         String req="select IdEmp from Utilisateur where nomEmp || ' ' || prenEmp  ='"+nomB+"';";
+        Cursor cursor = null;
+        try {
+
+            cursor = this.getReadableDatabase().rawQuery(req,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
+    public String selectEmpNameFromMail(String mail)
+    {
+        String req="select nomEmp || ' ' || prenEmp from Utilisateur where MailEmp  ='"+mail+"';";
+        Cursor cursor = null;
+        try {
+
+            cursor = this.getReadableDatabase().rawQuery(req,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
+    public String selectEmpNomFromMail(String mail)
+    {
+        String req="select nomEmp from Utilisateur where MailEmp  ='"+mail+"';";
+        Cursor cursor = null;
+        try {
+
+            cursor = this.getReadableDatabase().rawQuery(req,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
+    public String selectEmpPrenomFromMail(String mail)
+    {
+        String req="select prenEmp from Utilisateur where MailEmp  ='"+mail+"';";
+        Cursor cursor = null;
+        try {
+
+            cursor = this.getReadableDatabase().rawQuery(req,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
+    public String selectHeureDemandeFromNumero(String num)
+    {
+        Integer numero= Integer.parseInt(num);
+        String req="select HeureDem from Demande where numDem  ='"+num+"';";
         Cursor cursor = null;
         try {
 

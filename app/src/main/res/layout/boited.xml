@@ -70,6 +70,15 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/checkB6"
         android:text="Departement de l'auteur" />
+    <CheckBox
+        android:id="@+id/checkB8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/checkB7"
+        android:checked="true"
+        android:text="Statut de la demande" />
 
     <CheckBox
         android:id="@+id/coche"
