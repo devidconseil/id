@@ -209,6 +209,13 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
         depart.setPadding(15,15,15,15);
        //tl.addView(depart);
 
+        TextView etat=new TextView(getBaseContext());
+        etat.setTypeface(null, Typeface.BOLD);
+        etat.setTextColor(Color.parseColor("#FFFFFF"));
+        etat.setText("STATUT");
+        etat.setPadding(15,15,15,15);
+        tl.addView(etat);
+
         tableLayout.addView(tl,new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
         String profile=bd.retrieveUserProfile(mAuth.getCurrentUser().getEmail());
@@ -276,6 +283,12 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
                 item6.setText(emp.toStringDepa());
                 // tr.addView(item6);
 
+                TextView item7 = new TextView(this);
+                item7.setPadding(15, 15, 15, 15);
+                item7.setTextColor(Color.parseColor("#000000"));
+                item7.setText(emp.toStringEtat());
+                tr.addView(item7);
+
                 tableLayout.addView(tr, new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
                 count++;
             }
@@ -323,6 +336,12 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
                 item6.setTextColor(Color.parseColor("#000000"));
                 item6.setText(emp.toStringDepa());
                // tr.addView(item6);
+
+                TextView item7 = new TextView(this);
+                item7.setPadding(15, 15, 15, 15);
+                item7.setTextColor(Color.parseColor("#000000"));
+                item7.setText(emp.toStringEtat());
+                tr.addView(item7);
 
          tableLayout.addView(tr, new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
                 count++;
@@ -388,6 +407,12 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
                     item6.setTextColor(Color.parseColor("#000000"));
                     item6.setText(emp.toStringDepa());
                     //tr.addView(item6);
+
+                    TextView item7 = new TextView(this);
+                    item7.setPadding(15, 15, 15, 15);
+                    item7.setTextColor(Color.parseColor("#000000"));
+                    item7.setText(emp.toStringEtat());
+                    tr.addView(item7);
 
                     tableLayout.addView(tr, new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
                     count++;
@@ -481,6 +506,7 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
                 CheckBox qte = (CheckBox) boitededialogue.findViewById(R.id.checkB5);
                 CheckBox dem = (CheckBox) boitededialogue.findViewById(R.id.checkB6);
                 CheckBox autr = (CheckBox) boitededialogue.findViewById(R.id.checkB7);
+                CheckBox etat= boitededialogue.findViewById(R.id.checkB8);
 
                 tableLayout=(TableLayout)findViewById(R.id.tableauLD);
                 tableLayout.setPadding(12,16,12,16);
@@ -573,6 +599,20 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
                 {
 
                 }
+                TextView statut=new TextView(getBaseContext());
+                statut.setTypeface(null, Typeface.BOLD);
+                statut.setTextColor(Color.parseColor("#FFFFFF"));
+                statut.setText("STATUT");
+                statut.setPadding(15,15,15,15);
+                if (etat.isChecked())
+                {
+                    tl.addView(statut);
+                }
+                else
+                {
+
+                }
+
 
                 tableLayout.addView(tl,new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
@@ -681,6 +721,19 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
                         {
 
                         }
+                        TextView item7=new TextView(getBaseContext());
+                        item7.setTypeface(null, Typeface.BOLD);
+                        item7.setTextColor(Color.parseColor("#FFFFFF"));
+                        item7.setText("STATUT");
+                        item7.setPadding(15,15,15,15);
+                        if (etat.isChecked())
+                        {
+                            tl.addView(item7);
+                        }
+                        else
+                        {
+
+                        }
 
                         tableLayout.addView(tr, new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
                         count++;
@@ -765,6 +818,19 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
                         if (autr.isChecked())
                         {
                             tr.addView(item6);
+                        }
+                        else
+                        {
+
+                        }
+                        TextView item7=new TextView(getBaseContext());
+                        item7.setTypeface(null, Typeface.BOLD);
+                        item7.setTextColor(Color.parseColor("#FFFFFF"));
+                        item7.setText("STATUT");
+                        item7.setPadding(15,15,15,15);
+                        if (etat.isChecked())
+                        {
+                            tl.addView(item7);
                         }
                         else
                         {

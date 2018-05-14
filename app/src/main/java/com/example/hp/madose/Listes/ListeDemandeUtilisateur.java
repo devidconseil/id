@@ -63,7 +63,7 @@ public class ListeDemandeUtilisateur extends AppCompatActivity {
         tableLayout=(TableLayout)findViewById(R.id.useraffiche);
         tableLayout.setPadding(12,16,12,16);
          profile=bd.retrieveUserProfile(FirebaseAuth.getInstance().getCurrentUser().getEmail());
-         vieww = LayoutInflater.from(getApplicationContext()).inflate(R.layout.activity_liste_demande_utilisateur, null);
+//         vieww = LayoutInflater.from(getApplicationContext()).inflate(R.layout.activity_liste_demande_utilisateur, null);
 
         TableRow tl=new TableRow(this);
         tl.setBackgroundColor(Color.parseColor("#17631E"));
@@ -112,6 +112,12 @@ public class ListeDemandeUtilisateur extends AppCompatActivity {
         depart.setText("DEPARTEMENT");
         depart.setPadding(15,15,15,15);
         //tl.addView(depart);
+
+        TextView etat=new TextView(getBaseContext());
+        depart.setTypeface(null, Typeface.BOLD);
+        depart.setTextColor(Color.parseColor("#FFFFFF"));
+        depart.setText("STATUT");
+        depart.setPadding(15,15,15,15);
 
         tableLayout.addView(tl,new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
@@ -163,6 +169,12 @@ public class ListeDemandeUtilisateur extends AppCompatActivity {
             item6.setTextColor(Color.parseColor("#000000"));
             item6.setText(emp.toStringDepa());
             //tr.addView(item6);
+
+            TextView item7 = new TextView(this);
+            item6.setPadding(15, 15, 15, 15);
+            item6.setTextColor(Color.parseColor("#000000"));
+            item6.setText(emp.toStringEtat());
+            tr.addView(item7);
 
             tableLayout.addView(tr, new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
             count++;

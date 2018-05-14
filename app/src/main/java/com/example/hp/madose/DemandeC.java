@@ -82,13 +82,14 @@ public class DemandeC {
         return libDpe;
     }
 
-    public DemandeC(int numDem, String nomEmp, String libBes, int qte,String dateDem, String libDpe) {
+    public DemandeC(int numDem, String nomEmp, String libBes, int qte,String dateDem, String libDpe,String etat) {
         this.numDem = numDem;
         this.nomEmp = nomEmp;
         this.libBes = libBes;
         this.qte = qte;
         this.dateDem = dateDem;
         this.libDpe = libDpe;
+        this.etat=etat;
     }
 
     public DemandeC(int numDem, String libDpe, String libBes, int qte,String dateDem ) {
@@ -145,5 +146,6 @@ public class DemandeC {
     public String toStringDepa() {return libDpe;}
     public int toStringQt() {return qte;}
     public String toStringDate() {return dateDem;}
+    public String toStringEtat() {return etat;}
     public String dateo() {return dateDem;}
 }
