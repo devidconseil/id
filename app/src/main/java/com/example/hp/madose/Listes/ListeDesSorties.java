@@ -442,6 +442,28 @@ public class ListeDesSorties extends AppCompatActivity {
         final AlertDialog.Builder bdd=new AlertDialog.Builder(this);
         bdd.setView(boitededialogue);
         bdd.setTitle("Cochez les colonnes à afficher SVP!!");
+
+        CheckBox cocher=(CheckBox)boitededialogue.findViewById(R.id.coch);
+        cocher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckBox nume=(CheckBox)boitededialogue.findViewById(R.id.checkBo);
+                CheckBox datee=(CheckBox)boitededialogue.findViewById(R.id.checkBo2);
+                CheckBox mater=(CheckBox)boitededialogue.findViewById(R.id.checkBo3);
+                CheckBox type=(CheckBox)boitededialogue.findViewById(R.id.checkBo4);
+                CheckBox preci=(CheckBox)boitededialogue.findViewById(R.id.checkBo5);
+                CheckBox qte=(CheckBox)boitededialogue.findViewById(R.id.checkBo6);
+                CheckBox recu=(CheckBox)boitededialogue.findViewById(R.id.checkBo7);
+                nume.setChecked(true);
+                datee.setChecked(true);
+                mater.setChecked(true);
+                type.setChecked(true);
+                preci.setChecked(true);
+                qte.setChecked(true);
+                recu.setChecked(true);
+            }
+        });
+
     bdd.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
 
 

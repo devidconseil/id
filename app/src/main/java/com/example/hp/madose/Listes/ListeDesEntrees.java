@@ -359,11 +359,10 @@ super.onBackPressed();
         bdd.setTitle("Cochez les colonnes à afficher SVP!!");
 
 
-
-        bdd.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
-
-
-            public void onClick(DialogInterface dialog, int which) {
+        CheckBox cocher=(CheckBox)boitededialogue.findViewById(R.id.Cocher);
+        cocher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 CheckBox datee=(CheckBox)boitededialogue.findViewById(R.id.checkBox);
                 CheckBox mater=(CheckBox)boitededialogue.findViewById(R.id.checkBox2);
                 CheckBox type=(CheckBox)boitededialogue.findViewById(R.id.checkBox3);
@@ -372,6 +371,31 @@ super.onBackPressed();
                 CheckBox marqq=(CheckBox)boitededialogue.findViewById(R.id.checkBox6);
                 CheckBox autr=(CheckBox)boitededialogue.findViewById(R.id.checkBox7);
 
+                Toast.makeText(getBaseContext(),"Bonjour",Toast.LENGTH_LONG).show();
+                datee.setChecked(true);
+                mater.setChecked(true);
+                type.setChecked(true);
+                pu.setChecked(true);
+                qte.setChecked(true);
+                marqq.setChecked(true);
+                autr.setChecked(true);
+            }
+        });
+
+
+
+        bdd.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+
+
+            public void onClick(DialogInterface dialog, int which) {
+
+                CheckBox datee=(CheckBox)boitededialogue.findViewById(R.id.checkBox);
+                CheckBox mater=(CheckBox)boitededialogue.findViewById(R.id.checkBox2);
+                CheckBox type=(CheckBox)boitededialogue.findViewById(R.id.checkBox3);
+                CheckBox pu=(CheckBox)boitededialogue.findViewById(R.id.checkBox4);
+                CheckBox qte=(CheckBox)boitededialogue.findViewById(R.id.checkBox5);
+                CheckBox marqq=(CheckBox)boitededialogue.findViewById(R.id.checkBox6);
+                CheckBox autr=(CheckBox)boitededialogue.findViewById(R.id.checkBox7);
 
                 tableLayout=(TableLayout)findViewById(R.id.tableauLE);
                 tableLayout.setPadding(12,16,12,16);
@@ -515,7 +539,6 @@ super.onBackPressed();
 
                     }
 
-
                     TextView item1=new TextView(getBaseContext());
                     item1.setPadding(15,15,15,15);
                     item1.setTextColor(Color.parseColor("#000000"));
@@ -529,7 +552,6 @@ super.onBackPressed();
 
                     }
 
-
                     TextView item2=new TextView(getBaseContext());
                     item2.setPadding(15,15,15,15);
                     item2.setTextColor(Color.parseColor("#000000"));
@@ -541,7 +563,6 @@ super.onBackPressed();
                     {
                         item2.setText("N.A.");
                     }
-
 
                     if (type.isChecked())
                     {
@@ -604,8 +625,6 @@ super.onBackPressed();
                     {
 
                     }
-
-
 
                     tableLayout.addView(tr,new TableLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
                     count++;

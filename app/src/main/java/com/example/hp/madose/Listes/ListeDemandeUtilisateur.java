@@ -63,7 +63,7 @@ public class ListeDemandeUtilisateur extends AppCompatActivity {
         tableLayout=(TableLayout)findViewById(R.id.useraffiche);
         tableLayout.setPadding(12,16,12,16);
          profile=bd.retrieveUserProfile(FirebaseAuth.getInstance().getCurrentUser().getEmail());
-         vieww = LayoutInflater.from(getApplicationContext()).inflate(R.layout.activity_liste_demande_utilisateur, null);
+        // vieww = LayoutInflater.from(getApplicationContext()).inflate(R.layout.activity_liste_demande_utilisateur, null);
 
         TableRow tl=new TableRow(this);
         tl.setBackgroundColor(Color.parseColor("#17631E"));

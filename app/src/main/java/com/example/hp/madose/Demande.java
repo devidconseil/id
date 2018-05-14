@@ -170,7 +170,7 @@ public class Demande extends AppCompatActivity {
             else if (intent.getStringExtra("code").equals("utilisateur"))
             {
                 date.requestFocus();
-             employe.setText(MyApplication.getNomUser());
+             //employe.setText(MyApplication.getNomUser());
             }
             else
             {

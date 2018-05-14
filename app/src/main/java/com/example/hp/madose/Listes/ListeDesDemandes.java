@@ -471,6 +471,26 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
         bdd.setView(boitededialogue);
         bdd.setTitle("Cochez les colonnes à afficher SVP!!");
 
+        CheckBox coche = (CheckBox) boitededialogue.findViewById(R.id.coche);
+        coche.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                CheckBox nume = (CheckBox) boitededialogue.findViewById(R.id.checkB);
+                CheckBox datee = (CheckBox) boitededialogue.findViewById(R.id.checkB2);
+                CheckBox mater = (CheckBox) boitededialogue.findViewById(R.id.checkB3);
+                CheckBox qte = (CheckBox) boitededialogue.findViewById(R.id.checkB5);
+                CheckBox dem = (CheckBox) boitededialogue.findViewById(R.id.checkB6);
+                CheckBox autr = (CheckBox) boitededialogue.findViewById(R.id.checkB7);
+                nume.setChecked(true);
+                datee.setChecked(true);
+                mater.setChecked(true);
+                qte.setChecked(true);
+                dem.setChecked(true);
+                autr.setChecked(true);
+            }
+        });
+
         bdd.setPositiveButton("Valider", new DialogInterface.OnClickListener() {
 
 
