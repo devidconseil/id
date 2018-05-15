@@ -72,14 +72,18 @@ public class NotificationArea extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 bd.updateDemande(Integer.parseInt(nume), "VALIDE");
-                                startActivity(new Intent(NotificationArea.this,ListeDesDemandes.class));
+                                Intent intent=new Intent(NotificationArea.this,ListeDesDemandes.class);
+                                intent.putExtra("sortie","listeD");
+                                startActivity(intent);
                             }
                         });
                         builder.setNeutralButton("REFUSER", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 bd.updateDemande(Integer.parseInt(nume),"REFUSE");
-                                startActivity(new Intent(NotificationArea.this,ListeDesDemandes.class));
+                                Intent intent=new Intent(NotificationArea.this,ListeDesDemandes.class);
+                                intent.putExtra("sortie","listeD");
+                                startActivity(intent);
                             }
                         });
                         builder.create();

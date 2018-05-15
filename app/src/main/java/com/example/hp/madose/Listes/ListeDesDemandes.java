@@ -85,16 +85,17 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshotDem:dataSnapshot.getChildren()){
                     DemandeC cat= dataSnapshotDem.getValue(DemandeC.class);
-                    Log.i("I MISS YOU",cat.getDateDem()+" "+cat.getNomEmp());
+                    Log.i("I_MISS_YOU",cat.getDateDem()+" "+cat.getNomEmp()+" "+cat.getEtat());
 
                     if (! bd.checkIfDemandeBesoinExist(cat.getHeureDem(),cat.getLibBes())){
 
                         int ssss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
-                        if (cat.getLibDpe().equals("")){
+                      //  if (cat.getLibDpe().equals("")){
                             int ss=Integer.parseInt(bd.selectEmpId(cat.getNomEmp()));
                             int sss=Integer.parseInt(bd.selectDep(bd.DepartEmp(ss)));
                             if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())) {
                                 bd.insertDemande(cat.getDateDem(), ss, sss, cat.getHeureDem(), false,cat.getEtat());
+                                Log.i("I_MISS_YOU_MY_LOVER",cat.getDateDem()+" "+cat.getNomEmp()+" "+cat.getEtat());
                             }
                             bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
                             //   Toast.makeText(getApplicationContext(),cat.toString(),Toast.LENGTH_LONG).show();
@@ -115,20 +116,20 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
                             Random random=new Random();
                             notificationManager.notify(random.nextInt(130000),notification.build());
 
-                        }
-                        if (cat.getNomEmp().equals("")) {
+                    //    }
+                  /*      if (cat.getNomEmp().equals("")) {
                             int ss=0;
                             int sss=Integer.parseInt(bd.selectDep(cat.getLibDpe()));
                             bd.insertDemande1(cat.getDateDem(),sss,cat.getHeureDem(),false,cat.getEtat());
                             bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
 
 
-                        }
-                        count7=true;
+                        }  */
+                     //   count7=true;
 
                     }
                 }
-                if (count7){
+   /*             if (count7){
                     finish();
                     showProgressDialog();
                     Intent intent=new Intent(ListeDesDemandes.this,ListeDesDemandes.class);
@@ -138,7 +139,7 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
                     startActivity(intent);
                     hideProgressDialog();
                     count7=false;
-                }
+                }   */
             }
 
             @Override
@@ -418,7 +419,7 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
                     count++;
                 }
             }
-            if (!profile.equals("USER")){
+  /*          if (!profile.equals("USER")){
             tr.setClickable(true);
 
             tr.setOnClickListener(new View.OnClickListener() {
@@ -441,7 +442,7 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
             });
 
             }
-
+*/
     }
     public void showProgressDialog() {
         if (mProgressDialog == null) {

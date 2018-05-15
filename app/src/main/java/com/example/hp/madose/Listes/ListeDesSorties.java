@@ -79,7 +79,7 @@ public class ListeDesSorties extends AppCompatActivity {
                     if (! bd.checkIfDemandeBesoinExist(cat.getHeureDem(),cat.getLibBes())){
 
                         int ssss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
-                        if (cat.getLibDpe().equals("")){
+               //         if (cat.getLibDpe().equals("")){
                             int ss=Integer.parseInt(bd.selectEmpId(cat.getNomEmp()));
                             int sss=Integer.parseInt(bd.selectDep(bd.DepartEmp(ss)));
                             if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())) {
@@ -88,8 +88,8 @@ public class ListeDesSorties extends AppCompatActivity {
                             Log.i("Je DOIS VOIR",bd.selectIdDem(cat.getHeureDem())+" "+ssss);
                             bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
                             //   Toast.makeText(getApplicationContext(),cat.toString(),Toast.LENGTH_LONG).show();
-                        }
-                        if (cat.getNomEmp().equals("")) {
+           //             }
+          /*              if (cat.getNomEmp().equals("")) {
                             int ss=0;
                             int sss=Integer.parseInt(bd.selectDep(cat.getLibDpe()));
                             if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())) {
@@ -98,21 +98,21 @@ public class ListeDesSorties extends AppCompatActivity {
                             // bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem1(cat.getLibDpe(),cat.getDateDem())),ssss,cat.getQte());
                             Log.i("ON DOIT VOIR",bd.selectIdDem(cat.getHeureDem())+" "+ssss);
                             bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
-                        }
-                        count7=true;
+                        }  */
+                      //  count7=true;
 
                     }
-                    if (count7){
+    /*                if (count7){
                         finish();
-                        showProgressDialog();
+//                        showProgressDialog();
                         Intent intent=new Intent(ListeDesSorties.this,ListeDesSorties.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         //intent.putExtra("passage","affichage2");
-                        intent.putExtra("passage","sortie");
+                        intent.putExtra("sortie","listeS");
                         startActivity(intent);
                         hideProgressDialog();
                         count7=false;
-                    }
+                    }   */
                 }
             }
 
@@ -142,18 +142,18 @@ public class ListeDesSorties extends AppCompatActivity {
                         int varP = Integer.parseInt(bd.selectStockBes(cat.getLibBes()));
                         int var3 = varP - cat.getQte();
                         bd.upDate(var3, cat.getLibBes());
-                        count1=true;
+                      //  count1=true;
 
                     }
                 }
-                if (count1){
+      /*          if (count1){
                     finish();
                     Intent intent=new Intent(ListeDesSorties.this,ListeDesSorties.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     //intent.putExtra("passage","affichage2");
-                    intent.putExtra("passage","sortie");
+                    intent.putExtra("sortie","listeS");
                     startActivity(intent);
-                }
+                }   */
             }
 
             @Override

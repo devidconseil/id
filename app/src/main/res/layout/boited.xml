@@ -86,7 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/checkB7"
+        android:layout_below="@+id/checkB8"
         android:text="Cocher tout"
         android:textStyle="bold" />
 
