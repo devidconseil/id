@@ -117,12 +117,12 @@ public class ListeDesEntrees extends AppCompatActivity {
                         int var2 = Integer.parseInt(bd.selectStockBes(cat.getLibBes()));
                         int var3 = var2 + cat.getQte();
                         bd.upDate(var3, cat.getLibBes());
-                      //  count=true;
+                   //     count=true;
 
 
                     }
                 }
-      /*          if (count){
+    /*           if (count){
                     finish();
                     showProgressDialog();
                     Intent intent=new Intent(ListeDesEntrees.this,ListeDesEntrees.class);
@@ -132,8 +132,8 @@ public class ListeDesEntrees extends AppCompatActivity {
                     startActivity(intent);
                     hideProgressDialog();
                     count=false;
-                }
-*/
+                }  */
+
             }
 
             @Override
