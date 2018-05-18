@@ -133,10 +133,15 @@ public class BringOut extends AppCompatActivity {
                 for (DataSnapshot dataSnapshotDem:dataSnapshot.getChildren()){
                     DemandeC cat= dataSnapshotDem.getValue(DemandeC.class);
                     Log.i("I MISS YOU",cat.getDateDem()+" "+cat.getNomEmp());
+                    Log.i("revit",cat.getLibBes()+" "+bd.selectIdBes(cat.getLibBes()));
+
+                    int ty=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
+                    MyApplication.setIdBesoin(ty);
 
                     if (! bd.checkIfDemandeBesoinExist(cat.getHeureDem(),cat.getLibBes())){
 
                         int ssss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
+
                         if (cat.getLibDpe().equals("")){
                             int ss=Integer.parseInt(bd.selectEmpId(cat.getNomEmp()));
                             int sss=Integer.parseInt(bd.selectDep(bd.DepartEmp(ss)));
@@ -275,9 +280,12 @@ public class BringOut extends AppCompatActivity {
             public void onClick(View v) {
 
                 //  if (radioButton_emp.isChecked()){
+                MyApplication.setIdDemande(Integer.parseInt(bd.selectNumDem2(demande.getText().toString(), employe.getText().toString())));
+               // int ba=Integer.parseInt(bd.selectIdBes(besoin.getText().toString()));
+               // MyApplication.setIdDemande(ba);
                 Intent intent = new Intent(BringOut.this, ListeBesoin.class);
                 intent.putExtra("bringDate", date.getText().toString());
-                intent.putExtra("code", "besoinEmploye");
+                intent.putExtra("code", "besoinSortie");
                 intent.putExtra("bringDemande", demande.getText().toString());
                 intent.putExtra("bringEmp", employe.getText().toString());
                 // intent.putExtra("bringBesoin",departement.getText().toString());
@@ -763,7 +771,9 @@ public class BringOut extends AppCompatActivity {
                             b = date.getText().toString().substring(3, 5);
                             c = date.getText().toString().substring(6, 10);
                             date.setText(c + "-" + b + "-" + a);   */
-                        bd.insertSortie(date.getText().toString(), num, "", MyApplication.getmAuth().getCurrentUser().getEmail(), true);
+                     Toast.makeText(getBaseContext()," "+num,Toast.LENGTH_SHORT).show();
+
+                       // bd.insertSortie(date.getText().toString(), num, "", MyApplication.getmAuth().getCurrentUser().getEmail(), true);
 
                     }
 

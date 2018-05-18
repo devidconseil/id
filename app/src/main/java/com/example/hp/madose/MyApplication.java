@@ -45,6 +45,8 @@ public class MyApplication extends Application {
     public static String verif1;
     public static String categorie;
     public static String mail;
+    public static int idBesoin;
+    public static int idDemande;
     public static int id;
     public static boolean textView;
     public static String employe;
@@ -73,6 +75,22 @@ public class MyApplication extends Application {
 
     public static boolean isFetch() {
         return fetch;
+    }
+
+    public static int getIdBesoin() {
+        return idBesoin;
+    }
+
+    public static void setIdBesoin(int idBesoin) {
+        MyApplication.idBesoin = idBesoin;
+    }
+
+    public static int getIdDemande() {
+        return idDemande;
+    }
+
+    public static void setIdDemande(int idDemande) {
+        MyApplication.idDemande = idDemande;
     }
 
     public static boolean isFait() {
