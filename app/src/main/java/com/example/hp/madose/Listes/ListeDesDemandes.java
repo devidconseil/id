@@ -182,7 +182,7 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
         date.setTextColor(Color.parseColor("#FFFFFF"));
         date.setText("DATE");
         date.setPadding(15,15,15,15);
-        tl.addView(date);
+       // tl.addView(date);
 
         TextView mat=new TextView(this);
         mat.setText("MATERIELS");
@@ -250,7 +250,7 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
                 }
                 if (count % 2 != 0) tr.setBackgroundColor(Color.parseColor("#d1d2d2"));
 
-                 item1 = new TextView(this);
+                item1 = new TextView(this);
                 item1.setPadding(15, 15, 15, 15);
                 item1.setTextColor(Color.parseColor("#000000"));
                 item1.setText(String.valueOf(emp.toStringNum()));
@@ -260,7 +260,7 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
                 item2.setPadding(15, 15, 15, 15);
                 item2.setTextColor(Color.parseColor("#000000"));
                 item2.setText(String.valueOf(emp.toStringDate()));
-                tr.addView(item2);
+                //tr.addView(item2);
 
                 TextView item3 = new TextView(this);
                 item3.setPadding(15, 15, 15, 15);
@@ -314,7 +314,7 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
                 item2.setPadding(15, 15, 15, 15);
                 item2.setTextColor(Color.parseColor("#000000"));
                 item2.setText(String.valueOf(emp.toStringDate()));
-                tr.addView(item2);
+                //tr.addView(item2);
 
                 TextView item3 = new TextView(this);
                 item3.setPadding(15, 15, 15, 15);

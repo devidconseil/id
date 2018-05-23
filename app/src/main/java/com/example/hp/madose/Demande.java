@@ -258,8 +258,6 @@ public class Demande extends AppCompatActivity {
         bes.setAdapter(nombes);
         //FIN
 
-
-
         //DialogDatePicker
         final Calendar calendar;
         calendar=Calendar.getInstance();

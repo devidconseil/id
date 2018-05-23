@@ -371,7 +371,7 @@ super.onBackPressed();
                 CheckBox marqq=(CheckBox)boitededialogue.findViewById(R.id.checkBox6);
                 CheckBox autr=(CheckBox)boitededialogue.findViewById(R.id.checkBox7);
 
-                Toast.makeText(getBaseContext(),"Bonjour",Toast.LENGTH_LONG).show();
+
                 datee.setChecked(true);
                 mater.setChecked(true);
                 type.setChecked(true);
