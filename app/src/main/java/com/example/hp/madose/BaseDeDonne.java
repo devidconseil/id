@@ -1119,6 +1119,26 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         }
     }
 
+    public List<BesoinC> affichNumDemanBesoin(int numBes,int numDem)
+    {
+        List<BesoinC>affB=new ArrayList<>();
+
+        String req="select libBes from Besoin, Demande_Besoins where Besoin.NumBes=Demande_Besoins.NumBes and Demande_Besoins.NumBes='"+numBes+"' and numDem='"+numDem+"';";
+        Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast())
+        {
+
+            BesoinC disp=new BesoinC(cursor.getString(0));
+            affB.add(disp);
+            cursor.moveToNext();
+
+        }
+
+        cursor.close();
+        return affB;
+    }
 
         public void insertDemande(String date ,int emp, int dep,String heure, Boolean local)
     {

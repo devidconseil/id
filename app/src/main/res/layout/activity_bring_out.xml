@@ -21,21 +21,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/editDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:drawableRight="@drawable/ic_date_black_24"
-                android:background="@drawable/round_corner"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:hint="Date "
-                android:inputType="date"/>
-
-            <TextView
+            <!-- <TextView
                 android:id="@+id/textView7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -74,8 +60,8 @@
                     android:textStyle="bold"
                     android:visibility="visible" />
             </RadioGroup>
-
-            <AutoCompleteTextView
+-->
+          <!--  <AutoCompleteTextView
                 android:id="@+id/autoDep"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -86,6 +72,20 @@
                 android:background="@drawable/round_corner"
                 android:hint="Departement"
                 android:visibility="invisible" />
+                -->
+
+            <EditText
+                android:id="@+id/editDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/round_corner"
+                android:drawableRight="@drawable/ic_date_black_24"
+                android:ems="10"
+                android:hint="Date "
+                android:inputType="date" />
 
             <AutoCompleteTextView
                 android:id="@+id/autoEmp"
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/radioGroup"
+                android:layout_below="@+id/editDate"
                 android:background="@drawable/round_corner"
                 android:drawableRight="@drawable/ic_fleche_a_droit_24dp"
                 android:hint="Employé" />
@@ -104,10 +104,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:drawableRight="@drawable/ic_fleche_a_droit_24dp"
-                android:background="@drawable/round_corner"
                 android:layout_below="@+id/autoEmp"
+                android:background="@drawable/round_corner"
+                android:drawableRight="@drawable/ic_fleche_a_droit_24dp"
                 android:hint="Date de la demande" />
+
 
             <AutoCompleteTextView
                 android:id="@+id/autoBesoin"
@@ -115,10 +116,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:drawableRight="@drawable/ic_fleche_a_droit_24dp"
-                android:background="@drawable/round_corner"
                 android:layout_below="@+id/autoDemande"
-                android:hint="Besoin"/>
+                android:background="@drawable/round_corner"
+                android:drawableRight="@drawable/ic_fleche_a_droit_24dp"
+                android:hint="Besoin" />
 
             <EditText
                 android:id="@+id/sortieQt"
@@ -128,10 +129,8 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/autoBesoin"
                 android:background="@drawable/round_corner"
-                android:layout_centerVertical="true"
                 android:hint="Quantité"
-                android:inputType="number"
-               />
+                android:inputType="number" />
 
             <AutoCompleteTextView
                 android:id="@+id/autoCompMark"
@@ -150,8 +149,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:background="@drawable/round_corner"
                 android:layout_below="@+id/autoCompMark"
+                android:background="@drawable/round_corner"
                 android:hint="Autres précisions" />
 
             <Button
@@ -161,7 +160,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/autoCompAutre"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="9dp"
                 android:backgroundTint="#858687"
                 android:drawableRight="@drawable/ic_add_black_24dp"
                 android:text="Ajouter"

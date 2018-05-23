@@ -79,7 +79,7 @@ public class ListeDesSorties extends AppCompatActivity {
                     if (! bd.checkIfDemandeBesoinExist(cat.getHeureDem(),cat.getLibBes())){
 
                         int ssss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
-               //         if (cat.getLibDpe().equals("")){
+                        if (cat.getLibDpe().equals("")){
                             int ss=Integer.parseInt(bd.selectEmpId(cat.getNomEmp()));
                             int sss=Integer.parseInt(bd.selectDep(bd.DepartEmp(ss)));
                             if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())) {
@@ -88,8 +88,8 @@ public class ListeDesSorties extends AppCompatActivity {
                             Log.i("Je DOIS VOIR",bd.selectIdDem(cat.getHeureDem())+" "+ssss);
                             bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte(),cat.getEtat());
                             //   Toast.makeText(getApplicationContext(),cat.toString(),Toast.LENGTH_LONG).show();
-           //             }
-          /*              if (cat.getNomEmp().equals("")) {
+                        }
+                        if (cat.getNomEmp().equals("")) {
                             int ss=0;
                             int sss=Integer.parseInt(bd.selectDep(cat.getLibDpe()));
                             if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())) {
@@ -98,13 +98,13 @@ public class ListeDesSorties extends AppCompatActivity {
                             // bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem1(cat.getLibDpe(),cat.getDateDem())),ssss,cat.getQte());
                             Log.i("ON DOIT VOIR",bd.selectIdDem(cat.getHeureDem())+" "+ssss);
                             bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
-                        }  */
-                      //  count7=true;
+                        }
+                  //      count7=true;
 
                     }
-    /*                if (count7){
+              /*      if (count7){
                         finish();
-//                        showProgressDialog();
+                    //    showProgressDialog();
                         Intent intent=new Intent(ListeDesSorties.this,ListeDesSorties.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         //intent.putExtra("passage","affichage2");
@@ -112,7 +112,7 @@ public class ListeDesSorties extends AppCompatActivity {
                         startActivity(intent);
                         hideProgressDialog();
                         count7=false;
-                    }   */
+                    }  */
                 }
             }
 
@@ -142,18 +142,18 @@ public class ListeDesSorties extends AppCompatActivity {
                         int varP = Integer.parseInt(bd.selectStockBes(cat.getLibBes()));
                         int var3 = varP - cat.getQte();
                         bd.upDate(var3, cat.getLibBes());
-                      //  count1=true;
+                    //    count1=true;
 
                     }
                 }
-      /*          if (count1){
+     /*           if (count1){
                     finish();
                     Intent intent=new Intent(ListeDesSorties.this,ListeDesSorties.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     //intent.putExtra("passage","affichage2");
-                    intent.putExtra("sortie","listeS");
+                    intent.putExtra("sotrie","listeS");
                     startActivity(intent);
-                }   */
+                }  */
             }
 
             @Override
@@ -184,7 +184,7 @@ public class ListeDesSorties extends AppCompatActivity {
         num.setTextColor(Color.parseColor("#FFFFFF"));
         num.setText("Num.");
         num.setPadding(15,15,15,15);
-       // tl.addView(num);
+        // tl.addView(num);
 
         TextView date=new TextView(this);
         date.setTypeface(null, Typeface.BOLD);
@@ -236,15 +236,16 @@ public class ListeDesSorties extends AppCompatActivity {
 
         List<Stock2> affF =null;
         List<Stock2> affF1 =null;
-        if(getIntent().getStringExtra("sortie").equals("libelle"))
-        {
-            affF = bd.afficheStockLib(getIntent().getStringExtra("libelle"));
-            affF1 = bd.afficheStockLib1(getIntent().getStringExtra("libelle"));
-        }
-        else if (getIntent().getStringExtra("sortie").equals("listeS"))
+        if(getIntent().getStringExtra("sortie").equals("listeS"))
         {
             affF =bd.afficheStock22();
             affF1 =bd.afficheStock33();
+        }
+        else if (getIntent().getStringExtra("sortie").equals("libelle"))
+        {
+
+            affF = bd.afficheStockLib(getIntent().getStringExtra("libelle"));
+            affF1 = bd.afficheStockLib1(getIntent().getStringExtra("libelle"));
         }
 
         int count=0;
@@ -324,7 +325,7 @@ public class ListeDesSorties extends AppCompatActivity {
             item8.setPadding(15,15,15,15);
             item8.setTextColor(Color.parseColor("#000000"));
             item8.setText(String.valueOf(emp.toStringNumSortie()));
-          //  tr.addView(item8);
+            //  tr.addView(item8);
 
             TextView item7=new TextView(this);
             item7.setPadding(15,15,15,15);
@@ -350,13 +351,13 @@ public class ListeDesSorties extends AppCompatActivity {
                 item2.setText("N.A.");
             }
 
-           // tr.addView(item2);
+            // tr.addView(item2);
 
             TextView item3=new TextView(this);
             item3.setPadding(15,15,15,15);
             item3.setTextColor(Color.parseColor("#000000"));
             item3.setText(String.valueOf(emp.toStringAutreP()));
-           // tr.addView(item3);
+            // tr.addView(item3);
 
             TextView item4=new TextView(this);
             item4.setPadding(15,15,15,15);
@@ -386,7 +387,6 @@ public class ListeDesSorties extends AppCompatActivity {
             mProgressDialog.setCancelable(false);
             mProgressDialog.setMessage("Mise à jour...");
         }
-
         mProgressDialog.show();
     }
 

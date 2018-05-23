@@ -15,9 +15,7 @@
         android:background="#E6E7E9"
         android:orientation="vertical"
         android:padding="15dp">
-    android:background="#E6E7E9"
-    android:orientation="vertical"
-    android:padding="15dp">
+
 
     <ScrollView
         android:layout_width="match_parent"

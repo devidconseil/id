@@ -86,7 +86,7 @@ public class NotificationArea extends AppCompatActivity {
             final ListView listView = findViewById(R.id.listview_area);
             listView.setAdapter(arrayAdapter);
 
-            listView.setBackgroundColor(Color.parseColor("#17631E"));
+            //listView.setBackgroundColor(Color.parseColor("#ffffff"));
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override

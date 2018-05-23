@@ -44,15 +44,15 @@ public class BringOut extends AppCompatActivity {
         final BaseDeDonne bd=new BaseDeDonne(this);
         final Button passage=(Button)findViewById(R.id.sortiVal);
         final AutoCompleteTextView employe=(AutoCompleteTextView)findViewById(R.id.autoEmp);
-        final AutoCompleteTextView departement= findViewById(R.id.autoDep);
+       // final AutoCompleteTextView departement= findViewById(R.id.autoDep);
         final AutoCompleteTextView besoin=(AutoCompleteTextView)findViewById(R.id.autoBesoin);
         final EditText qut=(EditText)findViewById(R.id.sortieQt);
         final AutoCompleteTextView marq=(AutoCompleteTextView)findViewById(R.id.autoCompMark);
         final AutoCompleteTextView autr=(AutoCompleteTextView)findViewById(R.id.autoCompAutre);
         //final Spinner spinner=(Spinner)findViewById(R.id.spinner);
         final AutoCompleteTextView demande=(AutoCompleteTextView)findViewById(R.id.autoDemande);
-        final RadioButton radioButton_emp= findViewById(R.id.radioButtonEmp);
-        final RadioButton radioButton_dep= findViewById(R.id.radioButtonDep);
+       // final RadioButton radioButton_emp= findViewById(R.id.radioButtonEmp);
+        //final RadioButton radioButton_dep= findViewById(R.id.radioButtonDep);
 
         final EditText date=(EditText)findViewById(R.id.editDate);
 
@@ -133,10 +133,15 @@ public class BringOut extends AppCompatActivity {
                 for (DataSnapshot dataSnapshotDem:dataSnapshot.getChildren()){
                     DemandeC cat= dataSnapshotDem.getValue(DemandeC.class);
                     Log.i("I MISS YOU",cat.getDateDem()+" "+cat.getNomEmp());
+                    Log.i("revit",cat.getLibBes()+" "+bd.selectIdBes(cat.getLibBes()));
+
+                    int ty=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
+                    MyApplication.setIdBesoin(ty);
 
                     if (! bd.checkIfDemandeBesoinExist(cat.getHeureDem(),cat.getLibBes())){
 
                         int ssss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
+
                         if (cat.getLibDpe().equals("")){
                             int ss=Integer.parseInt(bd.selectEmpId(cat.getNomEmp()));
                             int sss=Integer.parseInt(bd.selectDep(bd.DepartEmp(ss)));
@@ -192,16 +197,16 @@ public class BringOut extends AppCompatActivity {
 
             date.setText(intent.getStringExtra("bringD"));
             employe.setText(intent.getStringExtra("bringE"));
-            departement.setText(intent.getStringExtra("bringDe"));
+            //departement.setText(intent.getStringExtra("bringDe"));
             besoin.setText(intent.getStringExtra("bringB"));
             demande.setText(intent.getStringExtra("bringDem"));
             marq.setText(intent.getStringExtra("bringM"));
             qut.setText(intent.getStringExtra("bringQ"));
             autr.setText(intent.getStringExtra("bringA"));
-            radioButton_dep.setChecked(intent.getBooleanExtra("etat1",radioButton_dep.isChecked()));
-            radioButton_emp.setChecked(intent.getBooleanExtra("etat2",radioButton_emp.isChecked()));
+            //radioButton_dep.setChecked(intent.getBooleanExtra("etat1",radioButton_dep.isChecked()));
+           // radioButton_emp.setChecked(intent.getBooleanExtra("etat2",radioButton_emp.isChecked()));
             employe.setVisibility(intent.getIntExtra("etat3",employe.getVisibility()));
-            departement.setVisibility(intent.getIntExtra("etat4",departement.getVisibility()));
+            //departement.setVisibility(intent.getIntExtra("etat4",departement.getVisibility()));
             if (intent.getStringExtra("code").equals("listeD")) {
 
             }
@@ -235,7 +240,7 @@ public class BringOut extends AppCompatActivity {
                 intent.putExtra("bringDate",date.getText().toString());
                 intent.putExtra("code","sortie");
                 intent.putExtra("bringDemande",demande.getText().toString());
-                intent.putExtra("bringDepartement",departement.getText().toString());
+               // intent.putExtra("bringDepartement",departement.getText().toString());
                 intent.putExtra("bringBesoin",besoin.getText().toString());
                 intent.putExtra("bringMarque",marq.getText().toString());
                 intent.putExtra("bringQuantité",qut.getText().toString());
@@ -248,7 +253,7 @@ public class BringOut extends AppCompatActivity {
                 finish();
             }
         });
-        departement.setOnClickListener(new View.OnClickListener() {
+        /*departement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -269,35 +274,38 @@ public class BringOut extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        });
+        });*/
         besoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (radioButton_emp.isChecked()){
-                Intent intent=new Intent(BringOut.this,ListeBesoin.class);
-                intent.putExtra("bringDate",date.getText().toString());
-                intent.putExtra("code","besoinEmploye");
-                intent.putExtra("bringDemande",demande.getText().toString());
-                intent.putExtra("bringEmp",employe.getText().toString());
-                intent.putExtra("bringBesoin",departement.getText().toString());
-                intent.putExtra("bringMarque",marq.getText().toString());
-                intent.putExtra("bringQuantité",qut.getText().toString());
-                intent.putExtra("bringAutre",autr.getText().toString());
-                intent.putExtra("etat1",true);
-                intent.putExtra("etat2",false);
-                intent.putExtra("etat3",View.INVISIBLE);
-                intent.putExtra("etat4",View.VISIBLE);
+                //  if (radioButton_emp.isChecked()){
+                MyApplication.setIdDemande(Integer.parseInt(bd.selectNumDem2(demande.getText().toString(), employe.getText().toString())));
+               // int ba=Integer.parseInt(bd.selectIdBes(besoin.getText().toString()));
+               // MyApplication.setIdDemande(ba);
+                Intent intent = new Intent(BringOut.this, ListeBesoin.class);
+                intent.putExtra("bringDate", date.getText().toString());
+                intent.putExtra("code", "besoinSortie");
+                intent.putExtra("bringDemande", demande.getText().toString());
+                intent.putExtra("bringEmp", employe.getText().toString());
+                // intent.putExtra("bringBesoin",departement.getText().toString());
+                intent.putExtra("bringMarque", marq.getText().toString());
+                intent.putExtra("bringQuantité", qut.getText().toString());
+                intent.putExtra("bringAutre", autr.getText().toString());
+                intent.putExtra("etat1", true);
+                intent.putExtra("etat2", false);
+                intent.putExtra("etat3", View.INVISIBLE);
+                intent.putExtra("etat4", View.VISIBLE);
                 startActivity(intent);
                 finish();
-                }
-                else if (radioButton_dep.isChecked()){
+            }
+                /*else if (radioButton_dep.isChecked()){
                     Intent intent=new Intent(BringOut.this,ListeBesoin.class);
                     intent.putExtra("bringDate",date.getText().toString());
                     intent.putExtra("code","besoinDepartement");
                     intent.putExtra("bringDemande",demande.getText().toString());
                     intent.putExtra("bringEmp",employe.getText().toString());
-                    intent.putExtra("bringDepartement",departement.getText().toString());
+                   // intent.putExtra("bringDepartement",departement.getText().toString());
                     intent.putExtra("bringMarque",marq.getText().toString());
                     intent.putExtra("bringQuantité",qut.getText().toString());
                     intent.putExtra("bringAutre",autr.getText().toString());
@@ -307,8 +315,8 @@ public class BringOut extends AppCompatActivity {
                     intent.putExtra("etat4",View.INVISIBLE);
                     startActivity(intent);
                     finish();
-                }
-            }
+                }*/
+
         });
 
 
@@ -329,7 +337,7 @@ public class BringOut extends AppCompatActivity {
         final int annee=calendar.get(Calendar.YEAR);
 
 
-        radioButton_dep.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+      /*  radioButton_dep.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -353,7 +361,7 @@ public class BringOut extends AppCompatActivity {
                 }
             }
         });
-  /*      radioButton_dep.setOnClickListener(new View.OnClickListener() {
+        radioButton_dep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 employe.setVisibility(View.INVISIBLE);
@@ -455,7 +463,7 @@ public class BringOut extends AppCompatActivity {
 
                 ArrayList<String> au = new ArrayList<>();
                 String var;
-                if (radioButton_emp.isChecked()) {
+               // if (radioButton_emp.isChecked()) {
                     if (employe.getText().toString().equals("")) {
                         employe.setError("Veuillez saisir le nom du departement ou de l'employé SVP!!");
                     } else {
@@ -473,7 +481,7 @@ public class BringOut extends AppCompatActivity {
                             intent.putExtra("bringDate", date.getText().toString());
                             intent.putExtra("bringO", "sortie2");
                             intent.putExtra("bringEmploye", employe.getText().toString());
-                            intent.putExtra("bringDepartement", departement.getText().toString());
+                            //intent.putExtra("bringDepartement", departement.getText().toString());
                             intent.putExtra("bringBesoin", besoin.getText().toString());
                             intent.putExtra("bringMarque", marq.getText().toString());
                             intent.putExtra("bringQuantité", qut.getText().toString());
@@ -487,8 +495,8 @@ public class BringOut extends AppCompatActivity {
                         }
                     }
 
-                }
-                if (radioButton_dep.isChecked()) {
+                //}
+               /* if (radioButton_dep.isChecked()) {
                     if (departement.getText().toString().equals("")) {
                         departement.setError("Veuillez saisir le nom du departement ou de l'employé SVP!!");
                     } else {
@@ -516,7 +524,7 @@ public class BringOut extends AppCompatActivity {
                             finish();
                         }
                     }
-                    }
+                    }*/
                     ArrayAdapter<String> aut = new ArrayAdapter<String>(BringOut.this, android.R.layout.simple_list_item_1, au);
                     demande.setAdapter(aut);
                 }
@@ -739,12 +747,12 @@ public class BringOut extends AppCompatActivity {
                 }
                 else {
                     String num = new String();
-                    if (radioButton_emp.isChecked()) {
+                    //if (radioButton_emp.isChecked()) {
                         num = bd.selectNumDem2(demande.getText().toString(), employe.getText().toString());
-                    }
-                    if (radioButton_dep.isChecked()) {
+                  //  }
+                 /*   if (radioButton_dep.isChecked()) {
                         num = bd.selectNumDem1(demande.getText().toString(), departement.getText().toString());
-                    }
+                    }*/
                     int dernierEnr;
                     // bd.insertSortie(date.getText().toString(),num);
                     // bd.close();
@@ -763,7 +771,9 @@ public class BringOut extends AppCompatActivity {
                             b = date.getText().toString().substring(3, 5);
                             c = date.getText().toString().substring(6, 10);
                             date.setText(c + "-" + b + "-" + a);   */
-                        bd.insertSortie(date.getText().toString(), num, "", MyApplication.getmAuth().getCurrentUser().getEmail(), true);
+                     Toast.makeText(getBaseContext()," "+num,Toast.LENGTH_SHORT).show();
+
+                       // bd.insertSortie(date.getText().toString(), num, "", MyApplication.getmAuth().getCurrentUser().getEmail(), true);
 
                     }
 
@@ -803,7 +813,7 @@ public class BringOut extends AppCompatActivity {
                         if (autr.getText().toString().contains("''")){
                             autr.setText(autr.getText().toString().replace("''","'"));
                         }
-                        writeNewSortie(besoin.getText().toString(), marq.getText().toString(), autr.getText().toString(), demande.getText().toString(), employe.getText().toString(), date.getText().toString(), departement.getText().toString(), bd.selectHeureSor(), MyApplication.getmAuth().getCurrentUser().getEmail(), var1);
+                        writeNewSortie(besoin.getText().toString(), marq.getText().toString(), autr.getText().toString(), demande.getText().toString(), employe.getText().toString(), date.getText().toString(), bd.selectDepartFromUser(employe.getText().toString()), bd.selectHeureSor(), MyApplication.getmAuth().getCurrentUser().getEmail(), var1);
 
                         updateConnectivity(MyApplication.getmAuth().getCurrentUser().getEmail());
                         //update debut

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -25,21 +26,25 @@ public class ListeBesoin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste_besoin);
 
-        BaseDeDonne bd=new BaseDeDonne(this);
-        final List<BesoinC> besoin= bd.afficheLB();
-        for (BesoinC besoinC: besoin){
-            liste.add(besoinC.libelleBesoin());
-        }
-        ListAdapter departe=new ArrayAdapter<BesoinC>(this, android.R.layout.simple_list_item_1, besoin);
-        ListView affiche=(ListView)findViewById(R.id.listB);
 
-
-        final ListeBes listeBes=new ListeBes(this,liste);
-        affiche.setAdapter(listeBes);
 
         Intent intent = getIntent();
-        if (intent.getStringExtra("code").equals("besoinEmploye"))
+        if (intent.getStringExtra("code").equals("besoinSortie"))
         {
+
+            BaseDeDonne bd=new BaseDeDonne(this);
+            final List<BesoinC> besoin= bd.affichNumDemanBesoin(MyApplication.getIdBesoin(),MyApplication.getIdDemande());
+
+            Log.i("EriCo DecostA"," "+MyApplication.getIdBesoin()+" "+ MyApplication.getIdDemande());
+            for (BesoinC besoinC: besoin){
+                liste.add(besoinC.libelleBesoin());
+            }
+            ListAdapter departe=new ArrayAdapter<BesoinC>(this, android.R.layout.simple_list_item_1, besoin);
+            ListView affiche=(ListView)findViewById(R.id.listB);
+
+            final ListeBes listeBes=new ListeBes(this,liste);
+            affiche.setAdapter(listeBes);
+
             final String varDate = intent.getStringExtra("bringDate");
             final String var1 = intent.getStringExtra("bringDemande");
            // final String var2 = intent.getStringExtra("bringDepartement");
@@ -47,7 +52,6 @@ public class ListeBesoin extends AppCompatActivity {
             final String var4 = intent.getStringExtra("bringMarque");
             final String var5 = intent.getStringExtra("bringQuantité");
             final String var6 = intent.getStringExtra("bringAutre");
-
             final Boolean var7=intent.getBooleanExtra("bringRadDep",false);
             final Boolean var8=intent.getBooleanExtra("bringRadEmp",true);
             final int var9=intent.getIntExtra("bringEmpVis",View.VISIBLE);
@@ -85,6 +89,18 @@ public class ListeBesoin extends AppCompatActivity {
             });
         }
         else if (intent.getStringExtra("code").equals("besoinDepartement")){
+
+            BaseDeDonne bd=new BaseDeDonne(this);
+            final List<BesoinC> besoin= bd.afficheLB();
+            for (BesoinC besoinC: besoin){
+                liste.add(besoinC.libelleBesoin());
+            }
+            ListAdapter departe=new ArrayAdapter<BesoinC>(this, android.R.layout.simple_list_item_1, besoin);
+            ListView affiche=(ListView)findViewById(R.id.listB);
+
+            final ListeBes listeBes=new ListeBes(this,liste);
+            affiche.setAdapter(listeBes);
+
             final String varDate = intent.getStringExtra("bringDate");
             final String var1 = intent.getStringExtra("bringDemande");
             final String var2 = intent.getStringExtra("bringDepartement");
@@ -133,6 +149,18 @@ public class ListeBesoin extends AppCompatActivity {
             });
         }
         else if (intent.getStringExtra("code").equals("add")){
+
+            BaseDeDonne bd=new BaseDeDonne(this);
+            final List<BesoinC> besoin= bd.afficheLB();
+            for (BesoinC besoinC: besoin){
+                liste.add(besoinC.libelleBesoin());
+            }
+            ListAdapter departe=new ArrayAdapter<BesoinC>(this, android.R.layout.simple_list_item_1, besoin);
+            ListView affiche=(ListView)findViewById(R.id.listB);
+
+            final ListeBes listeBes=new ListeBes(this,liste);
+            affiche.setAdapter(listeBes);
+
             final String varDate = intent.getStringExtra("addDate");
             final String var1 = intent.getStringExtra("addFourni");
             final String var2 = intent.getStringExtra("addPrixU");
@@ -170,6 +198,18 @@ public class ListeBesoin extends AppCompatActivity {
             });
         }
         else if (intent.getStringExtra("code").equals("besoinDepartementD")){
+
+            BaseDeDonne bd=new BaseDeDonne(this);
+            final List<BesoinC> besoin= bd.afficheLB();
+            for (BesoinC besoinC: besoin){
+                liste.add(besoinC.libelleBesoin());
+            }
+            ListAdapter departe=new ArrayAdapter<BesoinC>(this, android.R.layout.simple_list_item_1, besoin);
+            ListView affiche=(ListView)findViewById(R.id.listB);
+
+            final ListeBes listeBes=new ListeBes(this,liste);
+            affiche.setAdapter(listeBes);
+
             final String varDate = getIntent().getStringExtra("demDate");
             final String var1 = getIntent().getStringExtra("demDepartement");
             final String var2 = getIntent().getStringExtra("demQuantité");
@@ -204,6 +244,17 @@ public class ListeBesoin extends AppCompatActivity {
             });
         }
         else if (intent.getStringExtra("code").equals("besoinEmployeD")){
+            BaseDeDonne bd=new BaseDeDonne(this);
+            final List<BesoinC> besoin= bd.afficheLB();
+            for (BesoinC besoinC: besoin){
+                liste.add(besoinC.libelleBesoin());
+            }
+            ListAdapter departe=new ArrayAdapter<BesoinC>(this, android.R.layout.simple_list_item_1, besoin);
+            ListView affiche=(ListView)findViewById(R.id.listB);
+
+            final ListeBes listeBes=new ListeBes(this,liste);
+            affiche.setAdapter(listeBes);
+
             final String varDate = getIntent().getStringExtra("demDate");
             final String var1 = getIntent().getStringExtra("demEmp");
             final String var2 = getIntent().getStringExtra("demQuantité");

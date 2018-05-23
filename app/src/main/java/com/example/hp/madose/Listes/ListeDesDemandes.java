@@ -85,12 +85,12 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshotDem:dataSnapshot.getChildren()){
                     DemandeC cat= dataSnapshotDem.getValue(DemandeC.class);
-                    Log.i("I_MISS_YOU",cat.getDateDem()+" "+cat.getNomEmp()+" "+cat.getEtat());
+                    Log.i("I MISS YOU",cat.getDateDem()+" "+cat.getNomEmp());
 
                     if (! bd.checkIfDemandeBesoinExist(cat.getHeureDem(),cat.getLibBes())){
 
                         int ssss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
-                      //  if (cat.getLibDpe().equals("")){
+                        if (cat.getLibDpe().equals("")){
                             int ss=Integer.parseInt(bd.selectEmpId(cat.getNomEmp()));
                             int sss=Integer.parseInt(bd.selectDep(bd.DepartEmp(ss)));
                             if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())) {
@@ -126,10 +126,13 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
 
                         }  */
                      //   count7=true;
+                        }
+                 //       count7=true;
 
                     }
                 }
    /*             if (count7){
+         /*       if (count7){
                     finish();
                     showProgressDialog();
                     Intent intent=new Intent(ListeDesDemandes.this,ListeDesDemandes.class);
@@ -221,7 +224,7 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
 
         String profile=bd.retrieveUserProfile(mAuth.getCurrentUser().getEmail());
 
-        if (profile.equals("SUPER ADMIN")) {
+         if (profile.equals("SUPER ADMIN")) {
 
             List<DemandeC> affF =null;
             List<DemandeC> affF1 =null;
@@ -419,7 +422,7 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
                     count++;
                 }
             }
-  /*          if (!profile.equals("USER")){
+           /* if (!profile.equals("USER")){
             tr.setClickable(true);
 
             tr.setOnClickListener(new View.OnClickListener() {
@@ -441,8 +444,8 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
                 }
             });
 
-            }
-*/
+            }*/
+
     }
     public void showProgressDialog() {
         if (mProgressDialog == null) {
@@ -844,14 +847,13 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
                         {
 
                         }
-                        TextView item7=new TextView(getBaseContext());
-                        item7.setTypeface(null, Typeface.BOLD);
-                        item7.setTextColor(Color.parseColor("#FFFFFF"));
-                        item7.setText("STATUT");
-                        item7.setPadding(15,15,15,15);
+                        TextView item7 = new TextView(getBaseContext());
+                        item7.setPadding(15, 15, 15, 15);
+                        item7.setTextColor(Color.parseColor("#000000"));
+                        item7.setText(emp.toStringEtat());
                         if (etat.isChecked())
                         {
-                            tl.addView(item7);
+                            tr.addView(item7);
                         }
                         else
                         {
