@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,6 +19,8 @@ import com.example.hp.madose.Listes.ListeDesDemandes;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -31,22 +34,53 @@ import java.util.Map;
 
 public class NotificationArea extends AppCompatActivity {
     BaseDeDonne bd;
-    String profile,nume,heuree;
+    String profile,nume,heuree,besoin,numbes,mail, depart,code,nom,pren;;
+    HeureDemandeC pac,chain;
+    DatabaseReference mDatabase;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_area);
         bd=new BaseDeDonne(this);
         List<String> notification=new ArrayList<>();
+        mDatabase= FirebaseDatabase.getInstance().getReference();
         profile=bd.retrieveUserProfile(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        pac=new HeureDemandeC();
+        pac.setBesoin("");
+        pac.setHeure("");
+        pac.setHeure("");
+
+
+        mDatabase.child("HeureDemande").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshotHDem:dataSnapshot.getChildren()){
+               chain = dataSnapshotHDem.getValue(HeureDemandeC.class);
+                    Log.i("sawyer",dataSnapshotHDem.getValue(HeureDemandeC.class).getBesoin());
+
+                    if (chain.getBesoin().equals(pac.getBesoin()) && chain .getHour().equals(pac.getHour())){
+                        // heuree=chain.getHeure();
+                        // besoin=chain.getBesoin();
+                        Log.i("see it",pac.getHeure()+" "+pac.getBesoin()+"_"+pac.getBesoin()+"-"+pac.getHeure());
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         if (!profile.equals("USER")) {
             for (String mail : bd.accountNotValidate()) {
                 notification.add("Un nouvel utilisateur enregistré est en attente de validation:" + mail);
             }
-            for (String num : bd.demandeNotValidate()) {
-                nume=num;
-                notification.add("Une nouvelle demande enregistrée est en attente de validation: demande numéro " + num);
+            for (HeureDemandeC num : bd.demandeNotValidate1()) {
+
+                notification.add("Une nouvelle demande de "+num.getPrenom()+" "+num.getNom()+" enregistrée est en attente de validation: " + num.getQte()+" "+num.getBesoin()+".");
+                Log.i("vvv",num.getMail()+"-"+num.getNumero());
             }
             ListAdapter arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, notification);
             final ListView listView = findViewById(R.id.listview_area);
@@ -56,7 +90,7 @@ public class NotificationArea extends AppCompatActivity {
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                     if (listView.getItemAtPosition(position).toString().contains("utilisateur")) {
                         int a = listView.getItemAtPosition(position).toString().length();
                         MyApplication.mail = listView.getItemAtPosition(position).toString().substring(62, a);
@@ -71,7 +105,42 @@ public class NotificationArea extends AppCompatActivity {
                         builder.setPositiveButton("VALIDER", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                bd.updateDemande(Integer.parseInt(nume), "VALIDE");
+
+                                for (final HeureDemandeC num : bd.demandeNotValidate1()) {
+                                    pac=num;
+                                    nume=num.getNumero();
+                                    numbes=bd.selectIdBes(num.getBesoin());
+                                    mail=num.getMail();
+                                    Log.i("vvvv",num.getMail()+"-"+num.getNumero());
+
+                                mDatabase.child("HeureDemande").addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot dataSnapshotHDem:dataSnapshot.getChildren()){
+                                            chain = dataSnapshotHDem.getValue(HeureDemandeC.class);
+                                            Log.i("sawyer",dataSnapshotHDem.getValue(HeureDemandeC.class).getBesoin());
+                                            Log.i("payton",num.getMail()+"-"+num.getNom()+" "+chain.getNom()+"/"+listView.getItemAtPosition(position).toString());
+                                            Log.i("scott",chain.getBesoin()+"-"+num.getBesoin()+"/"+chain.getHour()+"-"+num.getHour());
+
+                                            if (chain.getBesoin().equals(num.getBesoin()) && chain .getHour().equals(num.getHour()) && listView.getItemAtPosition(position).toString().contains(chain.getNom())&& listView.getItemAtPosition(position).toString().contains(chain.getPrenom()) && listView.getItemAtPosition(position).toString().contains(chain.getBesoin()) && listView.getItemAtPosition(position).toString().contains(String.valueOf(chain.getQte()))){
+                                                // heuree=chain.getHeure();
+                                                // besoin=chain.getBesoin();
+                                                bd.updateDemande(Integer.parseInt(num.getNumero()),Integer.parseInt(bd.selectIdBes(num.getBesoin())), "VALIDE");
+                                                updateNewDemande(num.getMail(),"VALIDE");
+                                                Log.i("see_it",num.getHeure()+" "+num.getBesoin()+"_"+pac.getBesoin()+"-"+pac.getHeure());
+
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                  });
+                                }
+
+
                                 Intent intent=new Intent(NotificationArea.this,ListeDesDemandes.class);
                                 intent.putExtra("sortie","listeD");
                                 startActivity(intent);
@@ -80,7 +149,8 @@ public class NotificationArea extends AppCompatActivity {
                         builder.setNeutralButton("REFUSER", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                bd.updateDemande(Integer.parseInt(nume),"REFUSE");
+                                bd.updateDemande(Integer.parseInt(nume),Integer.parseInt(numbes),"REFUSE");
+                                updateNewDemande(mail,"REFUSE");
                                 Intent intent=new Intent(NotificationArea.this,ListeDesDemandes.class);
                                 intent.putExtra("sortie","listeD");
                                 startActivity(intent);
@@ -107,31 +177,27 @@ public class NotificationArea extends AppCompatActivity {
     public void onBackPressed(){
         startActivity(new Intent(NotificationArea.this,Acceuil.class));
     }
-    private void updateNewDemande(  String email,  String numero,String etat) {
-
-        String depart,code,heure,nom,pren;
+    private void updateNewDemande(  String email, String etat) {
         nom=bd.selectEmpNomFromMail(email);
         pren=bd.selectEmpPrenomFromMail(email);
-        depart=bd.selectDepartFromUser(email);
+        depart=bd.selectDepartFromMail(email);
+        String cricri;
        // heure=bd.selectHeureDemandeFromNumero(nume);
-        MyApplication.getmDatabase().child("HeureDemande").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot dataSnapshotHDem:dataSnapshot.getChildren()){
-                    String chain=dataSnapshotHDem.getValue(String.class);
-                    if (chain.contains(MyApplication.getmAuth().getCurrentUser().getEmail())){
-                        heuree= String.valueOf(chain.split("-"+ MyApplication.getmAuth().getCurrentUser().getEmail(),0));
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        code=nom+"-"+pren+"-"+depart+"-"+heuree;
-
+        code=nom+"-"+pren+"-"+depart+"-"+chain.getBesoin()+"-"+chain.getHeure();
+        if (nom.contains(" ")){
+            cricri=nom.replace(" ","-");
+            code=cricri+"-"+pren+"-"+depart+"-"+chain.getBesoin()+"-"+chain.getHeure();
+        }
+  /*      if (dateDem.contains("/")){
+            cris=dateDem.replace("/","-");
+            code=nomEmp+"-"+libDpe+"-"+libBes+"-"+cris;
+        }   */
+        if (nom.contains("'") || depart.contains("'") || chain.getBesoin().contains("'")){
+            code=code.replace("'","-");
+        }
+        if (depart.contains(" ") || chain.getBesoin().contains(" ")){
+            code=code.replace(" ","-");
+        }
 
         Map<String,Object> childUpdates=new HashMap<>();
         childUpdates.put("/Demande/"+code+"/etat",etat);

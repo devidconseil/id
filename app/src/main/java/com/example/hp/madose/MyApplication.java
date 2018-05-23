@@ -11,8 +11,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
+/*import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger; */
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -197,8 +197,8 @@ public class MyApplication extends Application {
         super.onCreate();
         final BaseDeDonne bd=new BaseDeDonne(this);
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
+     /*   FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);  */
        DatabaseReference userRef= FirebaseDatabase.getInstance().getReference("users");
        userRef.keepSynced(true);
 
@@ -350,9 +350,9 @@ public class MyApplication extends Application {
                             int ss=Integer.parseInt(bd.selectEmpId(cat.getNomEmp()));
                             int sss=Integer.parseInt(bd.selectDep(bd.DepartEmp(ss)));
                             if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())) {
-                                bd.insertDemande(cat.getDateDem(), ss, sss, cat.getHeureDem(), false,cat.getEtat());
+                                bd.insertDemande(cat.getDateDem(), ss, sss, cat.getHeureDem(), false);
                             }
-                            bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
+                            bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte(),cat.getEtat());
                             //   Toast.makeText(getApplicationContext(),cat.toString(),Toast.LENGTH_LONG).show();
           //              }
           /*              if (cat.getNomEmp().equals("")) {

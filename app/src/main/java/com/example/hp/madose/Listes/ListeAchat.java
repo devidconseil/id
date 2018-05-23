@@ -58,12 +58,7 @@ public class ListeAchat extends AppCompatActivity {
         int count=0;
         for (ListAchatC emp : affF) {
 
-            TableRow tr = new TableRow(this);
-            tr.setPadding(12, 16, 12, 16);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                tr.setLayoutParams(new ActionMenuView.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-            }
-            if (count % 2 != 0) tr.setBackgroundColor(Color.parseColor("#d1d2d2"));
+
 
             String a,b,c;
             a=bd.selectStockBes(String.valueOf(emp.toStringMat()));
@@ -88,14 +83,21 @@ public class ListeAchat extends AppCompatActivity {
             item7.setTextColor(Color.parseColor("#000000"));
             item7.setText(String.valueOf(d));
            // item7.setText(String.valueOf(emp.toStringQt()));
-            if (d>0){
+           if (d>0){
+            TableRow tr = new TableRow(this);
+            tr.setPadding(12, 16, 12, 16);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                tr.setLayoutParams(new ActionMenuView.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+            }
+            if (count % 2 != 0) tr.setBackgroundColor(Color.parseColor("#d1d2d2"));
                 tr.addView(item8);
                 tr.addView(item7);
                 count++;
+               tableLayout.addView(tr,new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
             }
 
 
-            tableLayout.addView(tr,new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+
            // count++;
         }
     }

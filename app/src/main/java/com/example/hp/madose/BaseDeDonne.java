@@ -25,8 +25,8 @@ public class BaseDeDonne extends SQLiteOpenHelper {
             "`HeureSor` TEXT, `User` TEXT, PRIMARY KEY(NumSor,NumBes), FOREIGN KEY(NumSor) REFERENCES Sortie(NumSor), FOREIGN KEY(NumBes) REFERENCES Besoin(NumBes) );";
     private static final String TABLE_CATEGORIE = "CREATE TABLE Categorie ( `IdCat` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `LibCat` TEXT NOT NULL );";
     private static final String TABLE_DEMANDE = "CREATE TABLE Demande ( `numDem` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `DateDem` INTEGER NOT NULL, `IdEmp` INTEGER, `IdDep` INTEGER, " +
-            "`HeureDem` TEXT,`EtatDem` TEXT, FOREIGN KEY(`IdEmp`) REFERENCES `Utilisateur`(`IdEmp`), FOREIGN KEY(`IdDep`) REFERENCES `Departement`(`IdDep`) );";
-    private static final String TABLE_DEMANDE_BESOIN = "CREATE TABLE Demande_Besoins ( `numDem` INTEGER, `NumBes` INTEGER, `qte` INTEGER NOT NULL, FOREIGN KEY(`NumBes`) REFERENCES `Besoin`(`NumBes`), PRIMARY KEY(`numDem`,`NumBes`), FOREIGN KEY(`numDem`) REFERENCES `Demande`(`numDem`) );";
+            "`HeureDem` TEXT, FOREIGN KEY(`IdEmp`) REFERENCES `Utilisateur`(`IdEmp`), FOREIGN KEY(`IdDep`) REFERENCES `Departement`(`IdDep`) );";
+    private static final String TABLE_DEMANDE_BESOIN = "CREATE TABLE Demande_Besoins ( `numDem` INTEGER, `NumBes` INTEGER, `qte` INTEGER NOT NULL,`EtatDem` TEXT, FOREIGN KEY(`NumBes`) REFERENCES `Besoin`(`NumBes`), PRIMARY KEY(`numDem`,`NumBes`), FOREIGN KEY(`numDem`) REFERENCES `Demande`(`numDem`) );";
     private static final String TABLE_DEPARTEMENT = "CREATE TABLE Departement ( `IdDep` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `libDep` TEXT NOT NULL );";
     private static final String TABLE_USER = "CREATE TABLE Utilisateur ( `IdEmp` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, `nomEmp` TEXT NOT NULL,`PrenEmp` TEXT,`MailEmp` TEXT NOT NULL,`TelEmp` TEXT NOT NULL,`IdDep` INTEGER, `ProEmp` TEXT, `ValEmp` TEXT, FOREIGN KEY(`IdDep`) REFERENCES `Departement`(`IdDep`) );";
     private static final String TABLE_BESOIN = "CREATE TABLE Besoin ( NumBes INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, libBes TEXT NOT NULL, typeBes TEXT NOT NULL, IdCat INTEGER," +
@@ -208,6 +208,18 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     }
     public Boolean checkIfValueSame(String mail,String value){
         String req="select nomEmp,PrenEmp,MailEmp,TelEmp,libDep,ProEmp from Utilisateur,Departement where Utilisateur.IdDep=Departement.IdDep and MailEmp='"+mail+"' and ValEmp='"+value+"';";
+        Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
+        if(cursor.getCount()>0){
+            cursor.close();
+            return true;
+        }
+        else {
+            cursor.close();
+            return false;
+        }
+    }
+    public Boolean checkIfDemandeValueSame(String name,String heure,String besoin,String value){
+        String req="select HeureDem,libBes,EtatDem,nomEmp || ' ' || prenEmp from Utilisateur,Demande,Demande_Besoins,Besoin where Utilisateur.IdEmp=Demande.IdEmp and Demande.numDem=Demande_Besoins.numDem and Demande_Besoins.NumBes=Besoin.NumBes and nomEmp||' '||prenEmp='"+name+"' and HeureDem='"+heure+"' and libBes='"+besoin+"' and EtatDem='"+value+"';";
         Cursor cursor=this.getReadableDatabase().rawQuery(req,null);
         if(cursor.getCount()>0){
             cursor.close();
@@ -468,6 +480,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
             if (cursor != null) cursor.close();
         }
     }
+
     //Textautocomplete
     public ArrayList<String> affiNF()
     {
@@ -625,7 +638,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         List<String>ade=new ArrayList<>();
         //String req="select NumBes,libBes,typeBes,Idcat,SeuilBes,date(AmorBes,'unixepoch') from Besoin where Amorbes BETWEEN strftime('%s','2010-05-04') AND strftime('%s','2060-12-31') ;";
 
-        String req="select NumDem from Demande where EtatDem='EN ATTENTE';";
+        String req="select numDem from Demande_Besoins where EtatDem='EN ATTENTE';";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -633,6 +646,28 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         {
 
             ade.add(cursor.getString(0));
+
+            cursor.moveToNext();
+
+        }
+
+        cursor.close();
+        return ade;
+    }
+    public List<HeureDemandeC> demandeNotValidate1()
+    {
+        List<HeureDemandeC>ade=new ArrayList<>();
+        //String req="select NumBes,libBes,typeBes,Idcat,SeuilBes,date(AmorBes,'unixepoch') from Besoin where Amorbes BETWEEN strftime('%s','2010-05-04') AND strftime('%s','2060-12-31') ;";
+
+        String req="select nomEmp,prenEmp,libBes,HeureDem,qte,Demande.numDem,MailEmp from Demande_Besoins,Besoin,Demande,Utilisateur where Demande_Besoins.numDem=Demande.numDem and Utilisateur.IdEmp=Demande.IdEmp and Demande_Besoins.numBes=Besoin.numBes and EtatDem='EN ATTENTE';";
+        Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast())
+        {
+
+            HeureDemandeC pac=new HeureDemandeC(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getInt(4),cursor.getString(5),cursor.getString(6));
+            ade.add(pac);
 
             cursor.moveToNext();
 
@@ -1070,46 +1105,46 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         }
     }
 
-    public void insertDemande1(String date , int dep, String heure, Boolean local,String etat)
+    public void insertDemande1(String date , int dep, String heure, Boolean local)
     {
         if (local) {
-            String entre = "insert into Demande( DateDem,IdDep,HeureDem,EtatDem )values(strftime('%s','" + date + "')," + dep + ",strftime('%s','now'),"+etat+");";
+            String entre = "insert into Demande( DateDem,IdDep,HeureDem)values(strftime('%s','" + date + "')," + dep + ",strftime('%s','now'));";
             Log.i("DATABASE", "insert Demande");
             this.getWritableDatabase().execSQL(entre);
         }
         else{
-            String entre = "insert into Demande( DateDem,IdDep,HeureDem,EtatDem )values(strftime('%s','" + date + "')," + dep + ",'" + heure + "',"+etat+");";
+            String entre = "insert into Demande( DateDem,IdDep,HeureDem )values(strftime('%s','" + date + "')," + dep + ",'" + heure + "');";
             Log.i("DATABASE", "insert Demande");
             this.getWritableDatabase().execSQL(entre);
         }
     }
 
 
-        public void insertDemande(String date ,int emp, int dep,String heure, Boolean local, String etat)
+        public void insertDemande(String date ,int emp, int dep,String heure, Boolean local)
     {
         if (local) {
-            String entre = "insert into Demande( DateDem, IdEmp, IdDep ,HeureDem, EtatDem)values(strftime('%s','" + date + "')," + emp + "," + dep + ",strftime('%s','now'),'"+etat+"');";
+            String entre = "insert into Demande( DateDem, IdEmp, IdDep ,HeureDem)values(strftime('%s','" + date + "')," + emp + "," + dep + ",strftime('%s','now'));";
             Log.i("DATABASE", "insert Demande");
             this.getWritableDatabase().execSQL(entre);
         }
         else {
-            String entre = "insert into Demande( DateDem, IdEmp, IdDep,HeureDem,EtatDem )values(strftime('%s','" + date + "')," + emp + "," + dep + ",'" + heure + "','"+etat+"');";
+            String entre = "insert into Demande( DateDem, IdEmp, IdDep,HeureDem )values(strftime('%s','" + date + "')," + emp + "," + dep + ",'" + heure + "');";
             Log.i("DATABASE", "insert Demande");
             this.getWritableDatabase().execSQL(entre);
         }
     }
 
-    public void updateDemande(int numDem,String etat)
+    public void updateDemande(int numDem,int numBes,String etat)
     {
 
-            String entre = "update Demande set EtatDem='"+etat+"' where numDem="+numDem+";";
+            String entre = "update Demande_Besoins set EtatDem='"+etat+"' where numDem="+numDem+" and NumBes="+numBes+";";
             Log.i("DATABASE", "insert Demande");
             this.getWritableDatabase().execSQL(entre);
 
     }
-         public void insertDemandeBesoin(int dem, int besoin ,int qte)
+         public void insertDemandeBesoin(int dem, int besoin ,int qte, String etat)
     {
-        String entre="insert into Demande_Besoins(numDem, NumBes, qte )values("+dem+"," + besoin +","+qte+");";
+        String entre="insert into Demande_Besoins(numDem, NumBes, qte , EtatDem)values("+dem+"," + besoin +","+qte+",'"+etat+"');";
         Log.i("DATABASE","insert Demande besoin");
         this.getWritableDatabase().execSQL(entre);
     }
@@ -1190,6 +1225,18 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     public String selectDepartFromUser(String nomB)
     {
         String req="select libDep from Departement,Utilisateur where Departement.IdDep=Utilisateur.IdDep and nomEmp || ' ' || PrenEmp='"+nomB+"' ;";
+        Cursor cursor = null;
+        try {
+
+            cursor = this.getReadableDatabase().rawQuery(req,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
+    public String selectDepartFromMail(String mail)
+    {
+        String req="select libDep from Departement,Utilisateur where Departement.IdDep=Utilisateur.IdDep and MailEmp='"+mail+"' ;";
         Cursor cursor = null;
         try {
 

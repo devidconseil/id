@@ -50,9 +50,9 @@ import com.example.hp.madose.Listes.ListeDesDemandes;
 import com.example.hp.madose.Listes.ListeDesEntrees;
 import com.example.hp.madose.Listes.ListeDesSorties;
 import com.example.hp.madose.Listes.UtilisateurListe;
-import com.facebook.FacebookSdk;
+/*import com.facebook.FacebookSdk;
 import com.facebook.Profile;
-import com.facebook.appevents.AppEventsLogger;
+import com.facebook.appevents.AppEventsLogger; */
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -255,7 +255,9 @@ public class Acceuil extends AppCompatActivity
 
                     if (!bd.checkIfEntreeExist(cat.getLibFour(),cat.getHeureEnt(),cat.user)){
                         Log.i("SHOW-ME",cat.getLibFour()+" "+cat.getHeureEnt());
+                        Log.i("regard",bd.selectFour(cat.getLibFour())+"-"+cat.getLibFour());
                         int ss=Integer.parseInt(bd.selectFour(cat.getLibFour()));
+
                         bd.insertEntr(cat.getDatEnt(),ss,cat.getHeureEnt(),cat.getUser(),false);
 
                     }
@@ -334,10 +336,11 @@ public class Acceuil extends AppCompatActivity
                             int ss=Integer.parseInt(bd.selectEmpId(cat.getNomEmp()));
                             int sss=Integer.parseInt(bd.selectDep(bd.DepartEmp(ss)));
                             if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())) {
-                                bd.insertDemande(cat.getDateDem(), ss, sss, cat.getHeureDem(), false,cat.getEtat());
+                                bd.insertDemande(cat.getDateDem(), ss, sss, cat.getHeureDem(), false);
                                 Log.i("I_MISS_YOU_MY_LOVER",cat.getDateDem()+" "+cat.getNomEmp()+" "+cat.getEtat());
                             }
-                            bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
+                            bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte(),cat.getEtat());
+
                             //   Toast.makeText(getApplicationContext(),cat.toString(),Toast.LENGTH_LONG).show();
                    //     }
                  /*       if (cat.getNomEmp().equals("")) {
@@ -375,6 +378,12 @@ public class Acceuil extends AppCompatActivity
                             //Notification fin
                         }
 
+                    }
+                    if (bd.checkIfDemandeBesoinExist(cat.getHeureDem(),cat.getLibBes()) && bd.checkIfDemandeValueSame(cat.getNomEmp(),cat.getHeureDem(),cat.getLibBes(),"EN ATTENTE") && !cat.getEtat().equals("EN ATTENTE") ){
+                        String num=bd.selectIdDem(cat.getHeureDem());
+                        String nume=bd.selectIdBes(cat.getLibBes());
+                        Log.i("akanbi",num+" "+cat.getEtat());
+                        bd.updateDemande(Integer.parseInt(num),Integer.parseInt(nume),cat.getEtat());
                     }
                 }
 
@@ -618,14 +627,20 @@ public class Acceuil extends AppCompatActivity
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            Intent intent = new Intent(getApplicationContext(), Welcome.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("EXIT", true);
+            startActivity(intent);
         }
+        finishAndRemoveTask();
+
     }
 
     @Override
