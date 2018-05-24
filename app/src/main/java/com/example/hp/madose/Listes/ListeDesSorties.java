@@ -93,11 +93,11 @@ public class ListeDesSorties extends AppCompatActivity {
                             int ss=0;
                             int sss=Integer.parseInt(bd.selectDep(cat.getLibDpe()));
                             if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())) {
-                                bd.insertDemande1(cat.getDateDem(), sss, cat.getHeureDem(), false,cat.getEtat());
+                                bd.insertDemande1(cat.getDateDem(), sss, cat.getHeureDem(), false);
                             }
                             // bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem1(cat.getLibDpe(),cat.getDateDem())),ssss,cat.getQte());
                             Log.i("ON DOIT VOIR",bd.selectIdDem(cat.getHeureDem())+" "+ssss);
-                            bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
+                            bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte(),cat.getEtat());
                         }
                   //      count7=true;
 

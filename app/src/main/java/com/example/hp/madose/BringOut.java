@@ -172,11 +172,11 @@ public class BringOut extends AppCompatActivity {
 
 
         //AutoTextComplete
-       /* ArrayList<String> nd=bd.affiNE();
+      ArrayList<String> nd=bd.affiNE();
         ArrayAdapter<String> dep=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,nd);
         employe.setAdapter(dep);
 
-        ArrayList<String> nd1=bd.affiNDE();
+    /*      ArrayList<String> nd1=bd.affiNDE();
         ArrayAdapter<String> dep1=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,nd1);
         departement.setAdapter(dep1);
 
