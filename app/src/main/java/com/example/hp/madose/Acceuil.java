@@ -651,7 +651,6 @@ public class Acceuil extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
 
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -741,8 +740,6 @@ public class Acceuil extends AppCompatActivity
                             Snackbar.make(getCurrentFocus(), "Changement de mot passe a échoué.\nVeuillez recommencer!!!", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
                         }
-
-
                     }
                 });
                 builder.setNegativeButton("ANNULER", new DialogInterface.OnClickListener() {
@@ -751,9 +748,6 @@ public class Acceuil extends AppCompatActivity
                         dialog.cancel();
                     }
                 });
-
-
-
 
                 builder.create();
                 builder.show();
