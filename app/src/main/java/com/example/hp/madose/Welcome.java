@@ -94,9 +94,9 @@ public class Welcome extends AppCompatActivity {
             var3 = var2 - 1;
             bd.upDate(var3, "STYLO");
 
-            bd.insertDemande("2018-01-02", 1, 1,bd.selectCurrentDate(),true,"VALIDE");
-            bd.insertDemandeBesoin(1, 1, 1);
-            bd.insertDemandeBesoin(1, 6, 1);
+            bd.insertDemande("2018-01-02", 1, 1,bd.selectCurrentDate(),true);
+            bd.insertDemandeBesoin(1, 1, 1,"VALIDE");
+            bd.insertDemandeBesoin(1, 6, 1,"VALIDE");
             MyApplication.setFetch(false);
         }
 
@@ -118,6 +118,10 @@ public class Welcome extends AppCompatActivity {
                 finish();
             }
         });
+
+        if (getIntent().getExtras() != null && getIntent().getExtras().getBoolean("EXIT", false)) {
+            finish();
+        }
     }
 
     @Override

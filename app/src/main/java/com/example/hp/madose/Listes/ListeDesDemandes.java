@@ -94,9 +94,10 @@ public class ListeDesDemandes extends AppCompatActivity implements View.OnClickL
                             int ss=Integer.parseInt(bd.selectEmpId(cat.getNomEmp()));
                             int sss=Integer.parseInt(bd.selectDep(bd.DepartEmp(ss)));
                             if (! bd.checkIfDemandeExist(cat.getNomEmp(),cat.getHeureDem(),cat.getLibDpe())) {
-                                bd.insertDemande(cat.getDateDem(), ss, sss, cat.getHeureDem(), false,cat.getEtat());
+                                bd.insertDemande(cat.getDateDem(), ss, sss, cat.getHeureDem(), false);
+                                Log.i("I_MISS_YOU_MY_LOVER",cat.getDateDem()+" "+cat.getNomEmp()+" "+cat.getEtat());
                             }
-                            bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte());
+                            bd.insertDemandeBesoin(Integer.parseInt(bd.selectIdDem(cat.getHeureDem())),ssss,cat.getQte(),cat.getEtat());
                             //   Toast.makeText(getApplicationContext(),cat.toString(),Toast.LENGTH_LONG).show();
 
                             NotificationCompat.Builder notification=new NotificationCompat.Builder(getBaseContext());

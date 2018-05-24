@@ -41,7 +41,7 @@ dependencies {
     //noinspection GradleCompatible
     compile 'com.android.support:recyclerview-v7:26+'
     compile 'com.github.aakira:expandable-layout:1.6.0@aar'
-    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+   // implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
 
 
 

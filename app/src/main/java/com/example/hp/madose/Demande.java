@@ -58,6 +58,7 @@ public class Demande extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demande);
        bd =new BaseDeDonne(this);
+       mDatabase=FirebaseDatabase.getInstance().getReference();
         profile=bd.retrieveUserProfile(FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
         final EditText date=(EditText)findViewById(R.id.dateDemande);
@@ -70,7 +71,7 @@ public class Demande extends AppCompatActivity {
         final RadioButton radioButton_dep= findViewById(R.id.radioButton_dep);
         final RadioGroup radioGroup= findViewById(R.id.radio_group);  */
 
-        mDatabase= FirebaseDatabase.getInstance().getReference();
+
 
 
 
@@ -177,6 +178,13 @@ public class Demande extends AppCompatActivity {
                 date.requestFocus();
             }
 
+        }
+        mDatabase= FirebaseDatabase.getInstance().getReference();
+        if (profile.equals("USER")){
+            String name=bd.selectEmpNameFromMail(MyApplication.getmAuth().getCurrentUser().getEmail());
+            Log.i("fff",name);
+            employe.setText(name);
+            employe.setEnabled(false);
         }
         employe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -365,12 +373,8 @@ public class Demande extends AppCompatActivity {
                             var1 = Integer.parseInt(bd.selectEmpId(employe.getText().toString()));
                             departe = bd.DepartEmp(var1);
                             var2 = Integer.parseInt(bd.selectDep(departe));
-                            if (!profile.equals("USER")) {
-                                bd.insertDemande(date.getText().toString(), var1, var2, "", true, "VALIDE");
-                            }
-                            else {
-                                bd.insertDemande(date.getText().toString(), var1, var2, "", true, "EN ATTENTE");
-                            }
+                            bd.insertDemande(date.getText().toString(), var1, var2, "", true);
+
                     //    }
 
                    /*     if (radioButton_dep.isChecked()) {
@@ -386,12 +390,14 @@ public class Demande extends AppCompatActivity {
 
 
                         int dernierEnr = Integer.parseInt(bd.selectIdDem());
-                        bd.insertDemandeBesoin(dernierEnr, var3, var4);
+
 
                         if (!profile.equals("USER")) {
+                            bd.insertDemandeBesoin(dernierEnr, var3, var4,"VALIDE");
                             writeNewDemande(employe.getText().toString(), bd.selectDepartFromUser(employe.getText().toString()), bes.getText().toString(), date.getText().toString(), Integer.parseInt(quant.getText().toString()), bd.selectHeureDem(), "VALIDE");
                         }
                         else {
+                            bd.insertDemandeBesoin(dernierEnr, var3, var4,"EN ATTENTE");
                             writeNewDemande(employe.getText().toString(), bd.selectDepartFromUser(employe.getText().toString()), bes.getText().toString(), date.getText().toString(), Integer.parseInt(quant.getText().toString()), bd.selectHeureDem(), "EN ATTENTE");
 
                         }
@@ -484,12 +490,9 @@ public class Demande extends AppCompatActivity {
                             var1 = Integer.parseInt(bd.selectEmpId(employe.getText().toString()));
                             String departe = bd.DepartEmp(var1);
                             var2 = Integer.parseInt(bd.selectDep(departe));
-                        if (!profile.equals("USER")) {
-                            bd.insertDemande(date.getText().toString(), var1, var2, "", true, "VALIDE");
-                        }
-                        else {
-                            bd.insertDemande(date.getText().toString(), var1, var2, "", true, "EN ATTENTE");
-                        }
+
+                            bd.insertDemande(date.getText().toString(), var1, var2, "", true);
+
                      //   }
 
                  /*       if (radioButton_dep.isChecked()) {
@@ -505,11 +508,13 @@ public class Demande extends AppCompatActivity {
                         c = date.getText().toString().substring(6, 10);
                         date.setText(c + "-" + b + "-" + a);  */
                     }
-                    bd.insertDemandeBesoin(dernierEnr, var3, var4);
+
                     if (!profile.equals("USER")) {
+                        bd.insertDemandeBesoin(dernierEnr, var3, var4,"VALIDE");
                         writeNewDemande(employe.getText().toString(), bd.selectDepartFromUser(employe.getText().toString()), bes.getText().toString(), date.getText().toString(), Integer.parseInt(quant.getText().toString()), bd.selectHeureDem(), "VALIDE");
                     }
                     else {
+                        bd.insertDemandeBesoin(dernierEnr, var3, var4,"EN ATTENTE");
                         writeNewDemande(employe.getText().toString(), bd.selectDepartFromUser(employe.getText().toString()), bes.getText().toString(), date.getText().toString(), Integer.parseInt(quant.getText().toString()), bd.selectHeureDem(), "EN ATTENTE");
 
                     }
@@ -586,7 +591,7 @@ public class Demande extends AppCompatActivity {
         BaseDeDonne bd=new BaseDeDonne(getApplicationContext());
         String now=bd.selectCurrentDate();
         String code=nomEmp+"-"+libDpe+"-"+libBes+"-"+now;
-        writeNewHeureDemande(MyApplication.getmAuth().getCurrentUser().getEmail(),now,libBes);
+        writeNewHeureDemande(MyApplication.getmAuth().getCurrentUser().getEmail(),now,libBes,qte);
         String cricri="";
         String cris="";
         String cristi="";
@@ -609,16 +614,18 @@ public class Demande extends AppCompatActivity {
         DemandeC cat=new DemandeC(nomEmp,libDpe,libBes,dateDem,qte,heureDem,etat);
         mDatabase.child("Demande").child(code).setValue(cat);
     }
-    public void writeNewHeureDemande(String mail,String heure,String besoin){
+    public void writeNewHeureDemande(String mail,String heure,String besoin,int qte){
         if (profile.equals("USER")){
         BaseDeDonne bd=new BaseDeDonne(getApplicationContext());
         String nom,pren,code,hour;
         nom=bd.selectEmpNomFromMail(mail);
         pren=bd.selectEmpPrenomFromMail(mail);
         hour=bd.selectHeureDem();
-        code=nom+"-"+pren+"-"+hour;
+        code=nom+"-"+pren+"-"+besoin+"-"+hour;
+        HeureDemandeC donnee=new HeureDemandeC(nom,pren,besoin,heure,hour,qte);
 
-            mDatabase.child("HeureDemande").child(code).setValue(besoin+"-"+heure+"-"+mail);
+            mDatabase.child("HeureDemande").child(code).setValue(donnee);
+            Log.i("fait",besoin+"-"+pren);
         }
 
 
