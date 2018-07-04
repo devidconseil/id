@@ -64,11 +64,11 @@ ProgressDialog mProgressDialog;
 
 
 
-            bd.insertEntr("2018-01-02", 1,"","padejinle@idconsulting.ie",true);
-            bd.insertEntr("2018-01-02", 4,"","padejinle@idconsulting.ie",true);
+           /* bd.insertEntr("2018-01-02", 1,"","padejinle@idconsulting.ie",true);
+            bd.insertEntr("2018-01-02", 4,"","padejinle@idconsulting.ie",true);*/
 
 
-            bd.insertEntrBes(1, 1, 150, 5, "Bic", "Bleu");
+            /*bd.insertEntrBes(1, 1, 150, 5, "Bic", "Bleu");
             int var2 = Integer.parseInt(bd.selectStockBes("STYLO"));
             int var3 = var2 + 5;
             bd.upDate(var3, "STYLO");
@@ -98,7 +98,7 @@ ProgressDialog mProgressDialog;
 
             bd.insertDemande("2018-01-02", 1, 1,bd.selectCurrentDate(),true);
             bd.insertDemandeBesoin(1, 1, 1,"VALIDE");
-            bd.insertDemandeBesoin(1, 6, 1,"VALIDE");
+            bd.insertDemandeBesoin(1, 6, 1,"VALIDE");*/
             MyApplication.setFetch(false);
         }
     /*    MyApplication.getmAuth().signInWithEmailAndPassword("test@idconsulting.ie","password").addOnCompleteListener(new OnCompleteListener<AuthResult>() {

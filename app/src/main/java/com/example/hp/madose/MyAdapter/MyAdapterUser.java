@@ -2,16 +2,23 @@ package com.example.hp.madose.MyAdapter;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.hp.madose.Listes.UtilisateurListe;
+import com.example.hp.madose.MyApplication;
 import com.example.hp.madose.R;
+import com.example.hp.madose.Utilisateur;
 import com.example.hp.madose.model.Item;
 import com.example.hp.madose.model.ItemU;
 import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
@@ -28,10 +35,13 @@ class MyViewHolderWithChildUser extends RecyclerView.ViewHolder {
 
     public TextView textnomUti,textproUti,textemailUti,textcontUti,textdepartUti;
     public RelativeLayout button;
+    public CardView cardView;
     public ExpandableLinearLayout expandableLinearLayout;
 
     public MyViewHolderWithChildUser(View itemView) {
         super(itemView);
+
+        cardView=(CardView)itemView.findViewById(R.id.moncard);
         textnomUti=(TextView)itemView.findViewById(R.id.nomUti);
         textcontUti=(TextView)itemView.findViewById(R.id.contUit);
         textproUti=(TextView)itemView.findViewById(R.id.proUti);
@@ -95,16 +105,18 @@ public class MyAdapterUser extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             {
 
                 final MyViewHolderWithChildUser viewHolder = (MyViewHolderWithChildUser) holder;
-                ItemU item = items.get(position);
+                final ItemU item = items.get(position);
                 viewHolder.setIsRecyclable(false);
 
 
                 // ce gar la n'aime pas les int
+                String variable;
                 viewHolder.textnomUti.setText(item.getNom());
                 viewHolder.textproUti.setText(item.getProfil());
                 viewHolder.textemailUti.setText(item.getMail());
                 viewHolder.textcontUti.setText(item.getContact());
                 viewHolder.textdepartUti.setText(item.getDepartement());
+
                 // Picasso.with(context).load(item.getImage()).into(viewHolder.imageView);
 
 
@@ -135,6 +147,23 @@ public class MyAdapterUser extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     }
                 });
                 //viewHolder.textViewChild.setText(items.get(position).getSubtext());
+                viewHolder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        Intent intent=new Intent(context.getApplicationContext(), Utilisateur.class);
+                        intent.putExtra("status","modifier");
+                        context.startActivity(intent);
+
+                        MyApplication.setModifNom(item.getNom());
+                        MyApplication.setModifContact(item.getContact());
+                        MyApplication.setModifEmail(item.getMail());
+                        MyApplication.setModifPre(item.getNom());
+                        MyApplication.setModifDepart(item.getDepartement());
+                        MyApplication.setModifId(String.valueOf(item.getId()));
+                        Toast.makeText(context.getApplicationContext(), " "+item.getId() , Toast.LENGTH_LONG).show();
+                        return true;
+                    }
+                });
             }
             //viewHolder.textStock.setText(items.get(position).getStock());
 

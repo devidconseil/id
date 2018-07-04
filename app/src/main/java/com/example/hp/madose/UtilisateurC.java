@@ -22,6 +22,7 @@ public class UtilisateurC {
         this.prenEmp=prenEmp;
     }
 
+
     public int getIdEmp() {
         return idEmp;
     }
@@ -80,7 +81,18 @@ public class UtilisateurC {
         TelEmp=telEmp;
     } */
 
-    public UtilisateurC(String nomEmp, String prenEmp, String mailEmp, String telEmp, String libDep, String proEmp, String valEmp) {
+    public UtilisateurC(int idEmp,String nomEmp, String prenEmp, String mailEmp, String telEmp, String libDep, String proEmp) {
+        this.idEmp=idEmp;
+        this.nomEmp = nomEmp;
+        this.libDep = libDep;
+        this.proEmp = proEmp;
+        this.prenEmp=prenEmp;
+        this.mailEmp=mailEmp;
+        this.telEmp=telEmp;
+
+    }
+
+   public UtilisateurC(String nomEmp, String prenEmp, String mailEmp, String telEmp, String libDep, String proEmp, String valEmp) {
         this.nomEmp = nomEmp;
         this.libDep = libDep;
         this.proEmp = proEmp;
@@ -89,6 +101,7 @@ public class UtilisateurC {
         this.telEmp=telEmp;
         this.valEmp=valEmp;
     }
+
     public UtilisateurC(String nomEmp, String prenEmp, String mailEmp, String telEmp, String libDep, String proEmp) {
         this.nomEmp = nomEmp;
         this.libDep = libDep;
@@ -109,6 +122,7 @@ public class UtilisateurC {
         return  nomEmp + " " + prenEmp ;
     }
 
+    public int toIntId() {return idEmp;}
     public String toStringNom() {
         return nomEmp;
     }

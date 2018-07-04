@@ -174,12 +174,12 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     public List<UtilisateurC> afficheE() {
 
         List<UtilisateurC> affE = new ArrayList<>();
-        String req = "select nomEmp,PrenEmp,MailEmp,TelEmp,libDep,ProEmp from Utilisateur,Departement where Departement.IdDep=Utilisateur.IdDep;";
+        String req = "select idEmp,nomEmp,PrenEmp,MailEmp,TelEmp,libDep,ProEmp from Utilisateur,Departement where Departement.IdDep=Utilisateur.IdDep;";
         Cursor cursor = this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
-            UtilisateurC disp = new UtilisateurC(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5));
+            UtilisateurC disp = new UtilisateurC(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5),cursor.getString(6));
             affE.add(disp);
             cursor.moveToNext();
         }
@@ -2112,7 +2112,14 @@ public ArrayList<String> affiNumDem(int idemp)
         this.getWritableDatabase().execSQL(req);
         Log.i("DATABASE","Suppression de l'utilisateur '"+mail+"'.");
     }
+    public void updateUtilisateur(int id,String nom, String pre,int depart, String mail, String profil, String telephone)
+    {
 
+        String entre = "update Utilisateur set nomEmp='"+nom+"',PrenEmp='"+pre+"',MailEmp='"+mail+"',TelEmp='"+telephone+"',ProEmp='"+profil+"',IdDep="+depart+" where IdEmp="+id+";";
+        this.getWritableDatabase().execSQL(entre);
+        Log.i("DATABASE", "update utilisateur");
+
+    }
 
 }
 

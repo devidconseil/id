@@ -52,17 +52,17 @@ public class Welcome extends AppCompatActivity {
             bd.insertFour("CDCI", "01 bp 1250 Abidjan 10", "22441182");
             bd.insertFour("SOCOCE", "01 bp 4036 Abidjan 28", "22441683");
 
-            bd.insertEmp("KOUADJO","Eric","ekouadjio@idconsulting.ie","01020304", 1, "SUPER ADMIN","YES");
-            bd.insertEmp("ADEJINLE","Patrick","padejinle@idconsulting.ie","01020304", 1, "SUPER ADMIN","YES");
-            bd.insertEmp("KONE","Myriame","mnayele@idconsulting.ie","01020304",  2, "USER","YES");
-            bd.insertEmp("KONE","Seydou","kseydou@idconsulting.ie","01020304", 2, "USER","YES");
-            bd.insertEmp("LAGO","Yvon","ylago@idconsulting.ie","01020304", 2, "USER","YES");
-            bd.insertEmp("ASSOH EPSE YAPI","Bénédicte","bassoh@idconsulting.ie","01020304", 3, "ADMIN","YES");
-            bd.insertEmp("DROH","Agostino","adroh@idconsulting.ie","01020304", 4, "SUPER ADMIN","YES");
+            bd.insertEmp("KOUADJO","Eric","ekouadjio@idconsulting.ie","48006873", 1, "SUPER ADMIN","YES");
+            bd.insertEmp("ADEJINLE","Patrick","padejinle@idconsulting.ie","57851435", 1, "SUPER ADMIN","YES");
+            bd.insertEmp("KONE","Myriame","mnayele@idconsulting.ie","48671784",  2, "USER","YES");
+            bd.insertEmp("KONE","Seydou","kseydou@idconsulting.ie","07530038", 2, "USER","YES");
+            bd.insertEmp("LAGO","Yvon","ylago@idconsulting.ie","07480915", 2, "USER","YES");
+            bd.insertEmp("ASSOH EPSE YAPI","Bénédicte","bassoh@idconsulting.ie","47974080", 3, "ADMIN","YES");
+            bd.insertEmp("DROH","Agostino","adroh@idconsulting.ie","07255432", 4, "SUPER ADMIN","YES");
 
 
 
-            bd.insertEntr("2018-01-02", 1,"","padejinle@idconsulting.ie",true);
+           /* bd.insertEntr("2018-01-02", 1,"","padejinle@idconsulting.ie",true);
             bd.insertEntr("2018-01-02", 4,"","padejinle@idconsulting.ie",true);
 
 
@@ -96,7 +96,7 @@ public class Welcome extends AppCompatActivity {
 
             bd.insertDemande("2018-01-02", 1, 1,bd.selectCurrentDate(),true);
             bd.insertDemandeBesoin(1, 1, 1,"VALIDE");
-            bd.insertDemandeBesoin(1, 6, 1,"VALIDE");
+            bd.insertDemandeBesoin(1, 6, 1,"VALIDE");*/
             MyApplication.setFetch(false);
         }
 
