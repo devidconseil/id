@@ -118,6 +118,7 @@ public class ListeDemandeUtilisateur extends AppCompatActivity {
         etat.setTextColor(Color.parseColor("#FFFFFF"));
         etat.setText("STATUT");
         etat.setPadding(15,15,15,15);
+        tl.addView(etat);
 
         tableLayout.addView(tl,new TableLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
@@ -160,9 +161,9 @@ public class ListeDemandeUtilisateur extends AppCompatActivity {
             TextView item5 = new TextView(this);
             item5.setPadding(15, 15, 15, 15);
             item5.setTextColor(Color.parseColor("#000000"));
-            item5.setText(emp.toStringNomEmp());
-            nom=emp.toStringNomEmp();
-            //tr.addView(item5);
+            item5.setText(emp.getEtat());
+            //nom=emp.toStringNomEmp();
+            tr.addView(item5);
 
             TextView item6 = new TextView(this);
             item6.setPadding(15, 15, 15, 15);

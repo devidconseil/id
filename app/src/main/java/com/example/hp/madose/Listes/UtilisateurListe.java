@@ -65,7 +65,8 @@ public class UtilisateurListe extends AppCompatActivity {
         RecyclerView list=(RecyclerView)findViewById(R.id.recycle);
         for (UtilisateurC emp : affC)
         {       //ce gar la n'aime pas les int
-            ItemU item=new ItemU(emp.toStringNomPre(),emp.toStringProf(), emp.toStringMail(),emp.toStringTel(),emp.toStringDepart(),true);
+            ItemU item=new ItemU(emp.toIntId(),emp.toStringNomPre(),emp.toStringProf(), emp.toStringMail(),emp.toStringTel(),emp.toStringDepart(),true);
+
             items.add(item);
 
         }

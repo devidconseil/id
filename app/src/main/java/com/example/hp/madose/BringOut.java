@@ -135,9 +135,6 @@ public class BringOut extends AppCompatActivity {
                     Log.i("I MISS YOU",cat.getDateDem()+" "+cat.getNomEmp());
                     Log.i("revit",cat.getLibBes()+" "+bd.selectIdBes(cat.getLibBes()));
 
-                    int ty=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
-                    MyApplication.setIdBesoin(ty);
-
                     if (! bd.checkIfDemandeBesoinExist(cat.getHeureDem(),cat.getLibBes())){
 
                         int ssss=Integer.parseInt(bd.selectIdBes(cat.getLibBes()));
@@ -177,6 +174,7 @@ public class BringOut extends AppCompatActivity {
         employe.setAdapter(dep);
 
     /*      ArrayList<String> nd1=bd.affiNDE();
+
         ArrayAdapter<String> dep1=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,nd1);
         departement.setAdapter(dep1);
 

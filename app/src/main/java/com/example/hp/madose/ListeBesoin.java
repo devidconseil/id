@@ -33,7 +33,7 @@ public class ListeBesoin extends AppCompatActivity {
         {
 
             BaseDeDonne bd=new BaseDeDonne(this);
-            final List<BesoinC> besoin= bd.affichNumDemanBesoin(MyApplication.getIdBesoin(),MyApplication.getIdDemande());
+            final List<BesoinC> besoin= bd.affichNumDemanBesoin(MyApplication.getIdDemande());
 
             Log.i("EriCo DecostA"," "+MyApplication.getIdBesoin()+" "+ MyApplication.getIdDemande());
             for (BesoinC besoinC: besoin){

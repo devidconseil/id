@@ -49,8 +49,64 @@ public class MyApplication extends Application {
     public static int idDemande;
     public static int id;
     public static boolean textView;
-    public static String employe;
+    public static String modifDepart;
+    public static String modifId;
+    public static String modifNom;
+
+    public static String getModifId() {
+        return modifId;
+    }
+
+    public static void setModifId(String modifId) {
+        MyApplication.modifId = modifId;
+    }
+
+
+    public static String getModifDepart() {
+        return modifDepart;
+    }
+
+    public static void setModifDepart(String modifDepart) {
+        MyApplication.modifDepart = modifDepart;
+    }
+
+    public static String getModifNom() {
+        return modifNom;
+    }
+
+    public static void setModifNom(String modifNom) {
+        MyApplication.modifNom = modifNom;
+    }
+
+    public static String getModifPre() {
+        return modifPre;
+    }
+
+    public static void setModifPre(String modifPre) {
+        MyApplication.modifPre = modifPre;
+    }
+
+    public static String getModifEmail() {
+        return modifEmail;
+    }
+
+    public static void setModifEmail(String modifEmail) {
+        MyApplication.modifEmail = modifEmail;
+    }
+
+    public static String getModifContact() {
+        return modifContact;
+    }
+
+    public static void setModifContact(String modifContact) {
+        MyApplication.modifContact = modifContact;
+    }
+
+    public static String modifPre;
+    public static String modifEmail;
+    public static String modifContact;
     public static String nomUser;
+    public static String employe;
     public static FirebaseAuth mAuth=FirebaseAuth.getInstance();
     public static DatabaseReference mDatabase=FirebaseDatabase.getInstance().getReference();
     public static List<String> notifications=new ArrayList<>();

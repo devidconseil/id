@@ -53,6 +53,7 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
         final EditText prenE= findViewById(R.id.prenEmp);
         final EditText mailE= findViewById(R.id.email);
         final EditText telE= findViewById(R.id.contact);
+        final Spinner codeP=(Spinner) findViewById(R.id.profil);
         final Button quitter=(Button) findViewById(R.id.button9);
         final BaseDeDonne bd=new BaseDeDonne(this);
 
@@ -183,6 +184,16 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
             codeD.setEnabled(false);
             spinner.requestFocus();
         }
+        else if (getIntent().getStringExtra("status").equals("modifier"))
+        {
+            codeT.setText(MyApplication.getModifNom());
+            prenE.setText(MyApplication.getModifNom());
+            mailE.setText(MyApplication.getModifEmail());
+            codeD.setText(MyApplication.getModifDepart());
+            telE.setText(MyApplication.getModifContact());
+
+
+        }
 
 
         codeB.setOnClickListener(new View.OnClickListener() {
@@ -217,7 +228,14 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
                     codeD.requestFocus();
                     Toast.makeText(getBaseContext(),"Veuillez saisir le département de l'utilisateur SVP!",Toast.LENGTH_LONG).show();
                 }
+                else if (getIntent().getStringExtra("status").equals("modifier"))
+                {
+                    int x = Integer.parseInt(bd.selectDep(codeD.getText().toString()));
+                    bd.updateUtilisateur(Integer.parseInt(MyApplication.getModifId()),codeT.getText().toString(),prenE.getText().toString(),x,mailE.getText().toString(),spinner.getSelectedItem().toString(),telE.getText().toString());
+                    Toast.makeText(getBaseContext(),"Modification éffectuée avec succès",Toast.LENGTH_LONG).show();
+                }
                 else {
+
 
                     int x = Integer.parseInt(bd.selectDep(codeD.getText().toString()));
                     if (!bd.checkMailExist(mailE.getText().toString())) {

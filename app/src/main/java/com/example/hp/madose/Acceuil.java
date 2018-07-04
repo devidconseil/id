@@ -361,7 +361,7 @@ public class Acceuil extends AppCompatActivity
                             notification.setContentTitle("RecapApp");
                             //  MyApplication.notifications.add("Nouvelle demande.\nEffectuée le " + cat.getDateDem() + " à" + cat.getHeureDem());
 
-                            Intent listedemande = new Intent(getBaseContext(), ListeDesDemandes.class);
+                            Intent listedemande = new Intent(getBaseContext(), NotificationArea.class);
                             listedemande.putExtra("sortie", "listeD");
                             TaskStackBuilder stackBuilder = TaskStackBuilder.create(getBaseContext());
                             stackBuilder.addParentStack(Acceuil.class);

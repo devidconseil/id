@@ -6,11 +6,13 @@ package com.example.hp.madose.model;
 
 public class ItemU {
     private String nom,mail,adress,contact,departement,profil;
+    private int Id;
     private boolean deroulante;
 
 
 
-    public ItemU(String nom, String profil, String mail, String contact, String departement,boolean deroulante) {
+    public ItemU(int Id,String nom, String profil, String mail, String contact, String departement,boolean deroulante) {
+        this.Id=Id;
         this.nom = nom;
         this.mail = mail;
         this.adress = adress;
@@ -18,6 +20,14 @@ public class ItemU {
         this.departement = departement;
         this.profil = profil;
         this.deroulante = deroulante;
+    }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
     }
 
     public String getNom() {

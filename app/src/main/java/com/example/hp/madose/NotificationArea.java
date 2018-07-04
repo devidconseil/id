@@ -149,8 +149,41 @@ public class NotificationArea extends AppCompatActivity {
                         builder.setNeutralButton("REFUSER", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                bd.updateDemande(Integer.parseInt(nume),Integer.parseInt(numbes),"REFUSE");
-                                updateNewDemande(mail,"REFUSE");
+
+                                for (final HeureDemandeC num : bd.demandeNotValidate1()) {
+                                    pac=num;
+                                    nume=num.getNumero();
+                                    numbes=bd.selectIdBes(num.getBesoin());
+                                    mail=num.getMail();
+                                    Log.i("vvvv",num.getMail()+"-"+num.getNumero());
+
+                                    mDatabase.child("HeureDemande").addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            for (DataSnapshot dataSnapshotHDem:dataSnapshot.getChildren()){
+                                                chain = dataSnapshotHDem.getValue(HeureDemandeC.class);
+                                                Log.i("sawyer",dataSnapshotHDem.getValue(HeureDemandeC.class).getBesoin());
+                                                Log.i("payton",num.getMail()+"-"+num.getNom()+" "+chain.getNom()+"/"+listView.getItemAtPosition(position).toString());
+                                                Log.i("scott",chain.getBesoin()+"-"+num.getBesoin()+"/"+chain.getHour()+"-"+num.getHour());
+
+                                                if (chain.getBesoin().equals(num.getBesoin()) && chain .getHour().equals(num.getHour()) && listView.getItemAtPosition(position).toString().contains(chain.getNom())&& listView.getItemAtPosition(position).toString().contains(chain.getPrenom()) && listView.getItemAtPosition(position).toString().contains(chain.getBesoin()) && listView.getItemAtPosition(position).toString().contains(String.valueOf(chain.getQte()))){
+                                                    // heuree=chain.getHeure();
+                                                    // besoin=chain.getBesoin();
+                                                    bd.updateDemande(Integer.parseInt(num.getNumero()),Integer.parseInt(bd.selectIdBes(num.getBesoin())), "REFUSE");
+                                                    updateNewDemande(num.getMail(),"REFUSE");
+                                                    Log.i("see_it",num.getHeure()+" "+num.getBesoin()+"_"+pac.getBesoin()+"-"+pac.getHeure());
+
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                }
+
                                 Intent intent=new Intent(NotificationArea.this,ListeDesDemandes.class);
                                 intent.putExtra("sortie","listeD");
                                 startActivity(intent);
