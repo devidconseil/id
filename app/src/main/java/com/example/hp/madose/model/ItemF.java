@@ -6,12 +6,22 @@ package com.example.hp.madose.model;
 
 public class ItemF {
     private String nom,contact,adresse;
+    private int id;
 
-    public ItemF(String nom, String contact,  String adresse) {
+    public ItemF(int id,String nom, String contact,  String adresse) {
+        this.id = id;
         this.nom = nom;
         this.contact = contact;
         this.adresse=adresse;
 
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNom() {

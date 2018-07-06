@@ -24,6 +24,7 @@ import com.example.hp.madose.Fournisseur;
 import com.example.hp.madose.FournisseurC;
 import com.example.hp.madose.MyAdapter.MyAdapter;
 import com.example.hp.madose.MyAdapter.MyAdapterFour;
+import com.example.hp.madose.MyApplication;
 import com.example.hp.madose.R;
 import com.example.hp.madose.model.Item;
 import com.example.hp.madose.model.ItemF;
@@ -62,22 +63,24 @@ public class FournisseurListe extends AppCompatActivity {
             public void onClick(View v) {
 
                     Intent intent = new Intent(FournisseurListe.this, Fournisseur.class);
+                    intent.putExtra("action","ajouter");
                     startActivity(intent);
 
             }
             });
+
     }
 
     private void setDataFour()
     {
 
         BaseDeDonne bd=new BaseDeDonne(this);
-        List<FournisseurC> affC = bd.afficheF();
+        List<FournisseurC> affC = bd.afficheFo();
        // textView=(TextView)findViewById(R.id.libS);
         recyclerView=(RecyclerView)findViewById(R.id.listedesF);
         for (FournisseurC emp : affC)
         {       //ce gar la n'aime pas les int
-            ItemF itemF=new ItemF(emp.toStringNomFour(),emp.toStringContactFour(), emp.toStringAdressFour());
+            ItemF itemF=new ItemF(emp.getIdFour(),emp.toStringNomFour(),emp.toStringContactFour(), emp.toStringAdressFour());
             listItem.add(itemF);
 
         }

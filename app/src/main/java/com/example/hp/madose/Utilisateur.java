@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.hp.madose.Listes.FournisseurListe;
 import com.example.hp.madose.Listes.UtilisateurListe;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -218,7 +219,7 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
                     telE.requestFocus();
                     telE.setError("Veuillez saisir le numéro de téléphone de l'utilisateur SVP!");
                 }
-                else if (spinner.getSelectedItem().toString().equals("Choisir le profil") && getIntent().getStringExtra("status").equals("new user creating"))
+                else if (spinner.getSelectedItem().toString().equals("Choisir le profil") /*&& getIntent().getStringExtra("status").equals("new user creating")*/)
                 {
                     spinner.requestFocus();
                     Toast.makeText(getBaseContext(),"Veuillez saisir le profil de l'utilisateur SVP!",Toast.LENGTH_LONG).show();
@@ -228,10 +229,14 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
                     codeD.requestFocus();
                     Toast.makeText(getBaseContext(),"Veuillez saisir le département de l'utilisateur SVP!",Toast.LENGTH_LONG).show();
                 }
+
                 else if (getIntent().getStringExtra("status").equals("modifier"))
                 {
                     int x = Integer.parseInt(bd.selectDep(codeD.getText().toString()));
                     bd.updateUtilisateur(Integer.parseInt(MyApplication.getModifId()),codeT.getText().toString(),prenE.getText().toString(),x,mailE.getText().toString(),spinner.getSelectedItem().toString(),telE.getText().toString());
+                    Intent intent=new Intent(getBaseContext(),UtilisateurListe.class);
+                    startActivity(intent);
+                    finish();
                     Toast.makeText(getBaseContext(),"Modification éffectuée avec succès",Toast.LENGTH_LONG).show();
                 }
                 else {

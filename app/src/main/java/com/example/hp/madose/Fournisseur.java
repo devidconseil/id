@@ -3,6 +3,7 @@ package com.example.hp.madose;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.Time;
@@ -34,6 +35,18 @@ DatabaseReference mDatabase;
         final BaseDeDonne bd=new BaseDeDonne(this);
         mDatabase= FirebaseDatabase.getInstance().getReference();
 
+
+        if(getIntent().getStringExtra("action").equals("modifier"))
+        {
+            fnom.setText(MyApplication.getModifFnom());
+            fadr.setText(MyApplication.getModifFadre());
+            fcont.setText(MyApplication.getModifFcont());
+        }
+        else if (getIntent().getStringExtra("action").equals("ajouter"))
+        {
+           /* Snackbar.make(fcont, "ajout d'un fournisseur!!", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();*/
+        }
         fbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +65,14 @@ DatabaseReference mDatabase;
                 {
                     fcont.requestFocus();
                     fcont.setError("Veuillez saisir le contact du fournisseur SVP!!");
+                }
+                else if(getIntent().getStringExtra("action").equals("modifier"))
+                {
+                    bd.updatefournisseur(MyApplication.getModifFId(),fnom.getText().toString(),fadr.getText().toString(),fcont.getText().toString());
+                    bd.close();
+                    Intent intent=new Intent(getBaseContext(),FournisseurListe.class);
+                    startActivity(intent);
+                    finish();
                 }
                 else {
                     if (! bd.checkIfFournisseurExist(fnom.getText().toString())){

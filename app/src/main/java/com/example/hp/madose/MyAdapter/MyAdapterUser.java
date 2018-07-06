@@ -160,7 +160,6 @@ public class MyAdapterUser extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         MyApplication.setModifPre(item.getNom());
                         MyApplication.setModifDepart(item.getDepartement());
                         MyApplication.setModifId(String.valueOf(item.getId()));
-                        Toast.makeText(context.getApplicationContext(), " "+item.getId() , Toast.LENGTH_LONG).show();
                         return true;
                     }
                 });
