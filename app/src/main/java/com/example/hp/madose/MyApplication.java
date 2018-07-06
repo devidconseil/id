@@ -52,6 +52,44 @@ public class MyApplication extends Application {
     public static String modifDepart;
     public static String modifId;
     public static String modifNom;
+    public static String modifFnom;
+    public static int modifFId;
+
+    public static String getModifFnom() {
+        return modifFnom;
+    }
+
+    public static void setModifFnom(String modifFnom) {
+        MyApplication.modifFnom = modifFnom;
+    }
+
+    public static int getModifFId() {
+        return modifFId;
+    }
+
+    public static void setModifFId(int modifFId) {
+        MyApplication.modifFId = modifFId;
+    }
+
+    public static String getModifFadre() {
+        return modifFadre;
+    }
+
+    public static void setModifFadre(String modifFadre) {
+        MyApplication.modifFadre = modifFadre;
+    }
+
+    public static String getModifFcont() {
+        return modifFcont;
+    }
+
+    public static void setModifFcont(String modifFcont) {
+        MyApplication.modifFcont = modifFcont;
+    }
+
+    public static String modifFadre;
+    public static String modifFcont;
+
 
     public static String getModifId() {
         return modifId;

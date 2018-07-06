@@ -443,7 +443,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
         }
     }
     //BesoinListe
-    public List<FournisseurC> afficheF()
+    public List<FournisseurC> afficheFo()
     {
         List<FournisseurC>affF=new ArrayList<>();
         String req="select * from Fournisseur;";
@@ -2120,7 +2120,12 @@ public ArrayList<String> affiNumDem(int idemp)
         Log.i("DATABASE", "update utilisateur");
 
     }
+    public void updatefournisseur(int id,String nom, String adresse, String telephone) {
 
+        String entre = "update Fournisseur set NomFour='" + nom + "',AdrFour='" + adresse + "',TelFour='" + telephone + "' where IdFour=" + id + ";";
+        this.getWritableDatabase().execSQL(entre);
+        Log.i("DATABASE", "update fournisseur");
+    }
 }
 
 
