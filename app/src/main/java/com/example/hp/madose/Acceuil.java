@@ -382,8 +382,35 @@ public class Acceuil extends AppCompatActivity
                     if (bd.checkIfDemandeBesoinExist(cat.getHeureDem(),cat.getLibBes()) && bd.checkIfDemandeValueSame(cat.getNomEmp(),cat.getHeureDem(),cat.getLibBes(),"EN ATTENTE") && !cat.getEtat().equals("EN ATTENTE") ){
                         String num=bd.selectIdDem(cat.getHeureDem());
                         String nume=bd.selectIdBes(cat.getLibBes());
+                        String mail=bd.selectUserfromDemande(num);
                         Log.i("akanbi",num+" "+cat.getEtat());
                         bd.updateDemande(Integer.parseInt(num),Integer.parseInt(nume),cat.getEtat());
+                        String profile=bd.retrieveUserProfile(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                        if (profile.equals("USER") && MyApplication.mAuth.getCurrentUser().getEmail().equals(mail)) {
+
+                            //Notification debut
+                            NotificationCompat.Builder notification = new NotificationCompat.Builder(getBaseContext());
+                            notification.setSmallIcon(R.drawable.ic_monlogo);
+                            notification.setContentText("Une de vos demandes a changé de statut ");
+                            notification.setContentTitle("RecapApp");
+                            //  MyApplication.notifications.add("Nouvelle demande.\nEffectuée le " + cat.getDateDem() + " à" + cat.getHeureDem());
+
+                            Intent listedemande = new Intent(getBaseContext(), ListeDemandeUtilisateur.class);
+                            //listedemande.putExtra("sortie", "listeD");
+                            TaskStackBuilder stackBuilder = TaskStackBuilder.create(getBaseContext());
+                            stackBuilder.addParentStack(Acceuil.class);
+                            stackBuilder.addNextIntent(listedemande);
+
+                            notification.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+
+                            PendingIntent resultIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+                            notification.setContentIntent(resultIntent);
+                            notification.setAutoCancel(true);
+                            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                            Random random = new Random();
+                            notificationManager.notify(random.nextInt(130000), notification.build());
+                            //Notification fin
+                        }
                     }
                 }
 

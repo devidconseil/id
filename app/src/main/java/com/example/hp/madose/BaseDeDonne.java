@@ -1123,7 +1123,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     {
         List<BesoinC>affB=new ArrayList<>();
 
-        String req="select libBes from Besoin, Demande_Besoins where Besoin.NumBes=Demande_Besoins.NumBes and numDem='"+numDem+"';";
+        String req="select libBes from Besoin, Demande_Besoins where Besoin.NumBes=Demande_Besoins.NumBes and numDem='"+numDem+"' and EtatDem='VALIDE';";
         Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
         cursor.moveToFirst();
 
@@ -1184,6 +1184,18 @@ public class BaseDeDonne extends SQLiteOpenHelper {
     public String selectEmpId(String nomB)
     {
         String req="select IdEmp from Utilisateur where nomEmp || ' ' || prenEmp  ='"+nomB+"';";
+        Cursor cursor = null;
+        try {
+
+            cursor = this.getReadableDatabase().rawQuery(req,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
+    public String selectUserfromDemande(String num)
+    {
+        String req="select MailEmp from Utilisateur,Demande where Utilisateur.IdEmp=Demande.IdEmp and numDem="+num+";";
         Cursor cursor = null;
         try {
 
@@ -1392,7 +1404,7 @@ public class BaseDeDonne extends SQLiteOpenHelper {
 public ArrayList<String> affiNumDem(int idemp)
 {
     ArrayList<String>nd=new ArrayList<>();
-    String req="select date(DateDem,'unixepoch'),datetime(HeureDem,'unixepoch') as paco from Demande where IdEmp='"+idemp+"' order by HeureDem desc limit 3;";
+    String req="select date(DateDem,'unixepoch'),datetime(HeureDem,'unixepoch') as paco from Demande,Demande_Besoins where Demande.numDem=Demande_Besoins.numDem and EtatDem='VALIDE' and IdEmp='"+idemp+"' order by HeureDem desc limit 3;";
     Cursor cursor=this.getReadableDatabase().rawQuery(req, null);
     cursor.moveToFirst();
 

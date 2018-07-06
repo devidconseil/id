@@ -463,7 +463,7 @@ public class BringOut extends AppCompatActivity {
                 String var;
                // if (radioButton_emp.isChecked()) {
                     if (employe.getText().toString().equals("")) {
-                        employe.setError("Veuillez saisir le nom du departement ou de l'employé SVP!!");
+                        employe.setError("Veuillez saisir le nom de l'employé SVP!!");
                     } else {
                         var = bd.selectIdEmp(employe.getText().toString());
                         if (var == null)
@@ -621,14 +621,14 @@ public class BringOut extends AppCompatActivity {
                else {
                     Toast.makeText(getBaseContext(),"Vous ne pouvez "+Integer.parseInt(bd.selectStock(besoin.getText().toString())),Toast.LENGTH_LONG).show();
 
-/*
+
                     String num = new String();
-                    if (radioButton_emp.isChecked()) {
+              /*      if (radioButton_emp.isChecked()) {
                         num = bd.selectNumDem2(demande.getText().toString(), employe.getText().toString());
                     }
                     if (radioButton_dep.isChecked()) {
                         num = bd.selectNumDem1(demande.getText().toString(), departement.getText().toString());
-                    }
+                    } */
                     int dernierEnr;
                     // bd.insertSortie(date.getText().toString(),num);
                     // bd.close();
@@ -671,7 +671,7 @@ public class BringOut extends AppCompatActivity {
                         if (autr.getText().toString().contains("''")){
                             autr.setText(autr.getText().toString().replace("''","'"));
                         }
-                        writeNewSortie(besoin.getText().toString(), marq.getText().toString(), autr.getText().toString(), demande.getText().toString(), employe.getText().toString(), date.getText().toString(), departement.getText().toString(), bd.selectHeureSor(), MyApplication.getmAuth().getCurrentUser().getEmail(), var1);
+                        writeNewSortie(besoin.getText().toString(), marq.getText().toString(), autr.getText().toString(), demande.getText().toString(), employe.getText().toString(), date.getText().toString(), bd.selectDepartFromUser(employe.getText().toString()), bd.selectHeureSor(), MyApplication.getmAuth().getCurrentUser().getEmail(), var1);
                         updateConnectivity(MyApplication.getmAuth().getCurrentUser().getEmail());
                         //update debut
                         int var2 = Integer.parseInt(bd.selectStockBes(besoin.getText().toString()));
@@ -706,7 +706,7 @@ public class BringOut extends AppCompatActivity {
                         });
                         builder.create();
                         builder.show();
-                    }*/
+                    }
                 }
             }
         });
@@ -770,8 +770,10 @@ public class BringOut extends AppCompatActivity {
                             c = date.getText().toString().substring(6, 10);
                             date.setText(c + "-" + b + "-" + a);   */
                      Toast.makeText(getBaseContext()," "+num,Toast.LENGTH_SHORT).show();
+                        bd.insertSortie(date.getText().toString(), num, "", MyApplication.mAuth.getCurrentUser().getEmail(), true);
 
                        // bd.insertSortie(date.getText().toString(), num, "", MyApplication.getmAuth().getCurrentUser().getEmail(), true);
+
 
                     }
 
