@@ -375,6 +375,12 @@ public class Add extends AppCompatActivity {
                         });
                         builder.create();
                         builder.show();
+                        if (date.getText().toString().matches("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]")) {
+                            a = date.getText().toString().substring(0, 4);
+                            b = date.getText().toString().substring(5, 7);
+                            c = date.getText().toString().substring(8, 10);
+                            date.setText(c + "/" + b + "/" + a);
+                        }
                     }
                    }
 
@@ -513,6 +519,12 @@ public class Add extends AppCompatActivity {
                         });
                         builder.create();
                         builder.show();
+                        if (date.getText().toString().matches("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]")) {
+                            a = date.getText().toString().substring(0, 4);
+                            b = date.getText().toString().substring(5, 7);
+                            c = date.getText().toString().substring(8, 10);
+                            date.setText(c + "/" + b + "/" + a);
+                        }
                     }
                 }
 

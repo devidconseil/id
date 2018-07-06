@@ -414,7 +414,7 @@ public class Demande extends AppCompatActivity {
 
                         MyApplication.setFait(true);
                     }
-                    else {
+                   else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(Demande.this,0x00000005 );
                         builder.setMessage("Ce besoin a été déjà enregistré");
                         builder.setTitle("Echec");
@@ -426,6 +426,12 @@ public class Demande extends AppCompatActivity {
                         });
                         builder.create();
                         builder.show();
+                    }
+                    if (date.getText().toString().matches("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]")) {
+                        a = date.getText().toString().substring(0, 4);
+                        b = date.getText().toString().substring(5, 7);
+                        c = date.getText().toString().substring(8, 10);
+                        date.setText(c + "/" + b + "/" + a);
                     }
 
                 }
@@ -478,20 +484,22 @@ public class Demande extends AppCompatActivity {
                         b = date.getText().toString().substring(3, 5);
                         c = date.getText().toString().substring(6, 10);
                         date.setText(c + "-" + b + "-" + a);  */
+                        int var1, var2;
+                        var1 = Integer.parseInt(bd.selectEmpId(employe.getText().toString()));
+                        String departe = bd.DepartEmp(var1);
+                        var2 = Integer.parseInt(bd.selectDep(departe));
+
+                        bd.insertDemande(date.getText().toString(), var1, var2, "", true);
                     }
                     if (! bd.checkIfDemandeBesoinExist(bd.selectHeureDem(),bes.getText().toString())){
 
-                    int var1, var2;
+
                     int var3 = Integer.parseInt(bd.selectIdBes(bes.getText().toString()));
                     int var4 = Integer.parseInt(quant.getText().toString());
                     if (!MyApplication.isFait()) {
                     //    if (radioButton_emp.isChecked()) {
                             //Toast.makeText(getBaseContext(),employe.getText().toString()+"coucou",Toast.LENGTH_LONG).show();
-                            var1 = Integer.parseInt(bd.selectEmpId(employe.getText().toString()));
-                            String departe = bd.DepartEmp(var1);
-                            var2 = Integer.parseInt(bd.selectDep(departe));
 
-                            bd.insertDemande(date.getText().toString(), var1, var2, "", true);
 
                      //   }
 
@@ -528,7 +536,7 @@ public class Demande extends AppCompatActivity {
 
                     MyApplication.setFait(false);
                    }
-                   else {
+                else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(Demande.this,0x00000005 );
                     builder.setMessage("Ce besoin a été déjà enregistré");
                     builder.setTitle("Echec");

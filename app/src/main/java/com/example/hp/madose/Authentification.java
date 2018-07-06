@@ -554,7 +554,7 @@ FirebaseAuth.getInstance().signOut();
         MyApplication.getmDatabase().child("Fournisseur").child(code).setValue(cat);
     }
     public void writeNewConnectivity(String mail){
-        BaseDeDonne bd=new BaseDeDonne((Authentification) getApplicationContext());
+        BaseDeDonne bd=new BaseDeDonne(this);
         String username=usernameFromEmail(mail);
         String reste=mail.substring(username.length()+1,mail.length()-3);
         String rest=mail.substring(mail.length()-2,mail.length());
