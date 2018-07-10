@@ -1375,6 +1375,30 @@ public class BaseDeDonne extends SQLiteOpenHelper {
             if (cursor != null) cursor.close();
         }
     }
+    public String selectNomFromName(String name)
+    {
+        String requete="select nomEmp from Utilisateur where prenEmp ||' '|| nomEmp='"+name+"';";
+        Cursor cursor = null;
+        try {
+
+            cursor = this.getReadableDatabase().rawQuery(requete,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
+    public String selectPrenomFromName(String name)
+    {
+        String requete="select prenEmp from Utilisateur where prenEmp ||' '|| nomEmp='"+name+"';";
+        Cursor cursor = null;
+        try {
+
+            cursor = this.getReadableDatabase().rawQuery(requete,null );
+            return (cursor.moveToFirst()) ? cursor.getString(0) : null;
+        } finally {
+            if (cursor != null) cursor.close();
+        }
+    }
     public String selectIdDem1(String libDep,String date)
     {
         String requete="select numDem from Demande,Departement where Demande.IdDep=Departement.IdDep and libDep='"+libDep+"' and DateDem=strftime('%s','"+date+"');";

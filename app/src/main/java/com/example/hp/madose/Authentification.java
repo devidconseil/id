@@ -400,6 +400,12 @@ public class Authentification extends AppCompatActivity {
                                     if (!bd.checkIfUserExist(user)){
                                         Log.i("MONTRE-MOI",user.getLibDep());
                                         int s=Integer.parseInt(bd.selectDep(user.getLibDep()));
+                                        if (user.getNomEmp().contains("'")){
+                                            user.setNomEmp(user.getNomEmp().replace("'","''"));
+                                        }
+                                        if (user.getPrenEmp().contains("'")){
+                                            user.setPrenEmp(user.getPrenEmp().replace("'","''"));
+                                        }
                                         bd.insertEmp(user.getNomEmp(),user.getPrenEmp(),user.getMailEmp(),user.getTelEmp(),s,user.getProEmp(),user.getValEmp());
 
                                     }

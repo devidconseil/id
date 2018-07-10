@@ -42,6 +42,7 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,6 +115,12 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
                     Log.i("CHAQUE USER",user.getMailEmp());
                     if (!bd.checkIfUserExist(user)){
                         int s=Integer.parseInt(bd.selectDep(user.getLibDep()));
+                        if (user.getNomEmp().contains("'")){
+                            user.setNomEmp(user.getNomEmp().replace("'","''"));
+                        }
+                        if (user.getPrenEmp().contains("'")){
+                            user.setPrenEmp(user.getPrenEmp().replace("'","''"));
+                        }
                         bd.insertEmp(user.getNomEmp(),user.getPrenEmp(),user.getMailEmp(),user.getTelEmp(),s,user.getProEmp(),user.getValEmp());
 
                     }
@@ -187,8 +194,9 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
         }
         else if (getIntent().getStringExtra("status").equals("modifier"))
         {
-            codeT.setText(MyApplication.getModifNom());
-            prenE.setText(MyApplication.getModifNom());
+            codeT.setText(bd.selectNomFromName(MyApplication.getModifNom()));
+            Log.i("cr7",MyApplication.getModifNom()+" "+bd.selectNomFromName(MyApplication.getModifNom()));
+            prenE.setText(bd.selectPrenomFromName(MyApplication.getModifNom()));
             mailE.setText(MyApplication.getModifEmail());
             codeD.setText(MyApplication.getModifDepart());
             telE.setText(MyApplication.getModifContact());
@@ -233,6 +241,12 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
                 else if (getIntent().getStringExtra("status").equals("modifier"))
                 {
                     int x = Integer.parseInt(bd.selectDep(codeD.getText().toString()));
+                    if (codeT.getText().toString().contains("'")){
+                        codeT.setText(codeT.getText().toString().replace("'","''"));
+                    }
+                    if (prenE.getText().toString().contains("'")){
+                        prenE.setText(prenE.getText().toString().replace("'","''"));
+                    }
                     bd.updateUtilisateur(Integer.parseInt(MyApplication.getModifId()),codeT.getText().toString(),prenE.getText().toString(),x,mailE.getText().toString(),spinner.getSelectedItem().toString(),telE.getText().toString());
                     Intent intent=new Intent(getBaseContext(),UtilisateurListe.class);
                     startActivity(intent);
@@ -258,6 +272,12 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
                             bd.insertEmp(codeT.getText().toString(), prenE.getText().toString(), mailE.getText().toString(), telE.getText().toString(), x, "","NO");
 
                             String username=mailE.getText().toString().split("@")[0];
+                            if (codeT.getText().toString().contains("''")){
+                                codeT.setText(codeT.getText().toString().replace("''","'"));
+                            }
+                            if (prenE.getText().toString().contains("''")){
+                                prenE.setText(prenE.getText().toString().replace("''","'"));
+                            }
                             writeNewUser(username+"-"+codeT.getText().toString(),codeT.getText().toString(),prenE.getText().toString(),mailE.getText().toString(),telE.getText().toString(),codeD.getText().toString(),"","NO");
 
 

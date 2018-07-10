@@ -55,6 +55,10 @@ public class UtilisateurC {
         return nomEmp;
     }
 
+    public void setNomEmp(String nomEmp) {
+        this.nomEmp = nomEmp;
+    }
+
     public String getLibDep() {
         return libDep;
     }
