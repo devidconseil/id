@@ -194,9 +194,13 @@ public class Utilisateur extends AppCompatActivity implements AdapterView.OnItem
         }
         else if (getIntent().getStringExtra("status").equals("modifier"))
         {
-            codeT.setText(bd.selectNomFromName(MyApplication.getModifNom()));
-            Log.i("cr7",MyApplication.getModifNom()+" "+bd.selectNomFromName(MyApplication.getModifNom()));
-            prenE.setText(bd.selectPrenomFromName(MyApplication.getModifNom()));
+            String name=MyApplication.getModifNom();
+            if (MyApplication.getModifNom().contains("'")){
+                name=MyApplication.getModifNom().replace("'","''");
+            }
+            codeT.setText(bd.selectNomFromName(name));
+            Log.i("cr7",MyApplication.getModifNom()+" "+bd.selectNomFromName(name));
+            prenE.setText(bd.selectPrenomFromName(name));
             mailE.setText(MyApplication.getModifEmail());
             codeD.setText(MyApplication.getModifDepart());
             telE.setText(MyApplication.getModifContact());
